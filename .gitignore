@@ -1,3 +1,6 @@
 # Reference material and research notes — kept locally, not tracked.
 # Includes ~98 MB of saved inspiration sites (docs/inspiration-sites/).
 docs/
+
+# Derived: ~11 MB of base64 video. Regenerate with mockups/encode_videos.py
+mockups/.videos.json

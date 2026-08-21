@@ -1,0 +1,301 @@
+<title>Video Hero Options</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..600&family=Archivo:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --photo:url("{{HERO}}");
+  --ground:#FFFFFF; --alt:#F1F4F8; --ink:#0B1B2E; --muted:#4E6480;
+  --navy:#003E7E; --red:#C71014; --red-bright:#EE2A24; --gold:#FFBE04;
+  --line:#D2DCE7; --navy-ink:#003E7E; --red-ink:#C71014;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ground:#08131F; --alt:#0E1E2E; --ink:#E9F0F7; --muted:#94A9C0;
+  --line:#1F3448; --navy-ink:#7FB2E3; --red-ink:#FF8A80;
+}}
+:root[data-theme="dark"]{
+  --ground:#08131F; --alt:#0E1E2E; --ink:#E9F0F7; --muted:#94A9C0;
+  --line:#1F3448; --navy-ink:#7FB2E3; --red-ink:#FF8A80;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);
+  font-family:Barlow,"Helvetica Neue",Arial,sans-serif;font-size:17px;line-height:1.62;
+  -webkit-font-smoothing:antialiased}
+p{margin:0}
+img{max-width:100%;display:block}
+a{color:var(--navy-ink)}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 clamp(20px,5vw,44px)}
+.anton{font-family:Anton,Impact,sans-serif;font-weight:400;text-transform:uppercase;line-height:.93;margin:0}
+.serif{font-family:Newsreader,Georgia,serif;font-weight:400;letter-spacing:-.012em;margin:0;text-wrap:balance}
+.label{font-family:"Barlow Condensed",sans-serif;font-size:.86rem;font-weight:700;
+  letter-spacing:.19em;text-transform:uppercase}
+.lede{font-size:clamp(1.04rem,1.6vw,1.2rem);line-height:1.58;color:var(--muted);max-width:64ch}
+
+/* ---------- page intro ---------- */
+.mast{padding:clamp(40px,6vw,72px) 0 clamp(26px,3.5vw,40px);border-bottom:1px solid var(--line)}
+.mast h1{font-size:clamp(2.1rem,5vw,3.4rem)}
+.back{display:inline-block;margin-bottom:20px;font-family:"Barlow Condensed",sans-serif;
+  font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:.86rem;text-decoration:none}
+
+/* ---------- shared motion mechanic ---------- */
+/* One still photograph, slowly scaled and drifted. No video file involved. */
+@keyframes drift{
+  0%  {transform:scale(1.06) translate3d(0,0,0)}
+  50% {transform:scale(1.16) translate3d(-2.2%,-1.6%,0)}
+  100%{transform:scale(1.06) translate3d(0,0,0)}
+}
+.media{position:absolute;inset:0;overflow:hidden;background:#0B1B2E}
+.media .layer{position:absolute;inset:-2%;background-image:var(--photo);
+  background-size:cover;background-position:50% 38%;will-change:transform}
+.motion-on .media .layer{animation:drift 26s ease-in-out infinite}
+.media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.scrim{position:absolute;inset:0}
+
+/* ---------- treatment 1: full-bleed, type over the footage ---------- */
+.t1{position:relative;min-height:clamp(440px,74vh,640px);display:flex;align-items:flex-end;
+  overflow:hidden;color:#fff}
+.t1 .scrim{background:
+  linear-gradient(to top,rgba(0,26,52,.94) 0%,rgba(0,26,52,.72) 34%,rgba(0,26,52,.28) 66%,rgba(0,26,52,.42) 100%)}
+.t1 .inner{position:relative;padding:clamp(30px,5vw,64px) 0 clamp(34px,5vw,56px);width:100%}
+.t1 .anton{font-size:clamp(2.4rem,7.4vw,5.4rem);color:#fff;max-width:17ch}
+.t1 .anton span{color:var(--gold)}
+.t1 p.sub{color:rgba(255,255,255,.94);max-width:48ch;margin-top:18px;font-size:clamp(1rem,1.5vw,1.16rem)}
+.t1 .row{display:flex;flex-wrap:wrap;gap:11px;margin-top:26px;align-items:center}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  font-family:"Barlow Condensed",sans-serif;font-size:1.02rem;font-weight:700;
+  letter-spacing:.11em;text-transform:uppercase;padding:12px 26px;text-decoration:none;
+  border:2px solid transparent;cursor:pointer;transition:background .15s ease,color .15s ease}
+.btn-gold{background:var(--gold);color:#0B1B2E}
+.btn-gold:hover{background:#E8AC00}
+.btn-line{border-color:#fff;color:#fff;background:transparent}
+.btn-line:hover{background:#fff;color:#003E7E}
+
+/* motion control */
+.mctl{position:absolute;right:clamp(14px,3vw,26px);top:clamp(14px,3vw,26px);z-index:3;
+  display:inline-flex;align-items:center;gap:8px;background:rgba(0,20,40,.62);
+  backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.4);color:#fff;
+  font-family:"Barlow Condensed",sans-serif;font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;font-size:.78rem;padding:9px 15px;cursor:pointer}
+.mctl:hover{background:rgba(0,20,40,.85)}
+
+/* ---------- treatment 2: contained panel, direction A's layout ---------- */
+.t2{padding:clamp(44px,6vw,76px) 0}
+.t2-grid{display:grid;grid-template-columns:1.02fr .98fr;gap:clamp(28px,5vw,58px);align-items:center}
+.t2 .serif{font-size:clamp(2rem,4.4vw,3.3rem);line-height:1.05}
+.t2 .serif em{font-style:italic;color:var(--navy-ink)}
+.panel{position:relative;aspect-ratio:4/3;overflow:hidden;border-radius:4px;
+  box-shadow:0 1px 2px rgba(16,35,59,.06),0 14px 34px -16px rgba(16,35,59,.3)}
+.panel .scrim{background:linear-gradient(to top,rgba(0,26,52,.5),transparent 58%)}
+.panel .cap{position:absolute;left:0;right:0;bottom:0;padding:18px 20px;color:#fff;
+  font-family:"Barlow Condensed",sans-serif;font-weight:600;letter-spacing:.06em;
+  text-transform:uppercase;font-size:.86rem}
+
+/* ---------- explainer ---------- */
+.sect{padding:clamp(44px,6vw,78px) 0}
+.band{background:var(--alt);border-block:1px solid var(--line)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(258px,1fr));gap:1px;
+  margin-top:34px;background:var(--line);border:1px solid var(--line)}
+.card{background:var(--ground);padding:26px 24px}
+.card b{display:block;font-family:Newsreader,serif;font-size:1.16rem;font-weight:500;margin-bottom:9px}
+.card p{font-size:.94rem;color:var(--muted)}
+.card .n{font-family:Anton,sans-serif;font-size:1.9rem;color:var(--red-ink);display:block;
+  line-height:1;margin-bottom:10px;font-variant-numeric:tabular-nums}
+.verdict{margin-top:34px;border-left:4px solid var(--red-bright);background:var(--alt);
+  padding:clamp(22px,3vw,32px)}
+.verdict b{font-family:Newsreader,serif;font-size:1.22rem;font-weight:500;display:block;margin-bottom:10px}
+.tablescroll{overflow-x:auto;margin-top:32px;border:1px solid var(--line)}
+table{border-collapse:collapse;width:100%;min-width:660px;font-size:.93rem}
+th,td{padding:14px 16px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+thead th{background:var(--alt);font-family:"Barlow Condensed",sans-serif;font-size:.8rem;
+  font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--muted)}
+tbody th{font-weight:600;white-space:nowrap}
+tbody tr:last-child th,tbody tr:last-child td{border-bottom:none}
+.warn{margin-top:30px;border:2px solid var(--red-bright);padding:clamp(20px,3vw,28px)}
+.warn b{font-family:Newsreader,serif;font-size:1.16rem;font-weight:500;display:block;margin-bottom:9px;
+  color:var(--red-ink)}
+ul.plain{margin:12px 0 0;padding-left:22px;display:grid;gap:8px;font-size:.95rem;color:var(--muted)}
+footer{border-top:1px solid var(--line);padding:34px 0 40px;font-size:.87rem;color:var(--muted)}
+@media (max-width:900px){.t2-grid{grid-template-columns:1fr}}
+@media (max-width:560px){body{font-size:16px}}
+/* Someone who asked their system to reduce motion gets a still photograph. */
+@media (prefers-reduced-motion:reduce){
+  .motion-on .media .layer{animation:none}
+  *{transition:none!important}
+}
+</style>
+
+<div class="wrap mast">
+  <a class="back" href="https://claude.ai/code/artifact/613a6c9c-00ad-4313-997e-61f31151096d">&larr; Back to the three directions</a>
+  <p class="label" style="color:var(--red-ink)">Follow-up question</p>
+  <h1 class="serif" style="margin-top:14px">Can these pages carry video?</h1>
+  <p class="lede" style="margin-top:18px">Yes. Both treatments below are running right now.
+    What you are watching is <strong style="color:var(--ink)">not video</strong> &mdash; it is the
+    one real Walkathon photograph, slowly scaled and drifted. Use the control in the corner to
+    stop it and compare against the still.</p>
+</div>
+
+<!-- Treatment 1 — Obama-style: full-bleed, type over the footage -->
+<section class="t1 motion-on" id="t1">
+  <div class="media">
+    <div class="layer"></div>
+    <!-- Real footage drops straight in here, replacing the div above:
+    <video autoplay loop muted playsinline poster="walkathon-still.jpg"
+      aria-label="Decorative background video of the Hendricks Walkathon,
+                  always muted and playing in a loop">
+      <source src="walkathon-loop.webm" type="video/webm">
+      <source src="walkathon-loop.mp4"  type="video/mp4">
+    </video> -->
+  </div>
+  <div class="scrim"></div>
+  <button class="mctl" type="button" data-target="t1" aria-pressed="true">
+    <span class="mtxt">Motion on</span></button>
+  <div class="wrap inner">
+    <p class="label" style="color:var(--gold)">Treatment one &middot; type over the footage</p>
+    <h2 class="anton" style="margin-top:16px">600 kids<br>are counting <span>on this.</span></h2>
+    <p class="sub">The Obama Foundation approach &mdash; the film fills the screen and the
+      words sit on top of it. Needs the strongest footage, and a dark wash over it so the
+      type stays readable.</p>
+    <div class="row">
+      <a class="btn btn-gold" href="#cost">What it would cost</a>
+      <a class="btn btn-line" href="#need">What we would need</a>
+    </div>
+  </div>
+</section>
+
+<!-- Treatment 2 — contained panel -->
+<section class="t2 motion-on" id="t2">
+  <div class="wrap t2-grid">
+    <div>
+      <p class="label" style="color:var(--red-ink)">Treatment two &middot; contained panel</p>
+      <h2 class="serif" style="margin-top:16px">The school board's budget stops.
+        <em>We don't.</em></h2>
+      <p class="lede" style="margin-top:18px">The safer version. Motion sits in a framed panel
+        beside the words rather than behind them, so the type never fights the picture and
+        nothing depends on a dark wash. Forgiving of ordinary phone footage &mdash; which is
+        realistically what you will have.</p>
+      <p class="lede" style="margin-top:14px">This also works with a short clip that has no
+        real beginning or end. Ten seconds of children walking is enough.</p>
+    </div>
+    <div class="panel">
+      <div class="media"><div class="layer"></div></div>
+      <div class="scrim"></div>
+      <button class="mctl" type="button" data-target="t2" aria-pressed="true"
+        style="right:12px;top:12px"><span class="mtxt">Motion on</span></button>
+      <p class="cap">2023 Walkathon &middot; simulated motion, real photograph</p>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap sect" id="cost">
+    <p class="label" style="color:var(--red-ink)">The honest cost</p>
+    <h2 class="serif" style="margin-top:14px;font-size:clamp(1.7rem,3.4vw,2.5rem)">
+      Measured from the Obama file itself.</h2>
+    <p class="lede" style="margin-top:16px">Their hero video is in the saved copy of their site,
+      so this is not an estimate.</p>
+    <div class="cards">
+      <div class="card"><span class="n">5.57 MB</span><b>For 7.66 seconds</b>
+        <p>Roughly 730 KB per second of footage. It even carries an audio track it never plays,
+          which is pure waste on a muted loop.</p></div>
+      <div class="card"><span class="n">~1.5 MB</span><b>What we would actually ship</b>
+        <p>A 10-second silent loop, 1280px wide, stripped of audio, in both WebM and MP4. Around
+          a quarter of their weight for the same effect at this size.</p></div>
+      <div class="card"><span class="n">$0</span><b>Hosting it</b>
+        <p>No change. Cloudflare Pages and GitHub Pages both serve video free at this scale.
+          Video does not affect the hosting decision.</p></div>
+      <div class="card"><span class="n">0 KB</span><b>What you are watching now</b>
+        <p>The drift effect above adds no file at all &mdash; it is CSS moving a photograph you
+          already have. Available today, on any direction.</p></div>
+    </div>
+    <div class="verdict">
+      <b>My recommendation</b>
+      <p style="color:var(--muted)">Ship the chosen direction with the moving still. It costs
+        nothing, it works with the two photographs that exist, and it gives most of what you
+        liked about the Obama site. Then shoot real footage at the Walkathon on 20 February 2027
+        and drop it in afterwards &mdash; one element, no redesign. That way the video question
+        never blocks launch.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sect" id="need">
+  <div class="wrap">
+    <p class="label" style="color:var(--red-ink)">If you want real footage</p>
+    <h2 class="serif" style="margin-top:14px;font-size:clamp(1.7rem,3.4vw,2.5rem)">
+      Four things, in order of difficulty.</h2>
+    <div class="tablescroll">
+      <table>
+        <caption style="position:absolute;left:-9999px">Requirements for a real video hero</caption>
+        <thead><tr><th scope="col">What</th><th scope="col">Detail</th><th scope="col">Who</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Signed consent</th>
+            <td>Video release from the school for every identifiable child on camera. Stricter in
+              practice than stills, because a face on film is harder to argue is incidental.
+              <strong>Settle this before anyone shoots.</strong></td><td>Board and school</td></tr>
+          <tr><th scope="row">Footage</th>
+            <td>A modern phone is genuinely fine. Ten to fifteen seconds, held steady or on a slow
+              pan, shot horizontally. Wide shots of the crowd walking carry the idea better than
+              close-ups of individual faces &mdash; and sidestep much of the consent problem.</td>
+            <td>Any parent volunteer</td></tr>
+          <tr><th scope="row">Preparation</th>
+            <td>Trim to a loop, strip the audio, export WebM and MP4 at 1280px, and cut a poster
+              frame for the first paint and for reduced-motion visitors.</td><td>Me, about an hour</td></tr>
+          <tr><th scope="row">Wiring it in</th>
+            <td>One element swap. The markup is already in this page as a comment, ready to
+              uncomment.</td><td>Me, minutes</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="warn">
+      <b>The consent point is the real one</b>
+      <p style="color:var(--muted)">Everything else here is a small job. Putting moving pictures
+        of named children on a public website is the part that deserves a board decision rather
+        than a design decision, and it is worth asking the school what its existing release
+        forms already cover before any filming happens.</p>
+      <ul class="plain">
+        <li>Wide crowd shots need far less paperwork than faces.</li>
+        <li>Footage of the event &mdash; feet walking, banners, the finish, the Spirit Rock
+          &mdash; carries the feeling with nobody identifiable at all.</li>
+        <li>Whatever you shoot, the video must stay silent and decorative, so a visitor who
+          cannot see it loses nothing.</li>
+      </ul>
+    </div>
+    <p class="lede" style="margin-top:30px">On which direction suits it: you are right that
+      <strong style="color:var(--ink)">Momentum</strong> handles full-bleed motion best &mdash; it
+      is already built from edge-to-edge blocks. But
+      <strong style="color:var(--ink)">Standing Strong</strong> is the direction actually derived
+      from the Obama Foundation, and treatment two above is its layout. Either works.
+      <strong style="color:var(--ink)">Schoolyard</strong> is the awkward one: its rounded cards
+      and stickers fight a cinematic hero.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    Video options for The Friends of Hendricks site redesign. The motion on this page is a
+    photograph in CSS, not footage &mdash; no video file is loaded. Cost figures measured from
+    the Obama Foundation's own hero video in <code>docs/inspiration-sites/obama/</code>.
+  </div>
+</footer>
+
+<script>
+(function(){
+  document.querySelectorAll('.mctl').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var sec=document.getElementById(btn.dataset.target);
+      var on=sec.classList.toggle('motion-on');
+      btn.setAttribute('aria-pressed',String(on));
+      btn.querySelector('.mtxt').textContent=on?'Motion on':'Motion off';
+    });
+  });
+  // If the visitor asked for reduced motion, start stopped and say so.
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    document.querySelectorAll('.mctl').forEach(function(btn){
+      var sec=document.getElementById(btn.dataset.target);
+      sec.classList.remove('motion-on');
+      btn.setAttribute('aria-pressed','false');
+      btn.querySelector('.mtxt').textContent='Motion off';
+    });
+  }
+})();
+</script>

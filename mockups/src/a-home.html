@@ -183,6 +183,16 @@ footer{border-top:1px solid var(--rule);padding:clamp(44px,6vw,68px) 0 40px;font
   .foot{grid-template-columns:1fr}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* a single full-width photographic band — the documentary beat this direction is built on */
+.band-photo{position:relative;height:clamp(280px,42vw,460px);overflow:hidden;
+  border-block:1px solid var(--rule-soft)}
+.band-photo img{width:100%;height:100%;object-fit:cover;object-position:50% 40%}
+.band-photo figcaption{position:absolute;left:0;right:0;bottom:0;padding:clamp(18px,3vw,30px);
+  color:#fff;background:linear-gradient(to top,rgba(6,22,40,.86),transparent);
+  font-family:Archivo,sans-serif;font-size:.86rem;letter-spacing:.02em}
+.band-photo figcaption b{font-family:Newsreader,Georgia,serif;font-weight:400;font-size:1.3rem;
+  display:block;margin-bottom:5px;letter-spacing:-.01em}
 </style>
 
 <header class="top">
@@ -256,6 +266,12 @@ footer{border-top:1px solid var(--rule);padding:clamp(44px,6vw,68px) 0 40px;font
     </ol>
   </div>
 </section>
+
+<figure class="band-photo" style="margin:0">
+  <img src="{{CROWD}}" alt="Hundreds of Hendricks students in Walkathon t-shirts filling the school field">
+  <figcaption><b>This is what six hundred students looks like.</b>
+    The Walkathon, 2019. Every child in the photograph is wearing a shirt a classmate designed.</figcaption>
+</figure>
 
 <section class="band">
   <div class="wrap band-in" id="programs">
@@ -363,7 +379,12 @@ footer{border-top:1px solid var(--rule);padding:clamp(44px,6vw,68px) 0 40px;font
   <div class="wrap band-in">
     <p class="eyebrow">2026&ndash;27 board</p>
     <h2 style="margin-top:14px">Run entirely by parent volunteers.</h2>
-    <div class="board">
+    <figure style="margin:32px 0 0">
+      <img src="{{VOLUNTEERS}}" alt="Friends of Hendricks volunteers in matching blue shirts at a school event"
+        style="width:100%;border-radius:4px;box-shadow:var(--shadow);aspect-ratio:16/9;object-fit:cover">
+      <figcaption class="figcap">The people who do this. No paid staff, no office.</figcaption>
+    </figure>
+    <div class="board" style="margin-top:34px">
       <div class="person"><span>President</span><b>Katie Turpin</b></div>
       <div class="person"><span>Vice President</span><b>Kaylee Hurwitz</b></div>
       <div class="person"><span>Treasurer</span><b>Allison Naseri</b></div>

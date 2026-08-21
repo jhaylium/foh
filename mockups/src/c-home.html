@@ -78,7 +78,7 @@ img{max-width:100%;display:block}
 .hero h1 span{color:var(--gold)}
 .hero .lede{color:rgba(255,255,255,.86);margin-top:22px}
 .hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
-.hero-photo{border:5px solid #fff;box-shadow:0 20px 50px -22px rgba(0,0,0,.6)}
+.hero-photo{position:relative;overflow:hidden;border:5px solid #fff;box-shadow:0 20px 50px -22px rgba(0,0,0,.6)}
 .hero-photo img{aspect-ratio:4/3.4;object-fit:cover}
 .hero-inner{padding-bottom:clamp(40px,6vw,72px)}
 
@@ -194,6 +194,8 @@ footer{background:var(--ink);color:rgba(255,255,255,.72);padding:clamp(42px,5vw,
   font-family:"Barlow Condensed",sans-serif;letter-spacing:.06em;text-transform:uppercase}
 
 /* mobile donate bar */
+.filmctl{position:absolute;top:10px;right:10px;z-index:4;display:none;background:rgba(11,27,46,.72);border:1px solid rgba(255,255,255,.45);color:#fff;font-family:"Barlow Condensed",sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:7px 13px;cursor:pointer}
+body.has-video .filmctl{display:inline-flex}
 .dockbar{position:fixed;left:0;right:0;bottom:0;z-index:50;display:none;
   background:#C71014;box-shadow:0 -6px 20px -8px rgba(0,0,0,.4)}
 .dockbar a{display:block;text-align:center;padding:16px;color:#fff;text-decoration:none;
@@ -222,6 +224,12 @@ footer{background:var(--ink);color:rgba(255,255,255,.72);padding:clamp(42px,5vw,
   .spend li{grid-template-columns:auto 1fr}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+/* real footage layered over the drifting still; the still stays as the poster */
+.media video.vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  opacity:0;transition:opacity .9s ease}
+.media video.vid.on{opacity:1}
+@media (prefers-reduced-motion:reduce){.media video.vid{display:none}}
 </style>
 
 <div class="bar">
@@ -256,8 +264,9 @@ footer{background:var(--ink);color:rgba(255,255,255,.72);padding:clamp(42px,5vw,
         <div class="cd"><b id="cd-m">—</b><span>mins</span></div>
       </div>
     </div>
-    <div class="hero-photo">
+    <div class="hero-photo media" data-film>
       <img src="{{HERO}}" alt="Hendricks students in Walkathon t-shirts on the school field">
+      <button class="filmctl" type="button" id="mbtn" aria-pressed="true">Motion on</button>
     </div>
   </div>
 </section>
@@ -453,5 +462,61 @@ footer{background:var(--ink);color:rgba(255,255,255,.72);padding:clamp(42px,5vw,
     es.forEach(function(e){ if(e.isIntersecting){ fill.style.width='38%'; io.disconnect(); } });
   },{threshold:.4});
   io.observe(fill);
+})();
+</script>
+
+<script>
+(function(){
+  var btn=document.getElementById('mbtn');
+  if(!btn) return;
+  btn.addEventListener('click',function(){
+    var on=document.body.classList.toggle('paused')===false;
+    btn.setAttribute('aria-pressed',String(on));
+    btn.textContent=on?'Motion on':'Motion off';
+  });
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    document.body.classList.add('paused');
+    btn.setAttribute('aria-pressed','false');
+    btn.textContent='Motion off';
+  }
+})();
+</script>
+<script id="video-swap" data-video="{{VIDEO_ENERGY}}">
+(function(){
+  var tag=document.getElementById('video-swap');
+  var uri=tag.getAttribute('data-video');
+  var mq=window.matchMedia('(prefers-reduced-motion: reduce)');
+  var conn=navigator.connection||{};
+  // Deliberately skip real footage where it would be rude or wasteful:
+  //  - the visitor asked their system to reduce motion
+  //  - the browser reports data saving
+  //  - the screen is small enough that it is probably a phone on cellular
+  var skip = !uri || mq.matches || conn.saveData === true || window.innerWidth < 760;
+  if(skip) return;
+  var url;
+  try{
+    var b64=uri.slice(uri.indexOf(',')+1);
+    var bin=atob(b64), len=bin.length, buf=new Uint8Array(len);
+    for(var i=0;i<len;i++) buf[i]=bin.charCodeAt(i);
+    url=URL.createObjectURL(new Blob([buf],{type:'video/mp4'}));
+  }catch(e){ return; }               // any failure: keep the still photograph
+  document.querySelectorAll('.media[data-film]').forEach(function(m){
+    var v=document.createElement('video');
+    v.muted=true; v.defaultMuted=true; v.loop=true; v.autoplay=true;
+    v.playsInline=true; v.setAttribute('playsinline','');
+    v.setAttribute('aria-hidden','true');          // decorative; the page reads fine without it
+    v.src=url;
+    v.className='vid';
+    m.appendChild(v);
+    var p=v.play(); if(p&&p.catch) p.catch(function(){ v.remove(); });
+    v.addEventListener('playing',function(){ v.classList.add('on'); },{once:true});
+  });
+  document.body.classList.add('has-video');
+  // keep the existing motion toggle in charge of the footage too
+  var btn=document.getElementById('mbtn');
+  if(btn) btn.addEventListener('click',function(){
+    var paused=document.body.classList.contains('paused');
+    document.querySelectorAll('video.vid').forEach(function(v){ paused? v.pause() : v.play(); });
+  });
 })();
 </script>

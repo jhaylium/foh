@@ -1,0 +1,462 @@
+<title>Reel</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Manrope:wght@400;500;600;700&display=swap">
+<style>
+/* Direction D — "Reel".
+   A deliberate single visual world: this page is dark in every theme, the way a
+   cinema is dark. Every colour is painted explicitly so it never borrows the
+   host's ground. */
+:root{
+  --ground:#070F1A; --raise:#0D1826; --sink:#040A12;
+  --ink:#EDF2F8; --muted:#94A8BF; --faint:#7089A8;
+  --navy:#003E7E; --navy-ink:#7FB2E3;
+  --red:#C71014; --red-ink:#FF8A80;
+  --gold:#FFBE04;
+  --line:#1B2B3F; --line-soft:#132133;
+  --photo:url("{{HERO}}");
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);
+  font-family:Manrope,"Helvetica Neue",Arial,sans-serif;font-size:17px;line-height:1.62;
+  -webkit-font-smoothing:antialiased}
+h1,h2,h3,.disp{font-family:"Bricolage Grotesque",Manrope,sans-serif;font-weight:800;
+  letter-spacing:-.022em;line-height:.98;margin:0;text-wrap:balance}
+h1{font-size:clamp(2.6rem,8vw,6.2rem)}
+h2{font-size:clamp(1.9rem,4.4vw,3.4rem)}
+h3{font-size:1.3rem;letter-spacing:-.012em}
+p{margin:0}
+a{color:var(--navy-ink)}
+img{max-width:100%;display:block}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:2px}
+.wrap{max-width:1200px;margin:0 auto;padding:0 clamp(18px,4.5vw,48px)}
+.tag{font-family:Manrope,sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--gold);margin:0}
+.lede{font-size:clamp(1.04rem,1.6vw,1.24rem);line-height:1.58;color:var(--muted);max-width:56ch}
+
+/* ---- the motion mechanic: one still, scaled and drifted. no video file. ---- */
+@keyframes drift{
+  0%{transform:scale(1.05) translate3d(0,0,0)}
+  50%{transform:scale(1.17) translate3d(-2.4%,-1.8%,0)}
+  100%{transform:scale(1.05) translate3d(0,0,0)}
+}
+.media{position:absolute;inset:0;overflow:hidden;background:var(--sink)}
+.media .layer{position:absolute;inset:-3%;background-image:var(--photo);
+  background-size:cover;background-position:50% 36%;will-change:transform;
+  animation:drift 30s ease-in-out infinite}
+.media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.paused .media .layer{animation-play-state:paused}
+
+/* ---- persistent minimal chrome ---- */
+.chrome{position:fixed;inset:auto 0 0 0;z-index:40;padding:14px clamp(18px,4.5vw,48px);
+  display:flex;align-items:center;gap:14px;
+  background:linear-gradient(to top,rgba(4,10,18,.94),rgba(4,10,18,0));
+  pointer-events:none}
+.chrome>*{pointer-events:auto}
+.chrome .who{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
+.chrome .who img{width:32px}
+.chrome .who b{font-family:"Bricolage Grotesque",sans-serif;font-weight:600;font-size:.94rem;
+  letter-spacing:-.01em;line-height:1.1}
+.chrome nav{margin-left:auto;display:flex;align-items:center;gap:clamp(10px,1.6vw,22px)}
+.chrome nav a{color:var(--muted);text-decoration:none;font-size:.86rem;font-weight:600;white-space:nowrap}
+.chrome nav a:hover{color:var(--ink)}
+.pill{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:#070F1A;
+  font-size:.86rem;font-weight:700;padding:10px 20px;border-radius:999px;text-decoration:none;
+  transition:transform .16s ease}
+.pill:hover{transform:translateY(-1px)}
+.pill.ghost{background:transparent;color:var(--ink);border:1px solid var(--line);}
+.pill.ghost:hover{border-color:var(--navy-ink);color:var(--navy-ink)}
+
+/* ---- act one: the film ---- */
+.act1{position:relative;min-height:100svh;display:flex;flex-direction:column;
+  justify-content:flex-end;overflow:hidden}
+.act1 .veil{position:absolute;inset:0;background:
+  linear-gradient(to top,rgba(7,15,26,.96) 0%,rgba(7,15,26,.62) 38%,rgba(7,15,26,.2) 70%,rgba(7,15,26,.55) 100%)}
+.act1 .inner{position:relative;padding-bottom:clamp(88px,13vh,150px);padding-top:80px}
+.act1 h1{max-width:15ch}
+.act1 h1 em{font-style:normal;color:var(--gold)}
+.act1 .lede{margin-top:22px;color:rgba(237,242,248,.9)}
+.act1 .row{display:flex;flex-wrap:wrap;gap:11px;margin-top:30px}
+.mctl{position:absolute;top:clamp(76px,11vh,110px);right:clamp(18px,4.5vw,48px);z-index:5;
+  display:inline-flex;align-items:center;gap:8px;background:rgba(7,15,26,.7);
+  border:1px solid rgba(237,242,248,.32);color:var(--ink);font-family:Manrope,sans-serif;
+  font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  padding:9px 15px;cursor:pointer;border-radius:999px}
+.mctl:hover{background:rgba(7,15,26,.94)}
+.scrollcue{position:absolute;left:clamp(18px,4.5vw,48px);bottom:clamp(28px,5vh,52px);
+  font-size:.68rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--faint)}
+
+/* ---- chapter strip ---- */
+.strip{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--raise)}
+.strip-in{display:grid;grid-template-columns:repeat(4,1fr)}
+.ch{padding:clamp(26px,3.4vw,40px) clamp(16px,2vw,28px);border-left:1px solid var(--line-soft)}
+.ch:first-child{border-left:none}
+.ch b{font-family:"Bricolage Grotesque",sans-serif;font-weight:400;font-size:clamp(2.2rem,4.6vw,3.4rem);
+  line-height:.9;display:block;color:var(--gold);font-variant-numeric:tabular-nums;letter-spacing:-.03em}
+.ch p{font-size:.9rem;color:var(--muted);margin-top:12px;line-height:1.4}
+
+/* ---- reveal on scroll ---- */
+.rv{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.rv.in{opacity:1;transform:none}
+
+/* ---- act two: few words, big picture ---- */
+.sect{padding:clamp(60px,9vw,130px) 0}
+.said{max-width:26ch}
+.said h2{font-size:clamp(2.1rem,5.6vw,4.2rem)}
+.said .after{margin-top:26px;max-width:52ch;color:var(--muted);font-size:clamp(1.02rem,1.5vw,1.18rem)}
+.frame{position:relative;aspect-ratio:16/9;overflow:hidden;margin-top:clamp(34px,5vw,60px);
+  border:1px solid var(--line)}
+.frame .veil{position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(7,15,26,.72),transparent 62%)}
+.frame .cap{position:absolute;left:0;right:0;bottom:0;padding:clamp(18px,3vw,32px);
+  display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap}
+.frame .cap p{font-size:.82rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.frame .cap .disp{font-size:clamp(1.3rem,3vw,2.1rem);max-width:22ch}
+
+/* ---- spend list, hairline ---- */
+.spend{list-style:none;margin:clamp(34px,5vw,52px) 0 0;padding:0;border-top:1px solid var(--line)}
+.spend li{display:grid;grid-template-columns:56px 1fr auto;gap:18px;align-items:baseline;
+  padding:clamp(18px,2.4vw,26px) 2px;border-bottom:1px solid var(--line-soft)}
+.spend .n{font-family:"Bricolage Grotesque",sans-serif;font-weight:400;font-size:.94rem;
+  color:var(--faint);font-variant-numeric:tabular-nums;letter-spacing:.08em}
+.spend .w{font-family:"Bricolage Grotesque",sans-serif;font-weight:600;
+  font-size:clamp(1.15rem,2.4vw,1.7rem);letter-spacing:-.015em;line-height:1.15}
+.spend .m{font-size:.84rem;color:var(--faint);text-align:right}
+
+/* ---- programs as film stills ---- */
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));gap:1px;
+  margin-top:clamp(34px,5vw,50px);background:var(--line-soft);border:1px solid var(--line-soft)}
+.tile{background:var(--ground);padding:clamp(24px,3vw,32px);display:flex;flex-direction:column;
+  gap:12px;transition:background .2s ease}
+.tile:hover{background:var(--raise)}
+.tile .when{font-size:.74rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+.tile p{font-size:.95rem;color:var(--muted)}
+.tile .cost{margin-top:auto;padding-top:14px;font-family:"Bricolage Grotesque",sans-serif;
+  font-weight:600;font-size:1.24rem;color:var(--ink);font-variant-numeric:tabular-nums}
+
+/* ---- partners ---- */
+.lead{border:1px solid var(--gold);padding:clamp(24px,3.4vw,36px);display:flex;flex-wrap:wrap;
+  gap:20px;align-items:center;justify-content:space-between;margin-top:clamp(28px,4vw,40px)}
+.lead .disp{font-size:clamp(1.3rem,2.6vw,1.9rem)}
+.gr{margin-top:30px}
+.grh{display:flex;align-items:baseline;gap:14px;border-bottom:1px solid var(--line);padding-bottom:9px}
+.grh b{font-size:.78rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase}
+.grh span{margin-left:auto;font-size:.8rem;color:var(--faint);font-variant-numeric:tabular-nums}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px}
+.chips span{border:1px solid var(--line);padding:8px 14px;font-size:.86rem;font-weight:500;color:var(--muted)}
+
+/* ---- board ---- */
+.people{display:grid;grid-template-columns:repeat(auto-fill,minmax(206px,1fr));gap:1px;
+  margin-top:clamp(30px,4vw,42px);background:var(--line-soft);border:1px solid var(--line-soft)}
+.pp{background:var(--ground);padding:20px 22px}
+.pp span{font-size:.7rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+.pp b{display:block;font-family:"Bricolage Grotesque",sans-serif;font-weight:600;font-size:1.06rem;
+  margin-top:6px;letter-spacing:-.01em}
+
+/* ---- closing frame ---- */
+.close{position:relative;min-height:76svh;display:flex;align-items:center;justify-content:center;
+  text-align:center;overflow:hidden}
+.close .veil{position:absolute;inset:0;background:rgba(7,15,26,.8)}
+.close .inner{position:relative;padding:clamp(40px,7vw,80px) 0}
+.close h2{font-size:clamp(2.1rem,6vw,4.4rem);max-width:20ch;margin:0 auto}
+.close p{color:var(--muted);max-width:50ch;margin:22px auto 0}
+.close .row{display:flex;flex-wrap:wrap;gap:11px;justify-content:center;margin-top:32px}
+.needs{display:inline-block;margin-top:14px;border:1px dashed var(--red-ink);color:var(--red-ink);
+  padding:6px 12px;font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+
+footer{border-top:1px solid var(--line);padding:clamp(40px,5vw,64px) 0 110px;font-size:.92rem;
+  background:var(--sink)}
+.foot{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:36px}
+.foot h4{font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--gold);margin:0 0 14px}
+.foot ul{list-style:none;margin:0;padding:0;display:grid;gap:9px}
+.foot a{color:var(--ink);text-decoration:none}
+.foot a:hover{color:var(--navy-ink)}
+.foot p{color:var(--muted)}
+.legal{margin-top:34px;padding-top:20px;border-top:1px solid var(--line-soft);display:flex;
+  justify-content:space-between;gap:18px;flex-wrap:wrap;font-size:.8rem;color:var(--faint)}
+
+@media (max-width:940px){
+  .strip-in{grid-template-columns:repeat(2,1fr)}
+  .ch:nth-child(3){border-left:none}
+  .ch{border-top:1px solid var(--line-soft)}
+  .ch:nth-child(-n+2){border-top:none}
+  .foot{grid-template-columns:1fr 1fr}
+  .chrome nav a{display:none}
+}
+@media (max-width:560px){
+  body{font-size:16px}
+  .strip-in{grid-template-columns:1fr}
+  .ch{border-left:none;border-top:1px solid var(--line-soft)}
+  .ch:first-child{border-top:none}
+  .foot{grid-template-columns:1fr}
+  .spend li{grid-template-columns:40px 1fr}
+  .spend .m{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  .media .layer{animation:none}
+  .rv{opacity:1;transform:none;transition:none}
+  *{transition:none!important}
+}
+
+/* real footage layered over the drifting still; the still stays as the poster */
+.media video.vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  opacity:0;transition:opacity .9s ease}
+.media video.vid.on{opacity:1}
+@media (prefers-reduced-motion:reduce){.media video.vid{display:none}}
+</style>
+
+<section class="act1" id="act1">
+  <div class="media" data-film>
+    <div class="layer"></div>
+    <!-- Real footage replaces the layer above:
+    <video autoplay loop muted playsinline poster="walkathon-still.jpg"
+      aria-label="Decorative background video of the Hendricks Walkathon, always muted and looping">
+      <source src="walkathon-loop.webm" type="video/webm">
+      <source src="walkathon-loop.mp4" type="video/mp4">
+    </video> -->
+  </div>
+  <div class="veil"></div>
+  <button class="mctl" type="button" id="mbtn" aria-pressed="true">Motion on</button>
+  <div class="wrap inner">
+    <p class="tag">Hendricks Avenue Elementary &middot; Jacksonville</p>
+    <h1 style="margin-top:20px">Six hundred kids.<br><em>One building.</em><br>Everything else is us.</h1>
+    <p class="lede">We are the parents who buy what the county budget will not. Books,
+      software, playground equipment, teacher grants. Nothing we raise leaves this school.</p>
+    <div class="row">
+      <a class="pill" href="#give">Donate</a>
+      <a class="pill ghost" href="https://claude.ai/code/artifact/382de4cb-6c77-4cc0-9efb-3a747870bd89">Sponsor as a business</a>
+    </div>
+  </div>
+  <p class="scrollcue">Scroll</p>
+</section>
+
+<section class="strip">
+  <div class="wrap"><div class="strip-in">
+    <div class="ch"><b>600+</b><p>students and their families in San Marco</p></div>
+    <div class="ch"><b>$50,000</b><p>the goal for the 2027 Walkathon</p></div>
+    <div class="ch"><b>49</b><p>local businesses behind us this year</p></div>
+    <div class="ch"><b>1942</b><p>launching leaders since</p></div>
+  </div></div>
+</section>
+
+<section class="sect">
+  <div class="wrap">
+    <div class="said rv">
+      <p class="tag" style="color:var(--red-ink)">Where it goes</p>
+      <h2 style="margin-top:18px">Five things a county budget will not cover.</h2>
+    </div>
+    <p class="after rv">Not extras. These are the line items our fundraising pays for
+      outright &mdash; the difference between an adequate education and an exemplary one.</p>
+    <ol class="spend rv">
+      <li><span class="n">01</span><span class="w">Online learning programs</span><span class="m">software licences</span></li>
+      <li><span class="n">02</span><span class="w">Classroom supplies</span><span class="m">every room, every year</span></li>
+      <li><span class="n">03</span><span class="w">Teacher professional development</span><span class="m">training the county won't fund</span></li>
+      <li><span class="n">04</span><span class="w">School enhancements</span><span class="m">capital projects</span></li>
+      <li><span class="n">05</span><span class="w">Leadership curriculum</span><span class="m">launching leaders since 1942</span></li>
+    </ol>
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="frame rv">
+    <div class="media" data-film><div class="layer"></div></div>
+    <div class="veil"></div>
+    <div class="cap">
+      <p class="disp">Every shirt is designed by a Hendricks student.</p>
+      <p>2023 Walkathon &middot; last year's by Cayla, Grade 4</p>
+    </div>
+  </div>
+</section>
+
+<section class="sect" id="ways">
+  <div class="wrap">
+    <div class="said rv">
+      <p class="tag" style="color:var(--red-ink)">Take part</p>
+      <h2 style="margin-top:18px">Six ways in.</h2>
+    </div>
+    <div class="tiles rv">
+      <div class="tile"><p class="when">Sat 20 Feb 2027</p><h3>The Walkathon</h3>
+        <p>The 15th one, and the biggest day of our year. Students collect pledges, then walk.
+          Cash or check comes back in the envelope sent home.</p>
+        <p class="cost">Pledge</p></div>
+      <div class="tile"><p class="when">Grades K&ndash;5</p><h3>Hugs from Henry</h3>
+        <p>Dedicates a classroom book in your child's honor, with a bookplate inside the
+          front cover.</p><p class="cost">$25</p></div>
+      <div class="tile"><p class="when">18 Jan &middot; Posting House</p><h3>Spirit Nights</h3>
+        <p>Eat out on the night and a share of the bill comes straight back to school.</p>
+        <p class="cost">Free</p></div>
+      <div class="tile"><p class="when">24 hours</p><h3>Rent the Spirit Rock</h3>
+        <p>Hendricks Avenue or San Jose Boulevard. Wish a student luck, or thank a teacher
+          who earned it.</p><p class="cost">$35&ndash;60</p></div>
+      <div class="tile"><p class="when">Any time</p><h3>Give directly</h3>
+        <p>PayPal or a check in the mail. 501(c)(3), Tax ID 20-4931978 &mdash; ask your
+          employer to match it.</p><p class="cost">Any amount</p></div>
+      <div class="tile"><p class="when">All year</p><h3>Bring your business</h3>
+        <p>Your logo on 600 t-shirts, the school marquee and both entrances. Five levels.</p>
+        <p class="cost">From $250</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sect">
+  <div class="wrap">
+    <div class="said rv"><p class="tag" style="color:var(--red-ink)">2025&ndash;26 partners</p>
+      <h2 style="margin-top:18px">Forty-nine businesses said yes.</h2></div>
+    <div class="lead rv">
+      <div><p class="tag">Visionary partner &middot; one only</p>
+        <div class="disp" style="margin-top:8px">State Farm &mdash; Matt Carlucci, Agent</div></div>
+      <a class="pill" href="https://claude.ai/code/artifact/382de4cb-6c77-4cc0-9efb-3a747870bd89">Take this next year</a>
+    </div>
+    <div class="gr rv"><div class="grh"><b>Legacy Circle</b><span>$2,500</span></div>
+      <div class="chips"><span>Da Pazo</span><span>Superior</span><span>Magnuson Hotel</span>
+        <span>Promise</span><span>Riley</span><span>White Block</span></div></div>
+    <div class="gr rv"><div class="grh"><b>Investors Circle</b><span>$1,000</span></div>
+      <div class="chips"><span>Normandy Lake Dentistry</span><span>Mullens &amp; Nguyen</span>
+        <span>Otterson</span><span>Blount</span><span>Tape South</span><span>Bee Home</span>
+        <span>The UPS Store San Marco</span><span>Jaycox</span><span>Vein Institute</span>
+        <span>Brown</span></div></div>
+    <div class="gr rv"><div class="grh"><b>Builders Circle</b><span>$500</span></div>
+      <div class="chips"><span>Steller's Framing</span><span>Grit Camp</span>
+        <span>Regina &amp; Joy</span><span>Pivot</span><span>Taverna Oceana</span>
+        <span>River Point RE</span><span>Ross Garden</span><span>Intercoastal Health</span>
+        <span>Riverplace</span><span>Tree Surgeons</span><span>Tile Market</span>
+        <span>Cookiefix</span><span>Kristian Carter Nutrition</span></div></div>
+    <div class="gr rv"><div class="grh"><b>Friends Circle</b><span>$250</span></div>
+      <div class="chips"><span>Florida Land Strategies</span><span>WeeTrade</span>
+        <span>Fore Score</span><span>Grit &amp; Grace Counseling</span>
+        <span>Murphy Anderson Law</span><span>Cheer Stars</span>
+        <span>Effective Computer Solutions</span><span>Wicked Branding</span>
+        <span>Gwynne Mims Salon</span><span>Dance for Joy</span>
+        <span>Splish Splash Swim Academy</span></div></div>
+    <p style="margin-top:20px;font-size:.86rem;color:var(--faint)">Showing 41 of 49 &mdash; the
+      remaining eight are identifiable only by their logo file name and need confirming with
+      the board.</p>
+  </div>
+</section>
+
+<section class="sect" id="board">
+  <div class="wrap">
+    <div class="said rv"><p class="tag" style="color:var(--red-ink)">2026&ndash;27 board</p>
+      <h2 style="margin-top:18px">Parents. Volunteers. Unpaid.</h2></div>
+    <div class="people rv">
+      <div class="pp"><span>President</span><b>Katie Turpin</b></div>
+      <div class="pp"><span>Vice President</span><b>Kaylee Hurwitz</b></div>
+      <div class="pp"><span>Treasurer</span><b>Allison Naseri</b></div>
+      <div class="pp"><span>Secretary</span><b>Kristian Carter</b></div>
+      <div class="pp"><span>Chair of Fundraising</span><b>Aryn Lentz</b></div>
+      <div class="pp"><span>Legal Advisor</span><b>James Poindexter</b></div>
+    </div>
+    <p style="margin-top:22px;color:var(--muted);font-size:.95rem">
+      <strong style="color:var(--ink)">Directors</strong> &nbsp;Julie Braun &middot; Nicole Brown &middot;
+      Sara Buckley &middot; Melissa Gregory &middot; Brittany Kelly &middot; Shelly Middleton &middot;
+      Katherine Poindexter &middot; Ivan Porter &middot; Jason Pratt</p>
+  </div>
+</section>
+
+<section class="close" id="give">
+  <div class="media"><div class="layer"></div></div>
+  <div class="veil"></div>
+  <div class="wrap inner">
+    <h2>Ten dollars buys a book.</h2>
+    <p>PayPal, or a check to 4446-1A Hendricks Avenue, Suite 357, Jacksonville, FL 32207.
+      We are a 501(c)(3) &mdash; Tax ID 20-4931978 &mdash; so your employer may match it.</p>
+    <div class="row"><a class="pill" href="#give">Donate now</a>
+      <a class="pill ghost" href="https://claude.ai/code/artifact/382de4cb-6c77-4cc0-9efb-3a747870bd89">Sponsor as a business</a></div>
+    <p><span class="needs">Total raised to date &mdash; needs the real figure</span></p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div><h4>The Friends of Hendricks</h4>
+        <p>Parents, teachers and volunteers raising funds for resources and projects the
+          Duval County School Board budget does not cover.</p>
+        <p style="margin-top:14px">4446-1A Hendricks Avenue, Suite 357<br>Jacksonville, FL 32207</p></div>
+      <div><h4>Take part</h4><ul>
+        <li><a href="#give">Donate</a></li><li><a href="https://claude.ai/code/artifact/382de4cb-6c77-4cc0-9efb-3a747870bd89">Business sponsorship</a></li>
+        <li><a href="#ways">Walkathon</a></li><li><a href="#ways">Hugs from Henry</a></li>
+        <li><a href="#ways">Spirit Nights</a></li><li><a href="#ways">Spirit Rock</a></li></ul></div>
+      <div><h4>Contact</h4><ul>
+        <li><a href="mailto:fohpresident1@gmail.com">General</a></li>
+        <li><a href="mailto:FriendsBusinessPartners@gmail.com">Sponsorship</a></li>
+        <li><a href="mailto:FOHHugsFromHenry@gmail.com">Birthday club</a></li>
+        <li><a href="mailto:renttherockhae@gmail.com">Spirit Rock</a></li>
+        <li><a href="tel:+19044512831">(904) 451-2831</a></li></ul></div>
+    </div>
+    <div class="legal">
+      <span>&copy; 2026 The Friends of Hendricks &middot; 501(c)(3) &middot; Tax ID 20-4931978</span>
+      <span>Direction D &mdash; Reel</span>
+    </div>
+  </div>
+</footer>
+
+<div class="chrome">
+  <a class="who" href="#act1"><img src="{{LOGO}}" alt=""><b>Friends of<br>Hendricks</b></a>
+  <nav>
+    <a href="#ways">Take part</a><a href="https://claude.ai/code/artifact/382de4cb-6c77-4cc0-9efb-3a747870bd89">Sponsors</a><a href="#board">Board</a>
+  </nav>
+  <a class="pill" href="#give">Donate</a>
+</div>
+
+<script>
+(function(){
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // motion toggle
+  var btn=document.getElementById('mbtn');
+  function set(on){
+    document.body.classList.toggle('paused',!on);
+    btn.setAttribute('aria-pressed',String(on));
+    btn.textContent=on?'Motion on':'Motion off';
+  }
+  btn.addEventListener('click',function(){set(document.body.classList.contains('paused'))});
+  if(reduce) set(false);
+  // scroll reveals
+  var els=[].slice.call(document.querySelectorAll('.rv'));
+  if(reduce||!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in')});return}
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})
+  },{threshold:.12,rootMargin:'0px 0px -8% 0px'});
+  els.forEach(function(e){io.observe(e)});
+})();
+</script>
+
+<script id="video-swap" data-video="{{VIDEO_REEL}}">
+(function(){
+  var tag=document.getElementById('video-swap');
+  var uri=tag.getAttribute('data-video');
+  var mq=window.matchMedia('(prefers-reduced-motion: reduce)');
+  var conn=navigator.connection||{};
+  // Deliberately skip real footage where it would be rude or wasteful:
+  //  - the visitor asked their system to reduce motion
+  //  - the browser reports data saving
+  //  - the screen is small enough that it is probably a phone on cellular
+  var skip = !uri || mq.matches || conn.saveData === true || window.innerWidth < 760;
+  if(skip) return;
+  var url;
+  try{
+    var b64=uri.slice(uri.indexOf(',')+1);
+    var bin=atob(b64), len=bin.length, buf=new Uint8Array(len);
+    for(var i=0;i<len;i++) buf[i]=bin.charCodeAt(i);
+    url=URL.createObjectURL(new Blob([buf],{type:'video/mp4'}));
+  }catch(e){ return; }               // any failure: keep the still photograph
+  document.querySelectorAll('.media[data-film]').forEach(function(m){
+    var v=document.createElement('video');
+    v.muted=true; v.defaultMuted=true; v.loop=true; v.autoplay=true;
+    v.playsInline=true; v.setAttribute('playsinline','');
+    v.setAttribute('aria-hidden','true');          // decorative; the page reads fine without it
+    v.src=url;
+    v.className='vid';
+    m.appendChild(v);
+    var p=v.play(); if(p&&p.catch) p.catch(function(){ v.remove(); });
+    v.addEventListener('playing',function(){ v.classList.add('on'); },{once:true});
+  });
+  document.body.classList.add('has-video');
+  // keep the existing motion toggle in charge of the footage too
+  var btn=document.getElementById('mbtn');
+  if(btn) btn.addEventListener('click',function(){
+    var paused=document.body.classList.contains('paused');
+    document.querySelectorAll('video.vid').forEach(function(v){ paused? v.pause() : v.play(); });
+  });
+})();
+</script>

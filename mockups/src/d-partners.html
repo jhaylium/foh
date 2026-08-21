@@ -1,0 +1,331 @@
+<title>Reel · Sponsors</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Manrope:wght@400;500;600;700&display=swap">
+<style>
+/* Direction D — deliberately one dark visual world in every theme. */
+:root{
+  --ground:#070F1A; --raise:#0D1826; --sink:#040A12;
+  --ink:#EDF2F8; --muted:#94A8BF; --faint:#7089A8;
+  --navy:#003E7E; --navy-ink:#7FB2E3; --red-ink:#FF8A80;
+  --gold:#FFBE04; --line:#1B2B3F; --line-soft:#132133;
+  --photo:url("{{HERO}}");
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);
+  font-family:Manrope,"Helvetica Neue",Arial,sans-serif;font-size:17px;line-height:1.62;
+  -webkit-font-smoothing:antialiased}
+h1,h2,h3,.disp{font-family:"Bricolage Grotesque",Manrope,sans-serif;font-weight:800;
+  letter-spacing:-.022em;line-height:.99;margin:0;text-wrap:balance}
+h1{font-size:clamp(2.4rem,7vw,5.2rem)}
+h2{font-size:clamp(1.8rem,4vw,3rem)}
+h3{font-size:1.24rem;letter-spacing:-.012em}
+p{margin:0}
+a{color:var(--navy-ink)}
+img{max-width:100%;display:block}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:2px}
+.wrap{max-width:1200px;margin:0 auto;padding:0 clamp(18px,4.5vw,48px)}
+.tag{font-size:.72rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin:0}
+.lede{font-size:clamp(1.04rem,1.6vw,1.24rem);line-height:1.58;color:var(--muted);max-width:58ch}
+@keyframes drift{0%{transform:scale(1.05)}50%{transform:scale(1.16) translate3d(-2.2%,-1.6%,0)}100%{transform:scale(1.05)}}
+.media{position:absolute;inset:0;overflow:hidden;background:var(--sink)}
+.media .layer{position:absolute;inset:-3%;background-image:var(--photo);background-size:cover;
+  background-position:50% 36%;animation:drift 30s ease-in-out infinite;will-change:transform}
+.paused .media .layer{animation-play-state:paused}
+.pill{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:#070F1A;
+  font-size:.9rem;font-weight:700;padding:12px 24px;border-radius:999px;text-decoration:none;
+  border:none;cursor:pointer;font-family:Manrope,sans-serif;transition:transform .16s ease}
+.pill:hover{transform:translateY(-1px)}
+.pill.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.pill.ghost:hover{border-color:var(--navy-ink);color:var(--navy-ink)}
+.chrome{position:fixed;inset:auto 0 0 0;z-index:40;padding:14px clamp(18px,4.5vw,48px);
+  display:flex;align-items:center;gap:14px;
+  background:linear-gradient(to top,rgba(4,10,18,.94),rgba(4,10,18,0));pointer-events:none}
+.chrome>*{pointer-events:auto}
+.chrome .who{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
+.chrome .who img{width:32px}
+.chrome .who b{font-family:"Bricolage Grotesque",sans-serif;font-weight:600;font-size:.94rem;line-height:1.1}
+.chrome nav{margin-left:auto;display:flex;gap:clamp(10px,1.6vw,22px)}
+.chrome nav a{color:var(--muted);text-decoration:none;font-size:.86rem;font-weight:600}
+.chrome nav a:hover,.chrome nav a[aria-current]{color:var(--gold)}
+
+.act1{position:relative;min-height:clamp(500px,80svh,760px);display:flex;align-items:flex-end;overflow:hidden}
+.act1 .veil{position:absolute;inset:0;background:
+  linear-gradient(to top,rgba(7,15,26,.96),rgba(7,15,26,.6) 40%,rgba(7,15,26,.22) 74%,rgba(7,15,26,.55))}
+.act1 .inner{position:relative;padding:90px 0 clamp(50px,8vh,90px);width:100%}
+.act1 h1{max-width:16ch}
+.act1 h1 em{font-style:normal;color:var(--gold)}
+.mctl{position:absolute;top:clamp(20px,4vw,34px);right:clamp(18px,4.5vw,48px);z-index:5;
+  background:rgba(7,15,26,.7);border:1px solid rgba(237,242,248,.32);color:var(--ink);
+  font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  padding:9px 15px;cursor:pointer;border-radius:999px;font-family:Manrope,sans-serif}
+.sect{padding:clamp(56px,8vw,116px) 0}
+.reach{border-block:1px solid var(--line);background:var(--raise)}
+.reach-in{display:grid;grid-template-columns:repeat(4,1fr)}
+.rv{padding:clamp(24px,3.2vw,38px) clamp(14px,2vw,26px);border-left:1px solid var(--line-soft)}
+.rv:first-child{border-left:none}
+.rv b{font-family:"Bricolage Grotesque",sans-serif;font-weight:400;font-size:clamp(2rem,4.2vw,3rem);
+  line-height:.9;display:block;color:var(--gold);font-variant-numeric:tabular-nums;letter-spacing:-.03em}
+.rv p{font-size:.88rem;color:var(--muted);margin-top:11px;line-height:1.4}
+
+/* tiers: hairline rows, price large and thin */
+.tiers{margin-top:clamp(34px,5vw,56px);border-top:1px solid var(--line)}
+.tier{display:grid;grid-template-columns:minmax(190px,.62fr) 1fr;gap:clamp(20px,4vw,54px);
+  padding:clamp(26px,3.4vw,42px) 2px;border-bottom:1px solid var(--line-soft);
+  transition:background .2s ease}
+.tier:hover{background:var(--raise)}
+.tier.top{border-left:2px solid var(--gold);padding-left:clamp(18px,2.4vw,28px)}
+.tier .amt{font-family:"Bricolage Grotesque",sans-serif;font-weight:400;
+  font-size:clamp(2.6rem,6vw,4.4rem);line-height:.86;display:block;letter-spacing:-.04em;
+  font-variant-numeric:tabular-nums}
+.tier.top .amt{color:var(--gold)}
+.tier .nm{display:block;margin-top:12px;font-size:.78rem;font-weight:700;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--muted)}
+.tier .only{display:inline-block;margin-top:10px;border:1px solid var(--gold);color:var(--gold);
+  font-size:.66rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:4px 10px}
+.tier ul{list-style:none;margin:0;padding:0;display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(196px,1fr));gap:10px 26px}
+.tier li{display:flex;gap:10px;font-size:.95rem;line-height:1.4;color:var(--muted)}
+.tier li::before{content:"";width:5px;height:5px;background:var(--faint);flex:0 0 auto;margin-top:.55em}
+.tier li.q{color:var(--ink);font-weight:600}
+.tier li.q::before{background:var(--gold)}
+.tier .act{margin-top:20px}
+
+.credit{margin-top:clamp(40px,6vw,64px);border:1px solid var(--line);padding:clamp(24px,3.4vw,38px);
+  display:grid;grid-template-columns:auto 1fr;gap:26px;align-items:center;background:var(--raise)}
+.credit .big{font-family:"Bricolage Grotesque",sans-serif;font-weight:400;font-size:2.6rem;
+  color:var(--gold);line-height:.9}
+.credit p{color:var(--muted);font-size:.98rem}
+.gr{margin-top:30px}
+.grh{display:flex;align-items:baseline;gap:14px;border-bottom:1px solid var(--line);padding-bottom:9px}
+.grh b{font-size:.78rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase}
+.grh span{margin-left:auto;font-size:.8rem;color:var(--faint);font-variant-numeric:tabular-nums}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px}
+.chips span{border:1px solid var(--line);padding:8px 14px;font-size:.86rem;color:var(--muted)}
+.lead{border:1px solid var(--gold);padding:clamp(24px,3.4vw,36px);display:flex;flex-wrap:wrap;
+  gap:20px;align-items:center;justify-content:space-between;margin-top:clamp(26px,4vw,38px)}
+.lead .disp{font-size:clamp(1.3rem,2.6vw,1.9rem)}
+.applygrid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,64px);align-items:start}
+.field{display:grid;gap:7px;margin-bottom:16px}
+.field label{font-size:.74rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+.field input,.field textarea{font-family:Manrope,sans-serif;font-size:1rem;padding:13px 15px;
+  border:1px solid var(--line);background:var(--sink);color:var(--ink);width:100%;border-radius:2px}
+.field input:focus,.field textarea:focus{border-color:var(--gold);outline:none}
+.info{border:1px solid var(--line);padding:clamp(24px,3.4vw,34px);background:var(--raise)}
+.info dt{font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--gold);margin-top:20px}
+.info dt:first-of-type{margin-top:0}
+.info dd{margin:6px 0 0;font-size:1.02rem}
+footer{border-top:1px solid var(--line);background:var(--sink);padding:40px 0 108px;
+  font-size:.88rem;color:var(--faint)}
+.legal{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap}
+.legal a{color:var(--ink)}
+@media (max-width:940px){
+  .reach-in{grid-template-columns:repeat(2,1fr)}
+  .rv:nth-child(3){border-left:none}
+  .rv{border-top:1px solid var(--line-soft)}
+  .rv:nth-child(-n+2){border-top:none}
+  .tier,.applygrid,.credit{grid-template-columns:1fr}
+  .chrome nav a:not([aria-current]){display:none}
+}
+@media (max-width:560px){
+  body{font-size:16px}
+  .reach-in{grid-template-columns:1fr}
+  .rv{border-left:none;border-top:1px solid var(--line-soft)}
+  .rv:first-child{border-top:none}
+}
+@media (prefers-reduced-motion:reduce){.media .layer{animation:none}*{transition:none!important}}
+</style>
+
+<section class="act1">
+  <div class="media"><div class="layer"></div>
+    <!-- Real footage replaces the layer above:
+    <video autoplay loop muted playsinline poster="walkathon-still.jpg"
+      aria-label="Decorative background video of the Hendricks Walkathon, always muted and looping">
+      <source src="walkathon-loop.webm" type="video/webm">
+      <source src="walkathon-loop.mp4" type="video/mp4">
+    </video> -->
+  </div>
+  <div class="veil"></div>
+  <button class="mctl" type="button" id="mbtn" aria-pressed="true">Motion on</button>
+  <div class="wrap inner">
+    <p class="tag">Business Partner Program &middot; 2026&ndash;27</p>
+    <h1 style="margin-top:18px">Your name, on <em>six hundred shirts.</em></h1>
+    <p class="lede" style="margin-top:22px">The Walkathon is the biggest day in this
+      neighborhood's school year. Sponsor it and your business is on the shirts, the marquee,
+      the banner and both entrances &mdash; for twelve months.</p>
+    <div style="display:flex;gap:11px;flex-wrap:wrap;margin-top:28px">
+      <a class="pill" href="#levels">See the five levels</a>
+      <a class="pill ghost" href="#apply">Talk to Aryn</a>
+    </div>
+  </div>
+</section>
+
+<section class="reach">
+  <div class="wrap"><div class="reach-in">
+    <div class="rv"><b>600+</b><p>students and their families</p></div>
+    <div class="rv"><b>1</b><p>day the whole neighborhood turns out</p></div>
+    <div class="rv"><b>12</b><p>months your logo stays on the site</p></div>
+    <div class="rv"><b>$250</b><p>lowest level to get in</p></div>
+  </div></div>
+</section>
+
+<section class="sect" id="levels">
+  <div class="wrap">
+    <p class="tag" style="color:var(--red-ink)">Five levels</p>
+    <h2 style="margin-top:16px;max-width:20ch">Pick your level.</h2>
+    <p class="lede" style="margin-top:16px">Every level gets a yard sign at both school
+      entrances, your name on the Walkathon banner and a place on this website. It scales
+      from there.</p>
+    <div class="tiers">
+      <div class="tier top">
+        <div><span class="amt">$5,000</span><span class="nm">Visionary Partner</span>
+          <span class="only">One sponsor only</span>
+          <div class="act"><a class="pill" href="#apply">Claim it</a></div></div>
+        <ul><li class="q">Naming rights to the Walkathon</li><li class="q">Speak at the pep rally</li>
+          <li>Booth at the Walkathon</li><li class="q">School marquee &mdash; 5 days</li>
+          <li class="q">Large logo on student t-shirts</li><li>Yard sign at both entrances</li>
+          <li class="q">5 social media posts</li><li>Name on the Walkathon banner</li>
+          <li>Logo on this website</li></ul>
+      </div>
+      <div class="tier">
+        <div><span class="amt">$2,500</span><span class="nm">Legacy Circle</span>
+          <div class="act"><a class="pill ghost" href="#apply">Choose Legacy</a></div></div>
+        <ul><li>Booth at the Walkathon</li><li class="q">School marquee &mdash; 4 days</li>
+          <li class="q">Medium logo on student t-shirts</li><li>Yard sign at both entrances</li>
+          <li class="q">4 social media posts</li><li>Name on the Walkathon banner</li>
+          <li>Logo on this website</li></ul>
+      </div>
+      <div class="tier">
+        <div><span class="amt">$1,000</span><span class="nm">Investor Circle</span>
+          <div class="act"><a class="pill ghost" href="#apply">Choose Investor</a></div></div>
+        <ul><li>Booth at the Walkathon</li><li class="q">School marquee &mdash; 3 days</li>
+          <li class="q">Small logo on student t-shirts</li><li>Yard sign at both entrances</li>
+          <li class="q">3 social media posts</li><li>Name on the Walkathon banner</li>
+          <li>Logo on this website</li></ul>
+      </div>
+      <div class="tier">
+        <div><span class="amt">$500</span><span class="nm">Builders Circle</span>
+          <div class="act"><a class="pill ghost" href="#apply">Choose Builders</a></div></div>
+        <ul><li>Booth at the Walkathon</li><li class="q">School marquee &mdash; 2 days</li>
+          <li class="q">Name on student t-shirts</li><li>Yard sign at both entrances</li>
+          <li class="q">2 social media posts</li><li>Name on the Walkathon banner</li>
+          <li>Logo on this website</li></ul>
+      </div>
+      <div class="tier">
+        <div><span class="amt">$250</span><span class="nm">Friends Circle</span>
+          <div class="act"><a class="pill ghost" href="#apply">Choose Friends</a></div></div>
+        <ul><li class="q">Name on student t-shirts</li><li>Yard sign at both entrances</li>
+          <li class="q">1 social media post</li><li>Name on the Walkathon banner</li>
+          <li>Name on this website</li></ul>
+      </div>
+    </div>
+    <div class="credit">
+      <div class="big">&rarr;</div>
+      <div><h3>Your dollars can credit a student</h3>
+        <p style="margin-top:8px">Sponsorship money is credited to a student of your choice
+          &mdash; child, grandchild, niece or nephew &mdash; helping them reach their goal for
+          the Walkathon incentive parties. Tell us the relationship and we will apply it.</p></div>
+    </div>
+    <p style="margin-top:24px;color:var(--faint);font-size:.94rem">The 2027 Walkathon is
+      <strong style="color:var(--ink)">Saturday, February 20th</strong>. Sponsorship is tax
+      deductible &mdash; 501(c)(3), Tax ID 20-4931978.</p>
+  </div>
+</section>
+
+<section class="sect" style="padding-top:0">
+  <div class="wrap">
+    <p class="tag" style="color:var(--red-ink)">Already in</p>
+    <h2 style="margin-top:16px">Forty-nine businesses, 2025&ndash;26.</h2>
+    <div class="lead">
+      <div><p class="tag">Visionary partner</p>
+        <div class="disp" style="margin-top:8px">State Farm &mdash; Matt Carlucci, Agent</div></div>
+    </div>
+    <div class="gr"><div class="grh"><b>Legacy Circle</b><span>$2,500</span></div>
+      <div class="chips"><span>Da Pazo</span><span>Superior</span><span>Magnuson Hotel</span>
+        <span>Promise</span><span>Riley</span><span>White Block</span></div></div>
+    <div class="gr"><div class="grh"><b>Investors Circle</b><span>$1,000</span></div>
+      <div class="chips"><span>Normandy Lake Dentistry</span><span>Mullens &amp; Nguyen</span>
+        <span>Otterson</span><span>Blount</span><span>Tape South</span><span>Bee Home</span>
+        <span>The UPS Store San Marco</span><span>Jaycox</span><span>Vein Institute</span>
+        <span>Brown</span></div></div>
+    <div class="gr"><div class="grh"><b>Builders Circle</b><span>$500</span></div>
+      <div class="chips"><span>Steller's Framing</span><span>Grit Camp</span>
+        <span>Regina &amp; Joy</span><span>Pivot</span><span>Taverna Oceana</span>
+        <span>River Point RE</span><span>Ross Garden</span><span>Intercoastal Health</span>
+        <span>Riverplace</span><span>Tree Surgeons</span><span>Tile Market</span>
+        <span>Cookiefix</span><span>Kristian Carter Nutrition</span></div></div>
+    <div class="gr"><div class="grh"><b>Friends Circle</b><span>$250</span></div>
+      <div class="chips"><span>Florida Land Strategies</span><span>WeeTrade</span>
+        <span>Fore Score</span><span>Grit &amp; Grace Counseling</span>
+        <span>Murphy Anderson Law</span><span>Cheer Stars</span>
+        <span>Effective Computer Solutions</span><span>Wicked Branding</span>
+        <span>Gwynne Mims Salon</span><span>Dance for Joy</span>
+        <span>Splish Splash Swim Academy</span></div></div>
+    <p style="margin-top:20px;font-size:.86rem;color:var(--faint)">Showing 41 of 49 &mdash; the
+      remaining eight are identifiable only by their logo file name and need confirming.</p>
+  </div>
+</section>
+
+<section class="sect" id="apply" style="padding-top:0">
+  <div class="wrap applygrid">
+    <div>
+      <p class="tag" style="color:var(--red-ink)">Sign up</p>
+      <h2 style="margin-top:16px">Get on the shirt.</h2>
+      <p class="lede" style="margin-top:16px">Tell us about your business and Aryn comes
+        straight back. Arranging this as a parent or grandparent? Say so and we will credit
+        your student.</p>
+      <div class="info" style="margin-top:28px">
+        <dl style="margin:0">
+          <dt>Email</dt>
+          <dd><a href="mailto:FriendsBusinessPartners@gmail.com">FriendsBusinessPartners@gmail.com</a></dd>
+          <dt>Aryn Lentz &middot; Chair of Fundraising</dt>
+          <dd><a href="tel:+19044512831">(904) 451-2831</a></dd>
+          <dt>Mail</dt><dd>4446-1A Hendricks Avenue, Suite 357<br>Jacksonville, FL 32207</dd>
+          <dt>Tax deductible</dt><dd>501(c)(3) &middot; Tax ID 20-4931978</dd>
+        </dl>
+      </div>
+    </div>
+    <form onsubmit="event.preventDefault();this.querySelector('.done').hidden=false">
+      <div class="field"><label for="bn">Business name</label>
+        <input id="bn" required placeholder="As it appears on signage"></div>
+      <div class="field"><label for="cn">Contact name</label><input id="cn" required></div>
+      <div class="field"><label for="em">Email</label><input id="em" type="email" required></div>
+      <div class="field"><label for="ph">Phone</label><input id="ph" type="tel"></div>
+      <div class="field"><label for="lv">Level</label>
+        <input id="lv" placeholder="Visionary, Legacy, Investor, Builders or Friends"></div>
+      <div class="field"><label for="st">Student to credit, and relationship</label>
+        <input id="st" placeholder="e.g. Cayla, Grade 4 &mdash; grandparent"></div>
+      <div class="field"><label for="ad">Anything else</label><textarea id="ad" rows="3"></textarea></div>
+      <button class="pill" type="submit" style="width:100%;justify-content:center">Send it</button>
+      <p class="done" hidden style="margin-top:14px;color:var(--gold);font-weight:700">
+        Sent &mdash; Aryn will be in touch.</p>
+      <p style="margin-top:14px;font-size:.84rem;color:var(--faint)">A mockup form. In the
+        finished site this emails FriendsBusinessPartners@gmail.com.</p>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap legal">
+    <span>&copy; 2026 The Friends of Hendricks &middot; 501(c)(3) &middot; Tax ID 20-4931978 &middot;
+      <a href="https://claude.ai/code/artifact/5471b56d-174d-4494-9e7d-646e544f1967">Home</a></span>
+    <span>Direction D &mdash; Reel</span>
+  </div>
+</footer>
+
+<div class="chrome">
+  <a class="who" href="https://claude.ai/code/artifact/5471b56d-174d-4494-9e7d-646e544f1967"><img src="{{LOGO}}" alt=""><b>Friends of<br>Hendricks</b></a>
+  <nav><a href="https://claude.ai/code/artifact/5471b56d-174d-4494-9e7d-646e544f1967">Home</a><a href="https://claude.ai/code/artifact/382de4cb-6c77-4cc0-9efb-3a747870bd89" aria-current="page">Sponsors</a></nav>
+  <a class="pill" href="#apply">Become a sponsor</a>
+</div>
+
+<script>
+(function(){
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var btn=document.getElementById('mbtn');
+  function set(on){document.body.classList.toggle('paused',!on);
+    btn.setAttribute('aria-pressed',String(on));btn.textContent=on?'Motion on':'Motion off'}
+  btn.addEventListener('click',function(){set(document.body.classList.contains('paused'))});
+  if(reduce) set(false);
+})();
+</script>

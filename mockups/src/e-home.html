@@ -1,0 +1,521 @@
+<title>Foundation</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,300..600;1,8..60,300..500&family=Archivo+Narrow:wght@500;600;700&display=swap">
+<style>
+/* Direction E — "Foundation". The closest analog to obama.org:
+   Gotham -> Figtree, Gotham Condensed -> Archivo Narrow, Chronicle Text -> Source Serif 4.
+   Their warm papers (#F6F6F4 / #F3F3EE) are used as neutrals; every accent is
+   Friends of Hendricks. Their amber #FFBD12 and the FOH flyer gold #FFBE04 are
+   near-identical, so the gold does double duty. */
+:root{
+  --paper:#F6F6F4; --paper2:#F3F3EE; --card:#FFFFFF;
+  --ink:#0B2340; --body:#42536B; --faint:#5E6D84;
+  --navy:#003E7E; --navy-ink:#003E7E; --navy-lift:#0A5296;
+  --red:#C71014; --red-bright:#EE2A24;
+  --gold:#FFBE04; --gold-soft:#FFF0C4;
+  --rule:#DDDCD5; --rule-soft:#E9E8E1;
+  --photo:url("{{HERO}}");
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#12181F; --paper2:#0D131A; --card:#181F28;
+  --ink:#F1F0EA; --body:#B4BFCD; --faint:#93A2B5;
+  --navy:#003E7E; --navy-ink:#8FC0EE; --navy-lift:#A9D2F5;
+  --red:#FF8A80; --red-bright:#FF6B60;
+  --gold:#FFC93C; --gold-soft:#3A2E08;
+  --rule:#28313C; --rule-soft:#1E2630;
+}}
+:root[data-theme="dark"]{
+  --paper:#12181F; --paper2:#0D131A; --card:#181F28;
+  --ink:#F1F0EA; --body:#B4BFCD; --faint:#93A2B5;
+  --navy:#003E7E; --navy-ink:#8FC0EE; --navy-lift:#A9D2F5;
+  --red:#FF8A80; --red-bright:#FF6B60;
+  --gold:#FFC93C; --gold-soft:#3A2E08;
+  --rule:#28313C; --rule-soft:#1E2630;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:Figtree,"Helvetica Neue",Arial,sans-serif;font-size:17.5px;line-height:1.62;
+  -webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:Figtree,sans-serif;font-weight:700;letter-spacing:-.026em;
+  line-height:1.03;margin:0;text-wrap:balance}
+h1{font-size:clamp(2.5rem,6.6vw,5rem)}
+h2{font-size:clamp(1.9rem,4.2vw,3.2rem)}
+h3{font-size:1.32rem;letter-spacing:-.016em;line-height:1.2}
+p{margin:0}
+a{color:var(--navy-ink)}
+img{max-width:100%;display:block}
+:focus-visible{outline:2.5px solid var(--red-bright);outline-offset:3px;border-radius:2px}
+.wrap{max-width:1200px;margin:0 auto;padding:0 clamp(20px,5vw,52px)}
+.narrow{max-width:960px}
+.eyebrow{font-family:"Archivo Narrow",sans-serif;font-size:.86rem;font-weight:700;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--red);margin:0}
+.lede{font-size:clamp(1.08rem,1.7vw,1.34rem);line-height:1.55;color:var(--body);max-width:56ch}
+.serif{font-family:"Source Serif 4",Georgia,serif;font-weight:400}
+
+/* the refrain — Obama repeats one phrase across the page; theirs is on the logo */
+.refrain{font-family:"Source Serif 4",Georgia,serif;font-style:italic;font-weight:400;
+  font-size:clamp(1.5rem,3.4vw,2.5rem);line-height:1.24;color:var(--navy-ink);
+  letter-spacing:-.012em;max-width:26ch}
+
+/* minimalist CTA — reads as navigation, not a hard sell */
+.go{display:inline-flex;align-items:center;gap:9px;font-weight:600;font-size:1rem;
+  color:var(--ink);text-decoration:none;padding-bottom:3px;
+  border-bottom:2px solid var(--gold);transition:gap .18s ease,border-color .18s ease}
+.go:hover{gap:15px;border-color:var(--red-bright)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-weight:700;
+  font-size:.98rem;padding:15px 30px;border-radius:999px;text-decoration:none;
+  border:2px solid transparent;transition:transform .16s ease,background .16s ease}
+.btn-red{background:var(--red);color:#fff}
+.btn-red:hover{transform:translateY(-1px);background:#A8110C}
+.btn-out{border-color:var(--rule);color:var(--ink)}
+.btn-out:hover{border-color:var(--ink)}
+:root[data-theme="dark"] .btn-red,:root:not([data-theme="light"]) .btn-red{color:#12181F}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]) .btn-red{color:#fff}}
+
+/* header — quiet, no sticky bar fighting the film */
+.top{position:absolute;inset:0 0 auto 0;z-index:20;padding:22px 0}
+.top .wrap{display:flex;align-items:center;gap:24px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:#fff}
+.brand img{width:44px;background:#fff;border-radius:4px;padding:3px}
+.brand b{font-weight:700;font-size:1.02rem;line-height:1.1;letter-spacing:-.014em}
+.brand small{display:block;font-family:"Archivo Narrow",sans-serif;font-size:.62rem;
+  font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-top:3px}
+.top nav{margin-left:auto;display:flex;align-items:center;gap:clamp(14px,2vw,30px)}
+.top nav a{color:rgba(255,255,255,.94);text-decoration:none;font-weight:600;font-size:.94rem;white-space:nowrap}
+.top nav a:hover{color:var(--gold)}
+.top .btn-red{padding:11px 24px;font-size:.9rem;color:#fff}
+
+/* ---- the film hero: type over footage, bottom left ---- */
+@keyframes drift{
+  0%{transform:scale(1.05)}
+  50%{transform:scale(1.15) translate3d(-1.8%,-1.4%,0)}
+  100%{transform:scale(1.05)}
+}
+.hero{position:relative;min-height:clamp(560px,88svh,860px);display:flex;align-items:flex-end;
+  overflow:hidden;color:#fff;background:#07203B}
+.media{position:absolute;inset:0;overflow:hidden}
+.media .layer{position:absolute;inset:-3%;background-image:var(--photo);background-size:cover;
+  background-position:50% 36%;animation:drift 32s ease-in-out infinite;will-change:transform}
+.media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.paused .media .layer{animation-play-state:paused}
+.hero .veil{position:absolute;inset:0;background:
+  linear-gradient(to top,rgba(7,32,59,.95) 0%,rgba(7,32,59,.66) 36%,rgba(7,32,59,.18) 72%,rgba(7,32,59,.6) 100%)}
+.hero .inner{position:relative;width:100%;padding:clamp(40px,7vw,96px) 0 clamp(44px,6vw,76px)}
+.hero h1{color:#fff;max-width:19ch}
+.hero .lede{color:rgba(255,255,255,.93);margin-top:22px}
+.hero .row{display:flex;flex-wrap:wrap;gap:14px;margin-top:32px;align-items:center}
+.hero .go{color:#fff}
+.mctl{position:absolute;right:clamp(18px,4.5vw,52px);bottom:clamp(18px,4vw,34px);z-index:5;
+  background:rgba(7,32,59,.62);border:1px solid rgba(255,255,255,.4);color:#fff;
+  font-family:"Archivo Narrow",sans-serif;font-size:.76rem;font-weight:700;letter-spacing:.16em;
+  text-transform:uppercase;padding:9px 16px;cursor:pointer;border-radius:999px}
+.mctl:hover{background:rgba(7,32,59,.9)}
+
+/* ---- generous sections ---- */
+.sect{padding:clamp(64px,9vw,132px) 0}
+.alt{background:var(--paper2)}
+
+/* mission row: big picture, compact text block beside it */
+.mission{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(32px,6vw,84px);align-items:center}
+.mission .pic{position:relative;aspect-ratio:5/4;overflow:hidden;border-radius:3px}
+.mission .pic .layer{animation-duration:40s}
+
+/* 1:1 cards, text underneath — Obama's core grid */
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));
+  gap:clamp(22px,3vw,36px);margin-top:clamp(38px,5vw,58px)}
+.tile{display:flex;flex-direction:column}
+.tile .sq{position:relative;aspect-ratio:1/1;overflow:hidden;border-radius:3px;background:#07203B}
+.tile .sq .layer{position:absolute;inset:-4%;background-size:cover;background-position:50% 45%;
+  animation:drift 44s ease-in-out infinite}
+.tile:nth-child(1) .sq .layer{background-image:url("{{WALK}}")}
+.tile:nth-child(2) .sq .layer{background-image:url("{{THUMBS}}");animation-delay:-9s}
+.tile:nth-child(3) .sq .layer{background-image:url("{{SCHOOLSQ}}");animation-delay:-18s}
+.tile .sq .wash{position:absolute;inset:0}
+.tile:nth-child(1) .sq .wash{background:linear-gradient(200deg,rgba(0,62,126,.14),rgba(7,32,59,.52))}
+.tile:nth-child(2) .sq .wash{background:linear-gradient(200deg,rgba(199,16,20,.12),rgba(7,32,59,.56))}
+.tile:nth-child(3) .sq .wash{background:linear-gradient(200deg,rgba(0,62,126,.16),rgba(7,32,59,.5))}
+.tile .sq .num{position:absolute;left:20px;bottom:16px;font-family:"Source Serif 4",serif;
+  font-size:clamp(2.2rem,4vw,3.1rem);color:#fff;line-height:.9;font-variant-numeric:tabular-nums}
+.tile .sq .num small{display:block;font-family:"Archivo Narrow",sans-serif;font-size:.68rem;
+  font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-top:8px}
+.tile h3{margin-top:22px}
+.tile p{color:var(--body);font-size:.99rem;margin-top:10px}
+.tile .go{margin-top:18px;align-self:flex-start;font-size:.94rem}
+
+/* refrain divider */
+.divider{padding:clamp(48px,7vw,96px) 0;border-block:1px solid var(--rule-soft)}
+.divider .wrap{display:grid;grid-template-columns:auto 1fr;gap:clamp(28px,5vw,64px);align-items:center}
+.divider .mark{width:64px;height:2px;background:var(--gold);flex:0 0 auto}
+
+/* programs, plain rows with generous air */
+.rows{margin-top:clamp(34px,5vw,52px);border-top:1px solid var(--rule)}
+.rw{display:grid;grid-template-columns:170px 1fr auto;gap:clamp(20px,4vw,52px);
+  align-items:baseline;padding:clamp(24px,3.2vw,34px) 2px;border-bottom:1px solid var(--rule-soft)}
+.rw .when{font-family:"Archivo Narrow",sans-serif;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;font-size:.86rem;color:var(--red);line-height:1.4}
+.rw p{color:var(--body);margin-top:8px;font-size:1rem;max-width:62ch}
+.rw .amt{font-family:"Source Serif 4",serif;font-size:1.6rem;color:var(--navy-ink);
+  white-space:nowrap;font-variant-numeric:tabular-nums}
+
+/* stat band with the one gradient flourish */
+.stats{background:linear-gradient(140deg,var(--navy) 0%,#012A56 62%,#07203B 100%);color:#fff}
+.stats-in{padding:clamp(52px,7vw,96px) 0;display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:clamp(26px,4vw,48px)}
+.st b{font-family:"Source Serif 4",serif;font-weight:400;font-size:clamp(2.6rem,5.6vw,4rem);
+  line-height:.92;display:block;color:var(--gold);font-variant-numeric:tabular-nums}
+.st p{margin-top:12px;color:rgba(255,255,255,.86);font-size:.98rem;line-height:1.45}
+.st.tbd b{color:rgba(255,255,255,.5)}
+.st .needs{display:inline-block;margin-top:10px;border:1px dashed var(--gold);color:var(--gold);
+  padding:4px 10px;font-family:"Archivo Narrow",sans-serif;font-size:.68rem;font-weight:700;
+  letter-spacing:.14em;text-transform:uppercase}
+
+/* partners */
+.lead{background:var(--card);border:1px solid var(--rule);border-radius:3px;
+  padding:clamp(26px,3.6vw,38px);display:flex;flex-wrap:wrap;gap:22px;align-items:center;
+  justify-content:space-between;margin-top:clamp(28px,4vw,40px)}
+.lead .nm{font-family:"Source Serif 4",serif;font-size:clamp(1.3rem,2.6vw,1.9rem)}
+.gr{margin-top:32px}
+.grh{display:flex;align-items:baseline;gap:14px;border-bottom:1px solid var(--rule);padding-bottom:9px}
+.grh b{font-family:"Archivo Narrow",sans-serif;font-size:.84rem;font-weight:700;
+  letter-spacing:.18em;text-transform:uppercase}
+.grh span{margin-left:auto;font-size:.86rem;color:var(--faint);font-variant-numeric:tabular-nums}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:15px}
+.chips span{background:var(--card);border:1px solid var(--rule-soft);padding:9px 15px;
+  font-size:.88rem;color:var(--body);border-radius:2px}
+
+/* board */
+.people{display:grid;grid-template-columns:repeat(auto-fill,minmax(212px,1fr));
+  gap:clamp(18px,2.4vw,28px);margin-top:clamp(32px,4vw,46px)}
+.pp{border-top:2px solid var(--ink);padding-top:16px}
+.pp span{font-family:"Archivo Narrow",sans-serif;font-size:.74rem;font-weight:700;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--red)}
+.pp b{display:block;font-size:1.06rem;font-weight:600;margin-top:6px;letter-spacing:-.012em}
+
+/* closing */
+.close{position:relative;overflow:hidden;color:#fff;background:#07203B;text-align:center}
+.close .veil{position:absolute;inset:0;background:rgba(7,32,59,.84)}
+.close .inner{position:relative;padding:clamp(60px,9vw,120px) 0}
+.close h2{color:#fff;max-width:22ch;margin:0 auto}
+.close p{color:rgba(255,255,255,.88);max-width:52ch;margin:22px auto 0}
+.close .row{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-top:34px;align-items:center}
+.close .go{color:#fff}
+
+footer{background:var(--paper2);border-top:1px solid var(--rule);padding:clamp(46px,6vw,76px) 0 44px;font-size:.95rem}
+.foot{display:grid;grid-template-columns:1.7fr 1fr 1fr;gap:40px}
+.foot h4{font-family:"Archivo Narrow",sans-serif;font-size:.78rem;font-weight:700;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--faint);margin:0 0 15px}
+.foot ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.foot a{color:var(--ink);text-decoration:none}
+.foot a:hover{color:var(--navy-ink);text-decoration:underline}
+.foot p{color:var(--body)}
+.legal{margin-top:40px;padding-top:22px;border-top:1px solid var(--rule-soft);display:flex;
+  justify-content:space-between;gap:18px;flex-wrap:wrap;font-size:.84rem;color:var(--faint)}
+
+@media (max-width:940px){
+  .mission{grid-template-columns:1fr}
+  .rw{grid-template-columns:1fr;gap:10px}
+  .rw .amt{font-size:1.35rem}
+  .divider .wrap{grid-template-columns:1fr}
+  .foot{grid-template-columns:1fr 1fr}
+  .top nav a:not(.btn){display:none}
+}
+@media (max-width:560px){body{font-size:16.5px}.foot{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){
+  .media .layer,.tile .sq .layer{animation:none}
+  *{transition:none!important}
+}
+
+/* real footage layered over the drifting still; the still stays as the poster */
+.media video.vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  opacity:0;transition:opacity .9s ease}
+.media video.vid.on{opacity:1}
+@media (prefers-reduced-motion:reduce){.media video.vid{display:none}}
+</style>
+
+<section class="hero" id="top">
+  <div class="media" data-film>
+    <div class="layer"></div>
+    <!-- Real footage replaces the layer above:
+    <video autoplay loop muted playsinline poster="walkathon-still.jpg"
+      aria-label="Decorative background video of the Hendricks Walkathon, always muted and looping">
+      <source src="walkathon-loop.webm" type="video/webm">
+      <source src="walkathon-loop.mp4" type="video/mp4">
+    </video> -->
+  </div>
+  <div class="veil"></div>
+  <header class="top">
+    <div class="wrap">
+      <a class="brand" href="#top"><img src="{{LOGO}}" alt="">
+        <b>The Friends of Hendricks<small>Standing strong for our school</small></b></a>
+      <nav>
+        <a href="#mission">About</a><a href="#ways">Ways to give</a>
+        <a href="https://claude.ai/code/artifact/f77ac934-4f1e-425b-a154-c892cc964dc1">Business partners</a><a href="#board">Board</a>
+        <a class="btn btn-red" href="#give">Donate</a>
+      </nav>
+    </div>
+  </header>
+  <button class="mctl" type="button" id="mbtn" aria-pressed="true">Motion on</button>
+  <div class="wrap inner">
+    <p class="eyebrow" style="color:var(--gold)">Hendricks Avenue Elementary &middot; San Marco, Jacksonville</p>
+    <h1 style="margin-top:20px">A school this good is not an accident.</h1>
+    <p class="lede">It is six hundred families, forty-nine local businesses, and a budget the
+      county never provided. We raise what Duval County does not cover &mdash; and all of it
+      stays inside one building.</p>
+    <div class="row">
+      <a class="btn btn-red" href="#give">Donate</a>
+      <a class="go" href="#mission">See what it pays for</a>
+    </div>
+  </div>
+</section>
+
+<section class="sect" id="mission">
+  <div class="wrap mission">
+    <div class="pic media" style="position:relative">
+      <div class="layer" style="background-image:url(&quot;{{SCHOOL}}&quot;);background-position:50% 56%"></div>
+    </div>
+    <div>
+      <p class="eyebrow">Our mission</p>
+      <h2 style="margin-top:18px">We buy what the budget won't.</h2>
+      <p class="lede" style="margin-top:20px">The Friends of Hendricks is a group of parents,
+        teachers and volunteers that raises funds for resources and projects the Duval County
+        School Board budget does not cover.</p>
+      <p class="lede" style="margin-top:16px">In the past we have funded faculty positions,
+        capital projects, playground equipment, educational software, teacher grants and
+        classroom supplies.</p>
+      <a class="go" href="#board" style="margin-top:26px">Meet the board</a>
+    </div>
+  </div>
+</section>
+
+<div class="divider">
+  <div class="wrap">
+    <div class="mark"></div>
+    <p class="refrain">Standing strong for our school &mdash; since 1942.</p>
+  </div>
+</div>
+
+<section class="sect alt">
+  <div class="wrap">
+    <p class="eyebrow">What your money does</p>
+    <h2 style="margin-top:16px;max-width:24ch">Three places it lands first.</h2>
+    <div class="tiles">
+      <div class="tile">
+        <div class="sq"><div class="layer"></div><div class="wash"></div>
+          <p class="num">$50,000<small>2027 Walkathon goal</small></p></div>
+        <h3>The Walkathon</h3>
+        <p>Our largest fundraiser, and the fifteenth. Six hundred students walk, sponsored by
+          their families and by local businesses.</p>
+        <a class="go" href="#ways">How to sponsor a walker</a>
+      </div>
+      <div class="tile">
+        <div class="sq"><div class="layer"></div><div class="wash"></div>
+          <p class="num">5<small>Things the county won't fund</small></p></div>
+        <h3>Classrooms and teachers</h3>
+        <p>Online learning programs, classroom supplies, teacher professional development,
+          school enhancements, leadership curriculum.</p>
+        <a class="go" href="#ways">See the ways to give</a>
+      </div>
+      <div class="tile">
+        <div class="sq"><div class="layer"></div><div class="wash"></div>
+          <p class="num">49<small>Business partners</small></p></div>
+        <h3>Local businesses</h3>
+        <p>From $250 to $5,000, San Marco businesses put their name on six hundred t-shirts
+          and keep the lights on for programs the district drops.</p>
+        <a class="go" href="https://claude.ai/code/artifact/f77ac934-4f1e-425b-a154-c892cc964dc1">Become a partner</a>
+      </div>
+    </div>
+    <p style="margin-top:26px;font-size:.88rem;color:var(--faint)">Three real photographs
+      &mdash; the 2020 Walkathon, the 2019 Walkathon, and the school itself, which opened in
+      1942. Shirt colors change every year.</p>
+  </div>
+</section>
+
+<section class="stats">
+  <div class="wrap stats-in">
+    <div class="st"><b>600+</b><p>students and their families at Hendricks Avenue Elementary</p></div>
+    <div class="st"><b>1942</b><p>launching leaders since &mdash; from the Walkathon shirt</p></div>
+    <div class="st"><b>49</b><p>local businesses partnered with us this year</p></div>
+    <div class="st tbd"><b>&mdash;</b><p>raised and granted to the school since we began</p>
+      <span class="needs">Needs the real figure</span></div>
+  </div>
+</section>
+
+<section class="sect" id="ways">
+  <div class="wrap">
+    <p class="eyebrow">Ways to give</p>
+    <h2 style="margin-top:16px;max-width:22ch">Six ways in, whatever you can spare.</h2>
+    <div class="rows">
+      <div class="rw"><div class="when">Saturday<br>20 Feb 2027</div>
+        <div><h3>The Walkathon</h3><p>The fifteenth annual, and our largest fundraiser.
+          Students collect pledges, then walk. Cash or check comes back in the collection
+          envelope sent home.</p></div><div class="amt">Pledge</div></div>
+      <div class="rw"><div class="when">Grades K&ndash;5</div>
+        <div><h3>Hugs from Henry Birthday Club</h3><p>Dedicates a classroom book in your
+          child's honor, with a Hugs from Henry bookplate inside the front cover.</p></div>
+        <div class="amt">$25</div></div>
+      <div class="rw"><div class="when">18 January<br>Posting House</div>
+        <div><h3>Spirit Nights</h3><p>Dine at a participating restaurant on the night and a
+          share of the total sales goes directly to funding school programs.</p></div>
+        <div class="amt">Free</div></div>
+      <div class="rw"><div class="when">24 hours</div>
+        <div><h3>Rent the HAE Spirit Rock</h3><p>Two rocks &mdash; Hendricks Avenue and San
+          Jose Boulevard. Congratulate a student, mark a birthday, or thank a member of
+          staff.</p></div><div class="amt">$35&ndash;$60</div></div>
+      <div class="rw"><div class="when">Any time</div>
+        <div><h3>Give directly</h3><p>PayPal, or a check to the address below. We are a
+          501(c)(3) &mdash; Tax ID 20-4931978 &mdash; so many employers will match your
+          gift.</p></div><div class="amt">Any amount</div></div>
+      <div class="rw"><div class="when">All year</div>
+        <div><h3>Business Partner Program</h3><p>Five levels. Your logo on student t-shirts,
+          the school marquee, yard signs at both entrances, and this website.</p></div>
+        <div class="amt">From $250</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="sect alt">
+  <div class="wrap">
+    <p class="eyebrow">Thank you to our 2025&ndash;26 business partners</p>
+    <h2 style="margin-top:16px">Forty-nine businesses in San Marco.</h2>
+    <div class="lead">
+      <div><p class="eyebrow" style="color:var(--faint)">Visionary partner &middot; one sponsor only</p>
+        <p class="nm" style="margin-top:8px">State Farm &mdash; Matt Carlucci, Agent</p></div>
+      <a class="go" href="https://claude.ai/code/artifact/f77ac934-4f1e-425b-a154-c892cc964dc1">What Visionary includes</a>
+    </div>
+    <div class="gr"><div class="grh"><b>Legacy Circle</b><span>$2,500</span></div>
+      <div class="chips"><span>Da Pazo</span><span>Superior</span><span>Magnuson Hotel</span>
+        <span>Promise</span><span>Riley</span><span>White Block</span></div></div>
+    <div class="gr"><div class="grh"><b>Investors Circle</b><span>$1,000</span></div>
+      <div class="chips"><span>Normandy Lake Dentistry</span><span>Mullens &amp; Nguyen</span>
+        <span>Otterson</span><span>Blount</span><span>Tape South</span><span>Bee Home</span>
+        <span>The UPS Store San Marco</span><span>Jaycox</span><span>Vein Institute</span>
+        <span>Brown</span></div></div>
+    <div class="gr"><div class="grh"><b>Builders Circle</b><span>$500</span></div>
+      <div class="chips"><span>Steller's Framing</span><span>Grit Camp</span>
+        <span>Regina &amp; Joy</span><span>Pivot</span><span>Taverna Oceana</span>
+        <span>River Point RE</span><span>Ross Garden</span><span>Intercoastal Health</span>
+        <span>Riverplace</span><span>Tree Surgeons</span><span>Tile Market</span>
+        <span>Cookiefix</span><span>Kristian Carter Nutrition</span></div></div>
+    <div class="gr"><div class="grh"><b>Friends Circle</b><span>$250</span></div>
+      <div class="chips"><span>Florida Land Strategies</span><span>WeeTrade</span>
+        <span>Fore Score</span><span>Grit &amp; Grace Counseling</span>
+        <span>Murphy Anderson Law</span><span>Cheer Stars</span>
+        <span>Effective Computer Solutions</span><span>Wicked Branding</span>
+        <span>Gwynne Mims Salon</span><span>Dance for Joy</span>
+        <span>Splish Splash Swim Academy</span></div></div>
+    <p style="margin-top:22px;font-size:.88rem;color:var(--faint)">Showing 41 of 49 &mdash; the
+      remaining eight are identifiable only by their logo file name and need confirming with the
+      board. Real logos replace these name plates in the finished site.</p>
+  </div>
+</section>
+
+<section class="sect" id="board">
+  <div class="wrap">
+    <p class="eyebrow">2026&ndash;27 board</p>
+    <h2 style="margin-top:16px">Run entirely by parent volunteers.</h2>
+    <div class="people">
+      <div class="pp"><span>President</span><b>Katie Turpin</b></div>
+      <div class="pp"><span>Vice President</span><b>Kaylee Hurwitz</b></div>
+      <div class="pp"><span>Treasurer</span><b>Allison Naseri</b></div>
+      <div class="pp"><span>Secretary</span><b>Kristian Carter</b></div>
+      <div class="pp"><span>Chair of Fundraising</span><b>Aryn Lentz</b></div>
+      <div class="pp"><span>Legal Advisor</span><b>James Poindexter</b></div>
+    </div>
+    <p style="margin-top:26px;color:var(--body)"><strong style="color:var(--ink)">Directors</strong>
+      &nbsp;Julie Braun &middot; Nicole Brown &middot; Sara Buckley &middot; Melissa Gregory &middot;
+      Brittany Kelly &middot; Shelly Middleton &middot; Katherine Poindexter &middot; Ivan Porter &middot;
+      Jason Pratt</p>
+  </div>
+</section>
+
+<section class="close" id="give">
+  <div class="media"><div class="layer" style="background-image:url(&quot;{{CROWD}}&quot;);background-position:50% 42%"></div></div>
+  <div class="veil"></div>
+  <div class="wrap inner">
+    <h2>Give once, and it stays in this building.</h2>
+    <p>PayPal, or a check to The Friends of Hendricks, 4446-1A Hendricks Avenue, Suite 357,
+      Jacksonville, FL 32207. We are a 501(c)(3), Tax ID 20-4931978 &mdash; ask your employer
+      whether they match.</p>
+    <div class="row"><a class="btn btn-red" href="#give">Donate</a>
+      <a class="go" href="https://claude.ai/code/artifact/f77ac934-4f1e-425b-a154-c892cc964dc1">Partner your business</a></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div><h4>The Friends of Hendricks</h4>
+        <p>A group of parents, teachers and volunteers that raises funds for resources and
+          projects the Duval County School Board budget does not cover.</p>
+        <p style="margin-top:15px">4446-1A Hendricks Avenue, Suite 357<br>Jacksonville, FL 32207</p></div>
+      <div><h4>Ways to give</h4><ul>
+        <li><a href="#give">Donate</a></li><li><a href="https://claude.ai/code/artifact/f77ac934-4f1e-425b-a154-c892cc964dc1">Business Partner Program</a></li>
+        <li><a href="#ways">Walkathon</a></li><li><a href="#ways">Hugs from Henry</a></li>
+        <li><a href="#ways">Spirit Nights</a></li><li><a href="#ways">Rent the Spirit Rock</a></li></ul></div>
+      <div><h4>Reach the right person</h4><ul>
+        <li><a href="mailto:fohpresident1@gmail.com">General &mdash; fohpresident1@</a></li>
+        <li><a href="mailto:FriendsBusinessPartners@gmail.com">Business partners</a></li>
+        <li><a href="mailto:FOHHugsFromHenry@gmail.com">Birthday club</a></li>
+        <li><a href="mailto:renttherockhae@gmail.com">Spirit Rock</a></li>
+        <li><a href="tel:+19044512831">(904) 451-2831</a></li></ul></div>
+    </div>
+    <div class="legal">
+      <span>&copy; 2026 The Friends of Hendricks &middot; 501(c)(3) &middot; Tax ID 20-4931978</span>
+      <span>Direction E &mdash; Foundation</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var btn=document.getElementById('mbtn');
+  function set(on){
+    document.body.classList.toggle('paused',!on);
+    btn.setAttribute('aria-pressed',String(on));
+    btn.textContent=on?'Motion on':'Motion off';
+  }
+  btn.addEventListener('click',function(){set(document.body.classList.contains('paused'))});
+  if(reduce) set(false);
+})();
+</script>
+
+<script id="video-swap" data-video="{{VIDEO_WARM}}">
+(function(){
+  var tag=document.getElementById('video-swap');
+  var uri=tag.getAttribute('data-video');
+  var mq=window.matchMedia('(prefers-reduced-motion: reduce)');
+  var conn=navigator.connection||{};
+  // Deliberately skip real footage where it would be rude or wasteful:
+  //  - the visitor asked their system to reduce motion
+  //  - the browser reports data saving
+  //  - the screen is small enough that it is probably a phone on cellular
+  var skip = !uri || mq.matches || conn.saveData === true || window.innerWidth < 760;
+  if(skip) return;
+  var url;
+  try{
+    var b64=uri.slice(uri.indexOf(',')+1);
+    var bin=atob(b64), len=bin.length, buf=new Uint8Array(len);
+    for(var i=0;i<len;i++) buf[i]=bin.charCodeAt(i);
+    url=URL.createObjectURL(new Blob([buf],{type:'video/mp4'}));
+  }catch(e){ return; }               // any failure: keep the still photograph
+  document.querySelectorAll('.media[data-film]').forEach(function(m){
+    var v=document.createElement('video');
+    v.muted=true; v.defaultMuted=true; v.loop=true; v.autoplay=true;
+    v.playsInline=true; v.setAttribute('playsinline','');
+    v.setAttribute('aria-hidden','true');          // decorative; the page reads fine without it
+    v.src=url;
+    v.className='vid';
+    m.appendChild(v);
+    var p=v.play(); if(p&&p.catch) p.catch(function(){ v.remove(); });
+    v.addEventListener('playing',function(){ v.classList.add('on'); },{once:true});
+  });
+  document.body.classList.add('has-video');
+  // keep the existing motion toggle in charge of the footage too
+  var btn=document.getElementById('mbtn');
+  if(btn) btn.addEventListener('click',function(){
+    var paused=document.body.classList.contains('paused');
+    document.querySelectorAll('video.vid').forEach(function(v){ paused? v.pause() : v.play(); });
+  });
+})();
+</script>

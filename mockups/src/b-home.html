@@ -197,6 +197,31 @@ footer{padding:clamp(46px,6vw,72px) 0 40px;font-size:.94rem;border-top:2px solid
   .closing{border-radius:24px;margin:0}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+/* program card photography — four of the six have a real picture; two do not
+   exist as photographs yet and stay type-only rather than borrowing something
+   that is not them */
+.pcard .shot{position:relative;height:150px;margin:-30px -28px 6px;overflow:hidden;
+  border-radius:24px 24px 0 0;background:var(--sky2)}
+.pcard .shot i{position:absolute;inset:0;background-size:cover;background-position:50% 42%;
+  transition:transform .5s cubic-bezier(.2,.8,.25,1)}
+.pcard:hover .shot i{transform:scale(1.05)}
+.pcard .shot::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(18,38,60,.28),transparent 62%)}
+.pcard .shot .tag{position:absolute;left:14px;bottom:12px;z-index:2;margin:0}
+.pcard.nopic .tag{align-self:flex-start}
+
+/* the Spirit Rock, shown doing the three things the program is actually for */
+.rocks{display:grid;grid-template-columns:repeat(auto-fit,minmax(266px,1fr));gap:18px;margin-top:38px}
+.rock figure{margin:0;background:var(--card);border-radius:22px;overflow:hidden;box-shadow:var(--card-sh)}
+.rock img{width:100%;aspect-ratio:3/2;object-fit:cover;display:block}
+.rock figcaption{padding:20px 22px 22px}
+.rock b{display:block;font-family:Caprasimo,serif;font-size:1.14rem;margin-bottom:7px}
+.rock p{font-size:.94rem;color:var(--muted)}
+.rockbar{display:flex;flex-wrap:wrap;gap:12px 26px;align-items:center;margin-top:26px;
+  padding:18px 22px;background:var(--card);border-radius:18px;box-shadow:0 2px 0 var(--line)}
+.rockbar span{display:flex;align-items:center;gap:9px;font-weight:600;font-size:.95rem}
+.rockbar b{font-family:Caprasimo,serif;color:var(--red);font-size:1.1rem}
 </style>
 
 <svg style="display:none" aria-hidden="true">
@@ -208,7 +233,7 @@ footer{padding:clamp(46px,6vw,72px) 0 40px;font-size:.94rem;border-top:2px solid
     <a class="brand" href="#"><img src="{{LOGO}}" alt="The Friends of Hendricks">
       <b>The Friends of Hendricks<small>Standing strong for our school</small></b></a>
     <nav>
-      <a href="#impact">What we fund</a><a href="#programs">Join in</a>
+      <a href="#impact">What we fund</a><a href="#programs">Join in</a><a href="#rock">Spirit Rock</a>
       <a href="https://claude.ai/code/artifact/304fea92-5e77-457b-ba50-f1b3f082bd14">Businesses</a><a href="#board">Our board</a>
       <a class="btn btn-red" href="#give">Donate</a>
     </nav>
@@ -277,47 +302,83 @@ footer{padding:clamp(46px,6vw,72px) 0 40px;font-size:.94rem;border-top:2px solid
     <h2 style="margin-top:18px;max-width:20ch">Five ways in. Some cost nothing extra.</h2>
     <div class="pgrid">
       <div class="pcard">
-        <span class="tag">Sat 20 Feb 2027</span>
+        <div class="shot"><i style="background-image:url(&quot;{{WALK23}}&quot;)"></i>
+          <span class="tag">Sat 20 Feb 2027</span></div>
         <h3>The Walkathon</h3>
         <p>Our biggest day of the year, and the 15th one. Kids collect pledges, then walk.
           Cash or check goes back in the envelope that came home.</p>
         <a class="go" href="#">Sponsor a walker &rarr;</a>
       </div>
       <div class="pcard">
-        <span class="tag">$25 per child</span>
+        <div class="shot"><i style="background-image:url(&quot;{{HENRY_KID}}&quot;)"></i>
+          <span class="tag">$25 per child</span></div>
         <h3>Hugs from Henry</h3>
         <p>We dedicate a classroom book for your child's birthday, with a Hugs from Henry
           bookplate inside the cover. Grades K&ndash;5.</p>
         <a class="go" href="#">Sign up your kid &rarr;</a>
       </div>
       <div class="pcard">
-        <span class="tag">Just show up</span>
+        <div class="shot"><i style="background-image:url(&quot;{{SPIRIT_NIGHT}}&quot;);background-size:contain;background-repeat:no-repeat;background-color:#fff"></i>
+          <span class="tag">Just show up</span></div>
         <h3>Spirit Nights</h3>
         <p>Go out for dinner on the right night and the restaurant sends a share of the
           bill back to school. Next up: Posting House, 18 January.</p>
         <a class="go" href="#">See the dates &rarr;</a>
       </div>
       <div class="pcard">
-        <span class="tag">$35 one &middot; $60 both</span>
+        <div class="shot"><i style="background-image:url(&quot;{{ROCK_WALK}}&quot;)"></i>
+          <span class="tag">$35 one &middot; $60 both</span></div>
         <h3>Rent the Spirit Rock</h3>
         <p>Twenty-four hours of the rock on Hendricks Avenue or San Jose Boulevard. Wish a
           kid luck, or thank a teacher who deserves it.</p>
         <a class="go" href="#">Book a date &rarr;</a>
       </div>
       <div class="pcard">
-        <span class="tag">Any amount</span>
+        <div class="shot"><i style="background-image:url(&quot;{{FACES}}&quot;)"></i>
+          <span class="tag">Any amount</span></div>
         <h3>Just give</h3>
         <p>PayPal or a check in the mail. Ask your employer about matching &mdash; plenty
           of San Marco firms do, and it doubles you.</p>
         <a class="go" href="#give">Donate now &rarr;</a>
       </div>
       <div class="pcard">
-        <span class="tag">From $250</span>
+        <div class="shot"><i style="background-image:url(&quot;{{THUMBS}}&quot;)"></i>
+          <span class="tag">From $250</span></div>
         <h3>Bring your business</h3>
         <p>Get your logo on 600 t-shirts, the school marquee and both entrances &mdash;
           and credit a student toward their Walkathon party.</p>
         <a class="go" href="https://claude.ai/code/artifact/304fea92-5e77-457b-ba50-f1b3f082bd14">See the five levels &rarr;</a>
       </div>
+    </div>
+  </div>
+</section>
+
+<section class="sect" id="rock" style="padding-top:0">
+  <div class="wrap">
+    <p class="kicker"><svg class="bell"><use href="#bell"/></svg> The Spirit Rock</p>
+    <h2 style="margin-top:18px;max-width:24ch">Twenty-four hours of the loudest thing on campus.</h2>
+    <p class="lede" style="margin-top:16px">Two rocks &mdash; one on Hendricks Avenue, one on
+      San Jose Boulevard. Book a date, paint it, and the whole neighborhood reads it on the
+      school run.</p>
+    <div class="rocks">
+      <div class="rock"><figure>
+        <img src="{{ROCK_STUDENT}}" alt="A rock painted pink reading Ayden, we love you, with hearts">
+        <figcaption><b>Wish a student luck</b><p>Or say happy birthday, or well done, in
+          letters a foot high.</p></figcaption></figure></div>
+      <div class="rock"><figure>
+        <img src="{{ROCK_TEACHER}}" alt="A rock painted with We heart our teachers in purple lettering">
+        <figcaption><b>Thank a teacher</b><p>Staff appreciation week, the end of term, or just
+          because somebody deserved it.</p></figcaption></figure></div>
+      <div class="rock"><figure>
+        <img src="{{ROCK_WALK}}" alt="A rock painted FOH Walkathon with the date">
+        <figcaption><b>Shout about an event</b><p>This is how half the school finds out the
+          Walkathon is on.</p></figcaption></figure></div>
+    </div>
+    <div class="rockbar">
+      <span><b>$35</b> one rock, 24 hours</span>
+      <span><b>$60</b> both rocks, 24 hours</span>
+      <span>Booked and paid through SignUpGenius</span>
+      <a class="btn btn-navy" style="margin-left:auto" href="#rock">Book a date</a>
     </div>
   </div>
 </section>
