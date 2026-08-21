@@ -1,0 +1,377 @@
+<title>Standing Strong · Partners</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..600&family=Archivo:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --ground:#FFFFFF; --paper:#F2F6FA; --tint:#DBE3EE;
+  --ink:#10233B; --muted:#55677E;
+  --navy:#003E7E; --red:#C71014; --red-bright:#EE2A24; --red-text:#C71014;
+  --rule:#D3DDE8; --rule-soft:#E4EBF2;
+  --shadow:0 1px 2px rgba(16,35,59,.05),0 8px 24px -12px rgba(16,35,59,.14);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ground:#0A1524; --paper:#101E31; --tint:#16283F;
+  --ink:#E7EEF6; --muted:#93A6BD;
+  --navy:#7FB2E3; --red:#FF6B60; --red-text:#FF8A80;
+  --rule:#22344C; --rule-soft:#1A2B41;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px -12px rgba(0,0,0,.6);
+}}
+:root[data-theme="dark"]{
+  --ground:#0A1524; --paper:#101E31; --tint:#16283F;
+  --ink:#E7EEF6; --muted:#93A6BD;
+  --navy:#7FB2E3; --red:#FF6B60; --red-text:#FF8A80;
+  --rule:#22344C; --rule-soft:#1A2B41;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px -12px rgba(0,0,0,.6);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);
+  font-family:Archivo,"Helvetica Neue",Arial,sans-serif;font-size:17px;line-height:1.65;
+  -webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:Newsreader,Georgia,serif;font-weight:400;text-wrap:balance;letter-spacing:-.012em}
+h1{font-size:clamp(2.4rem,5.4vw,4rem);line-height:1.05;margin:0}
+h2{font-size:clamp(1.8rem,3.4vw,2.7rem);line-height:1.12;margin:0}
+h3{font-size:1.26rem;line-height:1.25;margin:0}
+p{margin:0}
+a{color:var(--navy);text-underline-offset:3px}
+img{max-width:100%;display:block}
+:focus-visible{outline:2.5px solid var(--red);outline-offset:3px;border-radius:2px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 clamp(20px,5vw,48px)}
+.eyebrow{font-size:.735rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--red-text);margin:0}
+.lede{font-size:clamp(1.06rem,1.7vw,1.24rem);line-height:1.6;color:var(--muted);max-width:62ch}
+.top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--ground) 92%,transparent);
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--rule-soft)}
+.top .wrap{display:flex;align-items:center;gap:24px;min-height:78px}
+.brand{display:flex;align-items:center;gap:13px;text-decoration:none;color:inherit}
+.brand img{width:44px}
+.brand b{font-family:Newsreader,serif;font-size:1.12rem;font-weight:600;line-height:1.1}
+.brand small{display:block;font-family:Archivo,sans-serif;font-size:.605rem;font-weight:600;
+  letter-spacing:.13em;text-transform:uppercase;color:var(--red-text);margin-top:2px}
+nav{margin-left:auto;display:flex;align-items:center;gap:clamp(14px,2vw,26px)}
+nav a{font-size:.895rem;font-weight:500;color:var(--ink);text-decoration:none;white-space:nowrap}
+nav a[aria-current]{color:var(--navy);text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:5px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-size:.925rem;
+  font-weight:600;padding:13px 24px;border-radius:3px;text-decoration:none;
+  border:1px solid transparent;transition:transform .16s ease,background .16s ease}
+.btn-red{background:var(--red);color:#fff;box-shadow:var(--shadow)}
+.btn-red:hover{transform:translateY(-1px)}
+.btn-ghost{border-color:var(--rule);color:var(--ink)}
+.btn-ghost:hover{border-color:var(--navy);color:var(--navy)}
+:root[data-theme="dark"] .btn-red,:root:not([data-theme="light"]) .btn-red{color:#0A1524}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]) .btn-red{color:#fff}}
+
+.hero{padding:clamp(52px,7vw,92px) 0 clamp(40px,5vw,60px)}
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(32px,5vw,64px);align-items:end}
+.hero h1 em{font-style:italic;color:var(--navy)}
+.spotlight{background:var(--paper);border-left:3px solid var(--red);padding:24px 26px;border-radius:0 4px 4px 0}
+.spotlight p{font-family:Newsreader,serif;font-size:1.16rem;line-height:1.5}
+.sect{padding:clamp(56px,7vw,96px) 0}
+.band{background:var(--paper);border-block:1px solid var(--rule-soft)}
+.perks{display:grid;grid-template-columns:repeat(auto-fit,minmax(228px,1fr));gap:1px;
+  margin-top:40px;background:var(--rule-soft);border:1px solid var(--rule-soft)}
+.perk{background:var(--ground);padding:28px 24px}
+.perk b{font-family:Newsreader,serif;font-size:1.16rem;font-weight:500;display:block;margin-bottom:8px}
+.perk p{font-size:.92rem;color:var(--muted)}
+
+.matrix-scroll{overflow-x:auto;margin-top:44px;border:1px solid var(--rule);border-radius:4px;background:var(--ground)}
+table.matrix{border-collapse:collapse;width:100%;min-width:840px;font-size:.9rem}
+table.matrix th,table.matrix td{padding:15px 16px;text-align:center;border-bottom:1px solid var(--rule-soft)}
+table.matrix thead th{background:var(--paper);border-bottom:2px solid var(--rule);
+  vertical-align:bottom;padding-top:22px;padding-bottom:18px}
+table.matrix thead th .amt{font-family:Newsreader,serif;font-size:clamp(1.5rem,2.4vw,2.1rem);
+  font-weight:500;display:block;line-height:1;color:var(--navy);font-variant-numeric:tabular-nums}
+table.matrix thead th .nm{display:block;margin-top:9px;font-size:.7rem;font-weight:700;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--ink)}
+table.matrix thead th .only{display:block;margin-top:5px;font-size:.635rem;font-weight:600;
+  letter-spacing:.06em;text-transform:none;color:var(--red-text)}
+table.matrix tbody th{text-align:left;font-weight:500;font-size:.925rem;color:var(--ink);
+  border-right:1px solid var(--rule-soft);min-width:224px}
+table.matrix tbody tr:hover{background:var(--paper)}
+table.matrix .yes{color:var(--navy);font-weight:700;font-size:1.05rem}
+table.matrix .no{color:var(--rule);font-size:1.05rem}
+table.matrix .qty{font-weight:600;font-variant-numeric:tabular-nums}
+.headline-tier{border-left:2px solid var(--navy);border-right:2px solid var(--navy);
+  background:color-mix(in srgb,var(--navy) 6%,var(--ground))}
+.matrix-note{margin-top:18px;font-size:.86rem;color:var(--muted);max-width:74ch;line-height:1.6}
+.matrix-note strong{color:var(--ink)}
+
+.tiercards{display:none;margin-top:40px;gap:16px;grid-template-columns:1fr}
+.tiercard{border:1px solid var(--rule);border-radius:4px;overflow:hidden;background:var(--ground)}
+.tiercard.lead{border:2px solid var(--navy)}
+.tiercard header{padding:20px 22px;background:var(--paper);border-bottom:1px solid var(--rule)}
+.tiercard .amt{font-family:Newsreader,serif;font-size:2.1rem;font-weight:500;line-height:1;
+  color:var(--navy);display:block;font-variant-numeric:tabular-nums}
+.tiercard .nm{font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  display:block;margin-top:8px}
+.tiercard ul{list-style:none;margin:0;padding:16px 22px 20px;display:grid;gap:10px;font-size:.9rem}
+.tiercard li{display:flex;gap:11px;align-items:flex-start;line-height:1.45}
+.tiercard li::before{content:"\2713";color:var(--navy);font-weight:700;flex:0 0 auto}
+.tiercard li.q::before{content:"\2192"}
+
+.credit{margin-top:52px;background:var(--paper);border:1px solid var(--rule);
+  border-radius:4px;padding:clamp(26px,4vw,40px);display:grid;grid-template-columns:auto 1fr;
+  gap:26px;align-items:start}
+.credit .mark{font-family:Newsreader,serif;font-size:3.2rem;line-height:.8;color:var(--red);opacity:.5}
+.credit h3{margin-bottom:10px}
+.tierline{display:flex;align-items:center;gap:14px;margin:34px 0 4px}
+.tierline span{font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.tierline i{flex:1;height:1px;background:var(--rule)}
+.logos{display:grid;grid-template-columns:repeat(auto-fill,minmax(158px,1fr));gap:12px;margin-top:14px}
+.plate{border:1px solid var(--rule);border-radius:3px;padding:20px 14px;text-align:center;
+  font-size:.83rem;font-weight:500;background:var(--ground);display:flex;align-items:center;
+  justify-content:center;min-height:78px;line-height:1.3}
+.visionary{border:2px solid var(--navy);background:var(--paper);padding:30px;border-radius:4px;
+  display:flex;flex-wrap:wrap;align-items:center;gap:20px;justify-content:space-between}
+.visionary b{font-family:Newsreader,serif;font-size:1.5rem;font-weight:500}
+.applygrid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,64px);align-items:start}
+.field{display:grid;gap:7px;margin-bottom:17px}
+.field label{font-size:.755rem;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:var(--muted)}
+.field input,.field textarea{font-family:Archivo,sans-serif;font-size:1rem;padding:13px 15px;
+  border:1px solid var(--rule);border-radius:3px;background:var(--ground);color:var(--ink);width:100%}
+.field input:focus,.field textarea:focus{border-color:var(--navy);outline:none;
+  box-shadow:0 0 0 3px color-mix(in srgb,var(--navy) 18%,transparent)}
+.contactbox{background:var(--paper);border:1px solid var(--rule);border-radius:4px;padding:30px}
+.contactbox dt{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--muted);margin-top:20px}
+.contactbox dt:first-of-type{margin-top:0}
+.contactbox dd{margin:5px 0 0;font-size:1.02rem}
+footer{border-top:1px solid var(--rule);padding:44px 0 40px;font-size:.9rem;color:var(--muted)}
+.legal{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.legal a{color:var(--ink)}
+@media (max-width:900px){
+  .hero-grid,.applygrid{grid-template-columns:1fr}
+  nav a:not([aria-current]):not(.btn){display:none}
+  .matrix-scroll{display:none}
+  .tiercards{display:grid}
+  .credit{grid-template-columns:1fr}
+}
+@media (max-width:560px){body{font-size:16px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="https://claude.ai/code/artifact/5bb94452-833e-46f5-9822-ca09f6f31909"><img src="{{LOGO}}" alt="The Friends of Hendricks">
+      <b>The Friends of Hendricks<small>Standing strong for our school</small></b></a>
+    <nav>
+      <a href="https://claude.ai/code/artifact/5bb94452-833e-46f5-9822-ca09f6f31909">Home</a>
+      <a href="https://claude.ai/code/artifact/2e88d275-fba1-4a65-a08d-05cf1678350d" aria-current="page">Business partners</a>
+      <a class="btn btn-red" href="#apply">Become a partner</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="eyebrow">Business Partner Program &middot; 2026&ndash;27</p>
+      <h1 style="margin-top:16px">Step into the spotlight as a <em>Walkathon partner.</em></h1>
+      <p class="lede" style="margin-top:22px">Partnering with the Friends of Hendricks
+        Walkathon is more than a sponsorship. It puts your business in front of hundreds
+        of San Marco families while paying for things a county budget will not.</p>
+      <div style="display:flex;gap:13px;flex-wrap:wrap;margin-top:30px">
+        <a class="btn btn-red" href="#tiers">See the five levels</a>
+        <a class="btn btn-ghost" href="#apply">Talk to Aryn &rarr;</a>
+      </div>
+    </div>
+    <div class="spotlight">
+      <p>&ldquo;With every step our students take, your business will be recognized as a
+        leader walking alongside them.&rdquo;</p>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap" style="padding-top:clamp(52px,7vw,84px);padding-bottom:clamp(52px,7vw,84px)">
+    <p class="eyebrow">Business partner perks</p>
+    <h2 style="margin-top:14px;max-width:30ch">Your brand, front and center across a whole school year.</h2>
+    <div class="perks">
+      <div class="perk"><b>Event signage</b><p>Yard signs with your logo at both school
+        entrances, and your name on the Walkathon banner.</p></div>
+      <div class="perk"><b>T-shirts</b><p>Every student wears one. Shirts are designed by
+        a Hendricks student each year &mdash; last year by Cayla, Grade 4.</p></div>
+      <div class="perk"><b>The school marquee</b><p>Your company thanked by name on the
+        marquee for up to five days.</p></div>
+      <div class="perk"><b>Digital</b><p>Up to five social posts and a logo on this site
+        for the full year.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sect" id="tiers">
+  <div class="wrap">
+    <p class="eyebrow">Five levels</p>
+    <h2 style="margin-top:14px;max-width:28ch">What you get, at every level.</h2>
+    <p class="lede" style="margin-top:18px">Sponsorship benefits our students and school
+      while helping your business achieve greater recognition.</p>
+
+    <div class="matrix-scroll">
+      <table class="matrix">
+        <caption style="position:absolute;left:-9999px">Business Partner Program sponsorship levels for the 2027 Walkathon</caption>
+        <thead>
+          <tr>
+            <th scope="col" style="text-align:left;min-width:224px"><span class="nm" style="letter-spacing:.14em">Benefit</span></th>
+            <th scope="col" class="headline-tier"><span class="amt">$5,000</span>
+              <span class="nm">Visionary Partner</span><span class="only">One sponsor only</span></th>
+            <th scope="col"><span class="amt">$2,500</span><span class="nm">Legacy Circle</span></th>
+            <th scope="col"><span class="amt">$1,000</span><span class="nm">Investor Circle</span></th>
+            <th scope="col"><span class="amt">$500</span><span class="nm">Builders Circle</span></th>
+            <th scope="col"><span class="amt">$250</span><span class="nm">Friends Circle</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">Naming rights to the Walkathon</th>
+            <td class="headline-tier yes">&#10003;</td><td class="no">&mdash;</td><td class="no">&mdash;</td><td class="no">&mdash;</td><td class="no">&mdash;</td></tr>
+          <tr><th scope="row">Speak at the pep rally</th>
+            <td class="headline-tier yes">&#10003;</td><td class="no">&mdash;</td><td class="no">&mdash;</td><td class="no">&mdash;</td><td class="no">&mdash;</td></tr>
+          <tr><th scope="row">Booth at the Walkathon</th>
+            <td class="headline-tier yes">&#10003;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td class="no">&mdash;</td></tr>
+          <tr><th scope="row">Thanked on the school marquee</th>
+            <td class="headline-tier qty">5 days</td><td class="qty">4 days</td><td class="qty">3 days</td><td class="qty">2 days</td><td class="no">&mdash;</td></tr>
+          <tr><th scope="row">Logo or name on student t-shirts</th>
+            <td class="headline-tier qty">Large logo</td><td class="qty">Medium logo</td><td class="qty">Small logo</td><td class="qty">Name only</td><td class="qty">Name only</td></tr>
+          <tr><th scope="row">Yard sign at school entrances</th>
+            <td class="headline-tier yes">&#10003;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td></tr>
+          <tr><th scope="row">Social media recognition</th>
+            <td class="headline-tier qty">5 posts</td><td class="qty">4 posts</td><td class="qty">3 posts</td><td class="qty">2 posts</td><td class="qty">1 post</td></tr>
+          <tr><th scope="row">Name on the Walkathon banner</th>
+            <td class="headline-tier yes">&#10003;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td></tr>
+          <tr><th scope="row">Listed on this website</th>
+            <td class="headline-tier qty">Logo</td><td class="qty">Logo</td><td class="qty">Logo</td><td class="qty">Logo</td><td class="qty">Name</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="tiercards">
+      <div class="tiercard lead"><header><span class="amt">$5,000</span>
+        <span class="nm">Visionary Partner &middot; one sponsor only</span></header>
+        <ul><li>Naming rights to the Walkathon</li><li>Speak at the pep rally</li>
+          <li>Booth at the Walkathon</li><li class="q">School marquee, 5 days</li>
+          <li class="q">Large logo on student t-shirts</li><li>Yard sign at school entrances</li>
+          <li class="q">5 social media posts</li><li>Name on the Walkathon banner</li>
+          <li class="q">Logo on this website</li></ul></div>
+      <div class="tiercard"><header><span class="amt">$2,500</span><span class="nm">Legacy Circle</span></header>
+        <ul><li>Booth at the Walkathon</li><li class="q">School marquee, 4 days</li>
+          <li class="q">Medium logo on student t-shirts</li><li>Yard sign at school entrances</li>
+          <li class="q">4 social media posts</li><li>Name on the Walkathon banner</li>
+          <li class="q">Logo on this website</li></ul></div>
+      <div class="tiercard"><header><span class="amt">$1,000</span><span class="nm">Investor Circle</span></header>
+        <ul><li>Booth at the Walkathon</li><li class="q">School marquee, 3 days</li>
+          <li class="q">Small logo on student t-shirts</li><li>Yard sign at school entrances</li>
+          <li class="q">3 social media posts</li><li>Name on the Walkathon banner</li>
+          <li class="q">Logo on this website</li></ul></div>
+      <div class="tiercard"><header><span class="amt">$500</span><span class="nm">Builders Circle</span></header>
+        <ul><li>Booth at the Walkathon</li><li class="q">School marquee, 2 days</li>
+          <li class="q">Name on student t-shirts</li><li>Yard sign at school entrances</li>
+          <li class="q">2 social media posts</li><li>Name on the Walkathon banner</li>
+          <li class="q">Logo on this website</li></ul></div>
+      <div class="tiercard"><header><span class="amt">$250</span><span class="nm">Friends Circle</span></header>
+        <ul><li class="q">Name on student t-shirts</li><li>Yard sign at school entrances</li>
+          <li class="q">1 social media post</li><li>Name on the Walkathon banner</li>
+          <li class="q">Name on this website</li></ul></div>
+    </div>
+
+    <p class="matrix-note">The 2027 Walkathon is <strong>Saturday, February 20th</strong>.
+      Sponsorship is tax deductible &mdash; we are a 501(c)(3), Tax ID 20-4931978.</p>
+
+    <div class="credit">
+      <div class="mark">&ldquo;</div>
+      <div>
+        <h3>Your sponsorship can be credited to a student</h3>
+        <p style="color:var(--muted)">Sponsorship dollars will be credited to a student
+          of your choice &mdash; child, grandchild, niece or nephew &mdash; helping them
+          reach their goal for Walkathon incentive parties. Tell us the relationship when
+          you get in touch and we will make sure the credit lands in the right place.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap" style="padding-top:clamp(52px,7vw,84px);padding-bottom:clamp(52px,7vw,84px)">
+    <p class="eyebrow">Thank you to our 2025&ndash;26 partners</p>
+    <h2 style="margin-top:14px">Forty-nine businesses already in.</h2>
+    <div class="visionary" style="margin-top:32px">
+      <div><p class="eyebrow">Visionary partner</p>
+        <b style="display:block;margin-top:6px">State Farm &mdash; Matt Carlucci, Agent</b></div>
+    </div>
+    <div class="tierline"><span>Legacy Circle</span><i></i></div>
+    <div class="logos">
+      <div class="plate">Da Pazo</div><div class="plate">Superior</div>
+      <div class="plate">Magnuson Hotel</div><div class="plate">Promise</div>
+      <div class="plate">Riley</div><div class="plate">White Block</div></div>
+    <div class="tierline"><span>Investors Circle</span><i></i></div>
+    <div class="logos">
+      <div class="plate">Normandy Lake Dentistry</div><div class="plate">Mullens &amp; Nguyen</div>
+      <div class="plate">Otterson</div><div class="plate">Blount</div>
+      <div class="plate">Tape South</div><div class="plate">Bee Home</div>
+      <div class="plate">The UPS Store San Marco</div><div class="plate">Jaycox</div>
+      <div class="plate">Vein Institute</div><div class="plate">Brown</div></div>
+    <div class="tierline"><span>Builders Circle</span><i></i></div>
+    <div class="logos">
+      <div class="plate">Steller's Framing</div><div class="plate">Grit Camp</div>
+      <div class="plate">Regina &amp; Joy</div><div class="plate">Pivot</div>
+      <div class="plate">Taverna Oceana</div><div class="plate">River Point RE</div>
+      <div class="plate">Ross Garden</div><div class="plate">Intercoastal Health</div>
+      <div class="plate">Riverplace</div><div class="plate">Tree Surgeons</div>
+      <div class="plate">Tile Market</div><div class="plate">Cookiefix</div>
+      <div class="plate">Kristian Carter Nutrition</div></div>
+    <div class="tierline"><span>Friends Circle</span><i></i></div>
+    <div class="logos">
+      <div class="plate">Florida Land Strategies</div><div class="plate">WeeTrade</div>
+      <div class="plate">Fore Score</div><div class="plate">Grit &amp; Grace Counseling</div>
+      <div class="plate">Murphy Anderson Law</div><div class="plate">Cheer Stars</div>
+      <div class="plate">Effective Computer Solutions</div><div class="plate">Wicked Branding</div>
+      <div class="plate">Gwynne Mims Salon</div><div class="plate">Dance for Joy</div>
+      <div class="plate">Splish Splash Swim Academy</div></div>
+    <p style="margin-top:20px;font-size:.86rem;color:var(--muted)">Showing 41 of 49 &mdash; the
+      remaining eight are identifiable only by their logo file name and need confirming with the
+      board. Real logos replace these name plates in the finished site.</p>
+  </div>
+</section>
+
+<section class="sect" id="apply">
+  <div class="wrap applygrid">
+    <div>
+      <p class="eyebrow">Become a partner</p>
+      <h2 style="margin-top:14px">Join us, and put your business in the spotlight.</h2>
+      <p class="lede" style="margin-top:18px">Tell us a little about your business and
+        Aryn will come back to you. If a parent, grandparent or guardian is arranging
+        this, say so &mdash; we will credit the student.</p>
+      <div class="contactbox" style="margin-top:30px">
+        <dl style="margin:0">
+          <dt>Business partner inquiries</dt>
+          <dd><a href="mailto:FriendsBusinessPartners@gmail.com">FriendsBusinessPartners@gmail.com</a></dd>
+          <dt>Aryn Lentz, Chair of Fundraising</dt>
+          <dd><a href="tel:+19044512831">(904) 451-2831</a></dd>
+          <dt>By mail</dt>
+          <dd>4446-1A Hendricks Avenue, Suite 357<br>Jacksonville, FL 32207</dd>
+        </dl>
+      </div>
+    </div>
+    <form onsubmit="event.preventDefault();this.querySelector('.done').hidden=false">
+      <div class="field"><label for="bn">Business name</label>
+        <input id="bn" required placeholder="As it should appear on signage"></div>
+      <div class="field"><label for="cn">Contact name</label><input id="cn" required></div>
+      <div class="field"><label for="em">Email</label><input id="em" type="email" required></div>
+      <div class="field"><label for="ph">Phone</label><input id="ph" type="tel"></div>
+      <div class="field"><label for="lv">Level you're interested in</label>
+        <input id="lv" placeholder="Visionary, Legacy, Investor, Builders or Friends"></div>
+      <div class="field"><label for="st">Student to credit, and relationship</label>
+        <input id="st" placeholder="e.g. Cayla, Grade 4 &mdash; grandparent"></div>
+      <div class="field"><label for="ad">Anything else</label><textarea id="ad" rows="3"></textarea></div>
+      <button class="btn btn-red" type="submit" style="width:100%;border:none;cursor:pointer">Send inquiry</button>
+      <p class="done" hidden style="margin-top:14px;color:var(--navy);font-weight:600">
+        Thank you &mdash; Aryn will be in touch.</p>
+      <p style="margin-top:14px;font-size:.8rem;color:var(--muted)">A mockup form. In the
+        finished site this emails FriendsBusinessPartners@gmail.com.</p>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap legal">
+    <span>&copy; 2026 The Friends of Hendricks &middot; 501(c)(3) &middot; Tax ID 20-4931978 &middot;
+      <a href="https://claude.ai/code/artifact/5bb94452-833e-46f5-9822-ca09f6f31909">Home</a></span>
+    <span>Design direction A &mdash; &ldquo;Standing Strong&rdquo;</span>
+  </div>
+</footer>

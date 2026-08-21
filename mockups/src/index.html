@@ -1,0 +1,338 @@
+<title>Three Directions for Hendricks</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..600&family=Archivo:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --ground:#FFFFFF; --paper:#F2F6FA; --ink:#10233B; --muted:#55677E;
+  --navy:#003E7E; --navy-ink:#003E7E; --red:#C71014; --red-bright:#EE2A24; --gold:#FFBE04;
+  --rule:#D3DDE8; --rule-soft:#E4EBF2;
+  --shadow:0 1px 2px rgba(16,35,59,.05),0 10px 30px -14px rgba(16,35,59,.2);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ground:#0A1524; --paper:#101E31; --ink:#E7EEF6; --muted:#93A6BD;
+  --navy:#003E7E; --navy-ink:#7FB2E3; --red:#FF8A80;
+  --rule:#22344C; --rule-soft:#1A2B41;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px -14px rgba(0,0,0,.65);
+}}
+:root[data-theme="dark"]{
+  --ground:#0A1524; --paper:#101E31; --ink:#E7EEF6; --muted:#93A6BD;
+  --navy:#003E7E; --navy-ink:#7FB2E3; --red:#FF8A80;
+  --rule:#22344C; --rule-soft:#1A2B41;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px -14px rgba(0,0,0,.65);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);
+  font-family:Archivo,"Helvetica Neue",Arial,sans-serif;font-size:17px;line-height:1.65;
+  -webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:Newsreader,Georgia,serif;font-weight:400;text-wrap:balance;letter-spacing:-.012em;margin:0}
+h1{font-size:clamp(2.3rem,5.4vw,3.9rem);line-height:1.05}
+h2{font-size:clamp(1.6rem,3vw,2.3rem);line-height:1.14}
+h3{font-size:1.3rem;line-height:1.2}
+p{margin:0}
+a{color:var(--navy-ink);text-underline-offset:3px}
+img{max-width:100%;display:block}
+:focus-visible{outline:2.5px solid var(--red-bright);outline-offset:3px;border-radius:3px}
+.wrap{max-width:1060px;margin:0 auto;padding:0 clamp(20px,5vw,44px)}
+.eyebrow{font-size:.735rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--red);margin:0}
+.lede{font-size:clamp(1.05rem,1.6vw,1.22rem);color:var(--muted);line-height:1.6;max-width:64ch}
+
+header.mast{padding:clamp(44px,7vw,84px) 0 clamp(30px,4vw,48px);border-bottom:1px solid var(--rule)}
+.mast-row{display:flex;gap:22px;align-items:flex-start}
+.mast img{width:66px;flex:0 0 auto}
+.note{margin-top:30px;background:var(--paper);border-left:3px solid var(--red-bright);
+  padding:20px 24px;border-radius:0 4px 4px 0;max-width:72ch}
+.note p{font-size:.96rem;color:var(--muted)}
+.note strong{color:var(--ink)}
+
+.sect{padding:clamp(46px,6vw,76px) 0}
+.dirs{display:grid;gap:clamp(24px,3vw,32px);margin-top:40px}
+.dir{border:1px solid var(--rule);border-radius:6px;overflow:hidden;background:var(--ground);
+  box-shadow:var(--shadow)}
+.dir-head{display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:center;
+  padding:clamp(22px,3vw,30px);border-bottom:1px solid var(--rule-soft)}
+.letter{width:60px;height:60px;border-radius:6px;display:grid;place-items:center;
+  font-family:Newsreader,serif;font-size:1.9rem;color:#fff;flex:0 0 auto}
+.dir.a .letter{background:#003E7E}
+.dir.b .letter{background:#C71014}
+.dir.c .letter{background:#0B1B2E}
+.dir-head .aim{font-size:.9rem;color:var(--muted);margin-top:5px}
+.dir-body{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.pane{padding:clamp(22px,3vw,30px)}
+.pane+.pane{border-left:1px solid var(--rule-soft)}
+.pane h3{font-size:1.06rem;margin-bottom:12px}
+.pane ul{list-style:none;margin:0;padding:0;display:grid;gap:9px;font-size:.94rem}
+.pane li{display:flex;gap:10px;align-items:flex-start;line-height:1.45}
+.pane li::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--red);
+  flex:0 0 auto;margin-top:.55em}
+.pane .swatches{display:flex;gap:7px;margin-bottom:14px}
+.sw{width:34px;height:34px;border-radius:4px;border:1px solid rgba(0,0,0,.14)}
+.typeline{font-size:.94rem;color:var(--muted);margin-top:12px}
+.typeline b{color:var(--ink);font-weight:600}
+.links{display:flex;flex-wrap:wrap;gap:11px;padding:0 clamp(22px,3vw,30px) clamp(22px,3vw,30px)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-size:.92rem;
+  font-weight:600;padding:12px 22px;border-radius:3px;text-decoration:none;
+  border:1px solid transparent;transition:transform .16s ease,background .16s ease}
+.btn-solid{background:var(--red);color:#fff}
+.btn-solid:hover{transform:translateY(-1px);background:#A8110C}
+.btn-ghost{border-color:var(--rule);color:var(--ink)}
+.btn-ghost:hover{border-color:var(--navy-ink);color:var(--navy-ink)}
+:root[data-theme="dark"] .btn-solid,:root:not([data-theme="light"]) .btn-solid{color:#0A1524}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]) .btn-solid{color:#fff}}
+
+.band{background:var(--paper);border-block:1px solid var(--rule-soft)}
+.same{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1px;
+  margin-top:34px;background:var(--rule-soft);border:1px solid var(--rule-soft)}
+.same div{background:var(--ground);padding:24px 22px}
+.same b{display:block;font-family:Newsreader,serif;font-size:1.1rem;font-weight:500;margin-bottom:7px}
+.same p{font-size:.92rem;color:var(--muted)}
+
+.decide{display:grid;gap:14px;margin-top:32px}
+.q{border:1px solid var(--rule);border-radius:5px;padding:22px 24px;background:var(--ground)}
+.q b{display:block;font-family:Newsreader,serif;font-size:1.16rem;font-weight:500;margin-bottom:8px}
+.q p{font-size:.94rem;color:var(--muted)}
+.tablescroll{overflow-x:auto;margin-top:34px;border:1px solid var(--rule);border-radius:5px}
+table{border-collapse:collapse;width:100%;min-width:620px;font-size:.92rem}
+th,td{padding:14px 16px;text-align:left;border-bottom:1px solid var(--rule-soft);vertical-align:top}
+thead th{background:var(--paper);font-size:.72rem;font-weight:700;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--muted)}
+tbody th{font-weight:600;color:var(--ink);white-space:nowrap}
+tbody tr:last-child th,tbody tr:last-child td{border-bottom:none}
+footer{border-top:1px solid var(--rule);padding:38px 0 40px;font-size:.88rem;color:var(--muted)}
+@media (max-width:820px){
+  .dir-body{grid-template-columns:1fr}
+  .pane+.pane{border-left:none;border-top:1px solid var(--rule-soft)}
+  .mast-row{flex-direction:column;gap:16px}
+}
+@media (max-width:560px){body{font-size:16px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<header class="mast">
+  <div class="wrap">
+    <div class="mast-row">
+      <img src="{{LOGO}}" alt="The Friends of Hendricks">
+      <div>
+        <p class="eyebrow">Website redesign &middot; for board review</p>
+        <h1 style="margin-top:14px">Three directions for the<br>Friends of Hendricks site.</h1>
+        <p class="lede" style="margin-top:20px">Each is a complete design of the same two
+          pages &mdash; a home page and the Business Partner Program page. All three use the
+          colors from the Friends of Hendricks logo, so the choice is about
+          <strong style="color:var(--ink)">voice and audience</strong>, not brand.</p>
+      </div>
+    </div>
+    <div class="note">
+      <p><strong>Before you look:</strong> every price, name, date and sponsor on these pages
+        is real, taken from the current site and the 2025&ndash;26 partner flyer. Where a figure
+        does not exist anywhere &mdash; total raised to date, for instance &mdash; the space is
+        marked <strong>&ldquo;needs real figure&rdquo;</strong> rather than filled with a
+        plausible-looking number. Photography is the one real gap: only two usable photos exist,
+        so the same Walkathon picture appears in all three.</p>
+    </div>
+  </div>
+</header>
+
+<section class="sect">
+  <div class="wrap">
+    <p class="eyebrow">The options</p>
+    <h2 style="margin-top:12px">Pick a voice.</h2>
+
+    <div class="dirs">
+
+      <article class="dir a">
+        <div class="dir-head">
+          <div class="letter">A</div>
+          <div><h3>Standing Strong</h3>
+            <p class="aim">Restrained and editorial. Aimed at business sponsors and larger gifts.</p></div>
+        </div>
+        <div class="dir-body">
+          <div class="pane">
+            <h3>How it looks</h3>
+            <div class="swatches">
+              <div class="sw" style="background:#FFFFFF" title="White"></div>
+              <div class="sw" style="background:#DBE3EE" title="Pale blue #DBE3EE"></div>
+              <div class="sw" style="background:#003E7E" title="Logo navy #003E7E"></div>
+              <div class="sw" style="background:#C71014" title="Red #C71014"></div>
+              <div class="sw" style="background:#10233B" title="Ink #10233B"></div>
+            </div>
+            <p class="typeline"><b>Newsreader</b> serif headlines with <b>Archivo</b> body.
+              The logo is already set in a serif, so this is the closest of the three to the
+              existing mark.</p>
+          </div>
+          <div class="pane">
+            <h3>What it does differently</h3>
+            <ul>
+              <li>Full-width photograph with the text set beside it, lots of white space</li>
+              <li>Red used only on buttons &mdash; nowhere else</li>
+              <li>Impact figures set large in the serif</li>
+              <li>A curved rule between sections, drawn from the open book in the logo</li>
+              <li>Sponsorship shown as a full comparison table, for someone weighing levels</li>
+            </ul>
+          </div>
+        </div>
+        <div class="links">
+          <a class="btn btn-solid" href="https://claude.ai/code/artifact/5bb94452-833e-46f5-9822-ca09f6f31909">Open the home page</a>
+          <a class="btn btn-ghost" href="https://claude.ai/code/artifact/2e88d275-fba1-4a65-a08d-05cf1678350d">Open the partner page &rarr;</a>
+        </div>
+      </article>
+
+      <article class="dir b">
+        <div class="dir-head">
+          <div class="letter">B</div>
+          <div><h3>Schoolyard</h3>
+            <p class="aim">Warm and rounded. Aimed at parents, sign-ups and turnout.</p></div>
+        </div>
+        <div class="dir-body">
+          <div class="pane">
+            <h3>How it looks</h3>
+            <div class="swatches">
+              <div class="sw" style="background:#FFFFFF" title="White"></div>
+              <div class="sw" style="background:#EFF4FA" title="Sky tint"></div>
+              <div class="sw" style="background:#003E7E" title="Logo navy #003E7E"></div>
+              <div class="sw" style="background:#C71014" title="Red #C71014"></div>
+              <div class="sw" style="background:#FFBE04" title="Gold #FFBE04 — from their flyer"></div>
+            </div>
+            <p class="typeline"><b>Caprasimo</b> display over <b>Assistant</b> body &mdash; the
+              same pairing Kinder Ground uses, and both are free. The gold comes from the
+              Friends of Hendricks flyer, not from an inspiration site.</p>
+          </div>
+          <div class="pane">
+            <h3>What it does differently</h3>
+            <ul>
+              <li>Rounded cards, soft shadows, curved dividers between sections</li>
+              <li>Prices shown as stickers you could peel off</li>
+              <li>A hand-drawn underline on the phrase that matters</li>
+              <li>The bell from the logo reused as a small repeating mark</li>
+              <li>Sponsorship shown as five choose-your-level cards, with the full table tucked behind a toggle</li>
+            </ul>
+          </div>
+        </div>
+        <div class="links">
+          <a class="btn btn-solid" href="https://claude.ai/code/artifact/eddf114f-a3c2-4289-8ad7-48c4059ef47f">Open the home page</a>
+          <a class="btn btn-ghost" href="https://claude.ai/code/artifact/304fea92-5e77-457b-ba50-f1b3f082bd14">Open the partner page &rarr;</a>
+        </div>
+      </article>
+
+      <article class="dir c">
+        <div class="dir-head">
+          <div class="letter">C</div>
+          <div><h3>Momentum</h3>
+            <p class="aim">Bold and urgent. Built around the February Walkathon.</p></div>
+        </div>
+        <div class="dir-body">
+          <div class="pane">
+            <h3>How it looks</h3>
+            <div class="swatches">
+              <div class="sw" style="background:#003E7E" title="Logo navy #003E7E"></div>
+              <div class="sw" style="background:#C71014" title="Red #C71014"></div>
+              <div class="sw" style="background:#FFBE04" title="Gold #FFBE04"></div>
+              <div class="sw" style="background:#0B1B2E" title="Ink #0B1B2E"></div>
+              <div class="sw" style="background:#FFFFFF" title="White"></div>
+            </div>
+            <p class="typeline"><b>Anton</b> in oversized capitals with <b>Barlow Condensed</b>
+              beneath. The loudest of the three by a distance.</p>
+          </div>
+          <div class="pane">
+            <h3>What it does differently</h3>
+            <ul>
+              <li>Full-width blocks of solid navy and red, one after another</li>
+              <li>A live countdown to Saturday 20 February 2027</li>
+              <li>The $50,000 goal shown as a fundraising bar, borrowed from their own flyer thermometer</li>
+              <li>A donate button fixed to the bottom of the screen on phones</li>
+              <li>Sponsorship shown as five full-width slabs with the price set huge</li>
+            </ul>
+          </div>
+        </div>
+        <div class="links">
+          <a class="btn btn-solid" href="https://claude.ai/code/artifact/e76783e1-0af7-4f36-ab61-904479e3aa43">Open the home page</a>
+          <a class="btn btn-ghost" href="https://claude.ai/code/artifact/48107c90-2860-4a47-a420-2e58d400305d">Open the partner page &rarr;</a>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap sect">
+    <p class="eyebrow">The same in all three</p>
+    <h2 style="margin-top:12px">What you get whichever you pick.</h2>
+    <div class="same">
+      <div><b>Prices you can read</b><p>All five sponsorship levels and nine benefits become
+        real text. Today they exist only inside a flat image &mdash; unreadable on a phone,
+        invisible to Google, silent to a screen reader.</p></div>
+      <div><b>The right email address</b><p>All five program inboxes published where they
+        belong. The current Contact page lists none of them.</p></div>
+      <div><b>Works on a phone</b><p>Nothing scrolls sideways. The sponsorship table folds
+        down into readable cards rather than shrinking.</p></div>
+      <div><b>Light and dark</b><p>Both designed deliberately, and every text color checked
+        to WCAG AA contrast in each.</p></div>
+      <div><b>Facts nobody was using</b><p>The $50,000 goal, the 1942 founding year, the
+        student-designed Walkathon shirt, the full board, all 49 sponsors.</p></div>
+      <div><b>No stale content</b><p>The 2021 placeholder post and the comment boxes sitting
+        under the payment form are gone.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sect">
+  <div class="wrap">
+    <p class="eyebrow">Side by side</p>
+    <h2 style="margin-top:12px">If it helps to compare.</h2>
+    <div class="tablescroll">
+      <table>
+        <thead><tr><th scope="col"></th><th scope="col">A &mdash; Standing Strong</th>
+          <th scope="col">B &mdash; Schoolyard</th><th scope="col">C &mdash; Momentum</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Speaks to</th><td>Businesses, larger donors</td>
+            <td>Parents and families</td><td>Anyone, before February</td></tr>
+          <tr><th scope="row">Feels</th><td>Established, careful</td><td>Friendly, approachable</td>
+            <td>Urgent, hard to ignore</td></tr>
+          <tr><th scope="row">Headline type</th><td>Serif</td><td>Rounded and chunky</td>
+            <td>Condensed capitals</td></tr>
+          <tr><th scope="row">Shape language</th><td>Straight edges, hairlines</td>
+            <td>Rounded corners, curves</td><td>Hard rectangular blocks</td></tr>
+          <tr><th scope="row">Sponsorship shown as</th><td>Comparison table</td>
+            <td>Five cards to choose from</td><td>Five full-width slabs</td></tr>
+          <tr><th scope="row">Riskiest thing about it</th>
+            <td>Could read as too formal for an elementary school</td>
+            <td>Could read as less serious to a corporate sponsor</td>
+            <td>Loud year-round, when the Walkathon is one day</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap sect">
+    <p class="eyebrow">What we need from the board</p>
+    <h2 style="margin-top:12px">Six things, whichever wins.</h2>
+    <div class="decide">
+      <div class="q"><b>Which direction?</b><p>The only decision needed today.</p></div>
+      <div class="q"><b>Is the Walkathon the 20th or the 21st of February?</b>
+        <p>The sponsorship chart says both &mdash; the header says Saturday the 20th, the
+          booth row says the 21st. In 2027 the 20th is the Saturday.</p></div>
+      <div class="q"><b>Photographs, and permission to use them</b>
+        <p>The biggest gap. Only two usable photos exist and most program images are 300 pixels
+          square. Pictures of identifiable children need signed photo-release consent from the
+          school before they go on a public site.</p></div>
+      <div class="q"><b>A total raised, and what it bought</b>
+        <p>The $50,000 Walkathon goal is the only figure published anywhere. A cumulative total,
+          and one or two specific things it paid for, would carry real weight with sponsors.</p></div>
+      <div class="q"><b>The logo as a vector file</b>
+        <p>Only an 868&times;1024 pixel image exists. An SVG, AI or EPS would let the mark print
+          and scale cleanly.</p></div>
+      <div class="q"><b>Confirmed sponsor names</b>
+        <p>A handful of Legacy and Investors Circle businesses are currently identifiable only
+          by their logo file name.</p></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    Design directions for The Friends of Hendricks &mdash; a 501(c)(3) supporting Hendricks
+    Avenue Elementary School, Jacksonville, Florida. Internal review draft, August 2026.
+    Hosting, content editing and forms are deliberately not settled here.
+  </div>
+</footer>

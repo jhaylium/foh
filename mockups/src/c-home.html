@@ -1,0 +1,457 @@
+<title>Momentum</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --ground:#FFFFFF; --alt:#F1F4F8;
+  --ink:#0B1B2E; --muted:#4E6480;
+  --navy:#003E7E; --navy-deep:#012A56;
+  --red:#C71014; --red-bright:#EE2A24; --red-deep:#A8110C;
+  --gold:#FFBE04;
+  --line:#D2DCE7;
+  --navy-ink:#003E7E; --red-ink:#C71014;
+  --on-slab:#FFFFFF;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ground:#08131F; --alt:#0E1E2E;
+  --ink:#E9F0F7; --muted:#94A9C0;
+  --line:#1F3448;
+  --red-ink:#FF8A80; --navy-ink:#7FB2E3;
+}}
+:root[data-theme="dark"]{
+  --ground:#08131F; --alt:#0E1E2E;
+  --ink:#E9F0F7; --muted:#94A9C0;
+  --line:#1F3448;
+  --red-ink:#FF8A80; --navy-ink:#7FB2E3;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);
+  font-family:Barlow,"Helvetica Neue",Arial,sans-serif;font-size:17.5px;line-height:1.6;
+  -webkit-font-smoothing:antialiased}
+h1,h2,h3,.anton{font-family:Anton,Impact,"Arial Narrow",sans-serif;font-weight:400;
+  text-transform:uppercase;line-height:.93;letter-spacing:.005em;margin:0;text-wrap:balance}
+h1{font-size:clamp(2.9rem,9.2vw,7.4rem)}
+h2{font-size:clamp(2.1rem,5.4vw,4.1rem)}
+h3{font-size:clamp(1.25rem,2vw,1.6rem)}
+p{margin:0}
+a{color:var(--navy-ink)}
+img{max-width:100%;display:block}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 clamp(18px,4.5vw,44px)}
+.cond{font-family:"Barlow Condensed",Barlow,sans-serif;text-transform:uppercase;
+  letter-spacing:.07em;font-weight:600}
+.label{font-family:"Barlow Condensed",sans-serif;font-size:.86rem;font-weight:700;
+  letter-spacing:.19em;text-transform:uppercase}
+.lede{font-size:clamp(1.05rem,1.6vw,1.24rem);line-height:1.55;max-width:56ch}
+
+/* sticky utility bar */
+.bar{position:sticky;top:0;z-index:40;background:var(--navy);color:#fff}
+.bar .wrap{display:flex;align-items:center;gap:18px;min-height:60px}
+.bar .brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:#fff}
+.bar .brand img{width:34px;background:#fff;border-radius:3px;padding:2px}
+.bar .brand b{font-family:"Barlow Condensed",sans-serif;font-size:1.02rem;font-weight:700;
+  letter-spacing:.05em;text-transform:uppercase;line-height:1.05}
+.bar nav{margin-left:auto;display:flex;align-items:center;gap:clamp(12px,1.8vw,24px)}
+.bar nav a{color:#fff;text-decoration:none;font-family:"Barlow Condensed",sans-serif;
+  font-size:.98rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;white-space:nowrap;opacity:.86}
+.bar nav a:hover{opacity:1;color:var(--gold)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  font-family:"Barlow Condensed",sans-serif;font-size:1.06rem;font-weight:700;
+  letter-spacing:.11em;text-transform:uppercase;padding:13px 28px;text-decoration:none;
+  border:2px solid transparent;cursor:pointer;transition:background .15s ease,color .15s ease}
+.btn-red{background:var(--red);color:#fff}
+.btn-red:hover{background:var(--red-deep)}
+.btn-gold{background:var(--gold);color:#0B1B2E}
+.btn-gold:hover{background:#E8AC00}
+.btn-line{border-color:currentColor;color:inherit;background:transparent}
+.btn-line:hover{background:currentColor;color:var(--navy)}
+.bar .btn{padding:9px 20px;font-size:.96rem}
+
+/* hero slab */
+.hero{background:var(--navy);color:#fff;position:relative;overflow:hidden;
+  padding:clamp(46px,7vw,86px) 0 0}
+.hero::before{content:"";position:absolute;inset:0;
+  background:radial-gradient(115% 95% at 88% 8%,rgba(255,190,4,.22),transparent 58%);pointer-events:none}
+.hero-grid{position:relative;display:grid;grid-template-columns:1.12fr .88fr;
+  gap:clamp(26px,4vw,52px);align-items:end}
+.hero h1{color:#fff}
+.hero h1 span{color:var(--gold)}
+.hero .lede{color:rgba(255,255,255,.86);margin-top:22px}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.hero-photo{border:5px solid #fff;box-shadow:0 20px 50px -22px rgba(0,0,0,.6)}
+.hero-photo img{aspect-ratio:4/3.4;object-fit:cover}
+.hero-inner{padding-bottom:clamp(40px,6vw,72px)}
+
+/* countdown */
+.countdown{display:flex;flex-wrap:wrap;gap:10px;margin-top:34px;align-items:stretch}
+.cd{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);
+  padding:12px 18px;min-width:82px;text-align:center}
+.cd b{font-family:Anton,sans-serif;font-size:2.15rem;line-height:1;display:block;
+  color:var(--gold);font-variant-numeric:tabular-nums}
+.cd span{font-family:"Barlow Condensed",sans-serif;font-size:.72rem;font-weight:600;
+  letter-spacing:.15em;text-transform:uppercase;opacity:.8;display:block;margin-top:5px}
+.cd.to{background:transparent;border:none;display:flex;flex-direction:column;
+  justify-content:center;text-align:left;padding-left:4px;min-width:0}
+.cd.to .label{opacity:.7}
+.cd.to strong{font-family:"Barlow Condensed",sans-serif;font-size:1.28rem;font-weight:700;
+  letter-spacing:.04em;text-transform:uppercase}
+
+/* thermometer slab */
+.meter-slab{background:#C71014;color:#fff;padding:clamp(44px,6vw,74px) 0}
+.meter-grid{display:grid;grid-template-columns:1fr 1.35fr;gap:clamp(26px,5vw,58px);align-items:center}
+.meter{margin-top:8px}
+.meter-track{height:34px;background:rgba(0,0,0,.26);border:2px solid rgba(255,255,255,.35);
+  position:relative;overflow:hidden}
+.meter-fill{height:100%;background:var(--gold);width:0;
+  transition:width 1.5s cubic-bezier(.2,.8,.25,1)}
+.meter-fill.dashed{background:repeating-linear-gradient(115deg,rgba(255,190,4,.85) 0 14px,rgba(255,190,4,.4) 14px 28px)}
+.meter-scale{display:flex;justify-content:space-between;margin-top:9px;
+  font-family:"Barlow Condensed",sans-serif;font-size:.88rem;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;color:#fff}
+.goal{font-family:Anton,sans-serif;font-size:clamp(3rem,8vw,5.4rem);line-height:.9;
+  color:#fff;display:block;font-variant-numeric:tabular-nums}
+.needs{display:inline-block;margin-top:14px;border:2px dashed rgba(255,255,255,.85);color:#fff;
+  padding:7px 13px;font-family:"Barlow Condensed",sans-serif;font-size:.84rem;font-weight:700;
+  letter-spacing:.13em;text-transform:uppercase}
+
+/* stat strip */
+.strip{background:var(--ink);color:#fff;padding:0}
+:root[data-theme="dark"] .strip,:root:not([data-theme="light"]) .strip{background:#04101B}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]) .strip{background:var(--ink)}}
+.strip-grid{display:grid;grid-template-columns:repeat(4,1fr)}
+.sv{padding:clamp(30px,4vw,46px) clamp(16px,2.4vw,30px);border-left:1px solid rgba(255,255,255,.14)}
+.sv:first-child{border-left:none}
+.sv b{font-family:Anton,sans-serif;font-size:clamp(2.4rem,5.4vw,3.8rem);line-height:.9;
+  display:block;color:var(--gold);font-variant-numeric:tabular-nums}
+.sv p{font-family:"Barlow Condensed",sans-serif;font-size:.94rem;font-weight:600;
+  letter-spacing:.1em;text-transform:uppercase;margin-top:11px;color:rgba(255,255,255,.9);line-height:1.35}
+
+/* sections */
+.sect{padding:clamp(50px,7vw,92px) 0}
+.alt{background:var(--alt)}
+.head2{display:flex;justify-content:space-between;align-items:end;gap:26px;flex-wrap:wrap}
+
+/* funded list — numbered because it is a ranked spend list */
+.spend{list-style:none;margin:38px 0 0;padding:0;border-top:2px solid var(--ink)}
+.spend li{display:grid;grid-template-columns:auto 1fr auto;gap:20px;align-items:center;
+  padding:20px 4px;border-bottom:1px solid var(--line)}
+.spend .num{font-family:Anton,sans-serif;font-size:1.5rem;color:var(--red-ink);
+  font-variant-numeric:tabular-nums;min-width:38px}
+.spend .what{font-family:"Barlow Condensed",sans-serif;font-size:clamp(1.25rem,2.4vw,1.8rem);
+  font-weight:700;letter-spacing:.03em;text-transform:uppercase;line-height:1.1}
+
+/* program blocks */
+.plist{margin-top:40px;display:grid;gap:2px;background:var(--line)}
+.prow{background:var(--ground);padding:clamp(24px,3.4vw,34px);display:grid;
+  grid-template-columns:auto 1fr auto;gap:clamp(18px,3vw,38px);align-items:center;
+  transition:background .16s ease}
+.prow:hover{background:var(--alt)}
+.prow .when{font-family:"Barlow Condensed",sans-serif;font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;font-size:.94rem;color:var(--red-ink);min-width:112px;line-height:1.3}
+.prow p{color:var(--muted);margin-top:7px;font-size:1rem}
+.prow .price{font-family:Anton,sans-serif;font-size:1.7rem;color:var(--navy-ink);white-space:nowrap;
+  font-variant-numeric:tabular-nums}
+
+/* partners */
+.pgroup{margin-top:34px}
+.gh{display:flex;align-items:baseline;gap:14px;padding-bottom:10px;border-bottom:2px solid var(--ink)}
+.gh b{font-family:Anton,sans-serif;font-size:1.28rem;text-transform:uppercase}
+.gh span{font-family:"Barlow Condensed",sans-serif;font-weight:700;letter-spacing:.12em;
+  text-transform:uppercase;font-size:.88rem;color:var(--red-ink);margin-left:auto;font-variant-numeric:tabular-nums}
+.names{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.names span{border:1.5px solid var(--line);padding:9px 15px;font-family:"Barlow Condensed",sans-serif;
+  font-weight:600;letter-spacing:.05em;text-transform:uppercase;font-size:.95rem}
+.top-partner{background:var(--navy);color:#fff;padding:clamp(26px,4vw,40px);display:flex;
+  flex-wrap:wrap;gap:22px;align-items:center;justify-content:space-between;margin-top:16px}
+.top-partner .anton{font-size:clamp(1.5rem,3vw,2.2rem);color:#fff}
+.top-partner .label{color:var(--gold)}
+
+/* board */
+.grid4{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:2px;
+  background:var(--line);margin-top:36px}
+.gc{background:var(--ground);padding:20px 22px}
+.gc .label{color:var(--red-ink);font-size:.74rem}
+.gc b{display:block;font-family:"Barlow Condensed",sans-serif;font-size:1.2rem;font-weight:700;
+  letter-spacing:.03em;text-transform:uppercase;margin-top:5px}
+
+/* closing */
+.close{background:var(--navy);color:#fff;padding:clamp(52px,8vw,96px) 0;text-align:center}
+.close h2{color:#fff}
+.close p{color:rgba(255,255,255,.85);max-width:54ch;margin:20px auto 0}
+.close .btn{margin-top:32px}
+
+footer{background:var(--ink);color:rgba(255,255,255,.72);padding:clamp(42px,5vw,64px) 0 36px;font-size:.96rem}
+:root[data-theme="dark"] footer,:root:not([data-theme="light"]) footer{background:#04101B}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]) footer{background:var(--ink)}}
+.foot{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:36px}
+.foot h4{font-family:"Barlow Condensed",sans-serif;color:var(--gold);font-size:.88rem;
+  font-weight:700;letter-spacing:.16em;text-transform:uppercase;margin:0 0 14px}
+.foot ul{list-style:none;margin:0;padding:0;display:grid;gap:9px}
+.foot a{color:#fff;text-decoration:none}
+.foot a:hover{color:var(--gold)}
+.legal{margin-top:36px;padding-top:22px;border-top:1px solid rgba(255,255,255,.16);
+  display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;font-size:.84rem;
+  font-family:"Barlow Condensed",sans-serif;letter-spacing:.06em;text-transform:uppercase}
+
+/* mobile donate bar */
+.dockbar{position:fixed;left:0;right:0;bottom:0;z-index:50;display:none;
+  background:#C71014;box-shadow:0 -6px 20px -8px rgba(0,0,0,.4)}
+.dockbar a{display:block;text-align:center;padding:16px;color:#fff;text-decoration:none;
+  font-family:"Barlow Condensed",sans-serif;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;font-size:1.05rem}
+
+@media (max-width:940px){
+  .hero-grid,.meter-grid{grid-template-columns:1fr}
+  .strip-grid{grid-template-columns:repeat(2,1fr)}
+  .sv:nth-child(3){border-left:none}
+  .sv{border-top:1px solid rgba(255,255,255,.14)}
+  .sv:nth-child(-n+2){border-top:none}
+  .bar nav a:not(.btn){display:none}
+  .foot{grid-template-columns:1fr 1fr}
+  .prow{grid-template-columns:1fr;gap:12px}
+  .prow .price{font-size:1.5rem}
+  .dockbar{display:block}
+  body{padding-bottom:56px}
+}
+@media (max-width:560px){
+  body{font-size:16.5px}
+  .strip-grid{grid-template-columns:1fr}
+  .sv{border-left:none;border-top:1px solid rgba(255,255,255,.14)}
+  .sv:first-child{border-top:none}
+  .foot{grid-template-columns:1fr}
+  .spend li{grid-template-columns:auto 1fr}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="bar">
+  <div class="wrap">
+    <a class="brand" href="#"><img src="{{LOGO}}" alt="">
+      <b>Friends of<br>Hendricks</b></a>
+    <nav>
+      <a href="#spend">Where it goes</a><a href="#ways">Take part</a>
+      <a href="https://claude.ai/code/artifact/48107c90-2860-4a47-a420-2e58d400305d">Sponsors</a><a href="#board">Board</a>
+      <a class="btn btn-red" href="#give">Donate</a>
+    </nav>
+  </div>
+</div>
+
+<section class="hero">
+  <div class="wrap hero-grid hero-inner">
+    <div>
+      <p class="label" style="color:var(--gold)">15th annual walkathon &middot; Hendricks Avenue Elementary</p>
+      <h1 style="margin-top:18px">600 kids<br>are counting<br><span>on this.</span></h1>
+      <p class="lede">Duval County's budget doesn't stretch to books, software, playground
+        equipment or teacher grants. Ours does. Every dollar stays in one school building
+        in San Marco.</p>
+      <div class="hero-cta">
+        <a class="btn btn-gold" href="#give">Donate now</a>
+        <a class="btn btn-line" href="https://claude.ai/code/artifact/48107c90-2860-4a47-a420-2e58d400305d">Sponsor as a business</a>
+      </div>
+      <div class="countdown" id="cd">
+        <div class="cd to"><span class="label">Walkathon</span>
+          <strong>Sat 20 Feb 2027</strong></div>
+        <div class="cd"><b id="cd-d">—</b><span>days</span></div>
+        <div class="cd"><b id="cd-h">—</b><span>hours</span></div>
+        <div class="cd"><b id="cd-m">—</b><span>mins</span></div>
+      </div>
+    </div>
+    <div class="hero-photo">
+      <img src="{{HERO}}" alt="Hendricks students in Walkathon t-shirts on the school field">
+    </div>
+  </div>
+</section>
+
+<section class="meter-slab">
+  <div class="wrap meter-grid">
+    <div>
+      <p class="label">2027 walkathon goal</p>
+      <span class="goal">$50,000</span>
+    </div>
+    <div>
+      <h3 style="color:#fff">Every pledge moves the bar.</h3>
+      <div class="meter">
+        <div class="meter-track"><div class="meter-fill dashed" id="fill"></div></div>
+        <div class="meter-scale"><span>$0</span><span>$25,000</span><span>$50,000</span></div>
+      </div>
+      <p class="needs">Raised so far &mdash; needs the real figure from the board</p>
+    </div>
+  </div>
+</section>
+
+<section class="strip">
+  <div class="wrap"><div class="strip-grid">
+    <div class="sv"><b>600+</b><p>students at Hendricks Avenue Elementary</p></div>
+    <div class="sv"><b>49</b><p>local businesses sponsoring this year</p></div>
+    <div class="sv"><b>1942</b><p>launching leaders since</p></div>
+    <div class="sv"><b>100%</b><p>stays inside this one school</p></div>
+  </div></div>
+</section>
+
+<section class="sect" id="spend">
+  <div class="wrap">
+    <div class="head2">
+      <div><p class="label" style="color:var(--red-ink)">Where the money goes</p>
+        <h2 style="margin-top:14px;max-width:20ch">Five things the county won't fund.</h2></div>
+    </div>
+    <ol class="spend">
+      <li><span class="num">01</span><span class="what">Online learning programs</span></li>
+      <li><span class="num">02</span><span class="what">Classroom supplies</span></li>
+      <li><span class="num">03</span><span class="what">Teacher professional development</span></li>
+      <li><span class="num">04</span><span class="what">School enhancements</span></li>
+      <li><span class="num">05</span><span class="what">Leadership curriculum</span></li>
+    </ol>
+  </div>
+</section>
+
+<section class="sect alt" id="ways">
+  <div class="wrap">
+    <p class="label" style="color:var(--red-ink)">Take part</p>
+    <h2 style="margin-top:14px">Six ways to move the bar.</h2>
+    <div class="plist">
+      <div class="prow"><div class="when">Sat 20 Feb<br>2027</div>
+        <div><h3>The Walkathon</h3><p>Students collect pledges, then walk. Cash or check
+          comes back in the envelope sent home.</p></div>
+        <div class="price">Pledge</div></div>
+      <div class="prow"><div class="when">Grades<br>K&ndash;5</div>
+        <div><h3>Hugs from Henry</h3><p>Dedicates a classroom book in your child's honor,
+          with a bookplate inside the front cover.</p></div>
+        <div class="price">$25</div></div>
+      <div class="prow"><div class="when">18 Jan<br>Posting House</div>
+        <div><h3>Spirit Nights</h3><p>Eat out on the night and a share of the bill goes
+          straight back to the school.</p></div>
+        <div class="price">Free</div></div>
+      <div class="prow"><div class="when">24 hours</div>
+        <div><h3>Rent the Spirit Rock</h3><p>Hendricks Avenue or San Jose Boulevard. Wish a
+          student luck or thank a teacher.</p></div>
+        <div class="price">$35&ndash;60</div></div>
+      <div class="prow"><div class="when">Any time</div>
+        <div><h3>Give directly</h3><p>PayPal or a check in the mail. 501(c)(3), Tax ID
+          20-4931978 &mdash; ask your employer to match it.</p></div>
+        <div class="price">Any</div></div>
+      <div class="prow"><div class="when">All year</div>
+        <div><h3>Sponsor as a business</h3><p>Your logo on 600 t-shirts, the marquee and
+          both school entrances. Five levels.</p></div>
+        <div class="price">From $250</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="sect">
+  <div class="wrap">
+    <div class="head2">
+      <div><p class="label" style="color:var(--red-ink)">2025&ndash;26 sponsors</p>
+        <h2 style="margin-top:14px">49 businesses in.</h2></div>
+      <a class="btn btn-red" href="https://claude.ai/code/artifact/48107c90-2860-4a47-a420-2e58d400305d">Become a sponsor</a>
+    </div>
+    <div class="top-partner">
+      <div><p class="label">Visionary partner &middot; one only</p>
+        <div class="anton" style="margin-top:8px">State Farm &mdash; Matt Carlucci, Agent</div></div>
+      <a class="btn btn-gold" href="https://claude.ai/code/artifact/48107c90-2860-4a47-a420-2e58d400305d">Take this next year</a>
+    </div>
+    <div class="pgroup"><div class="gh"><b>Legacy Circle</b><span>$2,500 &middot; 6</span></div>
+      <div class="names"><span>Da Pazo</span><span>Superior</span><span>Magnuson Hotel</span>
+        <span>Promise</span><span>Riley</span><span>White Block</span></div></div>
+    <div class="pgroup"><div class="gh"><b>Investors Circle</b><span>$1,000 &middot; 10</span></div>
+      <div class="names"><span>Normandy Lake Dentistry</span><span>Mullens &amp; Nguyen</span>
+        <span>Otterson</span><span>Blount</span><span>Tape South</span><span>Bee Home</span>
+        <span>The UPS Store San Marco</span><span>Jaycox</span><span>Vein Institute</span>
+        <span>Brown</span></div></div>
+    <div class="pgroup"><div class="gh"><b>Builders Circle</b><span>$500 &middot; 13</span></div>
+      <div class="names"><span>Steller's Framing</span><span>Grit Camp</span>
+        <span>Regina &amp; Joy</span><span>Pivot</span><span>Taverna Oceana</span>
+        <span>River Point RE</span><span>Ross Garden</span><span>Intercoastal Health</span>
+        <span>Riverplace</span><span>Tree Surgeons</span><span>Tile Market</span>
+        <span>Cookiefix</span><span>Kristian Carter Nutrition</span></div></div>
+    <div class="pgroup"><div class="gh"><b>Friends Circle</b><span>$250 &middot; 11</span></div>
+      <div class="names"><span>Florida Land Strategies</span><span>WeeTrade</span>
+        <span>Fore Score</span><span>Grit &amp; Grace Counseling</span>
+        <span>Murphy Anderson Law</span><span>Cheer Stars</span>
+        <span>Effective Computer Solutions</span><span>Wicked Branding</span>
+        <span>Gwynne Mims Salon</span><span>Dance for Joy</span>
+        <span>Splish Splash Swim Academy</span></div></div>
+    <p style="margin-top:22px;font-size:.88rem;color:var(--muted)">Showing 41 of 49 &mdash; the
+      remaining eight are identifiable only by their logo file name and need confirming with the
+      board. Real logos replace these name plates in the finished site.</p>
+  </div>
+</section>
+
+<section class="sect alt" id="board">
+  <div class="wrap">
+    <p class="label" style="color:var(--red-ink)">2026&ndash;27 board</p>
+    <h2 style="margin-top:14px">Parents. Volunteers. Unpaid.</h2>
+    <div class="grid4">
+      <div class="gc"><span class="label">President</span><b>Katie Turpin</b></div>
+      <div class="gc"><span class="label">Vice President</span><b>Kaylee Hurwitz</b></div>
+      <div class="gc"><span class="label">Treasurer</span><b>Allison Naseri</b></div>
+      <div class="gc"><span class="label">Secretary</span><b>Kristian Carter</b></div>
+      <div class="gc"><span class="label">Chair of Fundraising</span><b>Aryn Lentz</b></div>
+      <div class="gc"><span class="label">Legal Advisor</span><b>James Poindexter</b></div>
+    </div>
+    <p style="margin-top:22px;color:var(--muted)"><strong style="color:var(--ink)">Directors</strong>
+      &nbsp;Julie Braun &middot; Nicole Brown &middot; Sara Buckley &middot; Melissa Gregory &middot;
+      Brittany Kelly &middot; Shelly Middleton &middot; Katherine Poindexter &middot; Ivan Porter &middot;
+      Jason Pratt</p>
+  </div>
+</section>
+
+<section class="close" id="give">
+  <div class="wrap">
+    <h2>Don't wait for February.</h2>
+    <p>PayPal, or a check to 4446-1A Hendricks Avenue, Suite 357, Jacksonville, FL 32207.
+      We're a 501(c)(3) &mdash; Tax ID 20-4931978 &mdash; so your employer may match it.</p>
+    <a class="btn btn-gold" href="#give">Donate now</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div><h4>The Friends of Hendricks</h4>
+        <p>Parents, teachers and volunteers raising funds for resources and projects the
+          Duval County School Board budget does not cover.</p>
+        <p style="margin-top:14px">4446-1A Hendricks Avenue, Suite 357<br>Jacksonville, FL 32207</p></div>
+      <div><h4>Take part</h4>
+        <ul><li><a href="#give">Donate</a></li><li><a href="https://claude.ai/code/artifact/48107c90-2860-4a47-a420-2e58d400305d">Business sponsorship</a></li>
+          <li><a href="#ways">Walkathon</a></li><li><a href="#ways">Hugs from Henry</a></li>
+          <li><a href="#ways">Spirit Nights</a></li><li><a href="#ways">Spirit Rock</a></li></ul></div>
+      <div><h4>Contact</h4>
+        <ul><li><a href="mailto:fohpresident1@gmail.com">General</a></li>
+          <li><a href="mailto:FriendsBusinessPartners@gmail.com">Sponsorship</a></li>
+          <li><a href="mailto:FOHHugsFromHenry@gmail.com">Birthday club</a></li>
+          <li><a href="mailto:renttherockhae@gmail.com">Spirit Rock</a></li>
+          <li><a href="tel:+19044512831">(904) 451-2831</a></li></ul></div>
+    </div>
+    <div class="legal">
+      <span>&copy; 2026 The Friends of Hendricks &middot; 501(c)(3) &middot; Tax ID 20-4931978</span>
+      <span>Direction C &mdash; Momentum</span>
+    </div>
+  </div>
+</footer>
+
+<div class="dockbar"><a href="#give">Donate to our school</a></div>
+
+<script>
+(function(){
+  var target = new Date(2027, 1, 20, 9, 0, 0); // Sat 20 Feb 2027, 9am
+  var d=document.getElementById('cd-d'),h=document.getElementById('cd-h'),m=document.getElementById('cd-m');
+  function pad(n){return n<10?'0'+n:''+n}
+  function tick(){
+    var ms = target - new Date();
+    if(ms<0){d.textContent='0';h.textContent='00';m.textContent='00';return}
+    var days=Math.floor(ms/86400000);
+    d.textContent=days;
+    h.textContent=pad(Math.floor(ms%86400000/3600000));
+    m.textContent=pad(Math.floor(ms%3600000/60000));
+  }
+  tick(); setInterval(tick,30000);
+
+  // meter animates to a deliberately-marked placeholder position
+  var fill=document.getElementById('fill');
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){fill.style.width='38%';return}
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ fill.style.width='38%'; io.disconnect(); } });
+  },{threshold:.4});
+  io.observe(fill);
+})();
+</script>
