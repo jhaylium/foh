@@ -1,0 +1,144 @@
+<title>Take Part</title>
+{{> head }}
+<style>
+{{> tokens }}
+{{> base }}
+:root{--photo:url("{{HERO}}")}
+#nav-takepart{color:var(--gold-ink)}
+
+/* each programme: a photograph beside the words, alternating side */
+.prog{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,68px);align-items:center}
+.prog .shot{position:relative;aspect-ratio:4/3;overflow:hidden;border:1px solid var(--line);
+  background:#040A12}
+.prog .shot img{width:100%;height:100%;object-fit:cover}
+.prog.flip .words{order:2}
+.price{display:inline-flex;align-items:baseline;gap:10px;margin-top:18px;
+  font-family:"Bricolage Grotesque",sans-serif;font-weight:400;
+  font-size:clamp(2rem,4.2vw,3rem);line-height:.9;letter-spacing:-.03em;color:var(--gold-ink);
+  font-variant-numeric:tabular-nums}
+.price span{font-family:Manrope,sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--faint)}
+.dates{list-style:none;margin:22px 0 0;padding:0;border-top:1px solid var(--line)}
+.dates li{display:flex;gap:16px;flex-wrap:wrap;align-items:baseline;padding:14px 2px;
+  border-bottom:1px solid var(--line-soft)}
+.dates b{font-family:"Bricolage Grotesque",sans-serif;font-weight:600;font-size:1.05rem;
+  min-width:9ch}
+.dates span{color:var(--muted);font-size:.95rem}
+@media (max-width:940px){
+  .prog{grid-template-columns:1fr}
+  .prog.flip .words{order:0}
+}
+</style>
+
+{{> nav }}
+
+<section class="sect nohero tight">
+  <div class="wrap">
+    <div class="said mid">
+      <p class="tag red">Take part</p>
+      <h2 style="margin-top:18px">Three more ways in.</h2>
+    </div>
+    <p class="after">The Walkathon is the big one, but it is not the only one. These three run
+      all year, cost little or nothing, and every dollar lands in the same place.</p>
+    <div class="row mid">
+      <a class="pill ghost" href="#henry">Hugs from Henry</a>
+      <a class="pill ghost" href="#rock">Rent the Rock</a>
+      <a class="pill ghost" href="#spirit">Spirit Nights</a>
+    </div>
+  </div>
+</section>
+
+<section class="sect" id="henry">
+  <div class="wrap">
+    <div class="prog rv">
+      <div class="words">
+        <p class="tag red">Grades K&ndash;5</p>
+        <h2 style="margin-top:16px">Hugs from Henry Birthday Club.</h2>
+        <p class="lede" style="margin-top:20px">Enroll your K&ndash;5th grader and we dedicate a
+          classroom book in honor of your child, with a special &ldquo;Hugs from Henry&rdquo;
+          bookplate on the inside front cover.</p>
+        <div class="price">$25 <span>per child</span></div>
+        <p style="margin-top:20px;color:var(--muted)">Pay by check or PayPal. Checks are payable
+          to The Friends of Hendricks and can be turned in to your student's teacher, or mailed
+          to 4446-1A Hendricks Avenue, Suite 357, Jacksonville, FL 32207.</p>
+        <p class="note" style="margin-top:16px">Future safety restrictions could prohibit the
+          cupcake party and the photo with Henry. If it is cancelled for weather or for safety,
+          the party is rescheduled for the next month.</p>
+        <div class="row">
+          <a class="pill" href="{{URL_DONATE}}">Enroll a child</a>
+          <a class="pill ghost" href="mailto:FOHHugsFromHenry@gmail.com">Email the birthday club</a>
+        </div>
+      </div>
+      <div class="shot"><img src="{{HENRY_KID}}" alt="A Hendricks student meeting Henry, the school's hawk mascot"></div>
+    </div>
+  </div>
+</section>
+
+<section class="sect" id="rock" style="border-top:1px solid var(--line)">
+  <div class="wrap">
+    <div class="prog flip rv">
+      <div class="shot"><img src="{{ROCK_STUDENT}}" alt="A painted Spirit Rock congratulating a Hendricks student"></div>
+      <div class="words">
+        <p class="tag red">24 hours</p>
+        <h2 style="margin-top:16px">Rent the HAE Spirit Rock.</h2>
+        <p class="lede" style="margin-top:20px">The Friends of Hendricks manage the two School
+          Spirit Rocks. Reserve one for 24 hours and paint it &mdash; congratulate a student,
+          wish someone a happy birthday, cheer on a classmate, or thank a teacher who earned it.</p>
+        <ul class="dates">
+          <li><b>$35</b><span>one rock, front or back, 24 hours</span></li>
+          <li><b>$60</b><span>both rocks, front and back, 24 hours</span></li>
+        </ul>
+        <p style="margin-top:20px;color:var(--muted)">There are two: the front rock on the
+          Hendricks Avenue side, and the back rock on the San Jose Boulevard side. Booking and
+          payment both happen on SignUpGenius, where you pick your date and your rock and agree
+          to the terms of use. Payment is due at the time of reservation.</p>
+        <div class="row">
+          <a class="pill" href="https://www.signupgenius.com/go/10C0A4DABA929A0FCC52-64797719-rent">Rent the Spirit Rock</a>
+          <a class="pill ghost" href="mailto:renttherockhae@gmail.com">Ask a question</a>
+        </div>
+        <p class="note" style="margin-top:14px">Email replies come within 48 business hours.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sect" id="spirit" style="border-top:1px solid var(--line)">
+  <div class="wrap">
+    <div class="prog rv">
+      <div class="words">
+        <p class="tag red">An easy way to support our school</p>
+        <h2 style="margin-top:16px">Spirit Nights.</h2>
+        <p class="lede" style="margin-top:20px">Turn family dinner into school support. Dine at
+          a participating restaurant on the night, and a portion of total sales goes straight to
+          Hendricks Avenue Elementary.</p>
+        <p style="margin-top:20px;color:var(--muted)">You get a break from cooking, the kids get
+          to see their classmates outside school, and the school benefits with every bite. Tell
+          them you are there for Hendricks Avenue Elementary.</p>
+        <p class="tag" style="margin-top:28px">Spirit Night dates 2026&ndash;2027</p>
+        <ul class="dates">
+          <li><b>18 Jan</b><span>6&ndash;8pm &middot; Parents Night Out @ Posting House</span></li>
+          <li><b>More to come!</b><span>dates are added through the year</span></li>
+        </ul>
+        <p class="note" style="margin-top:14px">Dates and times are subject to change.</p>
+      </div>
+      <div class="shot"><img src="{{SPIRIT_NIGHT}}" alt="Spirit Nights banner for Hendricks Avenue Elementary"></div>
+    </div>
+  </div>
+</section>
+
+<section class="close">
+  <div class="media"><div class="layer"></div></div>
+  <div class="veil"></div>
+  <div class="wrap inner">
+    <h2>None of this needs a big check.</h2>
+    <p>A book, a painted rock, a Tuesday dinner out. It adds up to the things the county
+      budget will not cover.</p>
+    <div class="row">
+      <a class="pill" href="{{URL_DONATE}}">Donate</a>
+      <a class="pill ghost" href="{{URL_WALKATHON}}">The Walkathon</a>
+    </div>
+  </div>
+</section>
+
+{{> footer }}
+{{> scripts }}

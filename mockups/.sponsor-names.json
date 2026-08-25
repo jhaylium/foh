@@ -1,0 +1,187 @@
+[
+ {
+  "key": "STATEFARM",
+  "tier": "visionary",
+  "name": "State Farm \u2014 Matt Carlucci, Agent"
+ },
+ {
+  "key": "DOPAZO",
+  "tier": "legacy",
+  "name": "Dopazo Orthodontics"
+ },
+ {
+  "key": "SUPERIOR",
+  "tier": "legacy",
+  "name": "Superior Fence & Rail"
+ },
+ {
+  "key": "MAGNUSON",
+  "tier": "legacy",
+  "name": "Magnuson Hotel Jacksonville Downtown"
+ },
+ {
+  "key": "PROMISE",
+  "tier": "legacy",
+  "name": "The Promise 100.7"
+ },
+ {
+  "key": "RILEY",
+  "tier": "legacy",
+  "name": "The Riley Family"
+ },
+ {
+  "key": "NORMANDY",
+  "tier": "investors",
+  "name": "Normandy Lake Dentistry"
+ },
+ {
+  "key": "MULLENS",
+  "tier": "investors",
+  "name": "Mullens & Nguyen Distinctive Dentistry"
+ },
+ {
+  "key": "OTTERSON",
+  "tier": "investors",
+  "name": "Otterson Wealth Advisors of Raymond James"
+ },
+ {
+  "key": "BLOUNT",
+  "tier": "investors",
+  "name": "Blount Builds"
+ },
+ {
+  "key": "PLAUTO",
+  "tier": "investors",
+  "name": "P&L Automotive, Inc."
+ },
+ {
+  "key": "TAPESOUTH",
+  "tier": "investors",
+  "name": "TapeSouth"
+ },
+ {
+  "key": "BEEHOME",
+  "tier": "investors",
+  "name": "Bee Home Realty"
+ },
+ {
+  "key": "UPSSTORE",
+  "tier": "investors",
+  "name": "The UPS Store San Marco"
+ },
+ {
+  "key": "JAYCOX",
+  "tier": "investors",
+  "name": "Jaycox Architects & Associates"
+ },
+ {
+  "key": "HEYDAY",
+  "tier": "investors",
+  "name": "Heyday!"
+ },
+ {
+  "key": "VEIN",
+  "tier": "investors",
+  "name": "The Vein Institute"
+ },
+ {
+  "key": "BROWN",
+  "tier": "investors",
+  "name": "Andrew Brown, MD \u2014 Borland Groover"
+ },
+ {
+  "key": "STELLERS",
+  "tier": "builders",
+  "name": "Stellers Framing"
+ },
+ {
+  "key": "GRITCAMP",
+  "tier": "builders",
+  "name": "Grit Camp"
+ },
+ {
+  "key": "REGINAJOY",
+  "tier": "builders",
+  "name": "Regina & Joy Team, RE/MAX Specialists"
+ },
+ {
+  "key": "PIVOT",
+  "tier": "builders",
+  "name": "Pivot Pilates"
+ },
+ {
+  "key": "TAVERNA",
+  "tier": "builders",
+  "name": "Taverna / Oceana"
+ },
+ {
+  "key": "WICK",
+  "tier": "builders",
+  "name": "Wick, A Candle Bar"
+ },
+ {
+  "key": "RIVERPOINT",
+  "tier": "builders",
+  "name": "RiverPoint Real Estate"
+ },
+ {
+  "key": "JCA",
+  "tier": "builders",
+  "name": "JCA"
+ },
+ {
+  "key": "ROSSGARDEN",
+  "tier": "builders",
+  "name": "Ross Garden Design"
+ },
+ {
+  "key": "INTERCOASTAL",
+  "tier": "builders",
+  "name": "Intercoastal Health"
+ },
+ {
+  "key": "RIVERPLACE",
+  "tier": "builders",
+  "name": "Riverplace Capital"
+ },
+ {
+  "key": "TREESURGEONS",
+  "tier": "builders",
+  "name": "Duval Tree Surgeons"
+ },
+ {
+  "key": "TILEMARKET",
+  "tier": "builders",
+  "name": "Tile Market of San Marco"
+ },
+ {
+  "key": "ALLISONJAMES",
+  "tier": "builders",
+  "name": "Allison James Estates & Homes Elite"
+ },
+ {
+  "key": "PLAYERS",
+  "tier": "builders",
+  "name": "Players Locker Room"
+ },
+ {
+  "key": "FABEN",
+  "tier": "builders",
+  "name": "Faben Obstetrics and Gynecology"
+ },
+ {
+  "key": "COOKIEFIX",
+  "tier": "builders",
+  "name": "Cookie Fix"
+ },
+ {
+  "key": "COACHPOLSTER",
+  "tier": "builders",
+  "name": "Coach Polster's Summer Camp"
+ },
+ {
+  "key": "KRISTIANCARTER",
+  "tier": "builders",
+  "name": "Kristian Carter Nutrition + Wellness"
+ }
+]

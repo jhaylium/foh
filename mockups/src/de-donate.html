@@ -1,0 +1,130 @@
+<title>Donate</title>
+{{> head }}
+<style>
+{{> tokens }}
+{{> base }}
+:root{--photo:url("{{HERO}}")}
+#nav-donate{color:var(--gold-ink)}
+
+.routes{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1px;
+  margin-top:clamp(30px,4.5vw,46px);background:var(--line-soft);border:1px solid var(--line-soft)}
+.route{background:var(--ground);padding:clamp(24px,3vw,34px);display:flex;flex-direction:column;
+  gap:12px;text-decoration:none;color:inherit;transition:background .2s ease}
+.route:hover{background:var(--raise)}
+.route .n{font-family:"Bricolage Grotesque",sans-serif;font-weight:400;font-size:2.2rem;
+  line-height:.9;color:var(--gold-ink);letter-spacing:-.03em}
+.route p{font-size:.95rem;color:var(--muted)}
+.route .go{margin-top:auto;padding-top:14px;font-size:.78rem;font-weight:700;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--ink)}
+.pay{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+.pay label{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--edge);
+  padding:10px 16px;border-radius:999px;font-size:.9rem;cursor:pointer;color:var(--ink)}
+.checks{display:grid;gap:10px;margin-top:6px}
+.checks label{display:flex;align-items:flex-start;gap:10px;color:var(--ink);font-size:.98rem}
+</style>
+
+{{> nav }}
+
+<section class="sect nohero tight">
+  <div class="wrap">
+    <div class="said mid">
+      <p class="tag red">Donate</p>
+      <h2 style="margin-top:18px">All of it is tax-deductible.</h2>
+    </div>
+    <p class="after">The Friends of Hendricks is a 501(c)(3) nonprofit. Funds raised through the
+      year are given to Hendricks Avenue Elementary through a grant process &mdash; grants that
+      meet the needs the Duval County budget will not cover.</p>
+  </div>
+</section>
+
+<section class="sect tight" style="padding-top:0">
+  <div class="wrap">
+    <div class="said mid rv"><p class="tag red">Three ways to give</p></div>
+    <div class="routes rv">
+      <a class="route" href="{{URL_WALKATHON}}">
+        <p class="n">01</p><h3>Donate to the Walkathon</h3>
+        <p>Support a student, or give as a gift. Our largest fundraiser, every February.</p>
+        <p class="go">Go to the Walkathon &rarr;</p>
+      </a>
+      <a class="route" href="{{URL_PARTNERS}}">
+        <p class="n">02</p><h3>Become a Business Partner</h3>
+        <p>Choose a sponsorship level from $250 to $5,000 and put your name on the shirts, the
+          marquee and both entrances.</p>
+        <p class="go">See the five levels &rarr;</p>
+      </a>
+      <a class="route" href="#gift">
+        <p class="n">03</p><h3>Give a gift</h3>
+        <p>Any amount, any time. PayPal or a personal check. Hugs from Henry enrolments go
+          through here too.</p>
+        <p class="go">Give below &rarr;</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="sect" id="gift" style="border-top:1px solid var(--line)">
+  <div class="wrap">
+    <div class="said mid rv"><p class="tag red">Give a gift</p>
+      <h2 style="margin-top:18px">Every dollar stays in this building.</h2></div>
+    <div class="twocol rv" style="margin-top:clamp(30px,4.5vw,48px)">
+      <form onsubmit="return false">
+        <div class="field"><label for="d-name">Name *</label><input id="d-name" type="text" autocomplete="name"></div>
+        <div class="field"><label for="d-email">Email address *</label><input id="d-email" type="email" autocomplete="email"></div>
+        <div class="field"><label for="d-amount">Donation amount * (USD)</label><input id="d-amount" type="text" inputmode="decimal"></div>
+        <div class="field"><span class="label" style="font-size:.74rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)">What is this for? *</span>
+          <div class="checks">
+            <label><input type="checkbox" name="purpose"> Hugs from Henry ($25 per child)</label>
+            <label><input type="checkbox" name="purpose"> Business Partner</label>
+            <label><input type="checkbox" name="purpose"> General Donation</label>
+          </div>
+        </div>
+        <div class="field"><label for="d-comments">Comments</label>
+          <textarea id="d-comments" rows="3"></textarea>
+          <p class="note">Child's name and teacher, or your business name.</p></div>
+        <div class="field"><span class="label" style="font-size:.74rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)">How are you paying?</span>
+          <div class="pay">
+            <label><input type="radio" name="pay"> Check</label>
+            <label><input type="radio" name="pay"> PayPal</label>
+          </div>
+        </div>
+        <button class="pill big" type="submit">Donate</button>
+      </form>
+      <div class="info">
+        <dl style="margin:0">
+          <dt>Mailing address</dt>
+          <dd>The Friends of Hendricks<br>4446-1A Hendricks Avenue, Suite 357<br>
+            Jacksonville, FL 32207</dd>
+          <dt>Does your company match gifts?</dt>
+          <dd>Many do, and most people never ask. Contact your employer and ask for your gift to
+            be matched to The Friends of Hendricks, <strong>Tax ID 20-4931978</strong>.</dd>
+          <dt>Checks</dt>
+          <dd>Payable to The Friends of Hendricks. For Hugs from Henry, a check can go in with
+            your student's teacher instead of the mail.</dd>
+          <dt>What your money buys</dt>
+          <dd>Online learning programs, classroom supplies, teacher professional development,
+            school enhancements and the leadership curriculum.</dd>
+        </dl>
+      </div>
+    </div>
+    <p class="note" style="margin-top:clamp(28px,4vw,40px)">Thank you for your support. Together
+      we are helping our students have the most amazing educational experience.</p>
+  </div>
+</section>
+
+<section class="close">
+  <div class="media"><div class="layer"></div></div>
+  <div class="veil"></div>
+  <div class="wrap inner">
+    <h2>Nobody here is paid.</h2>
+    <p>The Friends of Hendricks is run by parent volunteers. What you give is what the school
+      gets, minus nothing.</p>
+    <p class="needs">Total raised to date &mdash; needs the real figure</p>
+    <div class="row">
+      <a class="pill" href="#gift">Give a gift</a>
+      <a class="pill ghost" href="{{URL_PARENTS}}">Meet the parents</a>
+    </div>
+  </div>
+</section>
+
+{{> footer }}
+{{> scripts }}

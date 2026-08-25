@@ -1,0 +1,56 @@
+/* ---- direction D's palette, shared by every page ----
+   A deliberate single visual world: dark in every theme, the way a cinema is
+   dark, with every colour painted explicitly so it never borrows the host's
+   ground. Light mode is opt-in only, via the button in the top bar. */
+:root{
+  --ground:#070F1A; --raise:#0D1826; --sink:#040A12;
+  --ink:#EDF2F8; --muted:#94A8BF; --faint:#7089A8;
+  --navy:#003E7E; --navy-ink:#7FB2E3;
+  --red:#C71014; --red-ink:#FF8A80;
+  --gold:#FFBE04;          /* a fill only: gold carries dark text, never light */
+  --gold-ink:#FFBE04;      /* gold as text; light mode has to darken this */
+  --on-gold:#070F1A;       /* what sits on top of a gold fill, both modes */
+  --line:#1B2B3F; --line-soft:#132133;
+  --edge:#476888;          /* borders of things you click: 3.3:1 on the ground, where --line's 1.3:1 fails */
+  --bar:rgba(7,15,26,.93); /* the top bar once it has left the film */
+  --field:#040A12;         /* form inputs */
+  --tile:#FFFFFF;          /* sponsor logos are all drawn for white; they get a white card */
+  /* --photo is declared per page, not here: it is 400 KB, and two of the
+     seven pages have no .media backdrop to spend it on. */
+  --nav-h:72px;
+}
+@media (min-width:760px){:root{--nav-h:88px}}
+
+/* ---- light mode ----
+   Dark stays the default in every theme; the only way to light is the button in
+   the top bar, remembered in localStorage under foh-theme. The class goes on the
+   root element rather than on data-theme, because the Artifact host stamps
+   data-theme itself from the viewer's Claude setting and would otherwise drag
+   the page into light without anyone asking. Tokens only below - no new rules. */
+:root.lite body{color-scheme:light}
+:root.lite{
+  --ground:#F6F6F4; --raise:#EFEEE7; --sink:#EAE9E1;
+  --ink:#0B2340; --muted:#42536B; --faint:#54637A;
+  --navy:#003E7E; --navy-ink:#003E7E;
+  --red:#C71014; --red-ink:#C71014;
+  --gold-ink:#7A5D00;      /* #FFBE04 is 1.5:1 on paper. Same hue, darkened to 5.7:1. */
+  --line:#D6D5CC; --line-soft:#E4E3DA;
+  --edge:#858479;
+  --bar:rgba(246,246,244,.93);
+  --field:#FFFFFF;
+}
+/* The film stays the film. Anything sitting on a photograph keeps the dark
+   values in both modes - and dark mode is untouched, since these are exactly
+   the tokens above. */
+.act1,.frame,.close,.filmcap,.past figure,.topnav.over-hero{
+  --ink:#EDF2F8; --muted:#94A8BF; --faint:#7089A8;
+  --navy-ink:#7FB2E3; --red-ink:#FF8A80;
+  --gold-ink:#FFBE04;
+  --line:#1B2B3F; --line-soft:#132133; --edge:#476888;
+  /* Retoning --ink is not enough on its own. Headings carry no colour of their
+     own -- they inherit the computed colour from <body>, which already resolved
+     var(--ink) against :root. In light mode that made every headline over a
+     photograph dark navy. Setting colour here resolves --ink at this element,
+     and the whole subtree inherits white. */
+  color:var(--ink);
+}

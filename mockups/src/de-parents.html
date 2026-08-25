@@ -1,0 +1,144 @@
+<title>Meet the Parents</title>
+{{> head }}
+<style>
+{{> tokens }}
+{{> base }}
+:root{--photo:url("{{HERO}}")}
+#nav-parents{color:var(--gold-ink)}
+
+.mission{border-left:2px solid var(--gold-ink);padding-left:clamp(20px,3vw,32px);
+  margin-top:clamp(28px,4vw,40px)}
+.mission p{font-family:"Bricolage Grotesque",Manrope,sans-serif;font-weight:400;
+  font-size:clamp(1.3rem,3vw,2.1rem);line-height:1.22;letter-spacing:-.02em;color:var(--ink);
+  max-width:34ch}
+.dirs{margin-top:26px;color:var(--muted);font-size:.98rem;line-height:1.8}
+.dirs b{color:var(--ink);display:block;font-size:.72rem;font-weight:700;letter-spacing:.18em;
+  text-transform:uppercase;margin-bottom:8px}
+</style>
+
+{{> nav }}
+
+<section class="sect nohero tight">
+  <div class="wrap">
+    <div class="said mid">
+      <p class="tag red">About The Friends of Hendricks</p>
+      <h2 style="margin-top:18px">Parents. Volunteers. Unpaid.</h2>
+    </div>
+    <p class="after">The Friends of Hendricks is a 501(c)(3) nonprofit organization led by
+      parent volunteers. It was created to provide funding so that the legacy of success stands,
+      and the exemplary education of the students at Hendricks Avenue Elementary continues for
+      years to come.</p>
+  </div>
+</section>
+
+<figure class="filmcap rv" style="margin:0">
+  <img src="{{VOLUNTEERS}}" alt="The Friends of Hendricks board in matching blue shirts at a school event">
+  <figcaption>
+    <span class="disp">This is the whole organization.</span>
+    <p>Every person raising money for Hendricks Avenue Elementary is a parent, a teacher or a
+      volunteer. Nobody draws a salary.</p>
+  </figcaption>
+</figure>
+
+<section class="sect">
+  <div class="wrap">
+    <div class="said"><p class="tag red">Mission statement</p></div>
+    <div class="mission rv">
+      <p>To increase the available funding to provide faculty and staff the additional
+        resources required to ensure an exemplary education for the students of Hendricks
+        Avenue Elementary School.</p>
+    </div>
+    <p class="after rv" style="margin-top:clamp(34px,5vw,52px);max-width:62ch">
+      Choosing to strengthen Hendricks Avenue Elementary through a gift to The Friends of
+      Hendricks is a valuable and meaningful decision. Support can be given through time,
+      talents, and monetary and in-kind donations. The effect of parents, alumni, grandparents
+      and friends standing together for our school will be immeasurable. All gifts, no matter
+      how large or small, will have a powerful impact, because you become invested in the
+      education and enrichment of every child, faculty and staff member.</p>
+    <p class="after rv" style="max-width:62ch;margin-top:20px">
+      The funds we raise are awarded through a grant process and used to offset
+      county-implemented budget cuts and increase financial resources for school enhancements
+      and improvements &mdash; staffing, technology and classroom needs.</p>
+  </div>
+</section>
+
+<section class="sect tight" style="border-top:1px solid var(--line)">
+  <div class="wrap">
+    <div class="said mid rv"><p class="tag red">Ways to support us</p>
+      <h2 style="margin-top:18px">Six of them, all year.</h2></div>
+    <ol class="spend rv">
+      <li><span class="n">01</span><span class="w"><a href="{{URL_WALKATHON}}" style="color:inherit">The FOH Walkathon</a></span><span class="m">February 2027</span></li>
+      <li><span class="n">02</span><span class="w"><a href="{{URL_PARTNERS}}" style="color:inherit">The FOH Business Partners Program</a></span><span class="m">five levels</span></li>
+      <li><span class="n">03</span><span class="w"><a href="{{URL_TAKEPART}}#spirit" style="color:inherit">Hendricks Community Spirit Nights</a></span><span class="m">eat out, give back</span></li>
+      <li><span class="n">04</span><span class="w"><a href="{{URL_TAKEPART}}#henry" style="color:inherit">Hugs From Henry</a></span><span class="m">$25 per child</span></li>
+      <li><span class="n">05</span><span class="w"><a href="{{URL_TAKEPART}}#rock" style="color:inherit">Rent the Spirit Rock</a></span><span class="m">$35&ndash;60</span></li>
+      <li><span class="n">06</span><span class="w"><a href="{{URL_DONATE}}" style="color:inherit">Direct donations</a></span><span class="m">any amount</span></li>
+    </ol>
+  </div>
+</section>
+
+<section class="sect" id="board" style="border-top:1px solid var(--line)">
+  <div class="wrap">
+    <div class="said mid rv"><p class="tag red">2026&ndash;27 board</p>
+      <h2 style="margin-top:18px">The people who do this.</h2></div>
+    <div class="people rv">
+      <div class="pp"><span>President</span><b>Katie Turpin</b></div>
+      <div class="pp"><span>Vice President</span><b>Kaylee Hurwitz</b></div>
+      <div class="pp"><span>Treasurer</span><b>Allison Naseri</b></div>
+      <div class="pp"><span>Secretary</span><b>Kristian Carter</b></div>
+      <div class="pp"><span>Chair of Fundraising</span><b>Aryn Lentz</b></div>
+      <div class="pp"><span>Legal Advisor</span><b>James Poindexter</b></div>
+    </div>
+    <p class="dirs rv"><b>Directors</b>Julie Braun &middot; Nicole Brown &middot; Sara Buckley &middot;
+      Melissa Gregory &middot; Brittany Kelly &middot; Shelly Middleton &middot;
+      Katherine Poindexter &middot; Ivan Porter &middot; Jason Pratt</p>
+  </div>
+</section>
+
+<section class="sect tight" style="border-top:1px solid var(--line)">
+  <div class="wrap">
+    <div class="twocol rv">
+      <div>
+        <p class="tag red">Contact</p>
+        <h2 style="margin-top:16px;font-size:clamp(1.7rem,3.4vw,2.4rem)">Talk to us.</h2>
+        <p style="margin-top:18px;color:var(--muted)">General enquiries go to the president.
+          Each program has its own inbox &mdash; they are all in the footer.</p>
+        <div class="row">
+          <a class="pill" href="mailto:fohpresident1@gmail.com">fohpresident1@gmail.com</a>
+        </div>
+      </div>
+      <div class="info">
+        <dl style="margin:0">
+          <dt>Mailing address</dt>
+          <dd>The Friends of Hendricks<br>4446-1A Hendricks Avenue, Suite 357<br>
+            Jacksonville, FL 32207</dd>
+          <dt>Business partner enquiries</dt>
+          <dd><a href="mailto:FriendsBusinessPartners@gmail.com">FriendsBusinessPartners@gmail.com</a><br>
+            Aryn Lentz &middot; <a href="tel:+19044512831">(904) 451-2831</a></dd>
+          <dt>Tax</dt>
+          <dd>501(c)(3) &middot; Tax ID 20-4931978</dd>
+          <dt>Find us</dt>
+          <dd><a href="https://facebook.com/FriendsOfHendricks">Facebook</a> &middot;
+            <a href="https://instagram.com/friendsofhendricks/">Instagram</a></dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="close">
+  <div class="media"><div class="layer"></div></div>
+  <div class="veil"></div>
+  <div class="wrap inner">
+    <h2>Standing strong for our school.</h2>
+    <p>Over 600 students and their families in San Marco. One building, established 1942, and a
+      county budget that does not stretch far enough.</p>
+    <div class="row">
+      <a class="pill" href="{{URL_DONATE}}">Donate</a>
+      <a class="pill ghost" href="{{URL_PARTNERS}}">Sponsor as a business</a>
+    </div>
+  </div>
+</section>
+
+{{> footer }}
+{{> scripts }}

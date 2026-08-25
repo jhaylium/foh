@@ -1,0 +1,164 @@
+<title>The Walkathon</title>
+{{> head }}
+<style>
+{{> tokens }}
+{{> base }}
+:root{--photo:url("{{HERO}}")}
+#nav-walkathon{color:var(--gold-ink)}
+
+/* the thermometer: the one published dollar target they have */
+.goal{margin-top:clamp(28px,4vw,40px);border:1px solid var(--line);padding:clamp(22px,3vw,32px);
+  background:var(--raise)}
+.goal .bar{height:14px;background:var(--sink);border:1px solid var(--line);margin-top:16px;
+  position:relative;overflow:hidden}
+.goal .bar i{position:absolute;inset:0;right:auto;width:34%;background:var(--gold);display:block}
+.goal .ends{display:flex;justify-content:space-between;margin-top:10px;font-size:.8rem;
+  color:var(--faint);font-variant-numeric:tabular-nums}
+.past{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;
+  margin-top:clamp(28px,4vw,40px);background:var(--line-soft);border:1px solid var(--line-soft)}
+.past figure{margin:0;position:relative;background:#040A12}
+.past img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.past figcaption{position:absolute;left:0;right:0;bottom:0;padding:12px 14px;
+  background:linear-gradient(to top,rgba(4,10,18,.92),rgba(4,10,18,0));
+  font-size:.74rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#EDF2F8}
+</style>
+
+{{> nav }}
+
+<section class="act1" id="act1">
+  <div class="media" data-film><div class="layer"></div></div>
+  <div class="veil"></div>
+  <button class="mctl" type="button" id="mbtn" aria-pressed="true">Motion on</button>
+  <div class="wrap inner">
+    <p class="tag">Saturday 20 February 2027 &middot; the 15th annual</p>
+    <h1 style="margin-top:20px">They walk.<br><em>We all pay up.</em></h1>
+    <p class="lede">The Walkathon is the largest thing we do all year. Students collect pledges
+      from friends, family and business partners, then they walk. Everything raised goes back
+      into this school as grants.</p>
+    <div class="row">
+      <a class="pill" href="#pledge">Donate to the Walkathon</a>
+      <a class="pill ghost" href="{{URL_PARTNERS}}">Sponsor as a business</a>
+    </div>
+  </div>
+  <p class="scrollcue">Scroll</p>
+</section>
+
+<section class="strip">
+  <div class="wrap"><div class="strip-in">
+    <div class="ch"><b>15th</b><p>annual Walkathon</p></div>
+    <div class="ch"><b>$50,000</b><p>this year's goal</p></div>
+    <div class="ch"><b>600+</b><p>students taking part</p></div>
+    <div class="ch"><b>1 day</b><p>the whole neighborhood turns out</p></div>
+  </div></div>
+</section>
+
+<section class="sect">
+  <div class="wrap">
+    <div class="said mid rv">
+      <p class="tag red">Now accepting donations for 2027</p>
+      <h2 style="margin-top:18px">Thank you for standing strong for our school.</h2>
+    </div>
+    <p class="after rv">We are excited about our 15th annual Walkathon happening on Saturday,
+      February 20th. Walkathon is The Friends of Hendricks' largest annual fundraiser. We work
+      together with friends, families and business partners to raise money, and these donations
+      support Hendricks Avenue Elementary in the form of grants.</p>
+
+    <ol class="spend rv">
+      <li><span class="n">01</span><span class="w">Improved classroom technology</span><span class="m">where most of it goes</span></li>
+      <li><span class="n">02</span><span class="w">School supplies</span><span class="m">every room, every year</span></li>
+      <li><span class="n">03</span><span class="w">Teacher grant requests</span><span class="m">applied for, then funded</span></li>
+    </ol>
+
+    <div class="goal rv">
+      <p class="tag">The goal</p>
+      <p class="disp" style="font-size:clamp(1.6rem,3.4vw,2.4rem);margin-top:10px">$50,000</p>
+      <div class="bar"><i></i></div>
+      <div class="ends"><span>Raised so far</span><span>$50,000</span></div>
+      <p class="needs">Amount raised to date &mdash; the bar above is a placeholder until the board supplies the real figure</p>
+    </div>
+  </div>
+</section>
+
+<figure class="filmcap rv" style="margin:0">
+  <img src="{{CROWD}}" alt="Hendricks students and families gathered at a past Walkathon">
+  <figcaption>
+    <span class="disp">Every shirt is designed by a Hendricks student.</span>
+    <p>The 2023 shirt was Cayla's, in Grade 4. Shirt colors date the photographs below &mdash;
+      red 2019, neon yellow 2020, teal 2021, blue 2023.</p>
+  </figcaption>
+</figure>
+
+<section class="sect" id="pledge">
+  <div class="wrap">
+    <div class="said mid rv">
+      <p class="tag red">Walkathon donations</p>
+      <h2 style="margin-top:18px">Sponsor your student and support HAE.</h2>
+    </div>
+    <div class="twocol rv" style="margin-top:clamp(30px,4.5vw,48px)">
+      <form onsubmit="return false">
+        <div class="field"><label for="w-name">Name *</label><input id="w-name" type="text" autocomplete="name"></div>
+        <div class="field"><label for="w-email">Email address</label><input id="w-email" type="email" autocomplete="email"></div>
+        <div class="field"><label for="w-phone">Phone</label><input id="w-phone" type="tel" autocomplete="tel"></div>
+        <div class="field"><label for="w-student">Student's name *</label><input id="w-student" type="text">
+          <p class="note">The HAE student you are sponsoring.</p></div>
+        <div class="field"><label for="w-teacher">Student's teacher</label><input id="w-teacher" type="text"></div>
+        <div class="field"><label for="w-amount">Donation amount * (USD)</label><input id="w-amount" type="text" inputmode="decimal"></div>
+        <div class="field"><label for="w-comments">Comments</label><textarea id="w-comments" rows="3"></textarea></div>
+        <button class="pill big" type="submit">Donate</button>
+        <p class="note" style="margin-top:14px">Sponsoring more than one student? Say so in the
+          comments and we will credit each of them.</p>
+      </form>
+      <div class="info">
+        <dl style="margin:0">
+          <dt>Paying by cash or check</dt>
+          <dd>Please include it in the Walkathon collection envelope that was sent home with
+            your child.</dd>
+          <dt>Business partners</dt>
+          <dd>Sponsorship initiated by a parent, grandparent or guardian is credited towards a
+            student's incentive party. Tell us the family relationship so the right child gets
+            the credit. <a href="{{URL_PARTNERS}}">See the five levels</a>.</dd>
+          <dt>Tax</dt>
+          <dd>The Friends of Hendricks is a 501(c)(3). Tax ID 20-4931978 &mdash; most employers
+            will match a gift if you ask.</dd>
+          <dt>The date</dt>
+          <dd>Saturday, February 20th 2027. The sponsorship chart currently gives both the
+            20th and the 21st; the 20th is the Saturday.
+            <span class="needs">Date to confirm with the board</span></dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sect tight" style="padding-top:0">
+  <div class="wrap">
+    <div class="said mid rv"><p class="tag red">The archive</p>
+      <h2 style="margin-top:18px">Past Walkathons.</h2></div>
+    <div class="past rv">
+      <figure><img src="{{WALK}}" alt="Students walking the course at a past Walkathon"><figcaption>The course</figcaption></figure>
+      <figure><img src="{{WALK23}}" alt="Students in blue Walkathon shirts, 2023"><figcaption>2023 &middot; blue</figcaption></figure>
+      <figure><img src="{{THUMBS}}" alt="Two students giving a thumbs up at the Walkathon"><figcaption>Thumbs up</figcaption></figure>
+      <figure><img src="{{BACKS}}" alt="The back of a Walkathon shirt showing the business partner logos"><figcaption>Where a logo goes</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="close">
+  <div class="media" data-film><div class="layer"></div></div>
+  <div class="veil"></div>
+  <div class="wrap inner">
+    <h2>One Saturday pays for the year.</h2>
+    <p>Pledge a student, or put your business on the shirt. Both end up in the same place
+      &mdash; a classroom in this building.</p>
+    <div class="row">
+      <a class="pill" href="#pledge">Donate to the Walkathon</a>
+      <a class="pill ghost" href="{{URL_PARTNERS}}">Sponsor as a business</a>
+    </div>
+  </div>
+</section>
+
+{{> footer }}
+
+<span id="film-src" data-video="{{VIDEO_REEL}}" hidden></span>
+{{> scripts }}
+{{> film }}

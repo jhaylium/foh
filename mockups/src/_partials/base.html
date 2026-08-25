@@ -1,0 +1,334 @@
+/* ---- shared chrome for every page in direction D ---- */
+*{box-sizing:border-box}
+section[id],div[id],figure[id]{scroll-margin-top:calc(var(--nav-h) + 14px)}
+body{margin:0;background:var(--ground);color:var(--ink);color-scheme:dark;
+  font-family:Manrope,"Helvetica Neue",Arial,sans-serif;font-size:17px;line-height:1.62;
+  -webkit-font-smoothing:antialiased}
+h1,h2,h3,.disp{font-family:"Bricolage Grotesque",Manrope,sans-serif;font-weight:800;
+  letter-spacing:-.022em;line-height:.99;margin:0;text-wrap:balance}
+h1{font-size:clamp(2.5rem,7.4vw,5.8rem)}
+h2{font-size:clamp(1.9rem,4.4vw,3.4rem)}
+h3{font-size:1.3rem;letter-spacing:-.012em}
+p{margin:0}
+a{color:var(--navy-ink)}
+img{max-width:100%;display:block}
+:focus-visible{outline:3px solid var(--gold-ink);outline-offset:3px;border-radius:2px}
+.wrap{max-width:1200px;margin:0 auto;padding:0 clamp(18px,4.5vw,48px)}
+.tag{font-family:Manrope,sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--gold-ink);margin:0}
+.tag.red{color:var(--red-ink)}
+.lede{font-size:clamp(1.04rem,1.6vw,1.24rem);line-height:1.58;color:var(--muted);max-width:56ch}
+.note{font-size:.88rem;color:var(--faint);line-height:1.5}
+.sect{padding:clamp(60px,9vw,130px) 0}
+.sect.tight{padding:clamp(40px,6vw,84px) 0}
+
+/* Section heads. .said.mid centres the head and lets the line run across the
+   page instead of breaking into a narrow ribbon beside a wide empty margin.
+   The measure has to be set on the heading, not on the box around it. `ch` is
+   the width of a "0" in the element's OWN font: on .said that is 17px body text,
+   about 9px a character, so 26ch came out ~240px wide while the h2 inside it
+   rendered at up to 67px -- one word per line. Putting the cap on the h2 makes
+   1ch about 37px at display size, so 22ch is a genuine ~810px measure that
+   scales with the type. */
+.said{max-width:none}
+.said h2{font-size:clamp(2.1rem,5.6vw,4.2rem);max-width:min(22ch,100%)}
+.said.mid{text-align:center}
+.said.mid h2{margin-inline:auto}
+.after{margin-top:26px;max-width:58ch;color:var(--muted);font-size:clamp(1.02rem,1.5vw,1.18rem);
+  text-wrap:pretty}
+.said.mid + .after{margin-inline:auto;text-align:center}
+.midact{display:flex;justify-content:center;margin-top:clamp(30px,4.5vw,46px)}
+
+/* ---- buttons ---- */
+.pill{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:var(--on-gold);
+  font-family:Manrope,sans-serif;font-size:.88rem;font-weight:700;padding:11px 22px;
+  border-radius:999px;text-decoration:none;border:none;cursor:pointer;
+  transition:transform .16s ease}
+.pill:hover{transform:translateY(-1px)}
+.pill.ghost{background:transparent;color:var(--ink);border:1px solid var(--edge)}
+.pill.ghost:hover{border-color:var(--navy-ink);color:var(--navy-ink)}
+.pill.big{font-size:.95rem;padding:14px 28px}
+.row{display:flex;flex-wrap:wrap;gap:11px;margin-top:30px}
+.row.mid{justify-content:center}
+
+/* ---- the drifting still, and real footage layered over it ---- */
+@keyframes drift{
+  0%{transform:scale(1.05) translate3d(0,0,0)}
+  50%{transform:scale(1.17) translate3d(-2.4%,-1.8%,0)}
+  100%{transform:scale(1.05) translate3d(0,0,0)}
+}
+.media{position:absolute;inset:0;overflow:hidden;background:#040A12}
+.media .layer{position:absolute;inset:-3%;background-image:var(--photo);
+  background-size:cover;background-position:50% 36%;will-change:transform;
+  animation:drift 30s ease-in-out infinite}
+.paused .media .layer{animation-play-state:paused}
+.media video.vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  opacity:0;transition:opacity .9s ease}
+.media video.vid.on{opacity:1}
+.mctl{position:absolute;bottom:clamp(28px,5vh,52px);right:clamp(18px,4.5vw,48px);z-index:5;
+  display:inline-flex;align-items:center;gap:8px;background:rgba(7,15,26,.7);
+  border:1px solid rgba(237,242,248,.32);color:#EDF2F8;font-family:Manrope,sans-serif;
+  font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  padding:9px 15px;cursor:pointer;border-radius:999px}
+.mctl:hover{background:rgba(7,15,26,.94)}
+
+/* ---- the top bar: fixed, transparent over the film, filling in on scroll.
+       Taken from obama.org, which sticks its nav at top:0, starts it transparent
+       and pulls the hero up underneath it. The filled state is the CSS default so
+       the bar is legible with no JS at all; the script only adds .over-hero while
+       the bar is still sitting on the moving picture. ---- */
+.topnav{position:fixed;top:0;left:0;right:0;z-index:60;height:var(--nav-h);
+  display:flex;align-items:center;gap:14px;padding:0 clamp(18px,4.5vw,48px);
+  background:var(--bar);border-bottom:1px solid var(--line);
+  -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+  transition:background .26s ease,border-color .26s ease}
+.topnav::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;
+  background:linear-gradient(to bottom,rgba(4,10,18,.78),rgba(4,10,18,0));
+  transition:opacity .26s ease}
+.topnav>*{position:relative}
+.topnav.over-hero{background:transparent;border-bottom-color:transparent;
+  -webkit-backdrop-filter:none;backdrop-filter:none}
+.topnav.over-hero::before{opacity:1}
+.topnav .who{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
+.topnav .who img{width:34px}
+.topnav .who b{font-family:"Bricolage Grotesque",sans-serif;font-weight:600;font-size:.95rem;
+  letter-spacing:-.01em;line-height:1.1}
+.topnav nav{margin-left:auto;display:flex;align-items:center;gap:clamp(10px,1.5vw,22px)}
+.topnav nav a{color:var(--muted);text-decoration:none;font-size:.86rem;font-weight:600;
+  white-space:nowrap}
+.topnav nav a:hover,.topnav nav a[aria-current]{color:var(--gold-ink)}
+.topnav.over-hero nav a{color:rgba(237,242,248,.82)}
+.topnav.over-hero nav a:hover,.topnav.over-hero nav a[aria-current]{color:#FFBE04}
+.topnav .pill{padding:10px 20px;font-size:.86rem}
+
+/* dropdowns: open on hover AND focus-within, so they work from the keyboard
+   with no script at all. */
+.has-sub{position:relative;display:flex;align-items:center}
+.has-sub .caret{display:inline-block;width:0;height:0;margin-left:6px;
+  border-left:4px solid transparent;border-right:4px solid transparent;
+  border-top:4px solid currentColor;vertical-align:middle}
+.has-sub .sub{position:absolute;top:100%;left:-14px;min-width:210px;padding:8px 0;
+  background:var(--bar);border:1px solid var(--line);border-radius:4px;
+  -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+  display:flex;flex-direction:column;gap:0;
+  opacity:0;visibility:hidden;transform:translateY(-4px);
+  transition:opacity .16s ease,transform .16s ease,visibility .16s}
+.has-sub:hover .sub,.has-sub:focus-within .sub{opacity:1;visibility:visible;transform:none}
+.has-sub .sub a{padding:9px 18px;color:var(--muted);font-weight:500}
+.has-sub .sub a:hover{color:var(--gold-ink)}
+.topnav.over-hero .has-sub .sub{background:rgba(7,15,26,.96)}
+.topnav.over-hero .has-sub .sub a{color:rgba(237,242,248,.82)}
+
+.tgl{background:transparent;border:1px solid var(--edge);color:var(--muted);
+  font-family:Manrope,sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;padding:8px 13px;border-radius:999px;cursor:pointer;white-space:nowrap;
+  transition:color .2s ease,border-color .2s ease}
+.tgl:hover{color:var(--gold-ink);border-color:var(--gold-ink)}
+.menubtn{display:none;margin-left:auto;background:transparent;border:1px solid var(--edge);
+  color:var(--ink);font-family:Manrope,sans-serif;font-size:.72rem;font-weight:700;
+  letter-spacing:.14em;text-transform:uppercase;padding:9px 14px;border-radius:999px;
+  cursor:pointer}
+
+/* ---- act one: the film ---- */
+.act1{position:relative;min-height:100svh;display:flex;flex-direction:column;
+  justify-content:flex-end;overflow:hidden}
+.act1.short{min-height:clamp(500px,78svh,760px);justify-content:flex-end}
+.act1 .veil{position:absolute;inset:0;background:
+  linear-gradient(to top,rgba(7,15,26,.96) 0%,rgba(7,15,26,.62) 38%,rgba(7,15,26,.2) 70%,rgba(7,15,26,.55) 100%)}
+.act1 .inner{position:relative;padding-bottom:clamp(70px,11vh,140px);padding-top:calc(var(--nav-h) + 30px)}
+.act1 h1{max-width:15ch}
+.act1 h1 em{font-style:normal;color:#FFBE04}
+.act1 .lede{margin-top:22px;color:rgba(237,242,248,.9)}
+.scrollcue{position:absolute;left:clamp(18px,4.5vw,48px);bottom:clamp(28px,5vh,52px);
+  font-size:.68rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--faint)}
+
+/* a page with no hero starts underneath the fixed bar, so it has to be pushed down */
+.nohero{padding-top:calc(var(--nav-h) + clamp(34px,6vw,70px))}
+
+/* ---- chapter strip ---- */
+.strip{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--raise)}
+.strip-in{display:grid;grid-template-columns:repeat(4,1fr)}
+.ch{padding:clamp(26px,3.4vw,40px) clamp(16px,2vw,28px);border-left:1px solid var(--line-soft)}
+.ch:first-child{border-left:none}
+.ch b{font-family:"Bricolage Grotesque",sans-serif;font-weight:400;font-size:clamp(2.2rem,4.6vw,3.4rem);
+  line-height:.9;display:block;color:var(--gold-ink);font-variant-numeric:tabular-nums;letter-spacing:-.03em}
+.ch p{font-size:.9rem;color:var(--muted);margin-top:12px;line-height:1.4}
+
+/* ---- reveal on scroll ---- */
+.rv{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.rv.in{opacity:1;transform:none}
+
+/* ---- a photograph used as a full-width frame ---- */
+.frame{position:relative;aspect-ratio:16/9;overflow:hidden;margin-top:clamp(34px,5vw,60px);
+  border:1px solid var(--line)}
+.frame .veil{position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(7,15,26,.72),transparent 62%)}
+.frame .cap{position:absolute;left:0;right:0;bottom:0;padding:clamp(18px,3vw,32px);
+  display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap}
+.frame .cap p{font-size:.82rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.frame .cap .disp{font-size:clamp(1.3rem,3vw,2.1rem);max-width:22ch}
+.filmcap{position:relative}
+.filmcap figcaption{position:absolute;left:0;right:0;bottom:0;padding:clamp(18px,3vw,32px);
+  background:linear-gradient(to top,rgba(4,10,18,.94),rgba(4,10,18,.55) 55%,rgba(4,10,18,0))}
+.filmcap figcaption p{color:var(--muted);max-width:56ch;font-size:.96rem}
+.filmcap .disp{font-size:clamp(1.24rem,2.8vw,2rem);display:block;margin-bottom:7px}
+.filmcap img{width:100%;height:clamp(260px,38vw,430px);object-fit:cover;object-position:50% 50%}
+
+/* ---- hairline numbered list ---- */
+.spend{list-style:none;margin:clamp(34px,5vw,52px) 0 0;padding:0;border-top:1px solid var(--line)}
+.spend li{display:grid;grid-template-columns:56px 1fr auto;gap:18px;align-items:baseline;
+  padding:clamp(18px,2.4vw,26px) 2px;border-bottom:1px solid var(--line-soft)}
+.spend .n{font-family:"Bricolage Grotesque",sans-serif;font-weight:400;font-size:.94rem;
+  color:var(--faint);font-variant-numeric:tabular-nums;letter-spacing:.08em}
+.spend .w{font-family:"Bricolage Grotesque",sans-serif;font-weight:600;
+  font-size:clamp(1.15rem,2.4vw,1.7rem);letter-spacing:-.015em;line-height:1.15}
+.spend .m{font-size:.84rem;color:var(--faint);text-align:right}
+
+/* ---- tiles ---- */
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));gap:1px;
+  margin-top:clamp(34px,5vw,50px);background:var(--line-soft);border:1px solid var(--line-soft)}
+.tile{background:var(--ground);padding:clamp(24px,3vw,32px);display:flex;flex-direction:column;
+  gap:12px;transition:background .2s ease;text-decoration:none;color:inherit}
+.tile:hover{background:var(--raise)}
+.tile .when{font-size:.74rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-ink)}
+.tile p{font-size:.95rem;color:var(--muted)}
+.tile .cost{margin-top:auto;padding-top:14px;font-family:"Bricolage Grotesque",sans-serif;
+  font-weight:600;font-size:1.24rem;color:var(--ink);font-variant-numeric:tabular-nums}
+/* a fixed 3 x 2 rather than auto-fit, so the rows group by kind and stay grouped.
+   minmax(0,1fr) not 1fr, so a long word cannot push a track past its share. */
+.tiles.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+
+/* ---- sponsor groups ---- */
+.lead{border:1px solid var(--gold-ink);padding:clamp(24px,3.4vw,36px);display:flex;flex-wrap:wrap;
+  gap:20px;align-items:center;justify-content:space-between;margin-top:clamp(28px,4vw,40px)}
+.lead .disp{font-size:clamp(1.3rem,2.6vw,1.9rem)}
+.gr{margin-top:30px}
+.grh{display:flex;align-items:baseline;gap:14px;border-bottom:1px solid var(--line);padding-bottom:9px}
+.grh b{font-size:.78rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase}
+.grh span{margin-left:auto;font-size:.8rem;color:var(--faint);font-variant-numeric:tabular-nums}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px}
+.chips span{border:1px solid var(--line);padding:8px 14px;font-size:.86rem;font-weight:500;color:var(--muted)}
+
+/* ---- the sponsor logo wall ----
+   Every one of the 37 marks was drawn for a white background -- none has
+   transparency, and three carry their own dark ground -- so each sits on a white
+   card. That is not decoration: a white-background JPEG dropped straight onto
+   D's near-black page would read as a bright rectangle with a hole in it. */
+.wall{display:grid;grid-template-columns:repeat(auto-fill,minmax(158px,1fr));
+  gap:clamp(12px,1.6vw,20px);margin-top:clamp(20px,3vw,30px)}
+.wall.big{grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
+.slot{display:flex;flex-direction:column;gap:9px}
+.slot .card{background:var(--tile);border:1px solid var(--edge);border-radius:6px;
+  aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;
+  padding:clamp(12px,1.6vw,20px)}
+.slot img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain}
+.slot .nm{font-size:.79rem;line-height:1.35;color:var(--muted);text-align:center}
+.tiergap{margin-top:clamp(40px,6vw,72px)}
+/* the one Visionary partner, set larger than the tier below it */
+.vis{display:flex;align-items:center;gap:clamp(18px,3vw,30px);flex-wrap:wrap}
+.vis .slot{width:clamp(190px,24vw,270px)}
+
+/* ---- people ---- */
+.people{display:grid;grid-template-columns:repeat(auto-fill,minmax(206px,1fr));gap:1px;
+  margin-top:clamp(30px,4vw,42px);background:var(--line-soft);border:1px solid var(--line-soft)}
+.pp{background:var(--ground);padding:20px 22px}
+.pp span{font-size:.7rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-ink)}
+.pp b{display:block;font-family:"Bricolage Grotesque",sans-serif;font-weight:600;font-size:1.06rem;
+  margin-top:6px;letter-spacing:-.01em}
+
+/* ---- the repeated refrain, as its own band ---- */
+.refrain{padding:clamp(46px,7vw,92px) 0;border-block:1px solid var(--line)}
+.refrain .wrap{display:grid;grid-template-columns:auto 1fr;gap:clamp(26px,5vw,60px);align-items:center}
+.refrain .mark{width:64px;height:2px;background:var(--gold-ink)}
+.refrain p{font-family:"Bricolage Grotesque",Manrope,sans-serif;font-weight:400;
+  font-size:clamp(1.4rem,3.2vw,2.4rem);line-height:1.2;letter-spacing:-.02em;
+  color:var(--ink);max-width:32ch}
+.refrain .act{margin-top:24px}
+
+/* ---- forms. Nothing here submits: how forms get handled is still open. ---- */
+.field{display:grid;gap:7px;margin-bottom:16px}
+.field label{font-size:.74rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+.field input,.field textarea,.field select{font-family:Manrope,sans-serif;font-size:1rem;padding:13px 15px;
+  border:1px solid var(--edge);background:var(--field);color:var(--ink);width:100%;border-radius:2px}
+.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--gold-ink);outline:none}
+.info{border:1px solid var(--line);padding:clamp(24px,3.4vw,34px);background:var(--raise)}
+.info dt{font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--gold-ink);margin-top:20px}
+.info dt:first-of-type{margin-top:0}
+.info dd{margin:6px 0 0;font-size:1.02rem}
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,64px);align-items:start}
+
+/* a figure the board still has to supply */
+.needs{display:inline-block;margin-top:14px;border:1px dashed var(--red-ink);color:var(--red-ink);
+  padding:6px 12px;font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+
+/* ---- closing frame ---- */
+.close{position:relative;min-height:76svh;display:flex;align-items:center;justify-content:center;
+  text-align:center;overflow:hidden}
+.close .veil{position:absolute;inset:0;background:rgba(7,15,26,.8)}
+.close .inner{position:relative;padding:clamp(40px,7vw,80px) 0}
+.close h2{font-size:clamp(2.1rem,6vw,4.4rem);max-width:20ch;margin:0 auto}
+.close p{color:var(--muted);max-width:50ch;margin:22px auto 0}
+.close .row{justify-content:center;margin-top:32px}
+
+/* ---- footer ---- */
+footer{border-top:1px solid var(--line);padding:clamp(40px,5vw,64px) 0 56px;font-size:.92rem;
+  background:var(--sink)}
+.foot{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:36px}
+.foot h4{font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--gold-ink);margin:0 0 14px}
+.foot ul{list-style:none;margin:0;padding:0;display:grid;gap:9px}
+.foot a{color:var(--ink);text-decoration:none}
+.foot a:hover{color:var(--navy-ink)}
+.foot p{color:var(--muted)}
+.legal{margin-top:34px;padding-top:20px;border-top:1px solid var(--line-soft);display:flex;
+  justify-content:space-between;gap:18px;flex-wrap:wrap;font-size:.8rem;color:var(--faint)}
+.disclosure{margin-top:18px;font-size:.72rem;line-height:1.5;color:var(--faint);max-width:96ch}
+
+/* ---- breakpoints ---- */
+@media (max-width:1079px){
+  /* With no script the bar simply grows and stacks its links: never a menu that
+     cannot be opened. The script adds .js, which collapses it behind the button. */
+  .topnav{flex-wrap:wrap;height:auto;min-height:var(--nav-h);padding-top:12px;padding-bottom:12px;
+    max-height:100svh;overflow-y:auto}
+  .menubtn{display:inline-flex}
+  .topnav nav{order:5;width:100%;flex-direction:column;align-items:stretch;gap:0;margin-left:0;
+    margin-top:8px}
+  .topnav nav a{padding:11px 2px;border-top:1px solid var(--line-soft);font-size:.95rem}
+  .has-sub{display:block}
+  .has-sub .subtop{display:flex;align-items:center}
+  .has-sub .sub{position:static;opacity:1;visibility:visible;transform:none;min-width:0;
+    background:transparent;border:none;border-radius:0;padding:0;
+    -webkit-backdrop-filter:none;backdrop-filter:none}
+  .has-sub .sub a{padding-left:18px;font-size:.9rem}
+  .topnav.over-hero .has-sub .sub{background:transparent}
+  .js .topnav nav{display:none}
+  .js .topnav.open nav{display:flex}
+  .topnav .tgl{margin-left:auto}
+}
+@media (min-width:1080px){.menubtn{display:none}}
+@media (max-width:940px){
+  .strip-in{grid-template-columns:repeat(2,1fr)}
+  .ch:nth-child(3){border-left:none}
+  .ch{border-top:1px solid var(--line-soft)}
+  .ch:nth-child(-n+2){border-top:none}
+  .foot{grid-template-columns:1fr 1fr}
+  .twocol,.refrain .wrap{grid-template-columns:1fr}
+  .tiles.three{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:560px){
+  body{font-size:16px}
+  .strip-in{grid-template-columns:1fr}
+  .ch{border-left:none;border-top:1px solid var(--line-soft)}
+  .ch:first-child{border-top:none}
+  .foot{grid-template-columns:1fr}
+  .tiles.three{grid-template-columns:1fr}
+  .spend li{grid-template-columns:40px 1fr}
+  .spend .m{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  .media .layer{animation:none}
+  .media video.vid{display:none}
+  .rv{opacity:1;transform:none;transition:none}
+  *{transition:none!important}
+}

@@ -1,0 +1,38 @@
+<script>
+/* ---- real footage, layered over the drifting still ----
+   The page supplies the clip in #film-src's data-video; this partial is the same
+   on every page that has one. The still photograph stays underneath as the
+   poster, so every failure path below just leaves the photograph in place. */
+(function(){
+  var tag=document.getElementById('film-src');
+  if(!tag) return;
+  var uri=tag.getAttribute('data-video');
+  var mq=window.matchMedia('(prefers-reduced-motion: reduce)');
+  var conn=navigator.connection||{};
+  // Deliberately skip real footage where it would be rude or wasteful:
+  //  - the visitor asked their system to reduce motion
+  //  - the browser reports data saving
+  //  - the screen is small enough that it is probably a phone on cellular
+  var skip = !uri || mq.matches || conn.saveData === true || window.innerWidth < 760;
+  if(skip) return;
+  var url;
+  try{
+    var b64=uri.slice(uri.indexOf(',')+1);
+    var bin=atob(b64), len=bin.length, buf=new Uint8Array(len);
+    for(var i=0;i<len;i++) buf[i]=bin.charCodeAt(i);
+    url=URL.createObjectURL(new Blob([buf],{type:'video/mp4'}));
+  }catch(e){ return; }               // any failure: keep the still photograph
+  document.querySelectorAll('.media[data-film]').forEach(function(m){
+    var v=document.createElement('video');
+    v.muted=true; v.defaultMuted=true; v.loop=true; v.autoplay=true;
+    v.playsInline=true; v.setAttribute('playsinline','');
+    v.setAttribute('aria-hidden','true');          // decorative; the page reads fine without it
+    v.src=url;
+    v.className='vid';
+    m.appendChild(v);
+    var p=v.play(); if(p&&p.catch) p.catch(function(){ v.remove(); });
+    v.addEventListener('playing',function(){ v.classList.add('on'); },{once:true});
+  });
+  document.body.classList.add('has-video');
+})();
+</script>

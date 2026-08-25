@@ -1,0 +1,85 @@
+<script>
+/* ---- the light-mode switch ----
+   Its label says what it will do, not what is on, so it needs no aria-pressed to
+   be unambiguous. The key is shared across every page, so the choice carries. */
+(function(){
+  var root=document.documentElement, btn=document.getElementById('lbtn');
+  if(!btn) return;
+  function label(){ btn.textContent = root.classList.contains('lite') ? 'Dark mode' : 'Light mode'; }
+  label();
+  btn.addEventListener('click',function(){
+    root.classList.toggle('lite');
+    try{ localStorage.setItem('foh-theme', root.classList.contains('lite') ? 'light' : 'dark'); }catch(e){}
+    label();
+  });
+})();
+
+/* ---- the mobile menu ---- */
+(function(){
+  var bar=document.getElementById('topnav'), btn=document.getElementById('menubtn');
+  if(!bar||!btn) return;
+  btn.addEventListener('click',function(){
+    var open=bar.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open?'true':'false');
+  });
+  /* a link inside the panel closes it again */
+  bar.querySelectorAll('#navlist a').forEach(function(a){
+    a.addEventListener('click',function(){
+      bar.classList.remove('open'); btn.setAttribute('aria-expanded','false');
+    });
+  });
+})();
+
+/* ---- the bar over the hero ----
+   .over-hero is added only while the fixed bar still sits on the moving picture.
+   The filled state is the CSS default, so with no script the bar is legible
+   rather than white-on-white. A page with no hero never gets the class. */
+(function(){
+  var bar=document.getElementById('topnav'), hero=document.querySelector('.act1');
+  if(!bar||!hero) return;
+  function onScroll(){
+    var h=hero.getBoundingClientRect().bottom - bar.offsetHeight;
+    bar.classList.toggle('over-hero', h > 0);
+  }
+  onScroll();
+  addEventListener('scroll',onScroll,{passive:true});
+  addEventListener('resize',onScroll);
+})();
+
+/* ---- reveal on scroll ---- */
+(function(){
+  var items=document.querySelectorAll('.rv');
+  if(!items.length) return;
+  if(!('IntersectionObserver' in window) ||
+     matchMedia('(prefers-reduced-motion: reduce)').matches){
+    items.forEach(function(el){ el.classList.add('in'); });
+    return;
+  }
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  },{rootMargin:'0px 0px -8% 0px'});
+  items.forEach(function(el){ io.observe(el); });
+})();
+
+/* ---- the motion toggle ----
+   Starts paused under prefers-reduced-motion. A page with no moving picture
+   simply has no button, and this does nothing. */
+(function(){
+  var btn=document.getElementById('mbtn');
+  if(!btn) return;
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduce){ document.body.classList.add('paused'); }
+  function label(){
+    var on=!document.body.classList.contains('paused');
+    btn.textContent = on ? 'Motion on' : 'Motion off';
+    btn.setAttribute('aria-pressed', on?'true':'false');
+  }
+  label();
+  btn.addEventListener('click',function(){
+    document.body.classList.toggle('paused');
+    var paused=document.body.classList.contains('paused');
+    document.querySelectorAll('video.vid').forEach(function(v){ paused ? v.pause() : v.play(); });
+    label();
+  });
+})();
+</script>
