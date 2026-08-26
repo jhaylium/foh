@@ -21,6 +21,7 @@ Hosting, content editing and form handling are **deliberately undecided** — se
 ```bash
 python3 mockups/build.py          # mockups/src/*.html -> mockups/*.html  (Artifact fragments)
 python3 mockups/build.py --site   # mockups/src/de-*.html -> site/        (a real website)
+python3 mockups/encode_mobile.py  # docs/videos/*-540.mp4, the phone-sized clips
 python3 mockups/encode_videos.py  # regenerate mockups/.videos.json from docs/videos/
 ```
 
@@ -319,9 +320,17 @@ the whole subtree inherits it.
 
 The default is a still photograph scaled and drifted in CSS — **zero extra bytes**, and it
 works with the assets that exist. Real footage layers over it via a progressive-enhancement
-script on `c-home`, `d-home` and `e-home`: a `<video>` is injected only into `.media[data-film]`
-containers, and **only** when JS runs, motion is allowed, the browser is not reporting
-`saveData`, and the viewport is ≥760px. Any failure keeps the photograph. All videos are
+script: a `<video>` is injected only into `.media[data-film]` containers, and **only** when
+JS runs, motion is allowed, and the browser is not reporting `saveData`. Any failure keeps
+the photograph.
+
+**760px now chooses a file; it does not gate on/off.** It used to skip footage entirely
+below 760px, so every phone got the still — which reads as the video being broken, because
+it starts playing the moment you switch a phone to desktop mode. The loader now takes
+`data-video-sm` under 760px and `data-video` above it. The small copies are 960x540 at
+~750 KB against 1280x720 at ~2.5 MB. A page offering no `data-video-sm` resolves it to an
+empty string and skips, which is exactly the old behavior — so the frozen `c-home`,
+`d-home` and `e-home` are untouched, and a new page opts in by adding the attribute. All videos are
 `muted`, `loop`, `playsinline`, `aria-hidden`, and share one blob URL so extra frames cost
 nothing. Every page with motion has a visible on/off control that starts paused under
 `prefers-reduced-motion`.
@@ -378,8 +387,14 @@ machine.** Nothing in `docs/` should be relied on by anyone cloning the reposito
 
 ## Environment constraints
 
-No ffmpeg, OpenCV, imageio or PyAV — **video frames cannot be decoded or transcoded here.**
-MP4 metadata can be read by parsing atoms directly. Pillow is available; always run
+No ffmpeg, ffprobe, OpenCV, imageio or PyAV. **But GStreamer is installed and can do
+both** — `gst-launch-1.0` has `qtdemux`, `avdec_h264`, `videoscale`, `x264enc` and
+`mp4mux`, which is a complete transcoding pipeline, plus `jpegenc` for pulling frames out
+to look at. `mockups/encode_mobile.py` is the working example. Two things it gets right that
+are easy to get wrong: `mp4mux faststart=true`, without which the moov atom lands after the
+media data and the browser must download the whole file before it can play; and even pixel
+dimensions, since x264 wants them for 4:2:0 chroma — asking for 854 wide silently produced
+853. MP4 metadata can also be read by parsing atoms directly. Pillow is available; always run
 `ImageOps.exif_transpose()` before processing, since several source photos carry rotation flags
 and will otherwise come out sideways.
 

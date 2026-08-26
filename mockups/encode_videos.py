@@ -8,9 +8,14 @@ import base64, json, pathlib
 root = pathlib.Path(__file__).parent
 src = root.parent / "docs" / "videos"
 MAP = {                                   # token name -> file
-    "reel":   "A_dynamic_cinematic_video_show.mp4",
-    "warm":   "A_warm_and_cheerful_scene_of.mp4",
-    "energy": "high_energy_school_promo_video.mp4",
+    "reel":    "A_dynamic_cinematic_video_show.mp4",
+    "warm":    "A_warm_and_cheerful_scene_of.mp4",
+    "energy":  "high_energy_school_promo_video.mp4",
+    # Phone-sized copies, made by encode_mobile.py. {{VIDEO_WARM_SM}} and
+    # {{VIDEO_REEL_SM}}. A page that offers one gets real footage on a phone
+    # instead of the still photograph; one that does not still gets the still.
+    "warm_sm": "warm-540.mp4",
+    "reel_sm": "reel-540.mp4",
 }
 out = {}
 for name, fn in MAP.items():

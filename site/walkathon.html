@@ -681,7 +681,8 @@ footer{border-top:1px solid var(--line);padding:clamp(40px,5vw,64px) 0 56px;font
   </div>
 </footer>
 
-<span id="film-src" data-video="video/reel.mp4" hidden></span>
+<span id="film-src" data-video="video/reel.mp4"
+      data-video-sm="video/reel_sm.mp4" hidden></span>
 <script>
 /* ---- the light-mode switch ----
    Its label says what it will do, not what is on, so it needs no aria-pressed to
@@ -775,14 +776,19 @@ footer{border-top:1px solid var(--line);padding:clamp(40px,5vw,64px) 0 56px;font
 (function(){
   var tag=document.getElementById('film-src');
   if(!tag) return;
-  var uri=tag.getAttribute('data-video');
   var mq=window.matchMedia('(prefers-reduced-motion: reduce)');
   var conn=navigator.connection||{};
-  // Deliberately skip real footage where it would be rude or wasteful:
+  /* Under 760px take the phone-sized copy -- 960x540 and about 750 KB against
+     1280x720 and 2.5 MB. The width now chooses a file rather than deciding
+     whether there is a file at all: a page that offers no small copy resolves
+     to an empty string here, skips below, and keeps the still photograph, which
+     is exactly what every page did before the small copies existed. */
+  var uri=(window.innerWidth < 760 ? tag.getAttribute('data-video-sm')
+                                   : tag.getAttribute('data-video')) || '';
+  // Still skip real footage where it would be rude regardless of size:
   //  - the visitor asked their system to reduce motion
   //  - the browser reports data saving
-  //  - the screen is small enough that it is probably a phone on cellular
-  var skip = !uri || mq.matches || conn.saveData === true || window.innerWidth < 760;
+  var skip = !uri || mq.matches || conn.saveData === true;
   if(skip) return;
   var url;
   if(uri.slice(0,5)==='data:'){
