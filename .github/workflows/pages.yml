@@ -10,8 +10,7 @@ name: Deploy site to GitHub Pages
 
 on:
   push:
-    branches: [main]
-    paths: ['site/**', '.github/workflows/pages.yml']
+    branches: [main]        # every push to main deploys; this repo exists to publish site/
   workflow_dispatch:        # lets you publish by hand from the Actions tab
 
 permissions:
