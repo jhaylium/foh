@@ -1,0 +1,754 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="The Friends of Hendricks is run entirely by parent volunteers. The mission, the 2026-27 board, and how to reach us.">
+<meta property="og:title" content="Meet the Parents">
+<meta property="og:description" content="The Friends of Hendricks is run entirely by parent volunteers. The mission, the 2026-27 board, and how to reach us.">
+<meta property="og:type" content="website">
+<link rel="icon" href="img/logo.png">
+<link rel="apple-touch-icon" href="img/logo.png">
+<title>Meet the Parents</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Manrope:wght@400;500;600;700&display=swap">
+<script>
+/* Runs before the page paints. Two jobs: restore a saved light-mode choice so a
+   returning reader never sees a flash of dark, and mark that scripting is on, so
+   the mobile nav can collapse behind its button. With no script the bar just
+   grows and stacks its links, which is worse-looking and always usable. */
+(function(){
+  var r=document.documentElement;
+  r.classList.add('js');
+  try{ if(localStorage.getItem('foh-theme')==='light') r.classList.add('lite'); }catch(e){}
+})();
+</script>
+<style>
+/* ---- direction D's palette, shared by every page ----
+   A deliberate single visual world: dark in every theme, the way a cinema is
+   dark, with every colour painted explicitly so it never borrows the host's
+   ground. Light mode is opt-in only, via the button in the top bar. */
+:root{
+  --ground:#070F1A; --raise:#0D1826; --sink:#040A12;
+  --ink:#EDF2F8; --muted:#94A8BF; --faint:#7089A8;
+  --navy:#003E7E; --navy-ink:#7FB2E3;
+  --red:#C71014; --red-ink:#FF8A80;
+  --gold:#FFBE04;          /* a fill only: gold carries dark text, never light */
+  --gold-ink:#FFBE04;      /* gold as text; light mode has to darken this */
+  --on-gold:#070F1A;       /* what sits on top of a gold fill, both modes */
+  --line:#1B2B3F; --line-soft:#132133;
+  --edge:#476888;          /* borders of things you click: 3.3:1 on the ground, where --line's 1.3:1 fails */
+  --bar:rgba(7,15,26,.93); /* the top bar once it has left the film */
+  --field:#040A12;         /* form inputs */
+  --tile:#FFFFFF;          /* sponsor logos are all drawn for white; they get a white card */
+  /* --photo is declared per page, not here: it is 400 KB, and two of the
+     seven pages have no .media backdrop to spend it on. */
+  --nav-h:72px;
+}
+@media (min-width:760px){:root{--nav-h:88px}}
+
+/* ---- light mode ----
+   Dark stays the default in every theme; the only way to light is the button in
+   the top bar, remembered in localStorage under foh-theme. The class goes on the
+   root element rather than on data-theme, because the Artifact host stamps
+   data-theme itself from the viewer's Claude setting and would otherwise drag
+   the page into light without anyone asking. Tokens only below - no new rules. */
+:root.lite body{color-scheme:light}
+:root.lite{
+  --ground:#F6F6F4; --raise:#EFEEE7; --sink:#EAE9E1;
+  --ink:#0B2340; --muted:#42536B; --faint:#54637A;
+  --navy:#003E7E; --navy-ink:#003E7E;
+  --red:#C71014; --red-ink:#C71014;
+  --gold-ink:#7A5D00;      /* #FFBE04 is 1.5:1 on paper. Same hue, darkened to 5.7:1. */
+  --line:#D6D5CC; --line-soft:#E4E3DA;
+  --edge:#858479;
+  --bar:rgba(246,246,244,.93);
+  --field:#FFFFFF;
+}
+/* The film stays the film. Anything sitting on a photograph keeps the dark
+   values in both modes - and dark mode is untouched, since these are exactly
+   the tokens above. */
+.act1,.frame,.close,.filmcap,.past figure,.topnav.over-hero{
+  --ink:#EDF2F8; --muted:#94A8BF; --faint:#7089A8;
+  --navy-ink:#7FB2E3; --red-ink:#FF8A80;
+  --gold-ink:#FFBE04;
+  --line:#1B2B3F; --line-soft:#132133; --edge:#476888;
+  /* Retoning --ink is not enough on its own. Headings carry no colour of their
+     own -- they inherit the computed colour from <body>, which already resolved
+     var(--ink) against :root. In light mode that made every headline over a
+     photograph dark navy. Setting colour here resolves --ink at this element,
+     and the whole subtree inherits white. */
+  color:var(--ink);
+}
+/* ---- shared chrome for every page in direction D ---- */
+*{box-sizing:border-box}
+section[id],div[id],figure[id]{scroll-margin-top:calc(var(--nav-h) + 14px)}
+body{margin:0;background:var(--ground);color:var(--ink);color-scheme:dark;
+  font-family:Manrope,"Helvetica Neue",Arial,sans-serif;font-size:17px;line-height:1.62;
+  -webkit-font-smoothing:antialiased}
+h1,h2,h3,.disp{font-family:"Bricolage Grotesque",Manrope,sans-serif;font-weight:800;
+  letter-spacing:-.022em;line-height:.99;margin:0;text-wrap:balance}
+h1{font-size:clamp(2.5rem,7.4vw,5.8rem)}
+h2{font-size:clamp(1.9rem,4.4vw,3.4rem)}
+h3{font-size:1.3rem;letter-spacing:-.012em}
+p{margin:0}
+a{color:var(--navy-ink)}
+img{max-width:100%;display:block}
+:focus-visible{outline:3px solid var(--gold-ink);outline-offset:3px;border-radius:2px}
+.wrap{max-width:1200px;margin:0 auto;padding:0 clamp(18px,4.5vw,48px)}
+.tag{font-family:Manrope,sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--gold-ink);margin:0}
+.tag.red{color:var(--red-ink)}
+.lede{font-size:clamp(1.04rem,1.6vw,1.24rem);line-height:1.58;color:var(--muted);max-width:56ch}
+.note{font-size:.88rem;color:var(--faint);line-height:1.5}
+.sect{padding:clamp(60px,9vw,130px) 0}
+.sect.tight{padding:clamp(40px,6vw,84px) 0}
+
+/* Section heads. .said.mid centres the head and lets the line run across the
+   page instead of breaking into a narrow ribbon beside a wide empty margin.
+   The measure has to be set on the heading, not on the box around it. `ch` is
+   the width of a "0" in the element's OWN font: on .said that is 17px body text,
+   about 9px a character, so 26ch came out ~240px wide while the h2 inside it
+   rendered at up to 67px -- one word per line. Putting the cap on the h2 makes
+   1ch about 37px at display size, so 22ch is a genuine ~810px measure that
+   scales with the type. */
+.said{max-width:none}
+.said h2{font-size:clamp(2.1rem,5.6vw,4.2rem);max-width:min(22ch,100%)}
+.said.mid{text-align:center}
+.said.mid h2{margin-inline:auto}
+.after{margin-top:26px;max-width:58ch;color:var(--muted);font-size:clamp(1.02rem,1.5vw,1.18rem);
+  text-wrap:pretty}
+.said.mid ~ .after{margin-inline:auto;text-align:center}
+.midact{display:flex;justify-content:center;margin-top:clamp(30px,4.5vw,46px)}
+
+/* ---- buttons ---- */
+.pill{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:var(--on-gold);
+  font-family:Manrope,sans-serif;font-size:.88rem;font-weight:700;padding:11px 22px;
+  border-radius:999px;text-decoration:none;border:none;cursor:pointer;
+  transition:transform .16s ease}
+.pill:hover{transform:translateY(-1px)}
+.pill.ghost{background:transparent;color:var(--ink);border:1px solid var(--edge)}
+.pill.ghost:hover{border-color:var(--navy-ink);color:var(--navy-ink)}
+.pill.big{font-size:.95rem;padding:14px 28px}
+.row{display:flex;flex-wrap:wrap;gap:11px;margin-top:30px}
+.row.mid{justify-content:center}
+
+/* ---- the drifting still, and real footage layered over it ---- */
+@keyframes drift{
+  0%{transform:scale(1.05) translate3d(0,0,0)}
+  50%{transform:scale(1.17) translate3d(-2.4%,-1.8%,0)}
+  100%{transform:scale(1.05) translate3d(0,0,0)}
+}
+.media{position:absolute;inset:0;overflow:hidden;background:#040A12}
+.media .layer{position:absolute;inset:-3%;background-image:var(--photo);
+  background-size:cover;background-position:50% 36%;will-change:transform;
+  animation:drift 30s ease-in-out infinite}
+.paused .media .layer{animation-play-state:paused}
+.media video.vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  opacity:0;transition:opacity .9s ease}
+.media video.vid.on{opacity:1}
+.mctl{position:absolute;bottom:clamp(28px,5vh,52px);right:clamp(18px,4.5vw,48px);z-index:5;
+  display:inline-flex;align-items:center;gap:8px;background:rgba(7,15,26,.7);
+  border:1px solid rgba(237,242,248,.32);color:#EDF2F8;font-family:Manrope,sans-serif;
+  font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  padding:9px 15px;cursor:pointer;border-radius:999px}
+.mctl:hover{background:rgba(7,15,26,.94)}
+
+/* ---- the top bar: fixed, transparent over the film, filling in on scroll.
+       Taken from obama.org, which sticks its nav at top:0, starts it transparent
+       and pulls the hero up underneath it. The filled state is the CSS default so
+       the bar is legible with no JS at all; the script only adds .over-hero while
+       the bar is still sitting on the moving picture. ---- */
+.topnav{position:fixed;top:0;left:0;right:0;z-index:60;height:var(--nav-h);
+  display:flex;align-items:center;gap:14px;padding:0 clamp(18px,4.5vw,48px);
+  background:var(--bar);border-bottom:1px solid var(--line);
+  -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+  transition:background .26s ease,border-color .26s ease}
+.topnav::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;
+  background:linear-gradient(to bottom,rgba(4,10,18,.78),rgba(4,10,18,0));
+  transition:opacity .26s ease}
+.topnav>*{position:relative}
+.topnav.over-hero{background:transparent;border-bottom-color:transparent;
+  -webkit-backdrop-filter:none;backdrop-filter:none}
+.topnav.over-hero::before{opacity:1}
+.topnav .who{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
+.topnav .who img{width:34px}
+.topnav .who b{font-family:"Bricolage Grotesque",sans-serif;font-weight:600;font-size:.95rem;
+  letter-spacing:-.01em;line-height:1.1}
+.topnav nav{margin-left:auto;display:flex;align-items:center;gap:clamp(10px,1.5vw,22px)}
+.topnav nav a{color:var(--muted);text-decoration:none;font-size:.86rem;font-weight:600;
+  white-space:nowrap}
+.topnav nav a:hover,.topnav nav a[aria-current]{color:var(--gold-ink)}
+.topnav.over-hero nav a{color:rgba(237,242,248,.82)}
+.topnav.over-hero nav a:hover,.topnav.over-hero nav a[aria-current]{color:#FFBE04}
+.topnav .pill{padding:10px 20px;font-size:.86rem}
+
+/* dropdowns: open on hover AND focus-within, so they work from the keyboard
+   with no script at all. */
+.has-sub{position:relative;display:flex;align-items:center}
+.has-sub .caret{display:inline-block;width:0;height:0;margin-left:6px;
+  border-left:4px solid transparent;border-right:4px solid transparent;
+  border-top:4px solid currentColor;vertical-align:middle}
+.has-sub .sub{position:absolute;top:100%;left:-14px;min-width:210px;padding:8px 0;
+  background:var(--bar);border:1px solid var(--line);border-radius:4px;
+  -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+  display:flex;flex-direction:column;gap:0;
+  opacity:0;visibility:hidden;transform:translateY(-4px);
+  transition:opacity .16s ease,transform .16s ease,visibility .16s}
+.has-sub:hover .sub,.has-sub:focus-within .sub{opacity:1;visibility:visible;transform:none}
+.has-sub .sub a{padding:9px 18px;color:var(--muted);font-weight:500}
+.has-sub .sub a:hover{color:var(--gold-ink)}
+.topnav.over-hero .has-sub .sub{background:rgba(7,15,26,.96)}
+.topnav.over-hero .has-sub .sub a{color:rgba(237,242,248,.82)}
+
+.tgl{background:transparent;border:1px solid var(--edge);color:var(--muted);
+  font-family:Manrope,sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;padding:8px 13px;border-radius:999px;cursor:pointer;white-space:nowrap;
+  transition:color .2s ease,border-color .2s ease}
+.tgl:hover{color:var(--gold-ink);border-color:var(--gold-ink)}
+.menubtn{display:none;margin-left:auto;background:transparent;border:1px solid var(--edge);
+  color:var(--ink);font-family:Manrope,sans-serif;font-size:.72rem;font-weight:700;
+  letter-spacing:.14em;text-transform:uppercase;padding:9px 14px;border-radius:999px;
+  cursor:pointer}
+
+/* ---- act one: the film ---- */
+.act1{position:relative;min-height:100svh;display:flex;flex-direction:column;
+  justify-content:flex-end;overflow:hidden}
+.act1.short{min-height:clamp(500px,78svh,760px);justify-content:flex-end}
+.act1 .veil{position:absolute;inset:0;background:
+  linear-gradient(to top,rgba(7,15,26,.96) 0%,rgba(7,15,26,.62) 38%,rgba(7,15,26,.2) 70%,rgba(7,15,26,.55) 100%)}
+.act1 .inner{position:relative;padding-bottom:clamp(70px,11vh,140px);padding-top:calc(var(--nav-h) + 30px)}
+.act1 h1{max-width:15ch}
+.act1 h1 em{font-style:normal;color:#FFBE04}
+.act1 .lede{margin-top:22px;color:rgba(237,242,248,.9)}
+.scrollcue{position:absolute;left:clamp(18px,4.5vw,48px);bottom:clamp(28px,5vh,52px);
+  font-size:.68rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--faint)}
+
+/* A page with no hero starts underneath the fixed bar, so it has to be pushed
+   down. .sect.tight is two classes and beats a bare .nohero on specificity no
+   matter which comes first -- and its `padding` shorthand then rewrites the top
+   value, dropping the first red eyebrow onto the nav hairline. Matching its
+   weight here is what makes source order decide it. */
+.nohero,.sect.nohero{padding-top:calc(var(--nav-h) + clamp(40px,6vw,78px))}
+
+/* ---- chapter strip ---- */
+.strip{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--raise)}
+.strip-in{display:grid;grid-template-columns:repeat(4,1fr)}
+.ch{padding:clamp(26px,3.4vw,40px) clamp(16px,2vw,28px);border-left:1px solid var(--line-soft)}
+.ch:first-child{border-left:none}
+.ch b{font-family:"Bricolage Grotesque",sans-serif;font-weight:400;font-size:clamp(2.2rem,4.6vw,3.4rem);
+  line-height:.9;display:block;color:var(--gold-ink);font-variant-numeric:tabular-nums;letter-spacing:-.03em}
+.ch p{font-size:.9rem;color:var(--muted);margin-top:12px;line-height:1.4}
+
+/* ---- reveal on scroll ---- */
+.rv{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.rv.in{opacity:1;transform:none}
+
+/* ---- a photograph used as a full-width frame ---- */
+.frame{position:relative;aspect-ratio:16/9;overflow:hidden;margin-top:clamp(34px,5vw,60px);
+  border:1px solid var(--line)}
+.frame .veil{position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(7,15,26,.72),transparent 62%)}
+.frame .cap{position:absolute;left:0;right:0;bottom:0;padding:clamp(18px,3vw,32px);
+  display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap}
+.frame .cap p{font-size:.82rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.frame .cap .disp{font-size:clamp(1.3rem,3vw,2.1rem);max-width:22ch}
+.filmcap{position:relative}
+.filmcap figcaption{position:absolute;left:0;right:0;bottom:0;padding:clamp(18px,3vw,32px);
+  background:linear-gradient(to top,rgba(4,10,18,.94),rgba(4,10,18,.55) 55%,rgba(4,10,18,0))}
+.filmcap figcaption p{color:var(--muted);max-width:56ch;font-size:.96rem}
+.filmcap .disp{font-size:clamp(1.24rem,2.8vw,2rem);display:block;margin-bottom:7px}
+.filmcap img{width:100%;height:clamp(260px,38vw,430px);object-fit:cover;object-position:50% 50%}
+
+/* ---- hairline numbered list ---- */
+.spend{list-style:none;margin:clamp(34px,5vw,52px) 0 0;padding:0;border-top:1px solid var(--line)}
+.spend li{display:grid;grid-template-columns:56px 1fr auto;gap:18px;align-items:baseline;
+  padding:clamp(18px,2.4vw,26px) 2px;border-bottom:1px solid var(--line-soft)}
+.spend .n{font-family:"Bricolage Grotesque",sans-serif;font-weight:400;font-size:.94rem;
+  color:var(--faint);font-variant-numeric:tabular-nums;letter-spacing:.08em}
+.spend .w{font-family:"Bricolage Grotesque",sans-serif;font-weight:600;
+  font-size:clamp(1.15rem,2.4vw,1.7rem);letter-spacing:-.015em;line-height:1.15}
+.spend .m{font-size:.84rem;color:var(--faint);text-align:right}
+
+/* ---- tiles ---- */
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));gap:1px;
+  margin-top:clamp(34px,5vw,50px);background:var(--line-soft);border:1px solid var(--line-soft)}
+.tile{background:var(--ground);padding:clamp(24px,3vw,32px);display:flex;flex-direction:column;
+  gap:12px;transition:background .2s ease;text-decoration:none;color:inherit}
+.tile:hover{background:var(--raise)}
+.tile .when{font-size:.74rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-ink)}
+.tile p{font-size:.95rem;color:var(--muted)}
+.tile .cost{margin-top:auto;padding-top:14px;font-family:"Bricolage Grotesque",sans-serif;
+  font-weight:600;font-size:1.24rem;color:var(--ink);font-variant-numeric:tabular-nums}
+/* a fixed 3 x 2 rather than auto-fit, so the rows group by kind and stay grouped.
+   minmax(0,1fr) not 1fr, so a long word cannot push a track past its share. */
+.tiles.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+
+/* ---- sponsor groups ---- */
+.lead{border:1px solid var(--gold-ink);padding:clamp(24px,3.4vw,36px);display:flex;flex-wrap:wrap;
+  gap:20px;align-items:center;justify-content:space-between;margin-top:clamp(28px,4vw,40px)}
+.lead .disp{font-size:clamp(1.3rem,2.6vw,1.9rem)}
+.gr{margin-top:30px}
+.grh{display:flex;align-items:baseline;gap:14px;border-bottom:1px solid var(--line);padding-bottom:9px}
+.grh b{font-size:.78rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase}
+.grh span{margin-left:auto;font-size:.8rem;color:var(--faint);font-variant-numeric:tabular-nums}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px}
+.chips span{border:1px solid var(--line);padding:8px 14px;font-size:.86rem;font-weight:500;color:var(--muted)}
+
+/* ---- the sponsor logo wall ----
+   Every one of the 37 marks was drawn for a white background -- none has
+   transparency, and three carry their own dark ground -- so each sits on a white
+   card. That is not decoration: a white-background JPEG dropped straight onto
+   D's near-black page would read as a bright rectangle with a hole in it. */
+.wall{display:grid;grid-template-columns:repeat(auto-fill,minmax(158px,1fr));
+  gap:clamp(12px,1.6vw,20px);margin-top:clamp(20px,3vw,30px)}
+.wall.big{grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
+.slot{display:flex;flex-direction:column;gap:9px}
+.slot .card{background:var(--tile);border:1px solid var(--edge);border-radius:6px;
+  aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;
+  padding:clamp(12px,1.6vw,20px)}
+.slot img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain}
+.slot .nm{font-size:.79rem;line-height:1.35;color:var(--muted);text-align:center}
+.tiergap{margin-top:clamp(40px,6vw,72px)}
+/* the one Visionary partner, set larger than the tier below it */
+.vis{display:flex;align-items:center;gap:clamp(18px,3vw,30px);flex-wrap:wrap}
+.vis .slot{width:clamp(190px,24vw,270px)}
+
+/* ---- the board ----
+   A rule over each name rather than a box around it, four columns wrapping to
+   two. Only de-parents uses this; the frozen A-E pages carry their own copy. */
+.people{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:clamp(24px,3.4vw,38px) clamp(20px,3vw,38px);margin-top:clamp(32px,4.6vw,50px)}
+.pp{border-top:1px solid var(--ink);padding-top:13px}
+.pp span{font-size:.68rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--red-ink)}
+.pp b{display:block;font-weight:600;font-size:1.02rem;margin-top:8px;letter-spacing:-.005em}
+
+/* ---- the repeated refrain, as its own band ---- */
+.refrain{padding:clamp(46px,7vw,92px) 0;border-block:1px solid var(--line)}
+.refrain .wrap{display:grid;grid-template-columns:auto 1fr;gap:clamp(26px,5vw,60px);align-items:center}
+.refrain .mark{width:64px;height:2px;background:var(--gold-ink)}
+.refrain p{font-family:"Bricolage Grotesque",Manrope,sans-serif;font-weight:400;
+  font-size:clamp(1.4rem,3.2vw,2.4rem);line-height:1.2;letter-spacing:-.02em;
+  color:var(--ink);max-width:32ch}
+.refrain .act{margin-top:24px}
+
+/* ---- forms. Nothing here submits: how forms get handled is still open. ---- */
+.field{display:grid;gap:7px;margin-bottom:16px}
+.field label,.field .label{font-size:.74rem;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--faint)}
+/* Small shouting uppercase is right over a text box and wrong wrapped around a
+   checkbox, where the label is a sentence the reader has to weigh. .plain opts
+   one back into ordinary prose. */
+.field label.plain{font-size:1rem;font-weight:400;letter-spacing:normal;text-transform:none;
+  color:var(--ink);line-height:1.5;cursor:pointer}
+.field input,.field textarea,.field select{font-family:Manrope,sans-serif;font-size:1rem;padding:13px 15px;
+  border:1px solid var(--edge);background:var(--field);color:var(--ink);width:100%;border-radius:2px}
+.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--gold-ink);outline:none}
+/* A checkbox or radio is a replaced element, so the width and padding above
+   stretch it into a full-width slab instead of a control. Opt them back out,
+   and let them take the brand gold. */
+.field input[type=checkbox],.field input[type=radio]{width:auto;padding:0;flex:0 0 auto;
+  accent-color:var(--gold)}
+.info{border:1px solid var(--line);padding:clamp(24px,3.4vw,34px);background:var(--raise)}
+.info dt{font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--gold-ink);margin-top:20px}
+.info dt:first-of-type{margin-top:0}
+.info dd{margin:6px 0 0;font-size:1.02rem}
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,64px);align-items:start}
+
+/* a figure the board still has to supply */
+.needs{display:inline-block;margin-top:14px;border:1px dashed var(--red-ink);color:var(--red-ink);
+  padding:6px 12px;font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+
+/* ---- closing frame ---- */
+.close{position:relative;min-height:76svh;display:flex;align-items:center;justify-content:center;
+  text-align:center;overflow:hidden}
+.close .veil{position:absolute;inset:0;background:rgba(7,15,26,.8)}
+.close .inner{position:relative;padding:clamp(40px,7vw,80px) 0}
+.close h2{font-size:clamp(2.1rem,6vw,4.4rem);max-width:20ch;margin:0 auto}
+.close p{color:var(--muted);max-width:50ch;margin:22px auto 0}
+.close .row{justify-content:center;margin-top:32px}
+
+/* ---- footer ---- */
+footer{border-top:1px solid var(--line);padding:clamp(40px,5vw,64px) 0 56px;font-size:.92rem;
+  background:var(--sink)}
+.foot{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:36px}
+.foot h4{font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--gold-ink);margin:0 0 14px}
+.foot ul{list-style:none;margin:0;padding:0;display:grid;gap:9px}
+.foot a{color:var(--ink);text-decoration:none}
+.foot a:hover{color:var(--navy-ink)}
+.foot p{color:var(--muted)}
+/* Facebook and Instagram, drawn inline: the CSP blocks every external host, and
+   a path costs a few hundred bytes against a data URI's several KB. */
+.social{display:flex;gap:12px;margin-top:20px}
+.social a{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;
+  border:1px solid var(--edge);border-radius:999px;color:var(--ink);
+  transition:background .2s ease,color .2s ease,border-color .2s ease}
+.social a:hover{background:var(--gold);color:var(--on-gold);border-color:var(--gold)}
+.social svg{width:19px;height:19px;fill:currentColor}
+.legal{margin-top:34px;padding-top:20px;border-top:1px solid var(--line-soft);display:flex;
+  justify-content:space-between;gap:18px;flex-wrap:wrap;font-size:.8rem;color:var(--faint)}
+.disclosure{margin-top:18px;font-size:.72rem;line-height:1.5;color:var(--faint);max-width:96ch}
+
+/* ---- breakpoints ---- */
+@media (max-width:1079px){
+  /* With no script the bar simply grows and stacks its links: never a menu that
+     cannot be opened. The script adds .js, which collapses it behind the button. */
+  .topnav{flex-wrap:wrap;height:auto;min-height:var(--nav-h);padding-top:12px;padding-bottom:12px;
+    max-height:100svh;overflow-y:auto}
+  .menubtn{display:inline-flex}
+  .topnav nav{order:5;width:100%;flex-direction:column;align-items:stretch;gap:0;margin-left:0;
+    margin-top:8px}
+  .topnav nav a{padding:11px 2px;border-top:1px solid var(--line-soft);font-size:.95rem}
+  .has-sub{display:block}
+  .has-sub .subtop{display:flex;align-items:center}
+  .has-sub .sub{position:static;opacity:1;visibility:visible;transform:none;min-width:0;
+    background:transparent;border:none;border-radius:0;padding:0;
+    -webkit-backdrop-filter:none;backdrop-filter:none}
+  .has-sub .sub a{padding-left:18px;font-size:.9rem}
+  .topnav.over-hero .has-sub .sub{background:transparent}
+  .js .topnav nav{display:none}
+  .js .topnav.open nav{display:flex}
+  .topnav .tgl{margin-left:auto}
+}
+@media (min-width:1080px){.menubtn{display:none}}
+@media (max-width:940px){
+  .strip-in{grid-template-columns:repeat(2,1fr)}
+  .ch:nth-child(3){border-left:none}
+  .ch{border-top:1px solid var(--line-soft)}
+  .ch:nth-child(-n+2){border-top:none}
+  .foot{grid-template-columns:1fr 1fr}
+  .people{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .twocol,.refrain .wrap{grid-template-columns:1fr}
+  .tiles.three{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:560px){
+  body{font-size:16px}
+  .strip-in{grid-template-columns:1fr}
+  .ch{border-left:none;border-top:1px solid var(--line-soft)}
+  .ch:first-child{border-top:none}
+  .foot{grid-template-columns:1fr}
+  .people{grid-template-columns:1fr}
+  .tiles.three{grid-template-columns:1fr}
+  .spend li{grid-template-columns:40px 1fr}
+  /* Not display:none. This column used to hold asides; it now names the actual
+     software and projects the money buys, which a phone must not lose. */
+  .spend .m{grid-column:2;text-align:left;margin-top:4px}
+}
+@media (prefers-reduced-motion:reduce){
+  .media .layer{animation:none}
+  .media video.vid{display:none}
+  .rv{opacity:1;transform:none;transition:none}
+  *{transition:none!important}
+}
+:root{--photo:url("img/hero.jpg")}
+#nav-parents{color:var(--gold-ink)}
+
+.mission{border-left:2px solid var(--gold-ink);padding-left:clamp(20px,3vw,32px);
+  margin-top:clamp(28px,4vw,40px)}
+/* The quote runs across the top; the two supporting paragraphs and the
+   photograph then share the row beneath it. The two come out within about 40px
+   of each other in height, which is what stops the section leaving an empty
+   rectangle in one corner -- the reason the text is not simply widened and not
+   set in two columns. The paragraphs keep a single ~64-character measure. */
+.missrow{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);
+  gap:clamp(28px,4.5vw,60px);align-items:start;margin-top:clamp(34px,5vw,54px)}
+.misstext{display:grid;gap:20px}
+.misstext .after{max-width:none;margin-top:0}
+/* 16:9 and staying 16:9: the group runs the full width of the frame, so a
+   squarer crop takes the people on each end out of it. */
+.mshot{margin:0}
+.mshot img{width:100%;aspect-ratio:16/9;object-fit:cover;border:1px solid var(--line)}
+.mshot figcaption{margin-top:12px;font-size:.84rem;color:var(--faint);line-height:1.5}
+@media (max-width:940px){.missrow{grid-template-columns:1fr}}
+.mission p{font-family:"Bricolage Grotesque",Manrope,sans-serif;font-weight:400;
+  font-size:clamp(1.3rem,3vw,2.1rem);line-height:1.22;letter-spacing:-.02em;color:var(--ink);
+  max-width:46ch}
+.dirs{margin-top:clamp(26px,3.4vw,38px);color:var(--muted);font-size:.98rem;line-height:1.7}
+.dirs b{color:var(--ink);font-weight:700;margin-right:10px}
+</style>
+</head>
+<body>
+<div class="topnav" id="topnav">
+  <a class="who" href="index.html"><img src="img/logo.png" alt=""><b>Friends of<br>Hendricks</b></a>
+  <button class="menubtn" type="button" id="menubtn" aria-expanded="false" aria-controls="navlist">Menu</button>
+  <nav id="navlist" aria-label="Main">
+    <a id="nav-home" href="index.html">Home</a>
+    <a id="nav-donate" href="donate.html">Donate</a>
+    <a id="nav-walkathon" href="walkathon.html">Walkathon</a>
+    <div class="has-sub">
+      <a class="subtop" id="nav-sponsors" href="sponsors.html">Sponsors<span class="caret" aria-hidden="true"></span></a>
+      <div class="sub">
+        <a href="sponsors.html">Our Sponsors</a>
+        <a id="nav-partners" href="become-a-sponsor.html">Become a Sponsor</a>
+      </div>
+    </div>
+    <div class="has-sub">
+      <a class="subtop" id="nav-takepart" href="take-part.html">Take Part<span class="caret" aria-hidden="true"></span></a>
+      <div class="sub">
+        <a href="take-part.html#henry">Hugs from Henry</a>
+        <a href="take-part.html#rock">Rent the Rock</a>
+        <a href="take-part.html#spirit">Spirit Nights</a>
+      </div>
+    </div>
+    <a id="nav-parents" href="meet-the-parents.html">Meet the Parents</a>
+  </nav>
+  <button class="tgl" type="button" id="lbtn">Light mode</button>
+  <a class="pill" href="donate.html">Donate</a>
+</div>
+
+<!-- The mission statement now opens the page, so it carries .nohero to clear
+     the fixed bar. -->
+<section class="sect nohero">
+  <div class="wrap">
+    <div class="said"><p class="tag red">Mission statement</p></div>
+    <div class="mission rv">
+      <p>To increase the available funding to provide faculty and staff the additional
+        resources required to ensure an exemplary education for the students of Hendricks
+        Avenue Elementary School.</p>
+    </div>
+    <div class="missrow rv">
+      <div class="misstext">
+        <p class="after">Choosing to strengthen Hendricks Avenue Elementary through a gift to
+          The Friends of Hendricks is a valuable and meaningful decision. Support can be given
+          through time, talents, and monetary and in-kind donations. The effect of parents,
+          alumni, grandparents and friends standing together for our school will be
+          immeasurable. All gifts, no matter how large or small, will have a powerful impact,
+          because you become invested in the education and enrichment of every child, faculty
+          and staff member.</p>
+        <p class="after">The funds we raise are awarded through a grant process and used to
+          offset county-implemented budget cuts and increase financial resources for school
+          enhancements and improvements &mdash; staffing, technology and classroom needs.</p>
+      </div>
+      <figure class="mshot">
+        <img src="img/volunteers.jpg" alt="The Friends of Hendricks volunteers in matching blue 2023 Walkathon shirts at a school event">
+        <figcaption>The Friends of Hendricks at the 2023 Walkathon. Everyone here is a parent,
+          a teacher or a volunteer &mdash; nobody draws a salary.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="sect" id="board">
+  <div class="wrap">
+    <div class="said rv"><p class="tag red">2026&ndash;27 board</p>
+      <h2 style="margin-top:18px;max-width:26ch">Run entirely by parent volunteers.</h2></div>
+    <div class="people rv">
+      <div class="pp"><span>President</span><b>Katie Turpin</b></div>
+      <div class="pp"><span>Vice President</span><b>Kaylee Hurwitz</b></div>
+      <div class="pp"><span>Treasurer</span><b>Allison Naseri</b></div>
+      <div class="pp"><span>Secretary</span><b>Kristian Carter</b></div>
+      <div class="pp"><span>Chair of Fundraising</span><b>Aryn Lentz</b></div>
+      <div class="pp"><span>Legal Advisor</span><b>James Poindexter</b></div>
+    </div>
+    <p class="dirs rv"><b>Directors</b> Julie Braun &middot; Nicole Brown &middot; Sara Buckley &middot;
+      Melissa Gregory &middot; Brittany Kelly &middot; Shelly Middleton &middot;
+      Katherine Poindexter &middot; Ivan Porter &middot; Jason Pratt</p>
+  </div>
+</section>
+
+<section class="sect tight" style="border-top:1px solid var(--line)">
+  <div class="wrap">
+    <div class="said mid rv"><p class="tag red">Ways to support us</p>
+      <h2 style="margin-top:18px">Six of them, all year.</h2></div>
+    <ol class="spend rv">
+      <li><span class="n">01</span><span class="w"><a href="walkathon.html" style="color:inherit">The FOH Walkathon</a></span><span class="m">February 2027</span></li>
+      <li><span class="n">02</span><span class="w"><a href="become-a-sponsor.html" style="color:inherit">The FOH Business Partners Program</a></span><span class="m">five levels</span></li>
+      <li><span class="n">03</span><span class="w"><a href="take-part.html#spirit" style="color:inherit">Hendricks Community Spirit Nights</a></span><span class="m">eat out, give back</span></li>
+      <li><span class="n">04</span><span class="w"><a href="take-part.html#henry" style="color:inherit">Hugs From Henry</a></span><span class="m">$25 per child</span></li>
+      <li><span class="n">05</span><span class="w"><a href="take-part.html#rock" style="color:inherit">Rent the Spirit Rock</a></span><span class="m">$35&ndash;60</span></li>
+      <li><span class="n">06</span><span class="w"><a href="donate.html" style="color:inherit">Direct donations</a></span><span class="m">any amount</span></li>
+    </ol>
+  </div>
+</section>
+
+<section class="sect tight" style="border-top:1px solid var(--line)">
+  <div class="wrap">
+    <div class="twocol rv">
+      <div>
+        <p class="tag red">Contact</p>
+        <h2 style="margin-top:16px;font-size:clamp(1.7rem,3.4vw,2.4rem)">Talk to us.</h2>
+        <p style="margin-top:18px;color:var(--muted)">General enquiries go to the president.
+          Each program has its own inbox &mdash; they are all in the footer.</p>
+        <div class="row">
+          <a class="pill" href="mailto:fohpresident1@gmail.com">fohpresident1@gmail.com</a>
+        </div>
+      </div>
+      <div class="info">
+        <dl style="margin:0">
+          <dt>Mailing address</dt>
+          <dd>The Friends of Hendricks<br>4446-1A Hendricks Avenue, Suite 357<br>
+            Jacksonville, FL 32207</dd>
+          <dt>Business partner enquiries</dt>
+          <dd><a href="mailto:FriendsBusinessPartners@gmail.com">FriendsBusinessPartners@gmail.com</a><br>
+            Aryn Lentz &middot; <a href="tel:+19044512831">(904) 451-2831</a></dd>
+          <dt>Tax</dt>
+          <dd>501(c)(3) &middot; Tax ID 20-4931978</dd>
+          <dt>Find us</dt>
+          <dd><a href="https://www.facebook.com/FriendsOfHendricks">Facebook</a> &middot;
+            <a href="https://www.instagram.com/friendsofhendricks/">Instagram</a></dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="close">
+  <div class="media"><div class="layer"></div></div>
+  <div class="veil"></div>
+  <div class="wrap inner">
+    <h2>Standing strong for our school.</h2>
+    <p>Over 600 students and their families in San Marco. One building, established 1942, and a
+      county budget that does not stretch far enough.</p>
+    <div class="row">
+      <a class="pill" href="donate.html">Donate</a>
+      <a class="pill ghost" href="become-a-sponsor.html">Sponsor as a business</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <h4>The Friends of Hendricks</h4>
+        <p>A group of parents, teachers and volunteers that raises funds for resources and
+          projects the Duval County School Board budget does not cover. We work with local
+          business partners and Hendricks families so that every student at Hendricks Avenue
+          Elementary has an exemplary education.</p>
+        <p style="margin-top:16px">4446-1A Hendricks Avenue, Suite 357<br>
+          Jacksonville, FL 32207</p>
+      </div>
+      <div>
+        <h4>Take part</h4>
+        <ul>
+          <li><a href="walkathon.html">Walkathon</a></li>
+          <li><a href="take-part.html#henry">Hugs from Henry</a></li>
+          <li><a href="take-part.html#rock">Rent the Spirit Rock</a></li>
+          <li><a href="take-part.html#spirit">Spirit Nights</a></li>
+          <li><a href="donate.html">Donate</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Get in touch</h4>
+        <ul>
+          <li><a href="mailto:fohpresident1@gmail.com">fohpresident1@gmail.com</a><br>
+            <span style="color:var(--faint);font-size:.84rem">General</span></li>
+          <li><a href="mailto:FriendsBusinessPartners@gmail.com">FriendsBusinessPartners@gmail.com</a><br>
+            <span style="color:var(--faint);font-size:.84rem">Business partners</span></li>
+          <li><a href="mailto:FOHHugsFromHenry@gmail.com">FOHHugsFromHenry@gmail.com</a><br>
+            <span style="color:var(--faint);font-size:.84rem">Birthday club</span></li>
+          <li><a href="mailto:renttherockhae@gmail.com">renttherockhae@gmail.com</a><br>
+            <span style="color:var(--faint);font-size:.84rem">Spirit Rock</span></li>
+        </ul>
+        <div class="social">
+          <a href="https://www.facebook.com/FriendsOfHendricks"
+             aria-label="The Friends of Hendricks on Facebook">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.05V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.96.93-1.96 1.89v2.25h3.33l-.53 3.49h-2.8V24C19.61 23.1 24 18.1 24 12.07z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/friendsofhendricks/"
+             aria-label="The Friends of Hendricks on Instagram">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41 1.27-.06 1.65-.07 4.85-.07M12 0C8.74 0 8.33.01 7.05.07c-1.28.06-2.15.26-2.91.56-.79.31-1.46.72-2.13 1.38C1.35 2.68.94 3.35.63 4.14c-.3.76-.5 1.63-.56 2.91C.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.28.26 2.15.56 2.91.31.79.72 1.46 1.38 2.13.67.67 1.34 1.08 2.13 1.38.76.3 1.63.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.28-.06 2.15-.26 2.91-.56.79-.31 1.46-.72 2.13-1.38.67-.67 1.08-1.34 1.38-2.13.3-.76.5-1.63.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.28-.26-2.15-.56-2.91-.31-.79-.72-1.46-1.38-2.13C21.32 1.35 20.65.94 19.86.63c-.76-.3-1.63-.5-2.91-.56C15.67.01 15.26 0 12 0z"/><path d="M12 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84zM12 16a4 4 0 1 1 4-4 4 4 0 0 1-4 4z"/><circle cx="18.41" cy="5.59" r="1.44"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="legal">
+      <span>501(c)(3) &middot; Tax ID 20-4931978 &middot; Standing Strong For Our School</span>
+      <span>Hendricks Avenue Elementary &middot; Jacksonville, Florida &middot; Launching leaders since 1942</span>
+    </div>
+    <p class="disclosure">A COPY OF THE OFFICIAL REGISTRATION AND FINANCIAL INFORMATION OF THE
+      FRIENDS OF HENDRICKS, INC. (CH56368) MAY BE OBTAINED FROM THE DIVISION OF CONSUMER
+      SERVICES BY CALLING TOLL-FREE WITHIN THE STATE OF FLORIDA (800) 435-7352. REGISTRATION
+      DOES NOT IMPLY ENDORSEMENT, APPROVAL, OR RECOMMENDATION BY THE STATE OF FLORIDA.</p>
+  </div>
+</footer>
+<script>
+/* ---- the light-mode switch ----
+   Its label says what it will do, not what is on, so it needs no aria-pressed to
+   be unambiguous. The key is shared across every page, so the choice carries. */
+(function(){
+  var root=document.documentElement, btn=document.getElementById('lbtn');
+  if(!btn) return;
+  function label(){ btn.textContent = root.classList.contains('lite') ? 'Dark mode' : 'Light mode'; }
+  label();
+  btn.addEventListener('click',function(){
+    root.classList.toggle('lite');
+    try{ localStorage.setItem('foh-theme', root.classList.contains('lite') ? 'light' : 'dark'); }catch(e){}
+    label();
+  });
+})();
+
+/* ---- the mobile menu ---- */
+(function(){
+  var bar=document.getElementById('topnav'), btn=document.getElementById('menubtn');
+  if(!bar||!btn) return;
+  btn.addEventListener('click',function(){
+    var open=bar.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open?'true':'false');
+  });
+  /* a link inside the panel closes it again */
+  bar.querySelectorAll('#navlist a').forEach(function(a){
+    a.addEventListener('click',function(){
+      bar.classList.remove('open'); btn.setAttribute('aria-expanded','false');
+    });
+  });
+})();
+
+/* ---- the bar over the hero ----
+   .over-hero is added only while the fixed bar still sits on the moving picture.
+   The filled state is the CSS default, so with no script the bar is legible
+   rather than white-on-white. A page with no hero never gets the class. */
+(function(){
+  var bar=document.getElementById('topnav'), hero=document.querySelector('.act1');
+  if(!bar||!hero) return;
+  function onScroll(){
+    var h=hero.getBoundingClientRect().bottom - bar.offsetHeight;
+    bar.classList.toggle('over-hero', h > 0);
+  }
+  onScroll();
+  addEventListener('scroll',onScroll,{passive:true});
+  addEventListener('resize',onScroll);
+})();
+
+/* ---- reveal on scroll ---- */
+(function(){
+  var items=document.querySelectorAll('.rv');
+  if(!items.length) return;
+  if(!('IntersectionObserver' in window) ||
+     matchMedia('(prefers-reduced-motion: reduce)').matches){
+    items.forEach(function(el){ el.classList.add('in'); });
+    return;
+  }
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  },{rootMargin:'0px 0px -8% 0px'});
+  items.forEach(function(el){ io.observe(el); });
+})();
+
+/* ---- the motion toggle ----
+   Starts paused under prefers-reduced-motion. A page with no moving picture
+   simply has no button, and this does nothing. */
+(function(){
+  var btn=document.getElementById('mbtn');
+  if(!btn) return;
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduce){ document.body.classList.add('paused'); }
+  function label(){
+    var on=!document.body.classList.contains('paused');
+    btn.textContent = on ? 'Motion on' : 'Motion off';
+    btn.setAttribute('aria-pressed', on?'true':'false');
+  }
+  label();
+  btn.addEventListener('click',function(){
+    document.body.classList.toggle('paused');
+    var paused=document.body.classList.contains('paused');
+    document.querySelectorAll('video.vid').forEach(function(v){ paused ? v.pause() : v.play(); });
+    label();
+  });
+})();
+</script>
+</body>
+</html>

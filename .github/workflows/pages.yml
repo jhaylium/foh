@@ -1,0 +1,41 @@
+# Publishes site/ to GitHub Pages.
+#
+# site/ is committed rather than built here on purpose: the video lives in
+# mockups/.videos.json, which is git-ignored because it is 10 MB of base64, so a
+# runner checking out this repository could not produce the clips. Committing the
+# built output also means what goes live is exactly what was checked locally.
+#
+# Rebuild before committing:  python3 mockups/build.py --site
+name: Deploy site to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+    paths: ['site/**', '.github/workflows/pages.yml']
+  workflow_dispatch:        # lets you publish by hand from the Actions tab
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Never let two deploys race; queue instead of cancelling, so a run that is
+# already uploading is allowed to finish.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+      - id: deployment
+        uses: actions/deploy-pages@v4

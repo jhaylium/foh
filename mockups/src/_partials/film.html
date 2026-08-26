@@ -16,12 +16,21 @@
   var skip = !uri || mq.matches || conn.saveData === true || window.innerWidth < 760;
   if(skip) return;
   var url;
-  try{
-    var b64=uri.slice(uri.indexOf(',')+1);
-    var bin=atob(b64), len=bin.length, buf=new Uint8Array(len);
-    for(var i=0;i<len;i++) buf[i]=bin.charCodeAt(i);
-    url=URL.createObjectURL(new Blob([buf],{type:'video/mp4'}));
-  }catch(e){ return; }               // any failure: keep the still photograph
+  if(uri.slice(0,5)==='data:'){
+    /* Artifact build: the clip is inlined, because a published page may not
+       fetch anything from another host. Decode it once and share the blob. */
+    try{
+      var b64=uri.slice(uri.indexOf(',')+1);
+      var bin=atob(b64), len=bin.length, buf=new Uint8Array(len);
+      for(var i=0;i<len;i++) buf[i]=bin.charCodeAt(i);
+      url=URL.createObjectURL(new Blob([buf],{type:'video/mp4'}));
+    }catch(e){ return; }             // any failure: keep the still photograph
+  }else{
+    /* Site build: an ordinary file. Hand the browser the URL and let it stream
+       with byte ranges, rather than pulling megabytes of base64 through atob
+       before a single frame can play. */
+    url=uri;
+  }
   document.querySelectorAll('.media[data-film]').forEach(function(m){
     var v=document.createElement('video');
     v.muted=true; v.defaultMuted=true; v.loop=true; v.autoplay=true;

@@ -19,9 +19,28 @@ Hosting, content editing and form handling are **deliberately undecided** — se
 ## Build
 
 ```bash
-python3 mockups/build.py          # mockups/src/*.html -> mockups/*.html
+python3 mockups/build.py          # mockups/src/*.html -> mockups/*.html  (Artifact fragments)
+python3 mockups/build.py --site   # mockups/src/de-*.html -> site/        (a real website)
 python3 mockups/encode_videos.py  # regenerate mockups/.videos.json from docs/videos/
 ```
+
+**Two outputs, one set of sources.** They differ only in what the tokens resolve to,
+which is the whole reason the pages go through tokens rather than carrying URLs of their
+own:
+
+| | `build.py` | `build.py --site` |
+|---|---|---|
+| Output | `mockups/*.html`, all 20 | `site/`, the seven `de-*` only |
+| Shape | fragments — the Artifact host adds `<!doctype>`, `<head>`, `<body>` | full HTML documents, with `charset`, `viewport`, `description`, Open Graph and a real favicon |
+| Images | inlined as data URIs | files in `site/img/`, `{{HERO}}` → `img/hero.jpg` |
+| Video | inlined; the loader decodes base64 into a blob | files in `site/video/`; the loader takes the URL and the browser streams it |
+| Links | absolute artifact URLs from `.links.json` | relative filenames from `SITE_PAGES` |
+| Home page | ~4 MB | ~44 KB |
+
+Site mode **prunes anything no page references** — it dropped 3.7 MB on the first run,
+including the unused third video clip. `site/` is wiped and rewritten each time, so never
+hand-edit it. It *is* committed, because the video comes from git-ignored `.videos.json`
+and a CI runner could not rebuild it; `.github/workflows/pages.yml` uploads the folder as-is.
 
 **Always edit `mockups/src/`, never `mockups/*.html`** — the latter are generated and will be
 overwritten.
@@ -41,11 +60,39 @@ pages to seven:
 A page that wants real footage sets `<span id="film-src" data-video="{{VIDEO_WARM}}" hidden>`
 and includes `{{> film }}`. The partial is the same everywhere; only the clip differs.
 
+**`henry-modal` is the one partial that is not shared.** It carries the Hugs from Henry
+Birthday Club dialog and its script, and only `de-takepart` includes it, so the other six
+pages do not pay for markup they never show. Its *styling* lives in `de-takepart`'s own
+`<style>` block with the rest of that page's CSS, not in `base.html`.
+
+The button that opens it is a real link to the donate page (`{{URL_DONATE}}#gift`). The
+script only takes it over where `dialog.showModal` exists, so with no scripting the button
+still lands somewhere useful. Same rule as the mobile nav: never put something behind a
+button that scripting has to build.
+
+**`preventDefault()` alone does not stop a cross-page link inside an Artifact.** The host
+frame runs its own click listener in the **capture** phase: any `<a>` whose `href` resolves
+to a different origin is turned into a navigation of the whole top frame, and it reads the
+`href` attribute at click time. Capture beats a listener on the element, so the host had
+already sent the page away before our handler ran — the dialog opened and the page left
+underneath it. The fix is to stop the link being cross-origin at all: the script does
+`open.setAttribute('href','#henry')` before wiring the click, and a same-origin fragment is
+the one thing that listener ignores. The cross-origin `href` stays in the markup for the
+no-script case. Any future in-page control built on a `{{URL_*}}` link needs the same
+handover.
+
 **`--photo` is declared per page, not in `tokens.html`.** It holds the 400 KB hero photograph,
 and a page with no `.media` backdrop should not carry it — `de-sponsors` and `de-partners` do
 not. The five that do declare `:root{--photo:url("{{HERO}}")}` in their own style block, right
 after `{{> base }}`. If you add a `.media .layer` to a page, add that declaration too or the
 backdrop comes up empty.
+
+`spiritNight` is the **one WebP** in `.assets.json`; every other image is JPEG or PNG. It is
+the Upcoming Spirit Nights flyer, which is flat color and dense lettering — the case JPEG is
+worst at. WebP q90 comes out at 142 KB where JPEG q86 needs 203 KB *and* smears the text.
+Re-encode it from `docs/photos/spirit-night.webp`, not from the old 760×760 banner it
+replaced. The flyer is portrait, so its `.shot` on `de-takepart` carries `.tall` (4/5) —
+the page default of 4/3 would crop through the dates.
 
 Every key in `mockups/.assets.json` becomes a token: `logo` → `{{LOGO}}`, `heroSm` →
 `{{HERO_SM}}`, `rockWalk` → `{{ROCK_WALK}}` (camelCase splits on capitals). Videos in
@@ -114,6 +161,20 @@ Seven pages, all sharing the partials above.
 Navigation is six top-level items with two dropdowns — Sponsors opens to *Our Sponsors* and
 *Become a Sponsor*; Take Part opens to the three programme anchors on one page. Dropdowns open
 on `:hover` **and** `:focus-within`, so they work from the keyboard with no script.
+
+**`.nohero` has to out-specify `.sect.tight`.** A page with no hero starts underneath the
+fixed bar and needs `padding-top:calc(var(--nav-h) + …)` to clear it. `.sect.tight` is two
+classes and beat a bare `.nohero` regardless of order, and its `padding` *shorthand* then
+rewrote the top value — which is why the first red eyebrow on `de-donate`, `de-sponsors`,
+`de-takepart` and `de-parents` sat on the nav hairline. The rule is now written
+`.nohero,.sect.nohero` so the two tie on weight and source order decides. `de-partners` was
+always right because it uses `sect nohero` with no `tight`.
+
+**Two form rules that are easy to reintroduce.** `.field input` sets `width:100%` and 13px of
+padding, which is right for a text box and stretches a checkbox or radio into a full-width
+slab — hence `.field input[type=checkbox],.field input[type=radio]{width:auto;padding:0}`.
+And `.field label` is small shouting uppercase, which is right over a text box and wrong
+wrapped around a sentence, so a label that wraps a control takes `class="plain"`.
 
 **The mobile nav has no JS-only failure mode.** Below 1080px, with no script, the bar simply
 grows and stacks its links. `head.html` adds `.js` to the root element, and only then does the
@@ -292,8 +353,15 @@ Room**.
 
 The one still open is the Legacy Circle's sixth place, which the live site fills with
 `white-block.jpg` — **a pure white 600×600 image, one distinct colour**. It is either a sponsor
-whose logo never arrived or page filler. Do not guess: it is marked on the sponsors page as a
-name to confirm, and the count stays at 49.
+whose logo never arrived or page filler. Do not guess.
+
+**As of the 2026-08-25 feedback round it is no longer flagged on the page.** The board asked
+for the explanatory paragraph and its red "one name to confirm" marker to come off
+`de-sponsors`, and asked that the count read **48 everywhere** so no page claims more partners
+than it shows. Four places changed: the `de-sponsors` and `de-home` sponsor headlines, the
+`de-home` stat strip, and the `de-partners` "Already in" headline — plus the new home hero
+copy, which the board wrote as forty-eight. The 49th place is still an open question; it now
+lives here rather than on the site.
 
 ## Reference docs (`docs/`, git-ignored)
 

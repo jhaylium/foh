@@ -12,6 +12,10 @@
   background:#040A12}
 .prog .shot img{width:100%;height:100%;object-fit:cover}
 .prog.flip .words{order:2}
+/* The Spirit Nights flyer is portrait (810x1012). At the 4/3 above it would be
+   cropped through the middle of its own list of dates. 4/5 is the artwork's own
+   ratio to within a pixel, so nothing is lost. */
+.prog .shot.tall{aspect-ratio:4/5}
 .price{display:inline-flex;align-items:baseline;gap:10px;margin-top:18px;
   font-family:"Bricolage Grotesque",sans-serif;font-weight:400;
   font-size:clamp(2rem,4.2vw,3rem);line-height:.9;letter-spacing:-.03em;color:var(--gold-ink);
@@ -22,12 +26,33 @@
 .dates li{display:flex;gap:16px;flex-wrap:wrap;align-items:baseline;padding:14px 2px;
   border-bottom:1px solid var(--line-soft)}
 .dates b{font-family:"Bricolage Grotesque",sans-serif;font-weight:600;font-size:1.05rem;
-  min-width:9ch}
+  min-width:11ch}
 .dates span{color:var(--muted);font-size:.95rem}
+
+/* ---- the Hugs from Henry dialog. Markup and script are in
+       _partials/henry-modal.html; the styling lives here with the rest of this
+       page's own CSS. Built on the page's tokens, so it follows the light-mode
+       switch like everything else. ---- */
+.modal{border:1px solid var(--edge);border-radius:4px;background:var(--raise);color:var(--ink);
+  padding:0;max-width:min(880px,calc(100vw - 28px));width:100%;max-height:min(88svh,900px);
+  overflow-y:auto}
+.modal::backdrop{background:rgba(4,10,18,.8);-webkit-backdrop-filter:blur(3px);
+  backdrop-filter:blur(3px)}
+.modal-in{position:relative;padding:clamp(24px,4vw,44px)}
+.modal-in h2{font-size:clamp(1.6rem,3.6vw,2.5rem)}
+.modal-x{position:absolute;top:10px;right:10px;width:38px;height:38px;line-height:1;
+  background:transparent;border:1px solid var(--edge);border-radius:999px;color:var(--ink);
+  font-size:1.5rem;cursor:pointer}
+.modal-x:hover{background:var(--gold);color:var(--on-gold);border-color:var(--gold)}
+.mgrid{display:grid;grid-template-columns:1fr 1fr;gap:0 clamp(18px,3vw,30px)}
+.checks{display:grid;gap:10px;margin-top:6px}
+.checks label{display:flex;align-items:center;gap:10px}
+
 @media (max-width:940px){
   .prog{grid-template-columns:1fr}
   .prog.flip .words{order:0}
 }
+@media (max-width:640px){.mgrid{grid-template-columns:1fr}}
 </style>
 
 {{> nav }}
@@ -65,7 +90,7 @@
           cupcake party and the photo with Henry. If it is cancelled for weather or for safety,
           the party is rescheduled for the next month.</p>
         <div class="row">
-          <a class="pill" href="{{URL_DONATE}}">Enroll a child</a>
+          <a class="pill" id="hug-open" href="{{URL_DONATE}}#gift">Give a Hug</a>
           <a class="pill ghost" href="mailto:FOHHugsFromHenry@gmail.com">Email the birthday club</a>
         </div>
       </div>
@@ -116,12 +141,15 @@
           them you are there for Hendricks Avenue Elementary.</p>
         <p class="tag" style="margin-top:28px">Spirit Night dates 2026&ndash;2027</p>
         <ul class="dates">
-          <li><b>18 Jan</b><span>6&ndash;8pm &middot; Parents Night Out @ Posting House</span></li>
+          <li><b>Fri 28 Aug</b><span>3&ndash;7pm &middot; Gators Ice Cream &middot; 15% of sales</span></li>
+          <li><b>Mon 14 Sep</b><span>5&ndash;7pm &middot; Chick-Fil-A Lakewood &middot; 10% of sales</span></li>
+          <li><b>Thu 8 Oct</b><span>3&ndash;6pm &middot; Cookie Fix &middot; 10% of sales</span></li>
+          <li><b>Wed 18 Nov</b><span>4&ndash;8pm &middot; Chipotle Lakewood &middot; 25% of sales &middot; online/app code GBT9687</span></li>
           <li><b>More to come!</b><span>dates are added through the year</span></li>
         </ul>
         <p class="note" style="margin-top:14px">Dates and times are subject to change.</p>
       </div>
-      <div class="shot"><img src="{{SPIRIT_NIGHT}}" alt="Spirit Nights banner for Hendricks Avenue Elementary"></div>
+      <div class="shot tall"><img src="{{SPIRIT_NIGHT}}" alt="Flyer listing the upcoming Hendricks Avenue Elementary Spirit Nights: Gators Ice Cream on Friday August 28, Chick-Fil-A Lakewood on Monday September 14, Cookie Fix on Thursday October 8 and Chipotle Lakewood on Wednesday November 18"></div>
     </div>
   </div>
 </section>
@@ -141,4 +169,6 @@
 </section>
 
 {{> footer }}
+
+{{> henry-modal }}
 {{> scripts }}

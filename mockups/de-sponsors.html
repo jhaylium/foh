@@ -107,7 +107,7 @@ img{max-width:100%;display:block}
 .said.mid h2{margin-inline:auto}
 .after{margin-top:26px;max-width:58ch;color:var(--muted);font-size:clamp(1.02rem,1.5vw,1.18rem);
   text-wrap:pretty}
-.said.mid + .after{margin-inline:auto;text-align:center}
+.said.mid ~ .after{margin-inline:auto;text-align:center}
 .midact{display:flex;justify-content:center;margin-top:clamp(30px,4.5vw,46px)}
 
 /* ---- buttons ---- */
@@ -213,8 +213,12 @@ img{max-width:100%;display:block}
 .scrollcue{position:absolute;left:clamp(18px,4.5vw,48px);bottom:clamp(28px,5vh,52px);
   font-size:.68rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--faint)}
 
-/* a page with no hero starts underneath the fixed bar, so it has to be pushed down */
-.nohero{padding-top:calc(var(--nav-h) + clamp(34px,6vw,70px))}
+/* A page with no hero starts underneath the fixed bar, so it has to be pushed
+   down. .sect.tight is two classes and beats a bare .nohero on specificity no
+   matter which comes first -- and its `padding` shorthand then rewrites the top
+   value, dropping the first red eyebrow onto the nav hairline. Matching its
+   weight here is what makes source order decide it. */
+.nohero,.sect.nohero{padding-top:calc(var(--nav-h) + clamp(40px,6vw,78px))}
 
 /* ---- chapter strip ---- */
 .strip{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--raise)}
@@ -299,13 +303,15 @@ img{max-width:100%;display:block}
 .vis{display:flex;align-items:center;gap:clamp(18px,3vw,30px);flex-wrap:wrap}
 .vis .slot{width:clamp(190px,24vw,270px)}
 
-/* ---- people ---- */
-.people{display:grid;grid-template-columns:repeat(auto-fill,minmax(206px,1fr));gap:1px;
-  margin-top:clamp(30px,4vw,42px);background:var(--line-soft);border:1px solid var(--line-soft)}
-.pp{background:var(--ground);padding:20px 22px}
-.pp span{font-size:.7rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-ink)}
-.pp b{display:block;font-family:"Bricolage Grotesque",sans-serif;font-weight:600;font-size:1.06rem;
-  margin-top:6px;letter-spacing:-.01em}
+/* ---- the board ----
+   A rule over each name rather than a box around it, four columns wrapping to
+   two. Only de-parents uses this; the frozen A-E pages carry their own copy. */
+.people{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:clamp(24px,3.4vw,38px) clamp(20px,3vw,38px);margin-top:clamp(32px,4.6vw,50px)}
+.pp{border-top:1px solid var(--ink);padding-top:13px}
+.pp span{font-size:.68rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--red-ink)}
+.pp b{display:block;font-weight:600;font-size:1.02rem;margin-top:8px;letter-spacing:-.005em}
 
 /* ---- the repeated refrain, as its own band ---- */
 .refrain{padding:clamp(46px,7vw,92px) 0;border-block:1px solid var(--line)}
@@ -318,10 +324,21 @@ img{max-width:100%;display:block}
 
 /* ---- forms. Nothing here submits: how forms get handled is still open. ---- */
 .field{display:grid;gap:7px;margin-bottom:16px}
-.field label{font-size:.74rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+.field label,.field .label{font-size:.74rem;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--faint)}
+/* Small shouting uppercase is right over a text box and wrong wrapped around a
+   checkbox, where the label is a sentence the reader has to weigh. .plain opts
+   one back into ordinary prose. */
+.field label.plain{font-size:1rem;font-weight:400;letter-spacing:normal;text-transform:none;
+  color:var(--ink);line-height:1.5;cursor:pointer}
 .field input,.field textarea,.field select{font-family:Manrope,sans-serif;font-size:1rem;padding:13px 15px;
   border:1px solid var(--edge);background:var(--field);color:var(--ink);width:100%;border-radius:2px}
 .field input:focus,.field textarea:focus,.field select:focus{border-color:var(--gold-ink);outline:none}
+/* A checkbox or radio is a replaced element, so the width and padding above
+   stretch it into a full-width slab instead of a control. Opt them back out,
+   and let them take the brand gold. */
+.field input[type=checkbox],.field input[type=radio]{width:auto;padding:0;flex:0 0 auto;
+  accent-color:var(--gold)}
 .info{border:1px solid var(--line);padding:clamp(24px,3.4vw,34px);background:var(--raise)}
 .info dt{font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
   color:var(--gold-ink);margin-top:20px}
@@ -352,6 +369,14 @@ footer{border-top:1px solid var(--line);padding:clamp(40px,5vw,64px) 0 56px;font
 .foot a{color:var(--ink);text-decoration:none}
 .foot a:hover{color:var(--navy-ink)}
 .foot p{color:var(--muted)}
+/* Facebook and Instagram, drawn inline: the CSP blocks every external host, and
+   a path costs a few hundred bytes against a data URI's several KB. */
+.social{display:flex;gap:12px;margin-top:20px}
+.social a{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;
+  border:1px solid var(--edge);border-radius:999px;color:var(--ink);
+  transition:background .2s ease,color .2s ease,border-color .2s ease}
+.social a:hover{background:var(--gold);color:var(--on-gold);border-color:var(--gold)}
+.social svg{width:19px;height:19px;fill:currentColor}
 .legal{margin-top:34px;padding-top:20px;border-top:1px solid var(--line-soft);display:flex;
   justify-content:space-between;gap:18px;flex-wrap:wrap;font-size:.8rem;color:var(--faint)}
 .disclosure{margin-top:18px;font-size:.72rem;line-height:1.5;color:var(--faint);max-width:96ch}
@@ -384,6 +409,7 @@ footer{border-top:1px solid var(--line);padding:clamp(40px,5vw,64px) 0 56px;font
   .ch{border-top:1px solid var(--line-soft)}
   .ch:nth-child(-n+2){border-top:none}
   .foot{grid-template-columns:1fr 1fr}
+  .people{grid-template-columns:repeat(2,minmax(0,1fr))}
   .twocol,.refrain .wrap{grid-template-columns:1fr}
   .tiles.three{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
@@ -393,9 +419,12 @@ footer{border-top:1px solid var(--line);padding:clamp(40px,5vw,64px) 0 56px;font
   .ch{border-left:none;border-top:1px solid var(--line-soft)}
   .ch:first-child{border-top:none}
   .foot{grid-template-columns:1fr}
+  .people{grid-template-columns:1fr}
   .tiles.three{grid-template-columns:1fr}
   .spend li{grid-template-columns:40px 1fr}
-  .spend .m{display:none}
+  /* Not display:none. This column used to hold asides; it now names the actual
+     software and projects the money buys, which a phone must not lose. */
+  .spend .m{grid-column:2;text-align:left;margin-top:4px}
 }
 @media (prefers-reduced-motion:reduce){
   .media .layer{animation:none}
@@ -440,7 +469,7 @@ footer{border-top:1px solid var(--line);padding:clamp(40px,5vw,64px) 0 56px;font
   <div class="wrap">
     <div class="said mid">
       <p class="tag red">2025&ndash;26</p>
-      <h2 style="margin-top:18px">Forty-nine businesses said yes.</h2>
+      <h2 style="margin-top:18px">Forty-eight businesses said yes.</h2>
     </div>
     <p class="after">Every one of them chose to put money into a public elementary school in
       San Marco. They are on the t-shirts, the marquee and both entrances &mdash; and they are
@@ -518,11 +547,6 @@ footer{border-top:1px solid var(--line);padding:clamp(40px,5vw,64px) 0 56px;font
     <p class="note" style="margin-top:14px">The Friends Circle is listed by name because this
       level does not include a logo.</p>
 
-    <p class="note" style="margin-top:clamp(30px,4vw,44px)">Forty-eight of the forty-nine
-      partners are named here. The Legacy Circle carries one more place, held on the current
-      site by a blank white square with no business on it &mdash; we have left it alone rather
-      than guess whether it is a sponsor whose logo never arrived or simply page filler.
-      <span class="needs" style="margin-top:10px">Legacy Circle &mdash; one name to confirm with the board</span></p>
   </div>
 </section>
 
@@ -571,6 +595,16 @@ footer{border-top:1px solid var(--line);padding:clamp(40px,5vw,64px) 0 56px;font
           <li><a href="mailto:renttherockhae@gmail.com">renttherockhae@gmail.com</a><br>
             <span style="color:var(--faint);font-size:.84rem">Spirit Rock</span></li>
         </ul>
+        <div class="social">
+          <a href="https://www.facebook.com/FriendsOfHendricks"
+             aria-label="The Friends of Hendricks on Facebook">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.05V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.96.93-1.96 1.89v2.25h3.33l-.53 3.49h-2.8V24C19.61 23.1 24 18.1 24 12.07z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/friendsofhendricks/"
+             aria-label="The Friends of Hendricks on Instagram">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41 1.27-.06 1.65-.07 4.85-.07M12 0C8.74 0 8.33.01 7.05.07c-1.28.06-2.15.26-2.91.56-.79.31-1.46.72-2.13 1.38C1.35 2.68.94 3.35.63 4.14c-.3.76-.5 1.63-.56 2.91C.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.28.26 2.15.56 2.91.31.79.72 1.46 1.38 2.13.67.67 1.34 1.08 2.13 1.38.76.3 1.63.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.28-.06 2.15-.26 2.91-.56.79-.31 1.46-.72 2.13-1.38.67-.67 1.08-1.34 1.38-2.13.3-.76.5-1.63.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.28-.26-2.15-.56-2.91-.31-.79-.72-1.46-1.38-2.13C21.32 1.35 20.65.94 19.86.63c-.76-.3-1.63-.5-2.91-.56C15.67.01 15.26 0 12 0z"/><path d="M12 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84zM12 16a4 4 0 1 1 4-4 4 4 0 0 1-4 4z"/><circle cx="18.41" cy="5.59" r="1.44"/></svg>
+          </a>
+        </div>
       </div>
     </div>
     <div class="legal">

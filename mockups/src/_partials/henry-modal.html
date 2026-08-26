@@ -1,0 +1,141 @@
+<!-- Hugs from Henry Birthday Club. Transcribed from the live form; nothing here
+     submits, because how forms get handled is still open.
+
+     The button that opens this is a real link to the donate page. The script
+     below intercepts it only where <dialog> exists, so with no JS -- or on a
+     browser without showModal -- the button still goes somewhere useful. Same
+     rule the mobile nav follows: never put something behind a button that
+     scripting has to build. -->
+<dialog id="hugdlg" class="modal" aria-labelledby="hugttl">
+  <div class="modal-in">
+    <button type="button" class="modal-x" id="hug-close" aria-label="Close">&times;</button>
+    <p class="tag red">Grades K&ndash;5 &middot; $25 per child</p>
+    <h2 id="hugttl" style="margin-top:14px">Hugs from Henry Birthday Club</h2>
+
+    <form onsubmit="return false" style="margin-top:clamp(24px,3.4vw,34px)">
+      <div class="mgrid">
+        <div class="field">
+          <label for="h-name">Student first &amp; last name *</label>
+          <input id="h-name" type="text" placeholder="Henry Eagle" autocomplete="off">
+        </div>
+        <div class="field">
+          <label for="h-month">Birthday month *</label>
+          <select id="h-month">
+            <option>January</option><option>February</option><option>March</option>
+            <option>April</option><option>May</option><option>June</option>
+            <option>July</option><option>August</option><option selected>September</option>
+            <option>October</option><option>November</option><option>December</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="h-grade">Grade *</label>
+          <select id="h-grade">
+            <option>K</option><option>1</option><option selected>2</option>
+            <option>3</option><option>4</option><option>5</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="h-teacher">Student's teacher *</label>
+          <input id="h-teacher" type="text" placeholder="Edmunds" autocomplete="off">
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="h-cupcake">Cupcakes</label>
+        <p class="note" style="margin:-2px 0 4px">We are offering Publix cupcakes. If your
+          student has food allergies and requires an allergy-free cupcake, select
+          &ldquo;Allergy-Free Cupcake Requested&rdquo; from the dropdown.</p>
+        <select id="h-cupcake">
+          <option>No food allergies, Publix Cupcake is fine</option>
+          <option>Allergy-Free Cupcake Requested</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="h-photo">How would you like your student's photo delivered?</label>
+        <select id="h-photo"><option>Text</option><option>Email</option></select>
+      </div>
+
+      <div class="field">
+        <label class="plain" for="h-release" style="display:flex;gap:10px;align-items:flex-start">
+          <input id="h-release" type="checkbox">
+          <span>Photo release &mdash; check ONLY if you do <strong>not</strong> give permission
+            for your student's likeness to be used by The Friends of Hendricks.</span>
+        </label>
+      </div>
+
+      <div class="mgrid">
+        <div class="field">
+          <label for="h-email">Parent email address</label>
+          <input id="h-email" type="email" placeholder="henry@foh.org" autocomplete="email">
+        </div>
+        <div class="field">
+          <label for="h-phone">Parent phone</label>
+          <input id="h-phone" type="tel" placeholder="904-123-4567" autocomplete="tel">
+        </div>
+      </div>
+
+      <div class="field">
+        <span class="label">Add additional students</span>
+        <div class="checks">
+          <label class="plain"><input type="radio" name="h-more"> Yes</label>
+          <label class="plain"><input type="radio" name="h-more" checked> No, proceed to payment</label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="h-amount">Donation amount *</label>
+        <input id="h-amount" type="text" inputmode="decimal" placeholder="25.00">
+        <p class="note">$25 per student, in USD.</p>
+      </div>
+
+      <div class="field">
+        <label for="h-pay">Payment method</label>
+        <p class="note" style="margin:-2px 0 4px">Donations can be made by check or PayPal.
+          Please note which one you will be using.</p>
+        <select id="h-pay">
+          <option>Sent in with student</option>
+          <option>Check in the mail</option>
+          <option>PayPal</option>
+        </select>
+      </div>
+
+      <div class="row" style="margin-top:24px">
+        <button class="pill big" type="submit">Submit</button>
+        <button class="pill ghost" type="button" id="hug-cancel">Cancel</button>
+      </div>
+    </form>
+  </div>
+</dialog>
+
+<script>
+/* Upgrade the link into a dialog, but only where showModal exists -- otherwise
+   the link keeps working and lands on the donate form. showModal gives the
+   focus trap, Escape and the backdrop for free. */
+(function(){
+  var dlg=document.getElementById('hugdlg'), open=document.getElementById('hug-open');
+  if(!dlg||!open||typeof dlg.showModal!=='function') return;
+
+  /* Repoint the href at this section before wiring anything up. The Artifact
+     host runs its own click listener in the CAPTURE phase: any <a> whose href
+     is a different origin gets turned into a navigation of the whole top frame.
+     Capture beats our listener on the element, so the host had already sent the
+     page to the donate form before preventDefault below could run -- the dialog
+     opened and the page left underneath it. A same-origin fragment is the one
+     thing that listener ignores.
+
+     The cross-origin href stays in the markup, so a reader with no scripting
+     still gets a working link to the donate form. This line is the enhancement
+     taking ownership of the control it can now drive. */
+  open.setAttribute('href','#henry');
+
+  open.addEventListener('click',function(e){ e.preventDefault(); dlg.showModal(); });
+  ['hug-close','hug-cancel'].forEach(function(id){
+    var b=document.getElementById(id);
+    if(b) b.addEventListener('click',function(){ dlg.close(); });
+  });
+  /* a click on the backdrop lands on <dialog> itself, never on its contents */
+  dlg.addEventListener('click',function(e){ if(e.target===dlg) dlg.close(); });
+  dlg.addEventListener('close',function(){ open.focus(); });
+})();
+</script>
