@@ -1,13 +1,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Manrope:wght@400;500;600;700&display=swap">
 <script>
-/* Runs before the page paints. Two jobs: restore a saved light-mode choice so a
-   returning reader never sees a flash of dark, and mark that scripting is on, so
-   the mobile nav can collapse behind its button. With no script the bar just
-   grows and stacks its links, which is worse-looking and always usable. */
-(function(){
-  var r=document.documentElement;
-  r.classList.add('js');
-  try{ if(localStorage.getItem('foh-theme')==='light') r.classList.add('lite'); }catch(e){}
-})();
+/* Runs before the page paints, to mark that scripting is on: only then does the
+   mobile nav collapse behind its button. With no script the bar just grows and
+   stacks its links, which is worse-looking and always usable. */
+(function(){ document.documentElement.classList.add('js'); })();
 </script>

@@ -1,19 +1,4 @@
 <script>
-/* ---- the light-mode switch ----
-   Its label says what it will do, not what is on, so it needs no aria-pressed to
-   be unambiguous. The key is shared across every page, so the choice carries. */
-(function(){
-  var root=document.documentElement, btn=document.getElementById('lbtn');
-  if(!btn) return;
-  function label(){ btn.textContent = root.classList.contains('lite') ? 'Dark mode' : 'Light mode'; }
-  label();
-  btn.addEventListener('click',function(){
-    root.classList.toggle('lite');
-    try{ localStorage.setItem('foh-theme', root.classList.contains('lite') ? 'light' : 'dark'); }catch(e){}
-    label();
-  });
-})();
-
 /* ---- the mobile menu ---- */
 (function(){
   var bar=document.getElementById('topnav'), btn=document.getElementById('menubtn');

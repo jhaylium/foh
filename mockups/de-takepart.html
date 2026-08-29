@@ -2,33 +2,29 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Manrope:wght@400;500;600;700&display=swap">
 <script>
-/* Runs before the page paints. Two jobs: restore a saved light-mode choice so a
-   returning reader never sees a flash of dark, and mark that scripting is on, so
-   the mobile nav can collapse behind its button. With no script the bar just
-   grows and stacks its links, which is worse-looking and always usable. */
-(function(){
-  var r=document.documentElement;
-  r.classList.add('js');
-  try{ if(localStorage.getItem('foh-theme')==='light') r.classList.add('lite'); }catch(e){}
-})();
+/* Runs before the page paints, to mark that scripting is on: only then does the
+   mobile nav collapse behind its button. With no script the bar just grows and
+   stacks its links, which is worse-looking and always usable. */
+(function(){ document.documentElement.classList.add('js'); })();
 </script>
 <style>
 /* ---- direction D's palette, shared by every page ----
-   A deliberate single visual world: dark in every theme, the way a cinema is
-   dark, with every colour painted explicitly so it never borrows the host's
-   ground. Light mode is opt-in only, via the button in the top bar. */
+   A light page with dark film in it. Every colour is painted explicitly so the
+   page never borrows the host's ground, and there is exactly one palette -- no
+   dark mode, no switch, no stored preference. What stays dark is the
+   photography, further down. */
 :root{
-  --ground:#070F1A; --raise:#0D1826; --sink:#040A12;
-  --ink:#EDF2F8; --muted:#94A8BF; --faint:#7089A8;
-  --navy:#003E7E; --navy-ink:#7FB2E3;
-  --red:#C71014; --red-ink:#FF8A80;
+  --ground:#F6F6F4; --raise:#EFEEE7; --sink:#EAE9E1;
+  --ink:#0B2340; --muted:#42536B; --faint:#54637A;
+  --navy:#003E7E; --navy-ink:#003E7E;
+  --red:#C71014; --red-ink:#C71014;
   --gold:#FFBE04;          /* a fill only: gold carries dark text, never light */
-  --gold-ink:#FFBE04;      /* gold as text; light mode has to darken this */
-  --on-gold:#070F1A;       /* what sits on top of a gold fill, both modes */
-  --line:#1B2B3F; --line-soft:#132133;
-  --edge:#476888;          /* borders of things you click: 3.3:1 on the ground, where --line's 1.3:1 fails */
-  --bar:rgba(7,15,26,.93); /* the top bar once it has left the film */
-  --field:#040A12;         /* form inputs */
+  --gold-ink:#7A5D00;      /* gold as text. #FFBE04 is 1.5:1 on paper; same hue, darkened to 5.7:1 */
+  --on-gold:#070F1A;       /* what sits on top of a gold fill */
+  --line:#D6D5CC; --line-soft:#E4E3DA;
+  --edge:#858479;          /* borders of things you click: 3:1 on the ground, where --line's 1.4:1 fails */
+  --bar:rgba(246,246,244,.93); /* the top bar once it has left the film */
+  --field:#FFFFFF;         /* form inputs */
   --tile:#FFFFFF;          /* sponsor logos are all drawn for white; they get a white card */
   /* --photo is declared per page, not here: it is 400 KB, and two of the
      seven pages have no .media backdrop to spend it on. */
@@ -36,27 +32,9 @@
 }
 @media (min-width:760px){:root{--nav-h:88px}}
 
-/* ---- light mode ----
-   Dark stays the default in every theme; the only way to light is the button in
-   the top bar, remembered in localStorage under foh-theme. The class goes on the
-   root element rather than on data-theme, because the Artifact host stamps
-   data-theme itself from the viewer's Claude setting and would otherwise drag
-   the page into light without anyone asking. Tokens only below - no new rules. */
-:root.lite body{color-scheme:light}
-:root.lite{
-  --ground:#F6F6F4; --raise:#EFEEE7; --sink:#EAE9E1;
-  --ink:#0B2340; --muted:#42536B; --faint:#54637A;
-  --navy:#003E7E; --navy-ink:#003E7E;
-  --red:#C71014; --red-ink:#C71014;
-  --gold-ink:#7A5D00;      /* #FFBE04 is 1.5:1 on paper. Same hue, darkened to 5.7:1. */
-  --line:#D6D5CC; --line-soft:#E4E3DA;
-  --edge:#858479;
-  --bar:rgba(246,246,244,.93);
-  --field:#FFFFFF;
-}
-/* The film stays the film. Anything sitting on a photograph keeps the dark
-   values in both modes - and dark mode is untouched, since these are exactly
-   the tokens above. */
+/* The film stays the film. Anything sitting on a photograph carries white type
+   on the dark veil, which is the only way copy over moving footage stays
+   readable. This is the one place dark values survive. */
 .act1,.frame,.close,.filmcap,.past figure,.topnav.over-hero{
   --ink:#EDF2F8; --muted:#94A8BF; --faint:#7089A8;
   --navy-ink:#7FB2E3; --red-ink:#FF8A80;
@@ -64,15 +42,15 @@
   --line:#1B2B3F; --line-soft:#132133; --edge:#476888;
   /* Retoning --ink is not enough on its own. Headings carry no colour of their
      own -- they inherit the computed colour from <body>, which already resolved
-     var(--ink) against :root. In light mode that made every headline over a
-     photograph dark navy. Setting colour here resolves --ink at this element,
-     and the whole subtree inherits white. */
+     var(--ink) against :root, so they would come out dark navy over the
+     photograph. Setting colour here resolves --ink at this element, and the
+     whole subtree inherits white. */
   color:var(--ink);
 }
 /* ---- shared chrome for every page in direction D ---- */
 *{box-sizing:border-box}
-section[id],div[id],figure[id]{scroll-margin-top:calc(var(--nav-h) + 14px)}
-body{margin:0;background:var(--ground);color:var(--ink);color-scheme:dark;
+section[id],div[id],figure[id]{scroll-margin-top:calc(var(--nav-h) + 20px)}
+body{margin:0;background:var(--ground);color:var(--ink);color-scheme:light;
   font-family:Manrope,"Helvetica Neue",Arial,sans-serif;font-size:17px;line-height:1.62;
   -webkit-font-smoothing:antialiased}
 h1,h2,h3,.disp{font-family:"Bricolage Grotesque",Manrope,sans-serif;font-weight:800;
@@ -113,7 +91,11 @@ img{max-width:100%;display:block}
 /* ---- buttons ---- */
 .pill{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:var(--on-gold);
   font-family:Manrope,sans-serif;font-size:.88rem;font-weight:700;padding:11px 22px;
-  border-radius:999px;text-decoration:none;border:none;cursor:pointer;
+  border-radius:999px;text-decoration:none;cursor:pointer;
+  /* Gold is 1.5:1 on paper, so the fill alone leaves the button shapeless. The
+     edge is --gold-ink, which is the darkened gold on the page and plain
+     #FFBE04 over a photograph -- so the hero keeps its borderless pill. */
+  border:1px solid var(--gold-ink);
   transition:transform .16s ease}
 .pill:hover{transform:translateY(-1px)}
 .pill.ghost{background:transparent;color:var(--ink);border:1px solid var(--edge)}
@@ -190,11 +172,6 @@ img{max-width:100%;display:block}
 .topnav.over-hero .has-sub .sub{background:rgba(7,15,26,.96)}
 .topnav.over-hero .has-sub .sub a{color:rgba(237,242,248,.82)}
 
-.tgl{background:transparent;border:1px solid var(--edge);color:var(--muted);
-  font-family:Manrope,sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.14em;
-  text-transform:uppercase;padding:8px 13px;border-radius:999px;cursor:pointer;white-space:nowrap;
-  transition:color .2s ease,border-color .2s ease}
-.tgl:hover{color:var(--gold-ink);border-color:var(--gold-ink)}
 .menubtn{display:none;margin-left:auto;background:transparent;border:1px solid var(--edge);
   color:var(--ink);font-family:Manrope,sans-serif;font-size:.72rem;font-weight:700;
   letter-spacing:.14em;text-transform:uppercase;padding:9px 14px;border-radius:999px;
@@ -218,7 +195,7 @@ img{max-width:100%;display:block}
    matter which comes first -- and its `padding` shorthand then rewrites the top
    value, dropping the first red eyebrow onto the nav hairline. Matching its
    weight here is what makes source order decide it. */
-.nohero,.sect.nohero{padding-top:calc(var(--nav-h) + clamp(40px,6vw,78px))}
+.nohero,.sect.nohero{padding-top:calc(var(--nav-h) + clamp(52px,6vw,78px))}
 
 /* ---- chapter strip ---- */
 .strip{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--raise)}
@@ -338,7 +315,7 @@ img{max-width:100%;display:block}
    stretch it into a full-width slab instead of a control. Opt them back out,
    and let them take the brand gold. */
 .field input[type=checkbox],.field input[type=radio]{width:auto;padding:0;flex:0 0 auto;
-  accent-color:var(--gold)}
+  accent-color:var(--navy)}
 .info{border:1px solid var(--line);padding:clamp(24px,3.4vw,34px);background:var(--raise)}
 .info dt{font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
   color:var(--gold-ink);margin-top:20px}
@@ -400,7 +377,22 @@ footer{border-top:1px solid var(--line);padding:clamp(40px,5vw,64px) 0 56px;font
   .topnav.over-hero .has-sub .sub{background:transparent}
   .js .topnav nav{display:none}
   .js .topnav.open nav{display:flex}
-  .topnav .tgl{margin-left:auto}
+  /* Everything above lets the bar grow: height:auto, wrapping, and 24px of new
+     padding. --nav-h stays 72px regardless, and .nohero and scroll-margin-top
+     both budget from it -- so a bar that wrapped to two rows dropped the first
+     red eyebrow underneath itself. With scripting on and the menu shut the bar
+     is now exactly what --nav-h claims. Open, or with no script, it still grows
+     and stacks its links, which is the deliberate fallback. */
+  .js .topnav:not(.open){height:var(--nav-h)}
+}
+/* ...and the row has to actually fit, or height:var(--nav-h) just clips it.
+   Three items now that the theme switch is gone: at 320px they need ~264px of
+   the 284px available. */
+@media (max-width:400px){
+  .topnav{gap:10px}
+  .topnav .who b{font-size:.82rem}
+  .topnav .pill{padding:9px 14px}
+  .menubtn{padding:8px 11px}
 }
 @media (min-width:1080px){.menubtn{display:none}}
 @media (max-width:940px){
@@ -465,7 +457,7 @@ footer{border-top:1px solid var(--line);padding:clamp(40px,5vw,64px) 0 56px;font
 .modal{border:1px solid var(--edge);border-radius:4px;background:var(--raise);color:var(--ink);
   padding:0;max-width:min(880px,calc(100vw - 28px));width:100%;max-height:min(88svh,900px);
   overflow-y:auto}
-.modal::backdrop{background:rgba(4,10,18,.8);-webkit-backdrop-filter:blur(3px);
+.modal::backdrop{background:rgba(11,35,64,.55);-webkit-backdrop-filter:blur(3px);
   backdrop-filter:blur(3px)}
 .modal-in{position:relative;padding:clamp(24px,4vw,44px)}
 .modal-in h2{font-size:clamp(1.6rem,3.6vw,2.5rem)}
@@ -508,7 +500,6 @@ footer{border-top:1px solid var(--line);padding:clamp(40px,5vw,64px) 0 56px;font
     </div>
     <a id="nav-parents" href="https://claude.ai/code/artifact/46960c6b-6472-4131-962e-acbf588687e1">Meet the Parents</a>
   </nav>
-  <button class="tgl" type="button" id="lbtn">Light mode</button>
   <a class="pill" href="https://claude.ai/code/artifact/482858ed-dcb9-4fee-9a30-4004281de3bf">Donate</a>
 </div>
 
@@ -822,21 +813,6 @@ footer{border-top:1px solid var(--line);padding:clamp(40px,5vw,64px) 0 56px;font
 })();
 </script>
 <script>
-/* ---- the light-mode switch ----
-   Its label says what it will do, not what is on, so it needs no aria-pressed to
-   be unambiguous. The key is shared across every page, so the choice carries. */
-(function(){
-  var root=document.documentElement, btn=document.getElementById('lbtn');
-  if(!btn) return;
-  function label(){ btn.textContent = root.classList.contains('lite') ? 'Dark mode' : 'Light mode'; }
-  label();
-  btn.addEventListener('click',function(){
-    root.classList.toggle('lite');
-    try{ localStorage.setItem('foh-theme', root.classList.contains('lite') ? 'light' : 'dark'); }catch(e){}
-    label();
-  });
-})();
-
 /* ---- the mobile menu ---- */
 (function(){
   var bar=document.getElementById('topnav'), btn=document.getElementById('menubtn');

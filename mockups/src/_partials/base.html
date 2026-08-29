@@ -1,7 +1,7 @@
 /* ---- shared chrome for every page in direction D ---- */
 *{box-sizing:border-box}
-section[id],div[id],figure[id]{scroll-margin-top:calc(var(--nav-h) + 14px)}
-body{margin:0;background:var(--ground);color:var(--ink);color-scheme:dark;
+section[id],div[id],figure[id]{scroll-margin-top:calc(var(--nav-h) + 20px)}
+body{margin:0;background:var(--ground);color:var(--ink);color-scheme:light;
   font-family:Manrope,"Helvetica Neue",Arial,sans-serif;font-size:17px;line-height:1.62;
   -webkit-font-smoothing:antialiased}
 h1,h2,h3,.disp{font-family:"Bricolage Grotesque",Manrope,sans-serif;font-weight:800;
@@ -42,7 +42,11 @@ img{max-width:100%;display:block}
 /* ---- buttons ---- */
 .pill{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:var(--on-gold);
   font-family:Manrope,sans-serif;font-size:.88rem;font-weight:700;padding:11px 22px;
-  border-radius:999px;text-decoration:none;border:none;cursor:pointer;
+  border-radius:999px;text-decoration:none;cursor:pointer;
+  /* Gold is 1.5:1 on paper, so the fill alone leaves the button shapeless. The
+     edge is --gold-ink, which is the darkened gold on the page and plain
+     #FFBE04 over a photograph -- so the hero keeps its borderless pill. */
+  border:1px solid var(--gold-ink);
   transition:transform .16s ease}
 .pill:hover{transform:translateY(-1px)}
 .pill.ghost{background:transparent;color:var(--ink);border:1px solid var(--edge)}
@@ -119,11 +123,6 @@ img{max-width:100%;display:block}
 .topnav.over-hero .has-sub .sub{background:rgba(7,15,26,.96)}
 .topnav.over-hero .has-sub .sub a{color:rgba(237,242,248,.82)}
 
-.tgl{background:transparent;border:1px solid var(--edge);color:var(--muted);
-  font-family:Manrope,sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.14em;
-  text-transform:uppercase;padding:8px 13px;border-radius:999px;cursor:pointer;white-space:nowrap;
-  transition:color .2s ease,border-color .2s ease}
-.tgl:hover{color:var(--gold-ink);border-color:var(--gold-ink)}
 .menubtn{display:none;margin-left:auto;background:transparent;border:1px solid var(--edge);
   color:var(--ink);font-family:Manrope,sans-serif;font-size:.72rem;font-weight:700;
   letter-spacing:.14em;text-transform:uppercase;padding:9px 14px;border-radius:999px;
@@ -147,7 +146,7 @@ img{max-width:100%;display:block}
    matter which comes first -- and its `padding` shorthand then rewrites the top
    value, dropping the first red eyebrow onto the nav hairline. Matching its
    weight here is what makes source order decide it. */
-.nohero,.sect.nohero{padding-top:calc(var(--nav-h) + clamp(40px,6vw,78px))}
+.nohero,.sect.nohero{padding-top:calc(var(--nav-h) + clamp(52px,6vw,78px))}
 
 /* ---- chapter strip ---- */
 .strip{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--raise)}
@@ -267,7 +266,7 @@ img{max-width:100%;display:block}
    stretch it into a full-width slab instead of a control. Opt them back out,
    and let them take the brand gold. */
 .field input[type=checkbox],.field input[type=radio]{width:auto;padding:0;flex:0 0 auto;
-  accent-color:var(--gold)}
+  accent-color:var(--navy)}
 .info{border:1px solid var(--line);padding:clamp(24px,3.4vw,34px);background:var(--raise)}
 .info dt{font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
   color:var(--gold-ink);margin-top:20px}
@@ -329,7 +328,22 @@ footer{border-top:1px solid var(--line);padding:clamp(40px,5vw,64px) 0 56px;font
   .topnav.over-hero .has-sub .sub{background:transparent}
   .js .topnav nav{display:none}
   .js .topnav.open nav{display:flex}
-  .topnav .tgl{margin-left:auto}
+  /* Everything above lets the bar grow: height:auto, wrapping, and 24px of new
+     padding. --nav-h stays 72px regardless, and .nohero and scroll-margin-top
+     both budget from it -- so a bar that wrapped to two rows dropped the first
+     red eyebrow underneath itself. With scripting on and the menu shut the bar
+     is now exactly what --nav-h claims. Open, or with no script, it still grows
+     and stacks its links, which is the deliberate fallback. */
+  .js .topnav:not(.open){height:var(--nav-h)}
+}
+/* ...and the row has to actually fit, or height:var(--nav-h) just clips it.
+   Three items now that the theme switch is gone: at 320px they need ~264px of
+   the 284px available. */
+@media (max-width:400px){
+  .topnav{gap:10px}
+  .topnav .who b{font-size:.82rem}
+  .topnav .pill{padding:9px 14px}
+  .menubtn{padding:8px 11px}
 }
 @media (min-width:1080px){.menubtn{display:none}}
 @media (max-width:940px){

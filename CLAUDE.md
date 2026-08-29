@@ -142,7 +142,8 @@ sponsor page. The original A–E artifacts are frozen as the record of the vote 
 separate files, not edits to them.
 
 **Chosen on 2026-08-24: direction D, reading A** — `de-home` plus `de-partners`, one dark
-world across both pages, with a light-mode switch added (below). `de-partners-light`
+world across both pages. (The palette was inverted to light on 2026-08-28; see below.)
+`de-partners-light`
 (reading B) is superseded. It is still published, but nothing points at it any more; leave it
 as a record rather than editing it.
 
@@ -171,6 +172,24 @@ rewrote the top value — which is why the first red eyebrow on `de-donate`, `de
 `.nohero,.sect.nohero` so the two tie on weight and source order decides. `de-partners` was
 always right because it uses `sect nohero` with no `tight`.
 
+**That fixed the cascade; the phones needed a measurement fix too (2026-08-28).** The
+clearance is `calc(var(--nav-h) + …)`, which is only ever right if the bar really is
+`--nav-h` tall. On desktop it is — `.topnav` sets `height:var(--nav-h)`. Below 1080px that
+hard height is thrown away for `height:auto` + `flex-wrap:wrap` + 24px of new padding, so a
+bar that wrapped to two rows stood ~110px tall against a 72px token and the first red eyebrow
+landed under the hairline. `scroll-margin-top` had the same stale number, so `#henry`,
+`#rock`, `#spirit`, `#levels` and `#gift` did too. Three changes:
+
+- `.js .topnav:not(.open){height:var(--nav-h)}` — with scripting on and the menu shut, the
+  bar is now exactly what the token claims. Open, or with no script, it still grows and
+  stacks its links, which is the deliberate fallback.
+- A `@media (max-width:400px)` block tightens the wordmark, the pill and the Menu button so
+  the row cannot wrap at 320px in the first place. Losing the `Light mode` button took ~114px
+  out of that row; **if anything is ever added back to the bar, re-check this width.**
+- The floor rose: `clamp(40px,6vw,78px)` → `clamp(52px,6vw,78px)`, and `scroll-margin-top`
+  from `+14px` to `+20px`. At 375px the `6vw` term sits at its floor, which is exactly when
+  the bar is tallest.
+
 **Two form rules that are easy to reintroduce.** `.field input` sets `width:100%` and 13px of
 padding, which is right for a text box and stretches a checkbox or radio into a full-width
 slab — hence `.field input[type=checkbox],.field input[type=radio]{width:auto;padding:0}`.
@@ -190,42 +209,56 @@ top, following obama.org: `position:fixed; top:0`, transparent while it sits on 
 photograph, filling in with a blurred surface and a hairline rule once you scroll past it.
 The **filled state is the CSS default** and a script adds `.over-hero` — so with no JS the
 bar is legible rather than white-on-white. Anchored sections carry
-`scroll-margin-top: calc(var(--nav-h) + 14px)` so in-page links don't land underneath it.
+`scroll-margin-top: calc(var(--nav-h) + 20px)` so in-page links don't land underneath it.
 D's persistent bottom donate bar is gone; the ask now rides in the top bar instead.
 
-**Light mode on the `de-*` pages.** D is still a dark page by design, so **dark is the
-default in every theme** and the only way to light is the `Light mode` button in the top bar.
-The switch adds `.lite` to the root element and remembers the choice in `localStorage` under
-`foh-theme`, shared by both pages. Three things about it are easy to break:
+**The site is light, and the film inside it is dark (2026-08-28).** D shipped as a single
+dark world with a `Light mode` button; that reversed. There is now **one palette, light**, no
+toggle, no `localStorage`, no `.lite` class, and nothing that reads the viewer's theme. The
+dark values survive in exactly one rule, at the bottom of `tokens.html`:
 
-- **It is a class, not `data-theme`.** The Artifact host stamps `data-theme` on the root
-  itself from the viewer's Claude setting, so a `[data-theme="light"]` rule would drag the
-  page into light without anyone asking for it. `:root.lite` is ours alone.
-- **`color-scheme` is set on `body`, not `:root`.** The host writes `style.colorScheme`
-  inline on the root, and an inline style beats a stylesheet. `body` is untouched by the host,
-  so declaring it there wins for everything below it.
-- **Photography stays dark in both modes.** A rule scoping the dark tokens to
-  `.act1,.frame,.close,.topnav.over-hero` (home) and `.act1,.perk .sq,.pep figcaption,
-  .topnav.over-hero` (partners) keeps the hero, the mid-page frame, the closing shot, the four
-  benefit squares and the pep-rally caption reading the same either way. Those overrides are
-  *exactly* the dark `:root` values, which is what leaves dark mode untouched.
+```css
+.act1,.frame,.close,.filmcap,.past figure,.topnav.over-hero{ … color:var(--ink); }
+```
 
-Light mode needed two token splits beyond the ones listed under Palette rules:
+That is the hero, the mid-page frame, the closing shot, the captioned photograph, the
+Walkathon archive tiles and the top bar while it is still over the film. It is not a dark
+mode — it is the veil over a photograph, and white type is the only thing readable on it.
+Four things about the arrangement are easy to break:
 
-| Token | Dark | Light | Why |
+- **The rule needs `color:var(--ink)`, not just the retoned tokens.** A custom property only
+  affects declarations that *use* it inside that subtree. Headings carry no `color` of their
+  own — they inherit the computed colour from `<body>`, which already resolved `var(--ink)`
+  against `:root`. Without the `color` line every headline over a photograph comes out dark
+  navy on a dark picture.
+- **`color-scheme:light` is set on `body`, not `:root`.** The Artifact host writes
+  `style.colorScheme` inline on the root and an inline style beats a stylesheet. `body` is
+  untouched by the host, so declaring it there wins for everything below it.
+- **`--nav-h` is a colour-free token living in the same `:root` block.** It and its
+  `@media (min-width:760px)` companion must survive any edit to the palette.
+- **Three gold fills had to change when the ground went pale.** Gold is 1.5:1 on paper.
+  `.pill` keeps the gold fill but gains `border:1px solid var(--gold-ink)`, which draws an
+  edge on the page and vanishes into the fill over a photograph, where `--gold-ink` resolves
+  back to `#FFBE04`. The Walkathon thermometer fill (`de-walkathon`, `.goal .bar i`) went from
+  `--gold` to `--gold-ink`, 1.4:1 → 5.1:1, because that bar carries a number. And
+  `accent-color` on checkboxes went from `--gold` to `--navy`, 1.7:1 → 10.6:1 on white.
+
+The palette: `--ground #F6F6F4`, `--raise #EFEEE7`, `--sink #EAE9E1`, `--ink #0B2340`,
+`--muted #42536B`, `--faint #54637A`, `--navy`/`--navy-ink` both `#003E7E`, `--red`/`--red-ink`
+both `#C71014`, `--gold #FFBE04` as a fill with `--gold-ink #7A5D00` as text, `--on-gold
+#070F1A`, `--line #D6D5CC`, `--line-soft #E4E3DA`, `--edge #858479`, `--bar
+rgba(246,246,244,.93)`, `--field #FFFFFF`, `--tile #FFFFFF`. Every resolved text pair passes
+AA; the worst is `--red-ink` on `--sink` at 4.91:1. `--edge` clears 3:1 on all four surfaces.
+
+Two token splits worth keeping in mind:
+
+| Token | On paper | Over a photograph | Why |
 |---|---|---|---|
 | `--gold` (fill) | `#FFBE04` | `#FFBE04` | Gold behind dark text — 11.6:1. Never flips. |
-| `--gold-ink` (text) | `#FFBE04` | `#7A5D00` | Gold on paper is 1.5:1. Same hue, darkened to 5.7:1. |
-| `--edge` | `#1B2B3F` | `#858479` | Borders of things you click need 3:1; `--line` is a hairline at 1.4:1. |
-| `--bar` | `rgba(7,15,26,.93)` | `rgba(246,246,244,.93)` | The top bar once it has left the film. |
+| `--gold-ink` (text) | `#7A5D00` | `#FFBE04` | Gold on paper is 1.5:1. Same hue, darkened to 5.7:1. |
+| `--edge` | `#858479` | `#476888` | Borders of things you click need 3:1. |
 
-The rest of the light palette: `--ground #F6F6F4`, `--raise #EFEEE7`, `--sink #EAE9E1`,
-`--ink #0B2340`, `--muted #42536B`, `--faint #54637A`, `--navy-ink`/`--red-ink` back to their
-`#003E7E`/`#C71014` surface values, `--line #D6D5CC`, `--line-soft #E4E3DA`, and on the
-partner page `--field #FFFFFF` for the application form. Every resolved pair passes AA;
-the worst is `--faint` on `--sink` at 5.0:1.
-
-**Fixed while adding the toggle:** `de-home` had **no base `.pill` rule** — it was dropped when
+**Fixed when the toggle went in, still true:** `de-home` had **no base `.pill` rule** — it was dropped when
 the page was split off `d-home`, so every Donate button on the published home page had been
 rendering as a bare link. Restored from `d-home`, with `color:#070F1A` tokenized as `--on-gold`.
 
@@ -280,9 +313,11 @@ white is 1.66:1 — gold only ever appears on navy, on the ink strip, or as a fi
 text.
 
 **Surface tokens vs ink tokens.** Where navy or red is used both as a background *and* as text,
-a single token cannot flip for dark mode — a lightened navy would wreck every navy slab. C, D
-and E therefore split them: `--navy` / `--red` stay fixed for surfaces, `--navy-ink` /
-`--red-ink` lighten in dark mode for text. Don't collapse them.
+a single token cannot flip for a dark ground — a lightened navy would wreck every navy slab.
+C, D and E therefore split them: `--navy` / `--red` stay fixed for surfaces, `--navy-ink` /
+`--red-ink` lighten for text on a dark ground. Don't collapse them. On the live `de-*` pages
+the two halves resolve to the same value on paper and only diverge over a photograph, which is
+the whole point of keeping them apart.
 
 `#0A085E` appears in the old site's CSS but is a WordPress theme setting, not part of the mark.
 Do not use it.
@@ -295,26 +330,26 @@ under `:root[data-theme="dark"]`. Never declare a colour whose only definition s
 media or `[data-theme]` block — the default "system" state stamps no attribute, and such a
 colour never applies.
 
-**Direction D is deliberately single-theme dark** in every theme, the way a cinema is dark. It
-paints every colour explicitly. That is a decision, not an omission. Light mode is opt-in only,
-via the button in the top bar.
-
-**Anything sitting on a photograph stays dark in both modes**, and the rule that does it needs
-*two* things, not one:
+**The `de-*` pages are the exception and ignore the theme entirely.** They carry one
+palette, light, on bare `:root`, with no `prefers-color-scheme` block, no `[data-theme]`
+block and no switch. That is a decision, not an omission — see the section above. The rule
+that keeps the photography dark needs *two* things, not one:
 
 ```css
-.act1,.frame,.close,.filmcap,.perk .sq,.past figure,.topnav.over-hero{
+.act1,.frame,.close,.filmcap,.past figure,.topnav.over-hero{
   --ink:#EDF2F8; ...        /* retone the tokens */
   color:var(--ink);          /* AND set a real colour */
 }
 ```
 
-Retoning `--ink` alone is not enough and the failure is easy to miss. A custom property only
-affects declarations that *use* it inside that subtree. Headings carry no `color` of their own
-— they inherit the computed colour from `<body>`, which already resolved `var(--ink)` against
-`:root`. In light mode that turned every headline over a photograph dark navy while the body
-copy beside it stayed white. Setting `color` on the region resolves `--ink` at that element, so
-the whole subtree inherits it.
+Retoning `--ink` alone is not enough and the failure is easy to miss — the reason is in the
+section above. That selector list is the live one; older copies of this file quoted
+`.perk .sq` and `.pep figcaption`, which exist only in the frozen `de-partners-light` and
+`e-home` and are not part of the partials.
+
+The paragraph above this one still governs the **frozen A–E artifacts**, `index.html` and
+`video-hero.html`: they do not use the partials, they keep their `prefers-color-scheme` and
+`[data-theme]` blocks, and they must not be touched.
 
 ## Motion and video
 
@@ -351,6 +386,17 @@ English throughout.
 
 One live inconsistency to leave flagged, not silently fixed: the sponsorship chart gives the
 2027 Walkathon as both February 20th and 21st (the 20th is the Saturday).
+
+**One bolding rule on `de-partners` (2026-08-28).** `class="q"` on a benefit `<li>` means
+*this is what changes with the level* — it bumps the weight to 600, lifts the colour to
+`--ink` and turns the bullet gold. The three things every level gets, which the page's own
+lede names, stay plain and close every list in the same order: yard sign at both entrances,
+name on the Walkathon banner, name or logo on this website. Emphasized items come first.
+The counts are 6/4/4/4/2 from $5,000 down. Before this, "Booth at the Walkathon" was plain
+in the four tiers that get it even though it is a level benefit, and the bold items were
+scattered through the list, so the highlight followed no rule a reader could see. `.q` means
+something different in the frozen directions — an arrow bullet in A, weight 700 in C — so
+don't carry an assumption across.
 
 **The sponsor names are now settled — 48 of 49.** The 37 logo images were downloaded from the
 live site and read; every business name is printed inside its own mark, so nothing was guessed.
