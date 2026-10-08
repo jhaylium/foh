@@ -1,0 +1,27 @@
+{
+  "gift": {
+    "label": "Give a gift",
+    "cta": "Give on Zeffy",
+    "url": "",
+    "embed": "",
+    "height": 1000,
+    "heightSm": 1240
+  },
+  "walkathon": {
+    "label": "Walkathon donation",
+    "cta": "Donate on Zeffy",
+    "url": "",
+    "embed": "",
+    "height": 1100,
+    "heightSm": 1360
+  },
+  "henry": {
+    "label": "Hugs from Henry Birthday Club",
+    "cta": "Join on Zeffy",
+    "url": "",
+    "embed": "",
+    "height": 1000,
+    "defer": true,
+    "heightSm": 1240
+  }
+}

@@ -51,6 +51,7 @@ assets = load(".assets.json")
 sponsors = load(".sponsors.json")
 videos = load(".videos.json")
 links = load(".links.json")
+zeffy = load(".zeffy.json")
 
 
 # every key in .assets.json becomes {{KEY}} -- heroSm -> {{HERO_SM}}
@@ -66,6 +67,73 @@ for name, uri in videos.items():
 for name, url in links.items():
     if url:  # an empty entry is "not published yet" -> falls through to "#"
         tokens["{{URL_" + name.upper() + "}}"] = url
+
+# ---------------------------------------------------------------- zeffy
+
+# Each entry in .zeffy.json is one place on the site where money actually
+# changes hands. Paste both links straight out of that campaign's Share panel
+# in Zeffy: "url" is the page a visitor lands on, "embed" is the iframe source,
+# and they are NOT the same address. Nothing here derives one from the other,
+# because a guessed URL fails as a silent empty box rather than an error.
+#
+#   {{ZEFFY_GIFT}}        the campaign URL, for a button that leaves the site
+#   {{ZEFFY_EMBED_GIFT}}  the form itself, in the page
+#
+# The embed token resolves differently in the two builds, which is the same
+# trick {{URL_*}} plays. A published Artifact may not fetch from any host but
+# Google Fonts, so an iframe there paints an empty box; in the mockups the
+# token becomes a link out that says so, and in site/ it becomes the iframe.
+# A campaign with no URL filled in yet becomes the dashed "needs a real value"
+# marker used everywhere else on the site -- in both builds, so an unfinished
+# wiring job is visible rather than blank.
+
+IFRAME = ('<iframe class="zeffy-frame" title="{label}" {attr}="{embed}"'
+          ' style="--zh:{h}px;--zh-sm:{hsm}px" loading="lazy" allow="payment">'
+          '</iframe>')
+
+# The height goes in as a custom property rather than an inline height, because
+# an inline height cannot be overridden by a media query and the form needs a
+# different number on a phone -- the fields stack and the labels wrap, so it
+# gets taller as it gets narrower.
+
+# allow="payment" matters: Apple Pay and Google Pay run through the Payment
+# Request API, which a cross-origin iframe cannot reach unless it is delegated.
+
+STANDIN = ('<div class="zeffy-standin">'
+           '<p class="note">The {label} form is embedded here on the real site. '
+           'A published Artifact may not load another site, so it is a link in '
+           'this mockup.</p>'
+           '<a class="pill big" href="{url}" target="_blank" rel="noopener">{cta}</a>'
+           '</div>')
+
+MISSING = '<p class="needs">{label} &mdash; needs the Zeffy campaign link</p>'
+
+
+def zeffy_tokens(site):
+    """{{ZEFFY_KEY}} and {{ZEFFY_EMBED_KEY}} for every campaign."""
+    t = {}
+    for key, c in zeffy.items():
+        url, embed, label = c.get("url", ""), c.get("embed", ""), c.get("label", key)
+        t["{{ZEFFY_" + key.upper() + "}}"] = url or "#"
+        if not (url and embed):
+            markup = MISSING.format(label=label)
+        elif site:
+            # A deferred frame carries data-src and is promoted to src by the
+            # page's own script -- the Henry form sits inside a closed <dialog>
+            # and should not fetch a payment form nobody has opened.
+            h = c.get("height", 1000)
+            markup = IFRAME.format(label=label, embed=embed, h=h,
+                                   hsm=c.get("heightSm", h + 200),
+                                   attr="data-src" if c.get("defer") else "src")
+        else:
+            markup = STANDIN.format(label=label.lower(), url=url,
+                                    cta=c.get("cta", "Donate"))
+        t["{{ZEFFY_EMBED_" + key.upper() + "}}"] = markup
+    return t
+
+
+tokens.update(zeffy_tokens(site=False))
+
 
 PARTIAL = re.compile(r"\{\{>\s*([a-z0-9_-]+)\s*\}\}")
 
@@ -209,6 +277,7 @@ def build_site():
             written += 1
     for src_name, (filename, _t, _d) in SITE_PAGES.items():
         site_tokens["{{URL_" + src_name.replace("de-", "").upper() + "}}"] = filename
+    site_tokens.update(zeffy_tokens(site=True))
 
     for src_name, (filename, title, desc) in SITE_PAGES.items():
         src = root / "src" / f"{src_name}.html"

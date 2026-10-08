@@ -16,11 +16,6 @@
 .route p{font-size:.95rem;color:var(--muted)}
 .route .go{margin-top:auto;padding-top:14px;font-size:.78rem;font-weight:700;
   letter-spacing:.16em;text-transform:uppercase;color:var(--ink)}
-.pay{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
-.pay label{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--edge);
-  padding:10px 16px;border-radius:999px;font-size:.9rem;cursor:pointer;color:var(--ink)}
-.checks{display:grid;gap:10px;margin-top:6px}
-.checks label{display:flex;align-items:flex-start;gap:10px;color:var(--ink);font-size:.98rem}
 </style>
 
 {{> nav }}
@@ -66,28 +61,7 @@
     <div class="said mid rv"><p class="tag red">Give a gift</p>
       <h2 style="margin-top:18px">Every dollar stays in this building.</h2></div>
     <div class="twocol rv" style="margin-top:clamp(30px,4.5vw,48px)">
-      <form onsubmit="return false">
-        <div class="field"><label for="d-name">Name *</label><input id="d-name" type="text" autocomplete="name"></div>
-        <div class="field"><label for="d-email">Email address *</label><input id="d-email" type="email" autocomplete="email"></div>
-        <div class="field"><label for="d-amount">Donation amount * (USD)</label><input id="d-amount" type="text" inputmode="decimal"></div>
-        <div class="field"><span class="label">What is this for? *</span>
-          <div class="checks">
-            <label class="plain"><input type="radio" name="purpose"> Hugs from Henry ($25 per child)</label>
-            <label class="plain"><input type="radio" name="purpose"> Business Partner</label>
-            <label class="plain"><input type="radio" name="purpose"> General Donation</label>
-          </div>
-        </div>
-        <div class="field"><label for="d-comments">Comments</label>
-          <textarea id="d-comments" rows="3"></textarea>
-          <p class="note">Child's name and teacher, or your business name.</p></div>
-        <div class="field"><span class="label">How are you paying?</span>
-          <div class="pay">
-            <label class="plain"><input type="radio" name="pay"> Check</label>
-            <label class="plain"><input type="radio" name="pay"> PayPal</label>
-          </div>
-        </div>
-        <button class="pill big" type="submit">Donate</button>
-      </form>
+      {{ZEFFY_EMBED_GIFT}}
       <div class="info">
         <dl style="margin:0">
           <dt>Mailing address</dt>
