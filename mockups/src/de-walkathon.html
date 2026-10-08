@@ -21,6 +21,12 @@
 .past figcaption{position:absolute;left:0;right:0;bottom:0;padding:12px 14px;
   background:linear-gradient(to top,rgba(4,10,18,.92),rgba(4,10,18,0));
   font-size:.74rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#EDF2F8}
+/* The date is the one thing a family has to put in a calendar, so it gets display type
+   in the hero rather than living in the small uppercase tag. */
+.bigdate{font-family:"Bricolage Grotesque",Manrope,sans-serif;font-weight:800;
+  font-size:clamp(1.5rem,3.6vw,2.6rem);line-height:1.1;letter-spacing:-.01em;margin-top:14px}
+.bigdate span{display:block;font-family:Manrope,sans-serif;font-size:.36em;font-weight:700;
+  letter-spacing:.22em;text-transform:uppercase;opacity:.82;margin-bottom:8px}
 </style>
 
 {{> nav }}
@@ -30,10 +36,11 @@
   <div class="veil"></div>
   <button class="mctl" type="button" id="mbtn" aria-pressed="true">Motion on</button>
   <div class="wrap inner">
-    <p class="tag">Saturday 20 February 2027 &middot; the 15th annual</p>
-    <h1 style="margin-top:20px">They walk.<br><em>We all pay up.</em></h1>
+    <p class="tag">The 15th annual Walkathon</p>
+    <p class="bigdate"><span>Saturday</span>February 20, 2027</p>
+    <h1 style="margin-top:26px">They walk.<br><em>We all pay up.</em></h1>
     <p class="lede">The Walkathon is the largest thing we do all year. Students collect pledges
-      from friends, family and business partners, then they walk. Everything raised goes back
+      from friends, family, and business partners, then they walk. Everything raised goes back
       into the school.</p>
     <div class="row">
       <a class="pill" href="#pledge">Donate to the Walkathon</a>
@@ -45,9 +52,9 @@
 
 <section class="strip">
   <div class="wrap"><div class="strip-in">
-    <div class="ch"><b>15th</b><p>annual Walkathon</p></div>
+    <div class="ch"><b>Feb 20</b><p>Saturday, 2027 &mdash; the 15th annual</p></div>
     <div class="ch"><b>$50,000</b><p>this year's goal</p></div>
-    <div class="ch"><b>600+</b><p>students taking part</p></div>
+    <div class="ch"><b>650+</b><p>students taking part</p></div>
     <div class="ch"><b>1 day</b><p>the whole neighborhood turns out</p></div>
   </div></div>
 </section>
@@ -60,7 +67,7 @@
     </div>
     <p class="after rv">We are excited about our 15th annual Walkathon happening on Saturday,
       February 20th. Walkathon is The Friends of Hendricks' largest annual fundraiser. We work
-      together with friends, families and business partners to raise money, and these donations
+      together with friends, families, and business partners to raise money, and these donations
       support Hendricks Avenue Elementary in the form of grants.</p>
 
     <ol class="spend rv">
@@ -83,8 +90,8 @@
   <img src="{{CROWD}}" alt="Hendricks students and families gathered at a past Walkathon">
   <figcaption>
     <span class="disp">Every shirt is designed by a Hendricks student.</span>
-    <p>The 2023 shirt was Cayla's, in Grade 4. Shirt colors date the photographs below &mdash;
-      red 2019, neon yellow 2020, teal 2021, blue 2023.</p>
+    <p>Last year's shirt was designed by Claire. Shirt colors date the photographs below
+      &mdash; red 2019, neon yellow 2020, teal 2021, and blue 2023.</p>
   </figcaption>
 </figure>
 
@@ -102,20 +109,15 @@
       </div>
       <div class="info">
         <dl style="margin:0">
-          <dt>Paying by cash or check</dt>
-          <dd>Please include it in the Walkathon collection envelope that was sent home with
-            your child.</dd>
           <dt>Business partners</dt>
-          <dd>Sponsorship initiated by a parent, grandparent or guardian is credited towards a
+          <dd>Sponsorship initiated by a parent, grandparent, or guardian is credited towards a
             student's incentive party. Tell us the family relationship so the right child gets
             the credit. <a href="{{URL_PARTNERS}}">See the five levels</a>.</dd>
           <dt>Tax</dt>
           <dd>The Friends of Hendricks is a 501(c)(3). Tax ID 20-4931978 &mdash; most employers
             will match a gift if you ask.</dd>
           <dt>The date</dt>
-          <dd>Saturday, February 20th 2027. The sponsorship chart currently gives both the
-            20th and the 21st; the 20th is the Saturday.
-            <span class="needs">Date to confirm with the board</span></dd>
+          <dd>Saturday, February 20, 2027.</dd>
         </dl>
       </div>
     </div>
@@ -139,7 +141,7 @@
   <div class="media" data-film><div class="layer"></div></div>
   <div class="veil"></div>
   <div class="wrap inner">
-    <h2>One Saturday pays for the year.</h2>
+    <h2>One Saturday. The whole neighborhood.</h2>
     <p>Support a student, or put your business on the shirt. Both end up in the same place
       &mdash; a classroom in this building.</p>
     <div class="row">

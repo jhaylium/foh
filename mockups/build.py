@@ -194,7 +194,7 @@ if built:
 SITE_PAGES = {
     "de-home":      ("index.html", "The Friends of Hendricks",
                      "Parent volunteers raising money for Hendricks Avenue Elementary in "
-                     "San Marco, Jacksonville. We buy what the county budget will not."),
+                     "Jacksonville. We buy what the school budget will not."),
     "de-donate":    ("donate.html", "Donate",
                      "Give to The Friends of Hendricks. A 501(c)(3) nonprofit -- every "
                      "dollar stays inside Hendricks Avenue Elementary."),

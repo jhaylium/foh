@@ -334,6 +334,28 @@ img{max-width:100%;display:block}
 .info dd{margin:6px 0 0;font-size:1.02rem}
 .twocol{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,64px);align-items:start}
 
+/* ---- the Zeffy payment forms ----
+   The embedded campaign is an iframe on a different origin, so nothing in here
+   can measure or restyle it -- Zeffy's own layout starts at its edge. Two
+   consequences worth knowing before touching the numbers.
+
+   The height is a fixed pixel value set per campaign in .zeffy.json, because
+   Zeffy ships no script that reports the form's height back to the parent
+   page. Too small gets an inner scrollbar, too large gets a band of dead space,
+   and the right value differs between a phone and a desktop -- hence the
+   breakpoint below, not a single number. Check both widths after any change to
+   a campaign's questions, since every added question makes the form taller.
+
+   width:100% with no border of our own: the form is the page's content here,
+   not a widget sitting on it. */
+.zeffy-frame{display:block;width:100%;border:0;background:var(--field);
+  height:var(--zh,1000px);color-scheme:light}
+
+/* Where a mockup cannot load the real thing. */
+.zeffy-standin{border:1px dashed var(--edge);background:var(--raise);
+  padding:clamp(24px,3.4vw,34px)}
+.zeffy-standin .pill{margin-top:16px}
+
 /* a figure the board still has to supply */
 .needs{display:inline-block;margin-top:14px;border:1px dashed var(--red-ink);color:var(--red-ink);
   padding:6px 12px;font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
@@ -414,6 +436,7 @@ footer{border-top:1px solid var(--line);padding:clamp(40px,5vw,64px) 0 56px;font
   .foot{grid-template-columns:1fr 1fr}
   .people{grid-template-columns:repeat(2,minmax(0,1fr))}
   .twocol,.refrain .wrap{grid-template-columns:1fr}
+  .zeffy-frame{height:var(--zh-sm,1200px)}
   .tiles.three{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media (max-width:560px){
@@ -537,22 +560,30 @@ footer{border-top:1px solid var(--line);padding:clamp(40px,5vw,64px) 0 56px;font
       <div class="words">
         <p class="tag red">Grades K&ndash;5</p>
         <h2 style="margin-top:16px">Hugs from Henry Birthday Club.</h2>
-        <p class="lede" style="margin-top:20px">Enroll your K&ndash;5th grader and we dedicate a
-          classroom book in honor of your child, with a special &ldquo;Hugs from Henry&rdquo;
-          bookplate on the inside front cover.</p>
+        <p class="lede" style="margin-top:20px">Don&rsquo;t let your child&rsquo;s birthday go by
+          without their Hugs from Henry! Every birthday student receives all of this.</p>
         <div class="price">$25 <span>per child</span></div>
-        <p style="margin-top:20px;color:var(--muted)">Pay by check or PayPal. Checks are payable
-          to The Friends of Hendricks and can be turned in to your student's teacher, or mailed
-          to 4446-1A Hendricks Avenue, Suite 357, Jacksonville, FL 32207.</p>
-        <p class="note" style="margin-top:16px">Future safety restrictions could prohibit the
-          cupcake party and the photo with Henry. If it is cancelled for weather or for safety,
-          the party is rescheduled for the next month.</p>
+        <ul class="dates">
+          <li><b>Birthday Bash</b><span>8:00&ndash;8:20 AM in the HAE Auditorium on your student&rsquo;s
+            celebration date &mdash; music, hula hoops, photo ops, and lots of birthday fun</span></li>
+          <li><b>A treat</b><span>Henry the Eagle gifts each student a special bagged treat to
+            take home</span></li>
+          <li><b>A book</b><span>a brand-new book for an HAE classroom library, dedicated in your
+            student&rsquo;s honor with a &ldquo;Hugs from Henry&rdquo; bookplate inside</span></li>
+          <li><b>Missed it?</b><span>mornings get busy &mdash; your child is always welcome at a
+            future month&rsquo;s party</span></li>
+        </ul>
+        <p class="tag" style="margin-top:28px">Celebration dates 2026&ndash;2027</p>
+        <p style="margin-top:12px;color:var(--muted)">Sep 25 (August and September birthdays)
+          &middot; Oct 23 &middot; Nov 13 &middot; Dec 11 &middot; Jan 22 &middot; Feb 26
+          &middot; Mar 10 &middot; Apr 23 &middot; May 14 (May, June, and July birthdays)</p>
+        <p style="margin-top:16px;color:var(--muted)">Enroll and pay online through Zeffy.</p>
         <div class="row">
           <a class="pill" id="hug-open" href="donate.html#gift">Give a Hug</a>
           <a class="pill ghost" href="mailto:FOHHugsFromHenry@gmail.com">Email the birthday club</a>
         </div>
       </div>
-      <div class="shot"><img src="img/henry-kid.jpg" alt="A Hendricks student meeting Henry, the school's hawk mascot"></div>
+      <div class="shot"><img src="img/henry-kid.jpg" alt="A Hendricks student meeting Henry, the school's eagle mascot"></div>
     </div>
   </div>
 </section>
@@ -575,6 +606,9 @@ footer{border-top:1px solid var(--line);padding:clamp(40px,5vw,64px) 0 56px;font
           Hendricks Avenue side, and the back rock on the San Jose Boulevard side. Booking and
           payment both happen on SignUpGenius, where you pick your date and your rock and agree
           to the terms of use. Payment is due at the time of reservation.</p>
+        <p style="margin-top:14px;color:var(--ink)"><strong>You paint it yourself.</strong>
+          Renters are responsible for painting the rock; painting services are not provided as
+          part of the reservation.</p>
         <div class="row">
           <a class="pill" href="https://www.signupgenius.com/go/10C0A4DABA929A0FCC52-64797719-rent">Rent the Spirit Rock</a>
           <a class="pill ghost" href="mailto:renttherockhae@gmail.com">Ask a question</a>
@@ -606,6 +640,12 @@ footer{border-top:1px solid var(--line);padding:clamp(40px,5vw,64px) 0 56px;font
           <li><b>More to come!</b><span>dates are added through the year</span></li>
         </ul>
         <p class="note" style="margin-top:14px">Dates and times are subject to change.</p>
+        <p style="margin-top:22px;color:var(--muted)">New nights are announced on our social
+          media first. Follow along so you never miss one.</p>
+        <div class="row">
+          <a class="pill ghost" href="https://www.facebook.com/FriendsOfHendricks">Facebook</a>
+          <a class="pill ghost" href="https://www.instagram.com/friendsofhendricks/">Instagram</a>
+        </div>
       </div>
       <div class="shot tall"><img src="img/spirit-night.webp" alt="Flyer listing the upcoming Hendricks Avenue Elementary Spirit Nights: Gators Ice Cream on Friday August 28, Chick-Fil-A Lakewood on Monday September 14, Cookie Fix on Thursday October 8 and Chipotle Lakewood on Wednesday November 18"></div>
     </div>
@@ -616,9 +656,9 @@ footer{border-top:1px solid var(--line);padding:clamp(40px,5vw,64px) 0 56px;font
   <div class="media"><div class="layer"></div></div>
   <div class="veil"></div>
   <div class="wrap inner">
-    <h2>None of this needs a big check.</h2>
-    <p>A book, a painted rock, a Tuesday dinner out. It adds up to the things the county
-      budget will not cover.</p>
+    <h2>None of this needs a big gift.</h2>
+    <p>A birthday, a painted rock, a dinner out. It adds up to the things the school budget
+      does not cover.</p>
     <div class="row">
       <a class="pill" href="donate.html">Donate</a>
       <a class="pill ghost" href="walkathon.html">The Walkathon</a>
@@ -631,9 +671,9 @@ footer{border-top:1px solid var(--line);padding:clamp(40px,5vw,64px) 0 56px;font
     <div class="foot">
       <div>
         <h4>The Friends of Hendricks</h4>
-        <p>A group of parents, teachers and volunteers that raises funds for resources and
-          projects the Duval County School Board budget does not cover. We work with local
-          business partners and Hendricks families so that every student at Hendricks Avenue
+        <p>A volunteer group of parents that raises funds for resources and projects the
+          Duval County School Board budget does not cover. We work with local business
+          partners and Hendricks families so that every student at Hendricks Avenue
           Elementary has an exemplary education.</p>
         <p style="margin-top:16px">4446-1A Hendricks Avenue, Suite 357<br>
           Jacksonville, FL 32207</p>
@@ -683,8 +723,10 @@ footer{border-top:1px solid var(--line);padding:clamp(40px,5vw,64px) 0 56px;font
   </div>
 </footer>
 
-<!-- Hugs from Henry Birthday Club. Transcribed from the live form; nothing here
-     submits, because how forms get handled is still open.
+<!-- Hugs from Henry Birthday Club. The form is the Zeffy campaign, embedded.
+     Student name, birthday month, grade and teacher are Zeffy custom questions
+     on that campaign, not fields here -- without them a donation cannot be
+     credited to a child.
 
      The button that opens this is a real link to the donate page. The script
      below intercepts it only where <dialog> exists, so with no JS -- or on a
@@ -697,99 +739,7 @@ footer{border-top:1px solid var(--line);padding:clamp(40px,5vw,64px) 0 56px;font
     <p class="tag red">Grades K&ndash;5 &middot; $25 per child</p>
     <h2 id="hugttl" style="margin-top:14px">Hugs from Henry Birthday Club</h2>
 
-    <form onsubmit="return false" style="margin-top:clamp(24px,3.4vw,34px)">
-      <div class="mgrid">
-        <div class="field">
-          <label for="h-name">Student first &amp; last name *</label>
-          <input id="h-name" type="text" placeholder="Henry Eagle" autocomplete="off">
-        </div>
-        <div class="field">
-          <label for="h-month">Birthday month *</label>
-          <select id="h-month">
-            <option>January</option><option>February</option><option>March</option>
-            <option>April</option><option>May</option><option>June</option>
-            <option>July</option><option>August</option><option selected>September</option>
-            <option>October</option><option>November</option><option>December</option>
-          </select>
-        </div>
-        <div class="field">
-          <label for="h-grade">Grade *</label>
-          <select id="h-grade">
-            <option>K</option><option>1</option><option selected>2</option>
-            <option>3</option><option>4</option><option>5</option>
-          </select>
-        </div>
-        <div class="field">
-          <label for="h-teacher">Student's teacher *</label>
-          <input id="h-teacher" type="text" placeholder="Edmunds" autocomplete="off">
-        </div>
-      </div>
-
-      <div class="field">
-        <label for="h-cupcake">Cupcakes</label>
-        <p class="note" style="margin:-2px 0 4px">We are offering Publix cupcakes. If your
-          student has food allergies and requires an allergy-free cupcake, select
-          &ldquo;Allergy-Free Cupcake Requested&rdquo; from the dropdown.</p>
-        <select id="h-cupcake">
-          <option>No food allergies, Publix Cupcake is fine</option>
-          <option>Allergy-Free Cupcake Requested</option>
-        </select>
-      </div>
-
-      <div class="field">
-        <label for="h-photo">How would you like your student's photo delivered?</label>
-        <select id="h-photo"><option>Text</option><option>Email</option></select>
-      </div>
-
-      <div class="field">
-        <label class="plain" for="h-release" style="display:flex;gap:10px;align-items:flex-start">
-          <input id="h-release" type="checkbox">
-          <span>Photo release &mdash; check ONLY if you do <strong>not</strong> give permission
-            for your student's likeness to be used by The Friends of Hendricks.</span>
-        </label>
-      </div>
-
-      <div class="mgrid">
-        <div class="field">
-          <label for="h-email">Parent email address</label>
-          <input id="h-email" type="email" placeholder="henry@foh.org" autocomplete="email">
-        </div>
-        <div class="field">
-          <label for="h-phone">Parent phone</label>
-          <input id="h-phone" type="tel" placeholder="904-123-4567" autocomplete="tel">
-        </div>
-      </div>
-
-      <div class="field">
-        <span class="label">Add additional students</span>
-        <div class="checks">
-          <label class="plain"><input type="radio" name="h-more"> Yes</label>
-          <label class="plain"><input type="radio" name="h-more" checked> No, proceed to payment</label>
-        </div>
-      </div>
-
-      <div class="field">
-        <label for="h-amount">Donation amount *</label>
-        <input id="h-amount" type="text" inputmode="decimal" placeholder="25.00">
-        <p class="note">$25 per student, in USD.</p>
-      </div>
-
-      <div class="field">
-        <label for="h-pay">Payment method</label>
-        <p class="note" style="margin:-2px 0 4px">Donations can be made by check or PayPal.
-          Please note which one you will be using.</p>
-        <select id="h-pay">
-          <option>Sent in with student</option>
-          <option>Check in the mail</option>
-          <option>PayPal</option>
-        </select>
-      </div>
-
-      <div class="row" style="margin-top:24px">
-        <button class="pill big" type="submit">Submit</button>
-        <button class="pill ghost" type="button" id="hug-cancel">Cancel</button>
-      </div>
-    </form>
+    <div style="margin-top:clamp(24px,3.4vw,34px)"><p class="needs">Hugs from Henry Birthday Club &mdash; needs the Zeffy campaign link</p></div>
   </div>
 </dialog>
 
@@ -814,7 +764,17 @@ footer{border-top:1px solid var(--line);padding:clamp(40px,5vw,64px) 0 56px;font
      taking ownership of the control it can now drive. */
   open.setAttribute('href','#henry');
 
-  open.addEventListener('click',function(e){ e.preventDefault(); dlg.showModal(); });
+  /* The embedded form carries data-src, not src: a <dialog> that is shut is
+     still in the document, and an iframe with a real src would fetch a
+     payment form for every visitor who never opens this. Promote it once, on
+     the first open. */
+  function show(){
+    var f=dlg.querySelector('iframe[data-src]');
+    if(f){ f.src=f.dataset.src; f.removeAttribute('data-src'); }
+    dlg.showModal();
+  }
+
+  open.addEventListener('click',function(e){ e.preventDefault(); show(); });
   ['hug-close','hug-cancel'].forEach(function(id){
     var b=document.getElementById(id);
     if(b) b.addEventListener('click',function(){ dlg.close(); });

@@ -384,8 +384,15 @@ figure does not exist — total raised to date, for instance — the space is **
 needing a real figure** rather than filled with something plausible. Preserve that. American
 English throughout.
 
-One live inconsistency to leave flagged, not silently fixed: the sponsorship chart gives the
-2027 Walkathon as both February 20th and 21st (the 20th is the Saturday).
+The 2027 Walkathon is **Saturday, February 20, 2027** — confirmed by the board in the
+2026-10-05 feedback round. The sponsorship chart's "21st" was the error; the "to confirm"
+marker is gone from `de-walkathon`.
+
+**Cash and checks are not encouraged anywhere (2026-10-05).** The school district is strict
+about how fundraising is collected, so every page points to Zeffy and nothing to PayPal,
+checks, or the envelope sent home. The Friends of Hendricks is described as "a volunteer
+group of parents" — teachers are not members — and the site never says it funds faculty
+positions or staffing, which is against DCPS policy. The board likes the Oxford comma.
 
 **One bolding rule on `de-partners` (2026-08-28).** `class="q"` on a benefit `<li>` means
 *this is what changes with the level* — it bumps the weight to 600, lifts the colour to

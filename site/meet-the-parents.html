@@ -334,6 +334,28 @@ img{max-width:100%;display:block}
 .info dd{margin:6px 0 0;font-size:1.02rem}
 .twocol{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,64px);align-items:start}
 
+/* ---- the Zeffy payment forms ----
+   The embedded campaign is an iframe on a different origin, so nothing in here
+   can measure or restyle it -- Zeffy's own layout starts at its edge. Two
+   consequences worth knowing before touching the numbers.
+
+   The height is a fixed pixel value set per campaign in .zeffy.json, because
+   Zeffy ships no script that reports the form's height back to the parent
+   page. Too small gets an inner scrollbar, too large gets a band of dead space,
+   and the right value differs between a phone and a desktop -- hence the
+   breakpoint below, not a single number. Check both widths after any change to
+   a campaign's questions, since every added question makes the form taller.
+
+   width:100% with no border of our own: the form is the page's content here,
+   not a widget sitting on it. */
+.zeffy-frame{display:block;width:100%;border:0;background:var(--field);
+  height:var(--zh,1000px);color-scheme:light}
+
+/* Where a mockup cannot load the real thing. */
+.zeffy-standin{border:1px dashed var(--edge);background:var(--raise);
+  padding:clamp(24px,3.4vw,34px)}
+.zeffy-standin .pill{margin-top:16px}
+
 /* a figure the board still has to supply */
 .needs{display:inline-block;margin-top:14px;border:1px dashed var(--red-ink);color:var(--red-ink);
   padding:6px 12px;font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
@@ -414,6 +436,7 @@ footer{border-top:1px solid var(--line);padding:clamp(40px,5vw,64px) 0 56px;font
   .foot{grid-template-columns:1fr 1fr}
   .people{grid-template-columns:repeat(2,minmax(0,1fr))}
   .twocol,.refrain .wrap{grid-template-columns:1fr}
+  .zeffy-frame{height:var(--zh-sm,1200px)}
   .tiles.three{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media (max-width:560px){
@@ -505,18 +528,18 @@ footer{border-top:1px solid var(--line);padding:clamp(40px,5vw,64px) 0 56px;font
         <p class="after">Choosing to strengthen Hendricks Avenue Elementary through a gift to
           The Friends of Hendricks is a valuable and meaningful decision. Support can be given
           through time, talents, and monetary and in-kind donations. The effect of parents,
-          alumni, grandparents and friends standing together for our school will be
+          alumni, grandparents, and friends standing together for our school will be
           immeasurable. All gifts, no matter how large or small, will have a powerful impact,
-          because you become invested in the education and enrichment of every child, faculty
+          because you become invested in the education and enrichment of every child, faculty,
           and staff member.</p>
-        <p class="after">The funds we raise are awarded through a grant process and used to
-          offset county-implemented budget cuts and increase financial resources for school
-          enhancements and improvements &mdash; staffing, technology and classroom needs.</p>
+        <p class="after">The funds we raise are awarded through a grant process and are used to
+          offset school budget cuts and increase financial resources for school enhancement,
+          technology, and classroom needs.</p>
       </div>
       <figure class="mshot">
         <img src="img/volunteers.jpg" alt="The Friends of Hendricks volunteers in matching blue 2023 Walkathon shirts at a school event">
-        <figcaption>The Friends of Hendricks at the 2023 Walkathon. Everyone here is a parent,
-          a teacher or a volunteer &mdash; nobody draws a salary.</figcaption>
+        <figcaption>The Friends of Hendricks at the 2023 Walkathon. Everyone here is a parent
+          volunteer &mdash; nobody draws a salary.</figcaption>
       </figure>
     </div>
   </div>
@@ -534,9 +557,9 @@ footer{border-top:1px solid var(--line);padding:clamp(40px,5vw,64px) 0 56px;font
       <div class="pp"><span>Chair of Fundraising</span><b>Aryn Lentz</b></div>
       <div class="pp"><span>Legal Advisor</span><b>James Poindexter</b></div>
     </div>
-    <p class="dirs rv"><b>Directors</b> Julie Braun &middot; Nicole Brown &middot; Sara Buckley &middot;
+    <p class="dirs rv"><b>Directors</b> Laura Beran &middot; Julie Braun &middot; Nicole Brown &middot; Sara Buckley &middot;
       Melissa Gregory &middot; Brittany Kelly &middot; Shelly Middleton &middot;
-      Katherine Poindexter &middot; Ivan Porter &middot; Jason Pratt</p>
+      Katherine Poindexter &middot; Ivan Porter</p>
   </div>
 </section>
 
@@ -561,7 +584,7 @@ footer{border-top:1px solid var(--line);padding:clamp(40px,5vw,64px) 0 56px;font
       <div>
         <p class="tag red">Contact</p>
         <h2 style="margin-top:16px;font-size:clamp(1.7rem,3.4vw,2.4rem)">Talk to us.</h2>
-        <p style="margin-top:18px;color:var(--muted)">General enquiries go to the president.
+        <p style="margin-top:18px;color:var(--muted)">General inquiries go to the president.
           Each program has its own inbox &mdash; they are all in the footer.</p>
         <div class="row">
           <a class="pill" href="mailto:fohpresident1@gmail.com">fohpresident1@gmail.com</a>
@@ -572,9 +595,8 @@ footer{border-top:1px solid var(--line);padding:clamp(40px,5vw,64px) 0 56px;font
           <dt>Mailing address</dt>
           <dd>The Friends of Hendricks<br>4446-1A Hendricks Avenue, Suite 357<br>
             Jacksonville, FL 32207</dd>
-          <dt>Business partner enquiries</dt>
-          <dd><a href="mailto:FriendsBusinessPartners@gmail.com">FriendsBusinessPartners@gmail.com</a><br>
-            Aryn Lentz &middot; <a href="tel:+19044512831">(904) 451-2831</a></dd>
+          <dt>Business partner inquiries</dt>
+          <dd><a href="mailto:FriendsBusinessPartners@gmail.com">FriendsBusinessPartners@gmail.com</a></dd>
           <dt>Tax</dt>
           <dd>501(c)(3) &middot; Tax ID 20-4931978</dd>
           <dt>Find us</dt>
@@ -591,8 +613,8 @@ footer{border-top:1px solid var(--line);padding:clamp(40px,5vw,64px) 0 56px;font
   <div class="veil"></div>
   <div class="wrap inner">
     <h2>Standing strong for our school.</h2>
-    <p>Over 600 students and their families in San Marco. One building, established 1942, and a
-      county budget that does not stretch far enough.</p>
+    <p>650+ students and their families. One building, established 1942, and a school
+      budget that does not stretch far enough.</p>
     <div class="row">
       <a class="pill" href="donate.html">Donate</a>
       <a class="pill ghost" href="become-a-sponsor.html">Sponsor as a business</a>
@@ -605,9 +627,9 @@ footer{border-top:1px solid var(--line);padding:clamp(40px,5vw,64px) 0 56px;font
     <div class="foot">
       <div>
         <h4>The Friends of Hendricks</h4>
-        <p>A group of parents, teachers and volunteers that raises funds for resources and
-          projects the Duval County School Board budget does not cover. We work with local
-          business partners and Hendricks families so that every student at Hendricks Avenue
+        <p>A volunteer group of parents that raises funds for resources and projects the
+          Duval County School Board budget does not cover. We work with local business
+          partners and Hendricks families so that every student at Hendricks Avenue
           Elementary has an exemplary education.</p>
         <p style="margin-top:16px">4446-1A Hendricks Avenue, Suite 357<br>
           Jacksonville, FL 32207</p>

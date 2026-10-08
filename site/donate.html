@@ -334,6 +334,28 @@ img{max-width:100%;display:block}
 .info dd{margin:6px 0 0;font-size:1.02rem}
 .twocol{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,64px);align-items:start}
 
+/* ---- the Zeffy payment forms ----
+   The embedded campaign is an iframe on a different origin, so nothing in here
+   can measure or restyle it -- Zeffy's own layout starts at its edge. Two
+   consequences worth knowing before touching the numbers.
+
+   The height is a fixed pixel value set per campaign in .zeffy.json, because
+   Zeffy ships no script that reports the form's height back to the parent
+   page. Too small gets an inner scrollbar, too large gets a band of dead space,
+   and the right value differs between a phone and a desktop -- hence the
+   breakpoint below, not a single number. Check both widths after any change to
+   a campaign's questions, since every added question makes the form taller.
+
+   width:100% with no border of our own: the form is the page's content here,
+   not a widget sitting on it. */
+.zeffy-frame{display:block;width:100%;border:0;background:var(--field);
+  height:var(--zh,1000px);color-scheme:light}
+
+/* Where a mockup cannot load the real thing. */
+.zeffy-standin{border:1px dashed var(--edge);background:var(--raise);
+  padding:clamp(24px,3.4vw,34px)}
+.zeffy-standin .pill{margin-top:16px}
+
 /* a figure the board still has to supply */
 .needs{display:inline-block;margin-top:14px;border:1px dashed var(--red-ink);color:var(--red-ink);
   padding:6px 12px;font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
@@ -414,6 +436,7 @@ footer{border-top:1px solid var(--line);padding:clamp(40px,5vw,64px) 0 56px;font
   .foot{grid-template-columns:1fr 1fr}
   .people{grid-template-columns:repeat(2,minmax(0,1fr))}
   .twocol,.refrain .wrap{grid-template-columns:1fr}
+  .zeffy-frame{height:var(--zh-sm,1200px)}
   .tiles.three{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media (max-width:560px){
@@ -448,11 +471,6 @@ footer{border-top:1px solid var(--line);padding:clamp(40px,5vw,64px) 0 56px;font
 .route p{font-size:.95rem;color:var(--muted)}
 .route .go{margin-top:auto;padding-top:14px;font-size:.78rem;font-weight:700;
   letter-spacing:.16em;text-transform:uppercase;color:var(--ink)}
-.pay{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
-.pay label{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--edge);
-  padding:10px 16px;border-radius:999px;font-size:.9rem;cursor:pointer;color:var(--ink)}
-.checks{display:grid;gap:10px;margin-top:6px}
-.checks label{display:flex;align-items:flex-start;gap:10px;color:var(--ink);font-size:.98rem}
 </style>
 </head>
 <body>
@@ -491,7 +509,7 @@ footer{border-top:1px solid var(--line);padding:clamp(40px,5vw,64px) 0 56px;font
     </div>
     <p class="after">The Friends of Hendricks is a 501(c)(3) nonprofit. Funds raised through the
       year are given to Hendricks Avenue Elementary through a grant process &mdash; grants that
-      meet the needs the Duval County budget will not cover.</p>
+      meet the needs the Duval County School Board budget does not cover.</p>
   </div>
 </section>
 
@@ -512,7 +530,7 @@ footer{border-top:1px solid var(--line);padding:clamp(40px,5vw,64px) 0 56px;font
       </a>
       <a class="route" href="#gift">
         <p class="n">03</p><h3>Give a gift</h3>
-        <p>Any amount, any time. PayPal or a personal check.</p>
+        <p>Any amount, any time, online through Zeffy.</p>
         <p class="go">Give below &rarr;</p>
       </a>
     </div>
@@ -524,42 +542,15 @@ footer{border-top:1px solid var(--line);padding:clamp(40px,5vw,64px) 0 56px;font
     <div class="said mid rv"><p class="tag red">Give a gift</p>
       <h2 style="margin-top:18px">Every dollar stays in this building.</h2></div>
     <div class="twocol rv" style="margin-top:clamp(30px,4.5vw,48px)">
-      <form onsubmit="return false">
-        <div class="field"><label for="d-name">Name *</label><input id="d-name" type="text" autocomplete="name"></div>
-        <div class="field"><label for="d-email">Email address *</label><input id="d-email" type="email" autocomplete="email"></div>
-        <div class="field"><label for="d-amount">Donation amount * (USD)</label><input id="d-amount" type="text" inputmode="decimal"></div>
-        <div class="field"><span class="label">What is this for? *</span>
-          <div class="checks">
-            <label class="plain"><input type="radio" name="purpose"> Hugs from Henry ($25 per child)</label>
-            <label class="plain"><input type="radio" name="purpose"> Business Partner</label>
-            <label class="plain"><input type="radio" name="purpose"> General Donation</label>
-          </div>
-        </div>
-        <div class="field"><label for="d-comments">Comments</label>
-          <textarea id="d-comments" rows="3"></textarea>
-          <p class="note">Child's name and teacher, or your business name.</p></div>
-        <div class="field"><span class="label">How are you paying?</span>
-          <div class="pay">
-            <label class="plain"><input type="radio" name="pay"> Check</label>
-            <label class="plain"><input type="radio" name="pay"> PayPal</label>
-          </div>
-        </div>
-        <button class="pill big" type="submit">Donate</button>
-      </form>
+      <p class="needs">Give a gift &mdash; needs the Zeffy campaign link</p>
       <div class="info">
         <dl style="margin:0">
-          <dt>Mailing address</dt>
-          <dd>The Friends of Hendricks<br>4446-1A Hendricks Avenue, Suite 357<br>
-            Jacksonville, FL 32207</dd>
           <dt>Does your company match gifts?</dt>
           <dd>Many do, and most people never ask. Contact your employer and ask for your gift to
             be matched to The Friends of Hendricks, <strong>Tax ID 20-4931978</strong>.</dd>
-          <dt>Checks</dt>
-          <dd>Payable to The Friends of Hendricks. For Hugs from Henry, a check can go in with
-            your student's teacher instead of the mail.</dd>
           <dt>What your money buys</dt>
           <dd>Online learning programs, classroom supplies, teacher professional development,
-            school enhancements and the leadership curriculum.</dd>
+            school enhancements, and the leadership curriculum.</dd>
         </dl>
       </div>
     </div>
@@ -588,9 +579,9 @@ footer{border-top:1px solid var(--line);padding:clamp(40px,5vw,64px) 0 56px;font
     <div class="foot">
       <div>
         <h4>The Friends of Hendricks</h4>
-        <p>A group of parents, teachers and volunteers that raises funds for resources and
-          projects the Duval County School Board budget does not cover. We work with local
-          business partners and Hendricks families so that every student at Hendricks Avenue
+        <p>A volunteer group of parents that raises funds for resources and projects the
+          Duval County School Board budget does not cover. We work with local business
+          partners and Hendricks families so that every student at Hendricks Avenue
           Elementary has an exemplary education.</p>
         <p style="margin-top:16px">4446-1A Hendricks Avenue, Suite 357<br>
           Jacksonville, FL 32207</p>

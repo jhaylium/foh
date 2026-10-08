@@ -323,6 +323,28 @@ img{max-width:100%;display:block}
 .info dd{margin:6px 0 0;font-size:1.02rem}
 .twocol{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,64px);align-items:start}
 
+/* ---- the Zeffy payment forms ----
+   The embedded campaign is an iframe on a different origin, so nothing in here
+   can measure or restyle it -- Zeffy's own layout starts at its edge. Two
+   consequences worth knowing before touching the numbers.
+
+   The height is a fixed pixel value set per campaign in .zeffy.json, because
+   Zeffy ships no script that reports the form's height back to the parent
+   page. Too small gets an inner scrollbar, too large gets a band of dead space,
+   and the right value differs between a phone and a desktop -- hence the
+   breakpoint below, not a single number. Check both widths after any change to
+   a campaign's questions, since every added question makes the form taller.
+
+   width:100% with no border of our own: the form is the page's content here,
+   not a widget sitting on it. */
+.zeffy-frame{display:block;width:100%;border:0;background:var(--field);
+  height:var(--zh,1000px);color-scheme:light}
+
+/* Where a mockup cannot load the real thing. */
+.zeffy-standin{border:1px dashed var(--edge);background:var(--raise);
+  padding:clamp(24px,3.4vw,34px)}
+.zeffy-standin .pill{margin-top:16px}
+
 /* a figure the board still has to supply */
 .needs{display:inline-block;margin-top:14px;border:1px dashed var(--red-ink);color:var(--red-ink);
   padding:6px 12px;font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
@@ -403,6 +425,7 @@ footer{border-top:1px solid var(--line);padding:clamp(40px,5vw,64px) 0 56px;font
   .foot{grid-template-columns:1fr 1fr}
   .people{grid-template-columns:repeat(2,minmax(0,1fr))}
   .twocol,.refrain .wrap{grid-template-columns:1fr}
+  .zeffy-frame{height:var(--zh-sm,1200px)}
   .tiles.three{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media (max-width:560px){
@@ -552,9 +575,8 @@ footer{border-top:1px solid var(--line);padding:clamp(40px,5vw,64px) 0 56px;font
 <section class="sect tight" style="padding-top:0">
   <div class="wrap">
     <div class="said mid"><p class="tag red">Already in</p>
-      <h2 style="margin-top:18px">Forty-eight businesses, 2025&ndash;26.</h2></div>
-    <p class="after">Every partner from this year is on the sponsors page, with their logo,
-      grouped by level.</p>
+      <h2 style="margin-top:18px">Forty-eight businesses partnered with The Friends of Hendricks
+        in 2025&ndash;2026.</h2></div>
     <div class="midact">
       <a class="pill big" href="https://claude.ai/code/artifact/1bdee726-6dbc-4391-9a2b-f235c9e92270">View all sponsors</a>
     </div>
@@ -566,16 +588,11 @@ footer{border-top:1px solid var(--line);padding:clamp(40px,5vw,64px) 0 56px;font
     <div>
       <p class="tag red">Become a partner</p>
       <h2 style="margin-top:16px">Get on the shirt.</h2>
-      <p class="lede" style="margin-top:16px">Tell us about your business and Aryn comes
-        straight back. If a parent, grandparent or guardian is arranging this, say so and we
-        will credit the student.</p>
+      <p class="lede" style="margin-top:16px">Tell us about your business!</p>
       <div class="info" style="margin-top:28px">
         <dl style="margin:0">
           <dt>Business partner inquiries</dt>
           <dd><a href="mailto:FriendsBusinessPartners@gmail.com">FriendsBusinessPartners@gmail.com</a></dd>
-          <dt>Aryn Lentz &middot; Chair of Fundraising</dt>
-          <dd><a href="tel:+19044512831">(904) 451-2831</a></dd>
-          <dt>By mail</dt><dd>4446-1A Hendricks Avenue, Suite 357<br>Jacksonville, FL 32207</dd>
           <dt>Tax deductible</dt><dd>501(c)(3) &middot; Tax ID 20-4931978</dd>
         </dl>
       </div>
@@ -589,11 +606,11 @@ footer{border-top:1px solid var(--line);padding:clamp(40px,5vw,64px) 0 56px;font
       <div class="field"><label for="lv">Level you're interested in</label>
         <input id="lv" placeholder="Visionary, Legacy, Investor, Builders or Friends"></div>
       <div class="field"><label for="st">Student to credit, and relationship</label>
-        <input id="st" placeholder="e.g. Cayla, Grade 4 &mdash; grandparent"></div>
+        <input id="st" placeholder="e.g. Henry, Grade 2 &mdash; grandparent"></div>
       <div class="field"><label for="ad">Anything else</label><textarea id="ad" rows="3"></textarea></div>
       <button class="pill" type="submit" style="width:100%;justify-content:center">Send inquiry</button>
       <p class="done" hidden style="margin-top:14px;color:var(--gold-ink);font-weight:700">
-        Sent &mdash; Aryn will be in touch.</p>
+        Sent &mdash; we will be in touch.</p>
       <p class="note" style="margin-top:14px">A mockup form. In the finished site this emails
         FriendsBusinessPartners@gmail.com.</p>
     </form>
@@ -605,9 +622,9 @@ footer{border-top:1px solid var(--line);padding:clamp(40px,5vw,64px) 0 56px;font
     <div class="foot">
       <div>
         <h4>The Friends of Hendricks</h4>
-        <p>A group of parents, teachers and volunteers that raises funds for resources and
-          projects the Duval County School Board budget does not cover. We work with local
-          business partners and Hendricks families so that every student at Hendricks Avenue
+        <p>A volunteer group of parents that raises funds for resources and projects the
+          Duval County School Board budget does not cover. We work with local business
+          partners and Hendricks families so that every student at Hendricks Avenue
           Elementary has an exemplary education.</p>
         <p style="margin-top:16px">4446-1A Hendricks Avenue, Suite 357<br>
           Jacksonville, FL 32207</p>
