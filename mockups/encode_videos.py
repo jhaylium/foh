@@ -16,6 +16,11 @@ MAP = {                                   # token name -> file
     # instead of the still photograph; one that does not still gets the still.
     "warm_sm": "warm-540.mp4",
     "reel_sm": "reel-540.mp4",
+    # The warm clip with the eagle sign and the hallway cut out, made by
+    # cut_clips.py. {{VIDEO_ARRIVAL}} and {{VIDEO_ARRIVAL_SM}}; the home page
+    # plays these, the frozen E direction keeps the uncut {{VIDEO_WARM}}.
+    "arrival":    "arrival.mp4",
+    "arrival_sm": "arrival-540.mp4",
 }
 out = {}
 for name, fn in MAP.items():

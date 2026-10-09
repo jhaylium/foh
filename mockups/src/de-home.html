@@ -14,6 +14,7 @@
   <div class="veil"></div>
   <button class="mctl" type="button" id="mbtn" aria-pressed="true">Motion on</button>
   <div class="wrap inner">
+    <img class="crest" src="{{LOGO}}" alt="The Friends of Hendricks &mdash; Standing Strong for Our School">
     <p class="tag">Hendricks Avenue Elementary &middot; Jacksonville</p>
     <h1 style="margin-top:20px">A school this good is<br><em>not an accident.</em></h1>
     <p class="lede">It is six hundred families, forty-eight local businesses, and a budget the
@@ -65,7 +66,7 @@
 
 <section class="wrap">
   <div class="frame rv">
-    <div class="media" data-film><div class="layer"></div></div>
+    <img class="still" src="{{SHIRT26}}" alt="Three Hendricks students in navy 2026 Walkathon shirts, smiling on the track">
     <div class="veil"></div>
     <div class="cap">
       <p class="disp">Every shirt is designed by a Hendricks student.</p>
@@ -119,16 +120,7 @@
     </div>
     <div class="gr rv tiergap"><div class="grh"><b>Legacy Circle</b><span>$2,500</span></div></div>
     <div class="wall rv">
-      <div class="slot"><div class="card"><img src="{{SPONSOR_DOPAZO}}" alt="Dopazo Orthodontics"></div>
-        <p class="nm">Dopazo Orthodontics</p></div>
-      <div class="slot"><div class="card"><img src="{{SPONSOR_SUPERIOR}}" alt="Superior Fence &amp; Rail"></div>
-        <p class="nm">Superior Fence &amp; Rail</p></div>
-      <div class="slot"><div class="card"><img src="{{SPONSOR_MAGNUSON}}" alt="Magnuson Hotel Jacksonville Downtown"></div>
-        <p class="nm">Magnuson Hotel Jacksonville Downtown</p></div>
-      <div class="slot"><div class="card"><img src="{{SPONSOR_PROMISE}}" alt="The Promise 100.7"></div>
-        <p class="nm">The Promise 100.7</p></div>
-      <div class="slot"><div class="card"><img src="{{SPONSOR_RILEY}}" alt="The Riley Family"></div>
-        <p class="nm">The Riley Family</p></div>
+{{SPONSOR_WALL_LEGACY}}
     </div>
     <div class="midact rv">
       <a class="pill big" href="{{URL_SPONSORS}}">View all sponsors</a>
@@ -153,7 +145,7 @@
 
 {{> footer }}
 
-<span id="film-src" data-video="{{VIDEO_WARM}}"
-      data-video-sm="{{VIDEO_WARM_SM}}" hidden></span>
+<span id="film-src" data-video="{{VIDEO_ARRIVAL}}"
+      data-video-sm="{{VIDEO_ARRIVAL_SM}}" hidden></span>
 {{> scripts }}
 {{> film }}

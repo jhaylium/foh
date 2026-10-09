@@ -22,8 +22,27 @@ Hosting, content editing and form handling are **deliberately undecided** — se
 python3 mockups/build.py          # mockups/src/*.html -> mockups/*.html  (Artifact fragments)
 python3 mockups/build.py --site   # mockups/src/de-*.html -> site/        (a real website)
 python3 mockups/encode_mobile.py  # docs/videos/*-540.mp4, the phone-sized clips
+python3 mockups/cut_clips.py      # docs/videos/arrival*.mp4, the warm clip with bad shots cut
 python3 mockups/encode_videos.py  # regenerate mockups/.videos.json from docs/videos/
+python3 mockups/trim_sponsors.py  # trim logo margins, record each logo's shape ("ar")
+uv run --no-project --with weasyprint mockups/levels_pdf.py   # mockups/sponsor-levels.pdf
 ```
+
+**The sponsor walls are generated, not written.** `{{SPONSOR_WALL_LEGACY}}` (and
+`_VISIONARY`, `_INVESTORS`, `_BUILDERS`) expands from `.sponsor-names.json` alongside the
+partials. Each entry has `key`, `tier`, `name`, `url` and `ar`; a non-empty `url` turns the
+card into a link out, an empty one leaves a plain box. Logos are sized by **area**, not by
+filling the card — `AREA` in `build.py` — so a long wordmark and a square badge carry about
+the same weight. Next year's sponsors: add the JPEG to `.sponsors.json`, the entry to
+`.sponsor-names.json`, run `trim_sponsors.py`, rebuild. All 37 `url` fields are empty until
+the committee supplies the websites — do not guess them.
+
+**`sponsor-levels.pdf` is read out of `de-partners.html`.** `levels_pdf.py` parses the five
+tiers and lays them out as a comparison chart; every benefit must match a row in its `ROWS`
+or the script stops, so a changed benefit cannot silently drop off the printed sheet. The PDF
+is committed; `{{LEVELS_PDF}}` becomes a file in `site/` and a data URI in the mockups. Rerun
+it whenever the levels change. Headless Brave (the only Chromium here) starts and never
+prints, which is why it uses WeasyPrint through uv rather than a browser.
 
 **Two outputs, one set of sources.** They differ only in what the tokens resolve to,
 which is the whole reason the pages go through tokens rather than carrying URLs of their
@@ -105,7 +124,8 @@ back to a still photograph.
 |---|---|---|---|
 | `mockups/.assets.json` | ~3.6 MB | **yes** | Images as data URIs. `docs/` is git-ignored, so this is the only committed copy of the logo and photography — the build cannot run without it. |
 | `mockups/.sponsors.json` | ~790 KB | **yes** | The 37 sponsor logos, downscaled to 400px, as data URIs — `{{SPONSOR_DOPAZO}}` and so on. Same reasoning as `.assets.json`: `docs/` is git-ignored, so this is the only committed copy. |
-| `mockups/.sponsor-names.json` | ~4 KB | **yes** | Which logo belongs to which business, at which level. Read off the artwork, not guessed. |
+| `mockups/.sponsor-names.json` | ~6 KB | **yes** | Which logo belongs to which business, at which level, its website, and its shape. Names read off the artwork, not guessed. |
+| `mockups/sponsor-levels.pdf` | ~90 KB | **yes** | Made by `levels_pdf.py`; the build only copies it. |
 | `mockups/.links.json` | ~700 B | **yes** | Page key → Artifact URL. |
 | `mockups/.videos.json` | ~10 MB | **no** | Regenerate with `encode_videos.py`. Never commit. |
 
@@ -183,9 +203,14 @@ landed under the hairline. `scroll-margin-top` had the same stale number, so `#h
 - `.js .topnav:not(.open){height:var(--nav-h)}` — with scripting on and the menu shut, the
   bar is now exactly what the token claims. Open, or with no script, it still grows and
   stacks its links, which is the deliberate fallback.
-- A `@media (max-width:400px)` block tightens the wordmark, the pill and the Menu button so
-  the row cannot wrap at 320px in the first place. Losing the `Light mode` button took ~114px
-  out of that row; **if anything is ever added back to the bar, re-check this width.**
+- A `@media (max-width:400px)` block keeps the row on one line. **Measured on 2026-10-07,
+  not estimated:** with the wordmark beside the logo the row needs ~350px, and at a true 320px
+  the Donate pill wrapped under the bar — it already did before the logo grew. So below 400px
+  the wordmark is visually hidden (still read by screen readers) and the logo card carries the
+  name. **If anything is ever added to the bar, re-render it at 320px.**
+- The logo is a full lockup and its navy "HENDRICKS" disappears on the film, so it sits on a
+  white card: 50px tall under 760px, 62px above, 46px under 400px. The home hero carries a
+  large copy (`.crest`) — the committee asked for the logo to be more prominent.
 - The floor rose: `clamp(40px,6vw,78px)` → `clamp(52px,6vw,78px)`, and `scroll-margin-top`
   from `+14px` to `+20px`. At 375px the `6vw` term sits at its floor, which is exactly when
   the bar is tallest.
@@ -262,10 +287,14 @@ Two token splits worth keeping in mind:
 the page was split off `d-home`, so every Donate button on the published home page had been
 rendering as a bare link. Restored from `d-home`, with `color:#070F1A` tokenized as `--on-gold`.
 
-**Footage on `de-home`.** The page now embeds `{{VIDEO_WARM}}` (`A_warm_and_cheerful_scene_of.mp4`),
-not the cinematic reel D shipped with. D's other trait — a dark page in every theme — is unchanged;
-only the clip behind it is warmer. `d-home` still carries `{{VIDEO_REEL}}` because the A-E artifacts
-are frozen as the record of the vote.
+**Footage on `de-home`.** The page plays `{{VIDEO_ARRIVAL}}`: the warm clip
+(`A_warm_and_cheerful_scene_of.mp4`) with the shot of a big eagle sign and the hallway shot cut
+out, 6.4 s of the original 10. The committee pointed out Hendricks has no such sign and does not
+look like that inside. `cut_clips.py` holds the frame ranges and why. The uncut clip is still
+`{{VIDEO_WARM}}`, which only the frozen `e-home` uses. The mid-page frame on `de-home` is now a
+real photograph (`{{SHIRT26}}`, last year's shirts, from the 2026 Walkathon photos), not footage.
+`d-home` still carries `{{VIDEO_REEL}}` because the A-E artifacts are frozen as the record of
+the vote.
 
 Prefix with `https://claude.ai/code/artifact/`. Keep each page's favicon stable across
 redeploys — the seven above, plus the frozen record of the vote: A 🏛️, B ✏️, C 📣, D 🎞️,
@@ -451,8 +480,19 @@ dimensions, since x264 wants them for 4:2:0 chroma — asking for 854 wide silen
 `ImageOps.exif_transpose()` before processing, since several source photos carry rotation flags
 and will otherwise come out sideways.
 
-Firefox exists but headless screenshotting hangs on first-run profile setup, so layout has been
-verified statically, not rendered. When touching a page, check: resolved token contrast against
+**Pages can be rendered (found 2026-10-07).** Firefox is a snap, and it hangs or reports
+"Could not find profile folder" when given a profile under `/tmp`, which it cannot reach. A
+profile inside its own snap folder works:
+
+```bash
+P=$HOME/snap/firefox/common/ff-shot; mkdir -p $P
+firefox --headless --no-remote --profile $P --window-size=1440,900 --screenshot $P/out.png file://$PWD/site/index.html
+```
+
+It captures the window only, not the full page, and reserves ~12px for a scrollbar — so a
+`--window-size=332,…` is a true 320px phone. For a long page, use a tall window and a temporary
+copy with `.act1{min-height:900px}` and `.rv{opacity:1}` added, or the 100svh hero fills it.
+Delete the copy afterwards; it must not land in `site/`. When touching a page, check: resolved token contrast against
 WCAG AA in both themes, tag balance, no fixed width over ~340px outside an `overflow-x: auto`
 container, every multi-column grid has a collapse breakpoint, `alt` on every `<img>`, and no
 external request other than Google Fonts.

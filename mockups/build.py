@@ -36,7 +36,7 @@ Two outputs, from the same seven sources:
 The two differ only in what the tokens resolve to, which is the whole reason the
 sources go through tokens rather than carrying URLs of their own.
 """
-import base64, json, pathlib, re, shutil, sys
+import base64, html as htmlmod, json, math, pathlib, re, shutil, sys
 
 root = pathlib.Path(__file__).parent
 partials_dir = root / "src" / "_partials"
@@ -134,6 +134,73 @@ def zeffy_tokens(site):
 
 tokens.update(zeffy_tokens(site=False))
 
+# ---------------------------------------------------------------- downloads
+
+# Files a visitor saves rather than views. Each is made by its own script and
+# committed next to this one; the build only places it. In site/ it is copied
+# out as a plain file beside the pages. A published Artifact cannot host a file,
+# so in the mockups the token carries the whole thing as a data URI instead.
+#
+#   {{LEVELS_PDF}}   sponsor-levels.pdf, from levels_pdf.py
+
+DOWNLOADS = {"{{LEVELS_PDF}}": ("sponsor-levels.pdf", "application/pdf")}
+
+for token, (name, mime) in DOWNLOADS.items():
+    f = root / name
+    if f.exists():
+        tokens[token] = f"data:{mime};base64," + base64.b64encode(f.read_bytes()).decode()
+
+
+# ---------------------------------------------------------------- sponsor walls
+
+# {{SPONSOR_WALL_LEGACY}} and friends: one level's logos, generated from
+# .sponsor-names.json so that next year's list is an edit to one file rather
+# than to every page that shows the wall. Each entry carries:
+#
+#   key   the logo in .sponsors.json -> {{SPONSOR_KEY}}
+#   tier  visionary / legacy / investors / builders
+#   name  as printed under the logo, and its alt text
+#   url   the business's website. Empty means not supplied yet, and the logo
+#         is then a plain box rather than a link to nowhere.
+#   ar    width / height, written by trim_sponsors.py
+#
+# Logos are sized by AREA, not by "fill the box". Filling the box makes a
+# square badge as tall as the card and a long wordmark a thin stripe, so the
+# eye reads the badge as the bigger sponsor. Giving each logo the same share of
+# the card's area evens that out: a logo of shape ar fills sqrt(0.75 * AREA * ar)
+# of the card's width (the card is 4:3), capped where it would hit the top and
+# bottom or the sides.
+
+sponsor_names = load(".sponsor-names.json", default=[])
+AREA = 0.48
+
+
+def logo_width(ar):
+    w = math.sqrt(0.75 * AREA * ar)
+    return min(w, 0.75 * ar, 0.94)  # 0.75*ar is where its height meets the card's
+
+
+def sponsor_wall(tier):
+    out = []
+    for s in sponsor_names:
+        if s["tier"] != tier:
+            continue
+        name = htmlmod.escape(s["name"])
+        width = round(logo_width(s.get("ar", 1.0)) * 100, 1)
+        img = (f'<img src="{{{{SPONSOR_{s["key"]}}}}}" alt="{name}" '
+               f'style="width:{width}%" loading="lazy">')
+        url = s.get("url", "")
+        if url:
+            card = (f'<a class="card" href="{htmlmod.escape(url)}" target="_blank" '
+                    f'rel="noopener">{img}</a>')
+        else:
+            card = f'<div class="card">{img}</div>'
+        out.append(f'      <div class="slot">{card}<p class="nm">{name}</p></div>')
+    return "\n".join(out)
+
+
+WALL = re.compile(r"\{\{SPONSOR_WALL_([A-Z]+)\}\}")
+
 
 PARTIAL = re.compile(r"\{\{>\s*([a-z0-9_-]+)\s*\}\}")
 
@@ -152,7 +219,10 @@ def expand(html, src_name, depth=0):
             return ""
         return expand(p.read_text().rstrip("\n"), src_name, depth + 1)
 
-    return PARTIAL.sub(one, html)
+    html = PARTIAL.sub(one, html)
+    # Walls expand here, with the partials, because what they write still holds
+    # {{SPONSOR_KEY}} tokens for the substitution pass that follows.
+    return WALL.sub(lambda m: sponsor_wall(m.group(1).lower()), html) if depth == 0 else html
 
 
 built = 0
@@ -278,6 +348,11 @@ def build_site():
     for src_name, (filename, _t, _d) in SITE_PAGES.items():
         site_tokens["{{URL_" + src_name.replace("de-", "").upper() + "}}"] = filename
     site_tokens.update(zeffy_tokens(site=True))
+    for token, (name, _mime) in DOWNLOADS.items():
+        if (root / name).exists():
+            shutil.copyfile(root / name, out / name)
+            site_tokens[token] = name
+            written += 1
 
     for src_name, (filename, title, desc) in SITE_PAGES.items():
         src = root / "src" / f"{src_name}.html"

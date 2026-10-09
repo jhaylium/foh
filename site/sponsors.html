@@ -63,7 +63,11 @@
 section[id],div[id],figure[id]{scroll-margin-top:calc(var(--nav-h) + 20px)}
 body{margin:0;background:var(--ground);color:var(--ink);color-scheme:light;
   font-family:Manrope,"Helvetica Neue",Arial,sans-serif;font-size:17px;line-height:1.62;
-  -webkit-font-smoothing:antialiased}
+  -webkit-font-smoothing:antialiased;
+  /* Manrope's standard ligatures draw "(c)" as a copyright sign, which turned
+     every "501(c)(3)" on the site into "501", copyright sign, "(3)". Its fi/fl
+     joins are the only other thing this gives up, and they are barely visible. */
+  font-variant-ligatures:no-common-ligatures}
 h1,h2,h3,.disp{font-family:"Bricolage Grotesque",Manrope,sans-serif;font-weight:800;
   letter-spacing:-.022em;line-height:.99;margin:0;text-wrap:balance}
 h1{font-size:clamp(2.5rem,7.4vw,5.8rem)}
@@ -154,7 +158,14 @@ img{max-width:100%;display:block}
   -webkit-backdrop-filter:none;backdrop-filter:none}
 .topnav.over-hero::before{opacity:1}
 .topnav .who{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
-.topnav .who img{width:34px}
+/* The logo is a full lockup -- schoolhouse, name and motto -- and its navy
+   "HENDRICKS" vanishes on the dark film. A white card behind it keeps it whole on
+   both grounds, the way a school crest sits on a jersey. Sized by height so it
+   always fits the bar: 58px of a 72px bar, 72px of an 88px one. */
+.topnav .who img{height:50px;width:auto;background:#FFFFFF;padding:4px 5px;border-radius:6px;
+  border:1px solid var(--line);box-sizing:content-box}
+.topnav.over-hero .who img{border-color:transparent;box-shadow:0 2px 14px rgba(4,10,18,.35)}
+@media (min-width:760px){.topnav .who img{height:62px}}
 .topnav .who b{font-family:"Bricolage Grotesque",sans-serif;font-weight:600;font-size:.95rem;
   letter-spacing:-.01em;line-height:1.1}
 .topnav nav{margin-left:auto;display:flex;align-items:center;gap:clamp(10px,1.5vw,22px)}
@@ -196,6 +207,9 @@ img{max-width:100%;display:block}
   linear-gradient(to top,rgba(7,15,26,.96) 0%,rgba(7,15,26,.62) 38%,rgba(7,15,26,.2) 70%,rgba(7,15,26,.55) 100%)}
 .act1 .inner{position:relative;padding-bottom:clamp(70px,11vh,140px);padding-top:calc(var(--nav-h) + 30px)}
 .act1 h1{max-width:15ch}
+.act1 .crest{display:block;width:clamp(96px,15vw,184px);height:auto;background:#FFFFFF;
+  padding:clamp(8px,1vw,12px);border-radius:10px;box-sizing:content-box;
+  box-shadow:0 6px 30px rgba(4,10,18,.4);margin-bottom:clamp(22px,3vw,34px)}
 .act1 h1 em{font-style:normal;color:#FFBE04}
 .act1 .lede{margin-top:22px;color:rgba(237,242,248,.9)}
 .scrollcue{position:absolute;left:clamp(18px,4.5vw,48px);bottom:clamp(28px,5vh,52px);
@@ -224,12 +238,19 @@ img{max-width:100%;display:block}
 /* ---- a photograph used as a full-width frame ---- */
 .frame{position:relative;aspect-ratio:16/9;overflow:hidden;margin-top:clamp(34px,5vw,60px);
   border:1px solid var(--line)}
+/* A frame can hold a photograph instead of footage -- the home page's shirt
+   frame does, at the committee's request, because the shirts are real. */
+.frame>img.still{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 40%}
 .frame .veil{position:absolute;inset:0;
-  background:linear-gradient(to top,rgba(7,15,26,.72),transparent 62%)}
+  background:linear-gradient(to top,rgba(7,15,26,.86),rgba(7,15,26,.4) 40%,transparent 70%)}
 .frame .cap{position:absolute;left:0;right:0;bottom:0;padding:clamp(18px,3vw,32px);
   display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap}
 .frame .cap p{font-size:.82rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
 .frame .cap .disp{font-size:clamp(1.3rem,3vw,2.1rem);max-width:22ch}
+/* The headline is a <p class="disp">, so the eyebrow rule above -- two classes
+   and an element -- outranked .disp and set it in small tracked capitals, muted.
+   Undo exactly what that rule adds. */
+.frame .cap p.disp{text-transform:none;letter-spacing:-.022em;color:var(--ink);font-weight:800}
 .filmcap{position:relative}
 .filmcap figcaption{position:absolute;left:0;right:0;bottom:0;padding:clamp(18px,3vw,32px);
   background:linear-gradient(to top,rgba(4,10,18,.94),rgba(4,10,18,.55) 55%,rgba(4,10,18,0))}
@@ -285,6 +306,11 @@ img{max-width:100%;display:block}
   aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;
   padding:clamp(12px,1.6vw,20px)}
 .slot img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain}
+/* A sponsor with a website on file is a link out. The card lifts its edge to
+   ink on hover; the focus ring is the global one. Width comes inline from
+   build.py, which sizes each logo by area -- see sponsor_wall(). */
+a.card{text-decoration:none;transition:border-color .16s ease,transform .16s ease}
+a.card:hover{border-color:var(--ink);transform:translateY(-2px)}
 .slot .nm{font-size:.79rem;line-height:1.35;color:var(--muted);text-align:center}
 .tiergap{margin-top:clamp(40px,6vw,72px)}
 /* the one Visionary partner, set larger than the tier below it */
@@ -419,11 +445,16 @@ footer{border-top:1px solid var(--line);padding:clamp(40px,5vw,64px) 0 56px;font
   .js .topnav:not(.open){height:var(--nav-h)}
 }
 /* ...and the row has to actually fit, or height:var(--nav-h) just clips it.
-   Three items now that the theme switch is gone: at 320px they need ~264px of
-   the 284px available. */
+   Measured, not estimated (2026-10-07, headless Firefox): with the wordmark beside
+   the logo the row needs ~350px, and at a true 320px the Donate pill wrapped under
+   the bar -- it already did before the logo grew. So below 400px the logo card
+   carries the name on its own, the way an app icon does. The wordmark stays in
+   the markup, visually hidden, so the home link still has an accessible name. */
 @media (max-width:400px){
   .topnav{gap:10px}
-  .topnav .who b{font-size:.82rem}
+  .topnav .who img{height:46px;padding:3px 4px}
+  .topnav .who b{position:absolute;width:1px;height:1px;overflow:hidden;
+    clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
   .topnav .pill{padding:9px 14px}
   .menubtn{padding:8px 11px}
 }
@@ -512,55 +543,55 @@ footer{border-top:1px solid var(--line);padding:clamp(40px,5vw,64px) 0 56px;font
 
     <div class="gr rv"><div class="grh"><b>Visionary Partner</b><span>$5,000 &middot; one only</span></div></div>
     <div class="wall big rv">
-      <div class="slot"><div class="card"><img src="img/sponsors/statefarm.jpg" alt="State Farm — Matt Carlucci, Agent"></div><p class="nm">State Farm — Matt Carlucci, Agent</p></div>
+      <div class="slot"><div class="card"><img src="img/sponsors/statefarm.jpg" alt="State Farm — Matt Carlucci, Agent" style="width:94.0%" loading="lazy"></div><p class="nm">State Farm — Matt Carlucci, Agent</p></div>
     </div>
 
     <div class="gr rv tiergap"><div class="grh"><b>Legacy Circle</b><span>$2,500</span></div></div>
     <div class="wall rv">
-      <div class="slot"><div class="card"><img src="img/sponsors/dopazo.jpg" alt="Dopazo Orthodontics"></div><p class="nm">Dopazo Orthodontics</p></div>
-      <div class="slot"><div class="card"><img src="img/sponsors/superior.jpg" alt="Superior Fence &amp; Rail"></div><p class="nm">Superior Fence &amp; Rail</p></div>
-      <div class="slot"><div class="card"><img src="img/sponsors/magnuson.jpg" alt="Magnuson Hotel Jacksonville Downtown"></div><p class="nm">Magnuson Hotel Jacksonville Downtown</p></div>
-      <div class="slot"><div class="card"><img src="img/sponsors/promise.jpg" alt="The Promise 100.7"></div><p class="nm">The Promise 100.7</p></div>
-      <div class="slot"><div class="card"><img src="img/sponsors/riley.jpg" alt="The Riley Family"></div><p class="nm">The Riley Family</p></div>
+      <div class="slot"><div class="card"><img src="img/sponsors/dopazo.jpg" alt="Dopazo Orthodontics" style="width:77.6%" loading="lazy"></div><p class="nm">Dopazo Orthodontics</p></div>
+      <div class="slot"><div class="card"><img src="img/sponsors/superior.jpg" alt="Superior Fence &amp; Rail" style="width:94.0%" loading="lazy"></div><p class="nm">Superior Fence &amp; Rail</p></div>
+      <div class="slot"><div class="card"><img src="img/sponsors/magnuson.jpg" alt="Magnuson Hotel Jacksonville Downtown" style="width:62.6%" loading="lazy"></div><p class="nm">Magnuson Hotel Jacksonville Downtown</p></div>
+      <div class="slot"><div class="card"><img src="img/sponsors/promise.jpg" alt="The Promise 100.7" style="width:77.6%" loading="lazy"></div><p class="nm">The Promise 100.7</p></div>
+      <div class="slot"><div class="card"><img src="img/sponsors/riley.jpg" alt="The Riley Family" style="width:94.0%" loading="lazy"></div><p class="nm">The Riley Family</p></div>
     </div>
 
     <div class="gr rv tiergap"><div class="grh"><b>Investors Circle</b><span>$1,000</span></div></div>
     <div class="wall rv">
-      <div class="slot"><div class="card"><img src="img/sponsors/normandy.jpg" alt="Normandy Lake Dentistry"></div><p class="nm">Normandy Lake Dentistry</p></div>
-      <div class="slot"><div class="card"><img src="img/sponsors/mullens.jpg" alt="Mullens &amp; Nguyen Distinctive Dentistry"></div><p class="nm">Mullens &amp; Nguyen Distinctive Dentistry</p></div>
-      <div class="slot"><div class="card"><img src="img/sponsors/otterson.jpg" alt="Otterson Wealth Advisors of Raymond James"></div><p class="nm">Otterson Wealth Advisors of Raymond James</p></div>
-      <div class="slot"><div class="card"><img src="img/sponsors/blount.jpg" alt="Blount Builds"></div><p class="nm">Blount Builds</p></div>
-      <div class="slot"><div class="card"><img src="img/sponsors/plauto.jpg" alt="P&amp;L Automotive, Inc."></div><p class="nm">P&amp;L Automotive, Inc.</p></div>
-      <div class="slot"><div class="card"><img src="img/sponsors/tapesouth.jpg" alt="TapeSouth"></div><p class="nm">TapeSouth</p></div>
-      <div class="slot"><div class="card"><img src="img/sponsors/beehome.jpg" alt="Bee Home Realty"></div><p class="nm">Bee Home Realty</p></div>
-      <div class="slot"><div class="card"><img src="img/sponsors/upsstore.jpg" alt="The UPS Store San Marco"></div><p class="nm">The UPS Store San Marco</p></div>
-      <div class="slot"><div class="card"><img src="img/sponsors/jaycox.jpg" alt="Jaycox Architects &amp; Associates"></div><p class="nm">Jaycox Architects &amp; Associates</p></div>
-      <div class="slot"><div class="card"><img src="img/sponsors/heyday.jpg" alt="Heyday!"></div><p class="nm">Heyday!</p></div>
-      <div class="slot"><div class="card"><img src="img/sponsors/vein.jpg" alt="The Vein Institute"></div><p class="nm">The Vein Institute</p></div>
-      <div class="slot"><div class="card"><img src="img/sponsors/brown.jpg" alt="Andrew Brown, MD — Borland Groover"></div><p class="nm">Andrew Brown, MD — Borland Groover</p></div>
+      <div class="slot"><div class="card"><img src="img/sponsors/normandy.jpg" alt="Normandy Lake Dentistry" style="width:60.0%" loading="lazy"></div><p class="nm">Normandy Lake Dentistry</p></div>
+      <div class="slot"><div class="card"><img src="img/sponsors/mullens.jpg" alt="Mullens &amp; Nguyen Distinctive Dentistry" style="width:84.7%" loading="lazy"></div><p class="nm">Mullens &amp; Nguyen Distinctive Dentistry</p></div>
+      <div class="slot"><div class="card"><img src="img/sponsors/otterson.jpg" alt="Otterson Wealth Advisors of Raymond James" style="width:94.0%" loading="lazy"></div><p class="nm">Otterson Wealth Advisors of Raymond James</p></div>
+      <div class="slot"><div class="card"><img src="img/sponsors/blount.jpg" alt="Blount Builds" style="width:77.0%" loading="lazy"></div><p class="nm">Blount Builds</p></div>
+      <div class="slot"><div class="card"><img src="img/sponsors/plauto.jpg" alt="P&amp;L Automotive, Inc." style="width:55.6%" loading="lazy"></div><p class="nm">P&amp;L Automotive, Inc.</p></div>
+      <div class="slot"><div class="card"><img src="img/sponsors/tapesouth.jpg" alt="TapeSouth" style="width:94.0%" loading="lazy"></div><p class="nm">TapeSouth</p></div>
+      <div class="slot"><div class="card"><img src="img/sponsors/beehome.jpg" alt="Bee Home Realty" style="width:61.2%" loading="lazy"></div><p class="nm">Bee Home Realty</p></div>
+      <div class="slot"><div class="card"><img src="img/sponsors/upsstore.jpg" alt="The UPS Store San Marco" style="width:94.0%" loading="lazy"></div><p class="nm">The UPS Store San Marco</p></div>
+      <div class="slot"><div class="card"><img src="img/sponsors/jaycox.jpg" alt="Jaycox Architects &amp; Associates" style="width:81.4%" loading="lazy"></div><p class="nm">Jaycox Architects &amp; Associates</p></div>
+      <div class="slot"><div class="card"><img src="img/sponsors/heyday.jpg" alt="Heyday!" style="width:79.6%" loading="lazy"></div><p class="nm">Heyday!</p></div>
+      <div class="slot"><div class="card"><img src="img/sponsors/vein.jpg" alt="The Vein Institute" style="width:70.5%" loading="lazy"></div><p class="nm">The Vein Institute</p></div>
+      <div class="slot"><div class="card"><img src="img/sponsors/brown.jpg" alt="Andrew Brown, MD — Borland Groover" style="width:78.5%" loading="lazy"></div><p class="nm">Andrew Brown, MD — Borland Groover</p></div>
     </div>
 
     <div class="gr rv tiergap"><div class="grh"><b>Builders Circle</b><span>$500</span></div></div>
     <div class="wall rv">
-      <div class="slot"><div class="card"><img src="img/sponsors/stellers.jpg" alt="Stellers Framing"></div><p class="nm">Stellers Framing</p></div>
-      <div class="slot"><div class="card"><img src="img/sponsors/gritcamp.jpg" alt="Grit Camp"></div><p class="nm">Grit Camp</p></div>
-      <div class="slot"><div class="card"><img src="img/sponsors/reginajoy.jpg" alt="Regina &amp; Joy Team, RE/MAX Specialists"></div><p class="nm">Regina &amp; Joy Team, RE/MAX Specialists</p></div>
-      <div class="slot"><div class="card"><img src="img/sponsors/pivot.jpg" alt="Pivot Pilates"></div><p class="nm">Pivot Pilates</p></div>
-      <div class="slot"><div class="card"><img src="img/sponsors/taverna.jpg" alt="Taverna / Oceana"></div><p class="nm">Taverna / Oceana</p></div>
-      <div class="slot"><div class="card"><img src="img/sponsors/wick.jpg" alt="Wick, A Candle Bar"></div><p class="nm">Wick, A Candle Bar</p></div>
-      <div class="slot"><div class="card"><img src="img/sponsors/riverpoint.jpg" alt="RiverPoint Real Estate"></div><p class="nm">RiverPoint Real Estate</p></div>
-      <div class="slot"><div class="card"><img src="img/sponsors/jca.jpg" alt="JCA"></div><p class="nm">JCA</p></div>
-      <div class="slot"><div class="card"><img src="img/sponsors/rossgarden.jpg" alt="Ross Garden Design"></div><p class="nm">Ross Garden Design</p></div>
-      <div class="slot"><div class="card"><img src="img/sponsors/intercoastal.jpg" alt="Intercoastal Health"></div><p class="nm">Intercoastal Health</p></div>
-      <div class="slot"><div class="card"><img src="img/sponsors/riverplace.jpg" alt="Riverplace Capital"></div><p class="nm">Riverplace Capital</p></div>
-      <div class="slot"><div class="card"><img src="img/sponsors/treesurgeons.jpg" alt="Duval Tree Surgeons"></div><p class="nm">Duval Tree Surgeons</p></div>
-      <div class="slot"><div class="card"><img src="img/sponsors/tilemarket.jpg" alt="Tile Market of San Marco"></div><p class="nm">Tile Market of San Marco</p></div>
-      <div class="slot"><div class="card"><img src="img/sponsors/allisonjames.jpg" alt="Allison James Estates &amp; Homes Elite"></div><p class="nm">Allison James Estates &amp; Homes Elite</p></div>
-      <div class="slot"><div class="card"><img src="img/sponsors/players.jpg" alt="Players Locker Room"></div><p class="nm">Players Locker Room</p></div>
-      <div class="slot"><div class="card"><img src="img/sponsors/faben.jpg" alt="Faben Obstetrics and Gynecology"></div><p class="nm">Faben Obstetrics and Gynecology</p></div>
-      <div class="slot"><div class="card"><img src="img/sponsors/cookiefix.jpg" alt="Cookie Fix"></div><p class="nm">Cookie Fix</p></div>
-      <div class="slot"><div class="card"><img src="img/sponsors/coachpolster.jpg" alt="Coach Polster&#x27;s Summer Camp"></div><p class="nm">Coach Polster&#x27;s Summer Camp</p></div>
-      <div class="slot"><div class="card"><img src="img/sponsors/kristiancarter.jpg" alt="Kristian Carter Nutrition + Wellness"></div><p class="nm">Kristian Carter Nutrition + Wellness</p></div>
+      <div class="slot"><div class="card"><img src="img/sponsors/stellers.jpg" alt="Stellers Framing" style="width:60.0%" loading="lazy"></div><p class="nm">Stellers Framing</p></div>
+      <div class="slot"><div class="card"><img src="img/sponsors/gritcamp.jpg" alt="Grit Camp" style="width:80.8%" loading="lazy"></div><p class="nm">Grit Camp</p></div>
+      <div class="slot"><div class="card"><img src="img/sponsors/reginajoy.jpg" alt="Regina &amp; Joy Team, RE/MAX Specialists" style="width:60.0%" loading="lazy"></div><p class="nm">Regina &amp; Joy Team, RE/MAX Specialists</p></div>
+      <div class="slot"><div class="card"><img src="img/sponsors/pivot.jpg" alt="Pivot Pilates" style="width:94.0%" loading="lazy"></div><p class="nm">Pivot Pilates</p></div>
+      <div class="slot"><div class="card"><img src="img/sponsors/taverna.jpg" alt="Taverna / Oceana" style="width:94.0%" loading="lazy"></div><p class="nm">Taverna / Oceana</p></div>
+      <div class="slot"><div class="card"><img src="img/sponsors/wick.jpg" alt="Wick, A Candle Bar" style="width:85.5%" loading="lazy"></div><p class="nm">Wick, A Candle Bar</p></div>
+      <div class="slot"><div class="card"><img src="img/sponsors/riverpoint.jpg" alt="RiverPoint Real Estate" style="width:86.6%" loading="lazy"></div><p class="nm">RiverPoint Real Estate</p></div>
+      <div class="slot"><div class="card"><img src="img/sponsors/jca.jpg" alt="JCA" style="width:65.1%" loading="lazy"></div><p class="nm">JCA</p></div>
+      <div class="slot"><div class="card"><img src="img/sponsors/rossgarden.jpg" alt="Ross Garden Design" style="width:49.4%" loading="lazy"></div><p class="nm">Ross Garden Design</p></div>
+      <div class="slot"><div class="card"><img src="img/sponsors/intercoastal.jpg" alt="Intercoastal Health" style="width:61.2%" loading="lazy"></div><p class="nm">Intercoastal Health</p></div>
+      <div class="slot"><div class="card"><img src="img/sponsors/riverplace.jpg" alt="Riverplace Capital" style="width:94.0%" loading="lazy"></div><p class="nm">Riverplace Capital</p></div>
+      <div class="slot"><div class="card"><img src="img/sponsors/treesurgeons.jpg" alt="Duval Tree Surgeons" style="width:59.2%" loading="lazy"></div><p class="nm">Duval Tree Surgeons</p></div>
+      <div class="slot"><div class="card"><img src="img/sponsors/tilemarket.jpg" alt="Tile Market of San Marco" style="width:94.0%" loading="lazy"></div><p class="nm">Tile Market of San Marco</p></div>
+      <div class="slot"><div class="card"><img src="img/sponsors/allisonjames.jpg" alt="Allison James Estates &amp; Homes Elite" style="width:67.6%" loading="lazy"></div><p class="nm">Allison James Estates &amp; Homes Elite</p></div>
+      <div class="slot"><div class="card"><img src="img/sponsors/players.jpg" alt="Players Locker Room" style="width:60.0%" loading="lazy"></div><p class="nm">Players Locker Room</p></div>
+      <div class="slot"><div class="card"><img src="img/sponsors/faben.jpg" alt="Faben Obstetrics and Gynecology" style="width:74.1%" loading="lazy"></div><p class="nm">Faben Obstetrics and Gynecology</p></div>
+      <div class="slot"><div class="card"><img src="img/sponsors/cookiefix.jpg" alt="Cookie Fix" style="width:60.0%" loading="lazy"></div><p class="nm">Cookie Fix</p></div>
+      <div class="slot"><div class="card"><img src="img/sponsors/coachpolster.jpg" alt="Coach Polster&#x27;s Summer Camp" style="width:65.2%" loading="lazy"></div><p class="nm">Coach Polster&#x27;s Summer Camp</p></div>
+      <div class="slot"><div class="card"><img src="img/sponsors/kristiancarter.jpg" alt="Kristian Carter Nutrition + Wellness" style="width:71.1%" loading="lazy"></div><p class="nm">Kristian Carter Nutrition + Wellness</p></div>
     </div>
 
     <div class="gr rv tiergap"><div class="grh"><b>Friends Circle</b><span>$250</span></div>
