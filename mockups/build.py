@@ -175,7 +175,7 @@ for token, (name, mime) in DOWNLOADS.items():
 # bottom or the sides.
 
 sponsor_names = load(".sponsor-names.json", default=[])
-AREA = 0.48
+AREA = 0.56
 
 
 def logo_width(ar):

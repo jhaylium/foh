@@ -34,8 +34,22 @@ partials. Each entry has `key`, `tier`, `name`, `url` and `ar`; a non-empty `url
 card into a link out, an empty one leaves a plain box. Logos are sized by **area**, not by
 filling the card — `AREA` in `build.py` — so a long wordmark and a square badge carry about
 the same weight. Next year's sponsors: add the JPEG to `.sponsors.json`, the entry to
-`.sponsor-names.json`, run `trim_sponsors.py`, rebuild. All 37 `url` fields are empty until
-the committee supplies the websites — do not guess them.
+`.sponsor-names.json`, run `trim_sponsors.py`, rebuild.
+
+**28 of the 37 `url` fields are filled (2026-11-04).** A link went in only if the business's
+own page loaded and showed its name plus a Jacksonville address or 904 number. For a franchise
+or large firm, the link is this location's or this person's page: Matt Carlucci's State Farm
+agent page, Dr. Brown's Borland Groover profile, the San Marco Cookie Fix. The nine still empty
+are deliberate — Riley (a family), Duval Tree Surgeons and Kristian Carter (nothing found),
+TapeSouth (only a Gainesville company of that name), P&L Automotive (Facebook only;
+`pandlauto.com` is a different shop in Minnesota), the UPS Store (no store is named San Marco),
+Regina & Joy (the team's site now points to one agent), and Otterson and Allison James (both
+block automated checks). Do not guess any of them. `JCA` is the Jewish Community Alliance, matched
+by its logo.
+
+**Each level has its own card size on `de-sponsors`** — `.t-vis`, `.t-leg`, `.t-inv`, `.t-bld`
+in `base.html`, centred rows of 420 / 300 / 240 / 190px — so the logos step down with the money.
+Friends Circle has no logos and is a row of white name cards (`.names`).
 
 **`sponsor-levels.pdf` is read out of `de-partners.html`.** `levels_pdf.py` parses the five
 tiers and lays them out as a comparison chart; every benefit must match a row in its `ROWS`

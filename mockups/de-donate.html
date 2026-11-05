@@ -290,6 +290,29 @@ img{max-width:100%;display:block}
 .wall{display:grid;grid-template-columns:repeat(auto-fill,minmax(158px,1fr));
   gap:clamp(12px,1.6vw,20px);margin-top:clamp(20px,3vw,30px)}
 .wall.big{grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
+/* One card width per level, so the logos step down as the money does. The logo
+   inside is a share of its card (see sponsor_wall in build.py), so sizing the
+   card sizes the mark. Rows rather than a grid, centred, so a short last row
+   (Legacy's 5 as 3 + 2) sits in the middle instead of hanging left. At the
+   full 1200px wrap: Visionary 420px alone, Legacy 3 across at 300, Investor 4
+   at 240, Builders 5 at 190. flex-shrink lets a card give way on a narrower
+   screen before the row has to wrap. */
+.wall.t-vis,.wall.t-leg,.wall.t-inv,.wall.t-bld{display:flex;flex-wrap:wrap;justify-content:center}
+.wall.t-vis .slot{flex:0 1 420px}
+.wall.t-leg .slot{flex:0 1 300px}
+.wall.t-inv .slot{flex:0 1 240px}
+.wall.t-bld .slot{flex:0 1 190px}
+.wall.t-bld .slot .card{padding:12px}
+
+/* Friends Circle: no logo at this level, so each name gets a white card of its
+   own in ink, set in the display face, rather than a row of small grey chips.
+   Sized a step under the Investor cards so the levels still read in order. */
+.names{display:flex;flex-wrap:wrap;justify-content:center;
+  gap:clamp(10px,1.4vw,16px);margin-top:clamp(20px,3vw,30px)}
+.names span{display:flex;align-items:center;justify-content:center;text-align:center;
+  flex:0 1 170px;min-height:68px;padding:12px 14px;background:var(--tile);border:1px solid var(--edge);
+  border-radius:6px;font-family:"Bricolage Grotesque",Manrope,sans-serif;font-weight:600;
+  font-size:.98rem;line-height:1.25;letter-spacing:-.01em;color:var(--ink)}
 .slot{display:flex;flex-direction:column;gap:9px}
 .slot .card{background:var(--tile);border:1px solid var(--edge);border-radius:6px;
   aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;
@@ -460,6 +483,15 @@ footer{border-top:1px solid var(--line);padding:clamp(40px,5vw,64px) 0 56px;font
   .tiles.three{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media (max-width:560px){
+  /* A phone's ~340px has no room for four distinct sizes, so Legacy and
+     Investor share one: 1 / 2 / 2 / 3 across. The 12px is the wall's gap. */
+  .wall.t-vis .slot{flex-basis:300px}
+  .wall.t-leg .slot,.wall.t-inv .slot{flex-basis:calc((100% - 12px) / 2)}
+  .wall.t-bld .slot{flex-basis:calc((100% - 24px) / 3)}
+  .wall.t-bld .slot .card{padding:8px}
+  .wall.t-bld .slot .nm{font-size:.74rem}
+  .names span{flex-basis:calc((100% - 10px) / 2)}
+  .names span{min-height:64px;font-size:.96rem;padding:12px 10px}
   body{font-size:16px}
   .strip-in{grid-template-columns:1fr}
   .ch{border-left:none;border-top:1px solid var(--line-soft)}
@@ -622,6 +654,8 @@ footer{border-top:1px solid var(--line);padding:clamp(40px,5vw,64px) 0 56px;font
             <span style="color:var(--faint);font-size:.84rem">General</span></li>
           <li><a href="mailto:FriendsBusinessPartners@gmail.com">FriendsBusinessPartners@gmail.com</a><br>
             <span style="color:var(--faint);font-size:.84rem">Business partners</span></li>
+          <li><a href="mailto:walkathon.foh@gmail.com">walkathon.foh@gmail.com</a><br>
+            <span style="color:var(--faint);font-size:.84rem">Walkathon</span></li>
           <li><a href="mailto:FOHHugsFromHenry@gmail.com">FOHHugsFromHenry@gmail.com</a><br>
             <span style="color:var(--faint);font-size:.84rem">Birthday club</span></li>
           <li><a href="mailto:renttherockhae@gmail.com">renttherockhae@gmail.com</a><br>
