@@ -132,23 +132,7 @@
         </dl>
       </div>
     </div>
-    <form onsubmit="event.preventDefault();this.querySelector('.done').hidden=false">
-      <div class="field"><label for="bn">Business name</label>
-        <input id="bn" required placeholder="As it should appear on signage"></div>
-      <div class="field"><label for="cn">Contact name</label><input id="cn" required></div>
-      <div class="field"><label for="em">Email</label><input id="em" type="email" required></div>
-      <div class="field"><label for="ph">Phone</label><input id="ph" type="tel"></div>
-      <div class="field"><label for="lv">Level you're interested in</label>
-        <input id="lv" placeholder="Visionary, Legacy, Investor, Builders or Friends"></div>
-      <div class="field"><label for="st">Student to credit, and relationship</label>
-        <input id="st" placeholder="e.g. Henry, Grade 2 &mdash; grandparent"></div>
-      <div class="field"><label for="ad">Anything else</label><textarea id="ad" rows="3"></textarea></div>
-      <button class="pill" type="submit" style="width:100%;justify-content:center">Send inquiry</button>
-      <p class="done" hidden style="margin-top:14px;color:var(--gold-ink);font-weight:700">
-        Sent &mdash; we will be in touch.</p>
-      <p class="note" style="margin-top:14px">A mockup form. In the finished site this emails
-        FriendsBusinessPartners@gmail.com.</p>
-    </form>
+    <div>{{ZEFFY_EMBED_SPONSOR}}</div>
   </div>
 </section>
 

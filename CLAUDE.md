@@ -127,7 +127,25 @@ back to a still photograph.
 | `mockups/.sponsor-names.json` | ~6 KB | **yes** | Which logo belongs to which business, at which level, its website, and its shape. Names read off the artwork, not guessed. |
 | `mockups/sponsor-levels.pdf` | ~90 KB | **yes** | Made by `levels_pdf.py`; the build only copies it. |
 | `mockups/.links.json` | ~700 B | **yes** | Page key → Artifact URL. |
+| `mockups/.zeffy.json` | ~1 KB | **yes** | The four Zeffy campaigns: public `url`, iframe `embed`, starting heights. |
 | `mockups/.videos.json` | ~10 MB | **no** | Regenerate with `encode_videos.py`. Never commit. |
+
+**Payments go through four Zeffy campaigns (wired 2026-11-04).** `gift` (Donate `#gift`),
+`walkathon` (Walkathon `#pledge`; the campaign is peer-to-peer, the embed is its donation
+form), `henry` (the Take Part dialog, loaded on first open) and `sponsor` (Become a Sponsor
+`#apply`, which replaced a mockup inquiry form that sent nothing). `{{ZEFFY_EMBED_KEY}}` is
+an iframe in `site/` and a link out in the Artifacts, which cannot load another site. The
+Walkathon's link reads `walkthon--2027`; the campaign was renamed and Zeffy kept the old link.
+
+**The forms size themselves, without Zeffy's script.** Zeffy's snippet loads
+`zeffy-embed.js`; it was read on 2026-11-04 and does three things worth having, all copied
+into `_partials/scripts.html` instead: the form posts `zeffy-embed:resized` with its height
+when its address carries `embed-version=v2&embedId=…` (build.py adds both), the frame scrolls
+back into view on `step-changed`, and iPhones get `disableExpressCheckout=true`. Fixed heights
+alone were visibly wrong when tested in a browser. The heights in `.zeffy.json` are now only
+the starting size, and the size with no scripting. Loading their script instead would also
+force each form into a 600px white card. Zeffy's Cloudflare blocks command-line fetches, and
+headless Firefox does not draw the forms, so any check of them has to be done in a real browser.
 
 ## Publishing
 

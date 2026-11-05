@@ -121,7 +121,10 @@ def zeffy_tokens(site):
             # A deferred frame carries data-src and is promoted to src by the
             # page's own script -- the Henry form sits inside a closed <dialog>
             # and should not fetch a payment form nobody has opened.
+            # embed-version=v2 + embedId make the form post its height to
+            # the page; the listener in _partials/scripts.html applies it.
             h = c.get("height", 1000)
+            embed += ("&amp;" if "?" in embed else "?") + "embed-version=v2&amp;embedId=" + key
             markup = IFRAME.format(label=label, embed=embed, h=h,
                                    hsm=c.get("heightSm", h + 200),
                                    attr="data-src" if c.get("defer") else "src")

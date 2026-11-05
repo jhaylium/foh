@@ -365,17 +365,17 @@ a.card:hover{border-color:var(--ink);transform:translateY(-2px)}
    can measure or restyle it -- Zeffy's own layout starts at its edge. Two
    consequences worth knowing before touching the numbers.
 
-   The height is a fixed pixel value set per campaign in .zeffy.json, because
-   Zeffy ships no script that reports the form's height back to the parent
-   page. Too small gets an inner scrollbar, too large gets a band of dead space,
-   and the right value differs between a phone and a desktop -- hence the
-   breakpoint below, not a single number. Check both widths after any change to
-   a campaign's questions, since every added question makes the form taller.
+   With scripting on, the form reports its own height and the listener in
+   scripts.html sizes the frame to it -- see the note there. The pixel values
+   from .zeffy.json are the starting size until that first report, and the
+   only size if scripting is off, which is why there are still two of them
+   (the form is taller on a phone, where its fields stack).
 
    width:100% with no border of our own: the form is the page's content here,
    not a widget sitting on it. */
 .zeffy-frame{display:block;width:100%;border:0;background:var(--field);
-  height:var(--zh,1000px);color-scheme:light}
+  height:var(--zh,1000px);color-scheme:light;
+  scroll-margin-top:calc(var(--nav-h) + 20px)}
 
 /* Where a mockup cannot load the real thing. */
 .zeffy-standin{border:1px dashed var(--edge);background:var(--raise);
@@ -610,7 +610,7 @@ footer{border-top:1px solid var(--line);padding:clamp(40px,5vw,64px) 0 56px;font
           &middot; Mar 10 &middot; Apr 23 &middot; May 14 (May, June, and July birthdays)</p>
         <p style="margin-top:16px;color:var(--muted)">Enroll and pay online through Zeffy.</p>
         <div class="row">
-          <a class="pill" id="hug-open" href="donate.html#gift">Give a Hug</a>
+          <a class="pill" id="hug-open" href="https://www.zeffy.com/en-US/ticketing/hugs-from-henry">Give a Hug</a>
           <a class="pill ghost" href="mailto:FOHHugsFromHenry@gmail.com">Email the birthday club</a>
         </div>
       </div>
@@ -770,7 +770,7 @@ footer{border-top:1px solid var(--line);padding:clamp(40px,5vw,64px) 0 56px;font
     <p class="tag red">Grades K&ndash;5 &middot; $25 per child</p>
     <h2 id="hugttl" style="margin-top:14px">Hugs from Henry Birthday Club</h2>
 
-    <div style="margin-top:clamp(24px,3.4vw,34px)"><p class="needs">Hugs from Henry Birthday Club &mdash; needs the Zeffy campaign link</p></div>
+    <div style="margin-top:clamp(24px,3.4vw,34px)"><iframe class="zeffy-frame" title="Hugs from Henry Birthday Club" data-src="https://www.zeffy.com/embed/ticketing/hugs-from-henry?embed-version=v2&amp;embedId=henry" style="--zh:1000px;--zh-sm:1240px" loading="lazy" allow="payment"></iframe></div>
   </div>
 </dialog>
 
@@ -882,6 +882,49 @@ footer{border-top:1px solid var(--line);padding:clamp(40px,5vw,64px) 0 56px;font
     var paused=document.body.classList.contains('paused');
     document.querySelectorAll('video.vid').forEach(function(v){ paused ? v.pause() : v.play(); });
     label();
+  });
+})();
+
+/* Zeffy forms size themselves. The form inside each frame posts its current
+   height to this page every time it changes -- a new step, a question opening,
+   the thank-you screen -- and we set the frame to match. This is the same
+   message Zeffy's own zeffy-embed.js listens for (read 2026-11-04); we handle
+   it here instead of loading their script, which would also restyle every
+   form as a 600px white card. The form only sends these messages when its
+   address carries embed-version=v2 and an embedId, which build.py adds.
+
+   The height in .zeffy.json is now only the starting size, used until the
+   first message arrives and kept for good if scripting is off.
+
+   iPhones get disableExpressCheckout=true, as Zeffy's script does: it removes
+   the Apple Pay button inside the frame, which Zeffy evidently does not trust
+   to work there. Card payment is unaffected. */
+(function(){
+  var frames=[].slice.call(document.querySelectorAll('iframe.zeffy-frame'));
+  if(!frames.length) return;
+  if(/iPhone|iPod/.test(navigator.userAgent)){
+    frames.forEach(function(f){
+      ['src','data-src'].forEach(function(a){
+        var v=f.getAttribute(a);
+        if(v) f.setAttribute(a, v+'&disableExpressCheckout=true');
+      });
+    });
+  }
+  var smooth=!matchMedia('(prefers-reduced-motion: reduce)').matches;
+  window.addEventListener('message',function(e){
+    if(e.origin!=='https://www.zeffy.com') return;
+    var d=e.data;
+    if(!d||typeof d!=='object'||typeof d.type!=='string') return;
+    var f=frames.filter(function(x){ return x.contentWindow===e.source; })[0];
+    if(!f) return;
+    if(d.type==='zeffy-embed:resized'){
+      var h=Math.ceil(Number(d.height));
+      if(h>0) f.style.height=h+'px';
+    } else if(d.type==='zeffy-embed:step-changed'||d.type==='zeffy-embed:thank-you-page-shown'){
+      /* a shorter next step can leave the reader scrolled past the form */
+      f.scrollIntoView({behavior:smooth?'smooth':'auto',
+        block:d.type==='zeffy-embed:step-changed'?'nearest':'start'});
+    }
   });
 })();
 </script>
