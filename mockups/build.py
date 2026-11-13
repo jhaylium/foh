@@ -279,9 +279,9 @@ SITE_PAGES = {
                      "grouped by sponsorship level."),
     "de-partners":  ("become-a-sponsor.html", "Become a Sponsor",
                      "Five business sponsorship levels, from $250 to $5,000. Your logo on "
-                     "600 t-shirts, the school marquee and both entrances."),
+                     "600 t-shirts, the school marquee, and both entrances."),
     "de-takepart":  ("take-part.html", "Take Part",
-                     "Hugs from Henry, Rent the Spirit Rock and Spirit Nights -- three ways "
+                     "Hugs from Henry, Rent the Spirit Rock, and Spirit Nights -- three ways "
                      "to support the school that cost little or nothing."),
     "de-parents":   ("meet-the-parents.html", "Meet the Parents",
                      "The Friends of Hendricks is run entirely by parent volunteers. The "

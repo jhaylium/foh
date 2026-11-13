@@ -142,7 +142,7 @@ footer b{{color:#0B2340}}
 <tbody>{"".join(body)}</tbody></table>
 <div class="notes">
   <div><b>Credit a student.</b> Sponsorship dollars can be credited to a student of your
-    choice &mdash; child, grandchild, niece or nephew &mdash; toward the Walkathon incentive
+    choice &mdash; child, grandchild, niece, or nephew &mdash; toward the Walkathon incentive
     parties. Tell us the relationship when you get in touch.</div>
   <div><b>Tax deductible.</b> The Friends of Hendricks is a 501(c)(3) nonprofit, Tax ID
     20-4931978. Every dollar is given to Hendricks Avenue Elementary through a grant process.</div>
