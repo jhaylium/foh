@@ -1,0 +1,225 @@
+# Pages CMS -- the editing screen the board uses (https://app.pagescms.org).
+#
+# Every file below is read by mockups/content.py when the site is built. A save
+# here commits to main; .github/workflows/pages.yml then rebuilds and publishes
+# the site, which takes about two minutes. If a value cannot be used (a date
+# that is not a date, a logo that is not an image), the build stops and the
+# site stays as it was -- the error is on the repository's Actions tab.
+#
+# Only the content that changes from year to year is here. Page text stays in
+# mockups/src/.
+
+media:
+  - name: logos
+    label: Sponsor logos
+    input: content/media/sponsors
+    output: /content/media/sponsors
+    extensions: [jpg, jpeg, png, webp]
+  - name: flyers
+    label: Flyers
+    input: content/media/flyers
+    output: /content/media/flyers
+    extensions: [jpg, jpeg, png, webp]
+
+settings:
+  content:
+    merge: true          # keep anything in a file this form doesn't know about
+  commit:
+    identity: user       # record which board member made each change
+
+content:
+  - name: sponsors
+    label: Sponsors
+    type: file
+    path: content/sponsors.json
+    format: json
+    fields:
+      - name: school_year
+        label: School year
+        type: string
+        required: true
+        description: The year these sponsors are for, written like 2025-26.
+      - name: sponsors
+        label: Sponsors
+        type: object
+        description: >-
+          Shown on the site in this order within each level. The site counts
+          them for "Forty-eight businesses said yes", so that updates on its own.
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{name} ({level})"
+        fields:
+          - name: name
+            label: Business name
+            type: string
+            required: true
+            description: As it should appear under the logo.
+          - name: level
+            label: Level
+            type: select
+            required: true
+            options:
+              values:
+                - Visionary Partner
+                - Legacy Circle
+                - Investor Circle
+                - Builders Circle
+                - Friends Circle
+          - name: website
+            label: Website
+            type: string
+            description: >-
+              Optional. The logo links here. Leave empty if you're not sure it's
+              the right business.
+          - name: logo
+            label: Logo
+            type: image
+            description: >-
+              Not needed for Friends Circle, which is listed by name. Any size
+              is fine. The site trims blank margins and shrinks it.
+            options:
+              media: logos
+              extensions: [jpg, jpeg, png, webp]
+
+  - name: walkathon
+    label: Walkathon
+    type: file
+    path: content/walkathon.json
+    format: json
+    fields:
+      - name: date
+        label: Walkathon date
+        type: date
+        required: true
+        description: >-
+          Every date on the site comes from this, along with "the 15th annual",
+          which is worked out from the year.
+        options:
+          format: yyyy-MM-dd
+      - name: goal
+        label: Fundraising goal ($)
+        type: number
+        required: true
+        description: Whole dollars, no $ sign or commas, like 50000.
+        options:
+          min: 1
+
+  - name: birthday-club
+    label: Hugs from Henry Birthday Club
+    type: file
+    path: content/birthday-club.json
+    format: json
+    fields:
+      - name: school_year
+        label: School year
+        type: string
+        required: true
+        description: Written like 2026-27.
+      - name: parties
+        label: Party dates
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{date}"
+        fields:
+          - name: date
+            label: Date
+            type: date
+            required: true
+            options:
+              format: yyyy-MM-dd
+          - name: note
+            label: Note
+            type: string
+            description: Optional, e.g. "August and September birthdays".
+
+  - name: spirit-nights
+    label: Spirit Nights
+    type: file
+    path: content/spirit-nights.json
+    format: json
+    fields:
+      - name: school_year
+        label: School year
+        type: string
+        required: true
+        description: Written like 2026-27.
+      - name: nights
+        label: Spirit Nights
+        type: object
+        description: The site adds "More to come!" after the last one.
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{date} {restaurant}"
+        fields:
+          - name: date
+            label: Date
+            type: date
+            required: true
+            options:
+              format: yyyy-MM-dd
+          - name: hours
+            label: Hours
+            type: string
+            description: Like 5-7pm
+          - name: restaurant
+            label: Restaurant
+            type: string
+            required: true
+          - name: give_back
+            label: What comes back to the school
+            type: string
+            description: Like 10% of sales
+          - name: extra
+            label: Anything else
+            type: string
+            description: Optional, e.g. a code to use when ordering online.
+      - name: flyer
+        label: Flyer
+        type: image
+        required: true
+        options:
+          media: flyers
+          extensions: [jpg, jpeg, png, webp]
+      - name: flyer_description
+        label: What the flyer says
+        type: text
+        required: true
+        description: >-
+          Read aloud to visitors who can't see the image. List the restaurants
+          and dates the flyer shows.
+
+  - name: board
+    label: Board
+    type: file
+    path: content/board.json
+    format: json
+    fields:
+      - name: school_year
+        label: School year
+        type: string
+        required: true
+        description: Written like 2026-27.
+      - name: officers
+        label: Officers
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{role}: {name}"
+        fields:
+          - name: role
+            label: Role
+            type: string
+            required: true
+          - name: name
+            label: Name
+            type: string
+            required: true
+      - name: directors
+        label: Directors
+        type: string
+        list: true

@@ -1,0 +1,35 @@
+{
+  "school_year": "2026-27",
+  "flyer": "/content/media/flyers/spirit-nights.webp",
+  "flyer_description": "Flyer listing the upcoming Hendricks Avenue Elementary Spirit Nights: Gators Ice Cream on Friday August 28, Chick-Fil-A Lakewood on Monday September 14, Cookie Fix on Thursday October 8, and Chipotle Lakewood on Wednesday November 18",
+  "nights": [
+    {
+      "date": "2026-08-28",
+      "hours": "3-7pm",
+      "restaurant": "Gators Ice Cream",
+      "give_back": "15% of sales",
+      "extra": ""
+    },
+    {
+      "date": "2026-09-14",
+      "hours": "5-7pm",
+      "restaurant": "Chick-Fil-A Lakewood",
+      "give_back": "10% of sales",
+      "extra": ""
+    },
+    {
+      "date": "2026-10-08",
+      "hours": "3-6pm",
+      "restaurant": "Cookie Fix",
+      "give_back": "10% of sales",
+      "extra": ""
+    },
+    {
+      "date": "2026-11-18",
+      "hours": "4-8pm",
+      "restaurant": "Chipotle Lakewood",
+      "give_back": "25% of sales",
+      "extra": "online/app code GBT9687"
+    }
+  ]
+}

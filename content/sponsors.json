@@ -1,0 +1,293 @@
+{
+  "school_year": "2025-26",
+  "sponsors": [
+    {
+      "name": "State Farm — Matt Carlucci, Agent",
+      "level": "Visionary Partner",
+      "website": "https://www.statefarm.com/agent/us/fl/jacksonville/matt-carlucci-90z1p1ys000",
+      "logo": "/content/media/sponsors/statefarm.jpg"
+    },
+    {
+      "name": "Dopazo Orthodontics",
+      "level": "Legacy Circle",
+      "website": "https://dopazoortho.com/",
+      "logo": "/content/media/sponsors/dopazo.jpg"
+    },
+    {
+      "name": "Superior Fence & Rail",
+      "level": "Legacy Circle",
+      "website": "https://www.superiorfenceandrail.com/north-florida/",
+      "logo": "/content/media/sponsors/superior.jpg"
+    },
+    {
+      "name": "Magnuson Hotel Jacksonville Downtown",
+      "level": "Legacy Circle",
+      "website": "https://www.magnusonhotels.com/magnuson-hotel-jacksonville-downtown/",
+      "logo": "/content/media/sponsors/magnuson.jpg"
+    },
+    {
+      "name": "The Promise 100.7",
+      "level": "Legacy Circle",
+      "website": "https://ilovethepromise.com/",
+      "logo": "/content/media/sponsors/promise.jpg"
+    },
+    {
+      "name": "The Riley Family",
+      "level": "Legacy Circle",
+      "website": "",
+      "logo": "/content/media/sponsors/riley.jpg"
+    },
+    {
+      "name": "Normandy Lake Dentistry",
+      "level": "Investor Circle",
+      "website": "https://normandylakewooddentistry.com/",
+      "logo": "/content/media/sponsors/normandy.jpg"
+    },
+    {
+      "name": "Mullens & Nguyen Distinctive Dentistry",
+      "level": "Investor Circle",
+      "website": "https://distinctivedentistryjax.com/",
+      "logo": "/content/media/sponsors/mullens.jpg"
+    },
+    {
+      "name": "Otterson Wealth Advisors of Raymond James",
+      "level": "Investor Circle",
+      "website": "",
+      "logo": "/content/media/sponsors/otterson.jpg"
+    },
+    {
+      "name": "Blount Builds",
+      "level": "Investor Circle",
+      "website": "https://www.blountbuilds.com/",
+      "logo": "/content/media/sponsors/blount.jpg"
+    },
+    {
+      "name": "P&L Automotive, Inc.",
+      "level": "Investor Circle",
+      "website": "",
+      "logo": "/content/media/sponsors/plauto.jpg"
+    },
+    {
+      "name": "TapeSouth",
+      "level": "Investor Circle",
+      "website": "",
+      "logo": "/content/media/sponsors/tapesouth.jpg"
+    },
+    {
+      "name": "Bee Home Realty",
+      "level": "Investor Circle",
+      "website": "https://www.beehomerealty.com/",
+      "logo": "/content/media/sponsors/beehome.jpg"
+    },
+    {
+      "name": "The UPS Store San Marco",
+      "level": "Investor Circle",
+      "website": "",
+      "logo": "/content/media/sponsors/upsstore.jpg"
+    },
+    {
+      "name": "Jaycox Architects & Associates",
+      "level": "Investor Circle",
+      "website": "https://www.jaycoxarchitects.com/",
+      "logo": "/content/media/sponsors/jaycox.jpg"
+    },
+    {
+      "name": "Heyday!",
+      "level": "Investor Circle",
+      "website": "https://heydaykids.com/",
+      "logo": "/content/media/sponsors/heyday.jpg"
+    },
+    {
+      "name": "The Vein Institute",
+      "level": "Investor Circle",
+      "website": "https://veininstitutejax.com/",
+      "logo": "/content/media/sponsors/vein.jpg"
+    },
+    {
+      "name": "Andrew Brown, MD — Borland Groover",
+      "level": "Investor Circle",
+      "website": "https://borlandgroover.com/physicians/andrew-brown/",
+      "logo": "/content/media/sponsors/brown.jpg"
+    },
+    {
+      "name": "Stellers Framing",
+      "level": "Builders Circle",
+      "website": "https://www.stellersgallery.com/services",
+      "logo": "/content/media/sponsors/stellers.jpg"
+    },
+    {
+      "name": "Grit Camp",
+      "level": "Builders Circle",
+      "website": "https://www.grit.org/gritcamp",
+      "logo": "/content/media/sponsors/gritcamp.jpg"
+    },
+    {
+      "name": "Regina & Joy Team, RE/MAX Specialists",
+      "level": "Builders Circle",
+      "website": "",
+      "logo": "/content/media/sponsors/reginajoy.jpg"
+    },
+    {
+      "name": "Pivot Pilates",
+      "level": "Builders Circle",
+      "website": "https://www.pivot-pilates.com/",
+      "logo": "/content/media/sponsors/pivot.jpg"
+    },
+    {
+      "name": "Taverna / Oceana",
+      "level": "Builders Circle",
+      "website": "https://taverna.restaurant/",
+      "logo": "/content/media/sponsors/taverna.jpg"
+    },
+    {
+      "name": "Wick, A Candle Bar",
+      "level": "Builders Circle",
+      "website": "https://www.wickacandlebar.com/",
+      "logo": "/content/media/sponsors/wick.jpg"
+    },
+    {
+      "name": "RiverPoint Real Estate",
+      "level": "Builders Circle",
+      "website": "https://www.riverpointrealestate.com/",
+      "logo": "/content/media/sponsors/riverpoint.jpg"
+    },
+    {
+      "name": "JCA",
+      "level": "Builders Circle",
+      "website": "https://jcajax.org/",
+      "logo": "/content/media/sponsors/jca.jpg"
+    },
+    {
+      "name": "Ross Garden Design",
+      "level": "Builders Circle",
+      "website": "https://www.rossgardendesignusa.com/",
+      "logo": "/content/media/sponsors/rossgarden.jpg"
+    },
+    {
+      "name": "Intercoastal Health",
+      "level": "Builders Circle",
+      "website": "https://www.intercoastalhealth.com/",
+      "logo": "/content/media/sponsors/intercoastal.jpg"
+    },
+    {
+      "name": "Riverplace Capital",
+      "level": "Builders Circle",
+      "website": "https://www.riverplacecapital.com/",
+      "logo": "/content/media/sponsors/riverplace.jpg"
+    },
+    {
+      "name": "Duval Tree Surgeons",
+      "level": "Builders Circle",
+      "website": "",
+      "logo": "/content/media/sponsors/treesurgeons.jpg"
+    },
+    {
+      "name": "Tile Market of San Marco",
+      "level": "Builders Circle",
+      "website": "https://tilemarket.net/",
+      "logo": "/content/media/sponsors/tilemarket.jpg"
+    },
+    {
+      "name": "Allison James Estates & Homes Elite",
+      "level": "Builders Circle",
+      "website": "",
+      "logo": "/content/media/sponsors/allisonjames.jpg"
+    },
+    {
+      "name": "Players Locker Room",
+      "level": "Builders Circle",
+      "website": "https://playerslockerroom.com/",
+      "logo": "/content/media/sponsors/players.jpg"
+    },
+    {
+      "name": "Faben Obstetrics and Gynecology",
+      "level": "Builders Circle",
+      "website": "https://www.fabenobgyn.com/",
+      "logo": "/content/media/sponsors/faben.jpg"
+    },
+    {
+      "name": "Cookie Fix",
+      "level": "Builders Circle",
+      "website": "https://www.cookiefix.com/san-marco",
+      "logo": "/content/media/sponsors/cookiefix.jpg"
+    },
+    {
+      "name": "Coach Polster's Summer Camp",
+      "level": "Builders Circle",
+      "website": "https://www.coachpolsterscamps.com/",
+      "logo": "/content/media/sponsors/coachpolster.jpg"
+    },
+    {
+      "name": "Kristian Carter Nutrition + Wellness",
+      "level": "Builders Circle",
+      "website": "",
+      "logo": "/content/media/sponsors/kristiancarter.jpg"
+    },
+    {
+      "name": "Florida Land Strategies",
+      "level": "Friends Circle",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "WeeTrade",
+      "level": "Friends Circle",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Fore Score",
+      "level": "Friends Circle",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Grit & Grace Counseling",
+      "level": "Friends Circle",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Murphy Anderson Law",
+      "level": "Friends Circle",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Cheer Stars",
+      "level": "Friends Circle",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Effective Computer Solutions",
+      "level": "Friends Circle",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Wicked Branding & Graphix",
+      "level": "Friends Circle",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Gwynne Mims Salon",
+      "level": "Friends Circle",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Dance for Joy",
+      "level": "Friends Circle",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Splish Splash Swim Academy",
+      "level": "Friends Circle",
+      "website": "",
+      "logo": ""
+    }
+  ]
+}

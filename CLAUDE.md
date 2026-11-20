@@ -13,8 +13,9 @@ competing design directions to the organization's board, who will pick one. No f
 package manager, no tests, no dependencies beyond Python 3 with Pillow. The chosen direction
 becomes a real site later; nothing here is the production site.
 
-Hosting, content editing and form handling are **deliberately undecided** — see
-`docs/hosting-and-decisions.md`. Don't resolve those without being asked.
+Hosting and form handling are **deliberately undecided** — see
+`docs/hosting-and-decisions.md`. Don't resolve those without being asked. Content editing
+is decided: the board chose **Pages CMS** (2026-11-20) — see "Board editing" below.
 
 ## Build
 
@@ -24,19 +25,42 @@ python3 mockups/build.py --site   # mockups/src/de-*.html -> site/        (a rea
 python3 mockups/encode_mobile.py  # docs/videos/*-540.mp4, the phone-sized clips
 python3 mockups/cut_clips.py      # docs/videos/arrival*.mp4, the warm clip with bad shots cut
 python3 mockups/encode_videos.py  # regenerate mockups/.videos.json from docs/videos/
-python3 mockups/trim_sponsors.py  # trim logo margins, record each logo's shape ("ar")
 uv run --no-project --with weasyprint mockups/levels_pdf.py   # mockups/sponsor-levels.pdf
 ```
 
-**The sponsor walls are generated, not written.** `{{SPONSOR_WALL_LEGACY}}` (and
-`_VISIONARY`, `_INVESTORS`, `_BUILDERS`) expands from `.sponsor-names.json` alongside the
-partials. Each entry has `key`, `tier`, `name`, `url` and `ar`; a non-empty `url` turns the
-card into a link out, an empty one leaves a plain box. Logos are sized by **area**, not by
-filling the card — `AREA` in `build.py` — so a long wordmark and a square badge carry about
-the same weight. Next year's sponsors: add the JPEG to `.sponsors.json`, the entry to
-`.sponsor-names.json`, run `trim_sponsors.py`, rebuild.
+## Board editing (Pages CMS)
 
-**28 of the 37 `url` fields are filled (2026-11-04).** A link went in only if the business's
+**What changes every year lives in `content/*.json`, not in the pages.** Five files:
+`sponsors.json` (all 48, with level, website and a logo path), `walkathon.json` (date, goal),
+`birthday-club.json`, `spirit-nights.json` (dates plus the flyer) and `board.json`. Logos and
+the flyer are real files under `content/media/`. `mockups/content.py` reads them and turns
+them into tokens: `{{SPONSOR_WALL_*}}`, `{{SPONSOR_NAMES_FRIENDS}}`, `{{SPONSOR_COUNT_WORDS_CAP}}`
+("Forty-eight"), `{{SPONSOR_VISIONARY_LEAD}}`, `{{WALK_DATE_*}}`, `{{WALK_EDITION}}` (the
+year minus 2012, so 2027 is the 15th), `{{WALK_GOAL}}`, `{{HENRY_DATES}}`, `{{SPIRIT_NIGHTS}}`,
+`{{SPIRIT_FLYER}}`, `{{BOARD_OFFICERS}}` and the school-year labels. **Never type one of those
+facts back into a page** — change the JSON, or the board's next edit will not reach it.
+
+`.pages.yml` at the repo root is the editing form for those five files. A save in Pages CMS
+commits to `main`, and `pages.yml` rebuilds and publishes. Editors are invited by email from
+inside Pages CMS; their addresses are kept there, not in this repository.
+
+`content.py` assumes a person typed every value. A bad date, an unknown level, a missing logo
+or an image Pillow cannot open **stops the build** with `content/<file>: <entry>: <problem>`,
+and GitHub leaves the last good site up. Prefer adding a check there to publishing a page with
+a hole in it.
+
+**Uploaded logos are processed at build time**, which is what `trim_sponsors.py` used to do
+by hand: transparent PNGs flattened onto white (a bare `convert("RGB")` makes them black),
+margins trimmed, scaled to 400px, saved as JPEG. A logo already trimmed and small passes
+through byte for byte, which is why the migration produced identical files. Each logo's shape
+(width / height) is measured then too, and logos are sized by **area**, not by filling the card
+(`AREA` in `content.py`), so a long wordmark and a square badge carry about the same weight. A
+non-empty `website` turns the card into a link out, an empty one leaves a plain box.
+
+`sponsor-levels.pdf` is **not** rebuilt on GitHub. It prints the Walkathon date, so after the
+date changes, rerun `levels_pdf.py` locally and commit the PDF.
+
+**28 of the 37 website fields are filled (2026-11-04).** A link went in only if the business's
 own page loaded and showed its name plus a Jacksonville address or 904 number. For a franchise
 or large firm, the link is this location's or this person's page: Matt Carlucci's State Farm
 agent page, Dr. Brown's Borland Groover profile, the San Marco Cookie Fix. The nine still empty
@@ -73,8 +97,11 @@ own:
 
 Site mode **prunes anything no page references** — it dropped 3.7 MB on the first run,
 including the unused third video clip. `site/` is wiped and rewritten each time, so never
-hand-edit it. It *is* committed, because the video comes from git-ignored `.videos.json`
-and a CI runner could not rebuild it; `.github/workflows/pages.yml` uploads the folder as-is.
+hand-edit it. **It is no longer committed (2026-11-20)** — `.github/workflows/pages.yml`
+builds it on every push, which is what lets a Pages CMS save go live. That works because the
+four clips it plays (`arrival`, `arrival_sm`, `reel`, `reel_sm`) are real MP4s in
+`mockups/video/`, which wins over the same name in `.videos.json`. The clips only the frozen
+A–E pages use still come from git-ignored `.videos.json`.
 
 **Always edit `mockups/src/`, never `mockups/*.html`** — the latter are generated and will be
 overwritten.
@@ -121,8 +148,10 @@ not. The five that do declare `:root{--photo:url("{{HERO}}")}` in their own styl
 after `{{> base }}`. If you add a `.media .layer` to a page, add that declaration too or the
 backdrop comes up empty.
 
-`spiritNight` is the **one WebP** in `.assets.json`; every other image is JPEG or PNG. It is
-the Upcoming Spirit Nights flyer, which is flat color and dense lettering — the case JPEG is
+The Spirit Nights flyer is the **one WebP** on the live site (`content/media/flyers/`, via
+`{{SPIRIT_FLYER}}`; the `spiritNight` copy in `.assets.json` is only for the frozen `b-home`).
+`content.py` passes an upload of up to 1200px wide through as it is and saves anything wider
+as WebP q90. It is the Upcoming Spirit Nights flyer, which is flat color and dense lettering — the case JPEG is
 worst at. WebP q90 comes out at 142 KB where JPEG q86 needs 203 KB *and* smears the text.
 Re-encode it from `docs/photos/spirit-night.webp`, not from the old 760×760 banner it
 replaced. The flyer is portrait, so its `.shot` on `de-takepart` carries `.tall` (4/5) —
@@ -137,8 +166,8 @@ back to a still photograph.
 | File | Size | Tracked | Why |
 |---|---|---|---|
 | `mockups/.assets.json` | ~3.6 MB | **yes** | Images as data URIs. `docs/` is git-ignored, so this is the only committed copy of the logo and photography — the build cannot run without it. |
-| `mockups/.sponsors.json` | ~790 KB | **yes** | The 37 sponsor logos, downscaled to 400px, as data URIs — `{{SPONSOR_DOPAZO}}` and so on. Same reasoning as `.assets.json`: `docs/` is git-ignored, so this is the only committed copy. |
-| `mockups/.sponsor-names.json` | ~6 KB | **yes** | Which logo belongs to which business, at which level, its website, and its shape. Names read off the artwork, not guessed. |
+| `content/*.json` + `content/media/` | ~1 MB | **yes** | The yearly content the board edits in Pages CMS: sponsors (names read off the artwork, not guessed), logos, dates, flyer, board. Replaced `.sponsors.json` and `.sponsor-names.json`. |
+| `mockups/video/*.mp4` | ~5 MB | **yes** | The four clips `site/` plays, so GitHub can build without `.videos.json`. Commit a new encode once, when it is final — git keeps every version. |
 | `mockups/sponsor-levels.pdf` | ~90 KB | **yes** | Made by `levels_pdf.py`; the build only copies it. |
 | `mockups/.links.json` | ~700 B | **yes** | Page key → Artifact URL. |
 | `mockups/.zeffy.json` | ~1 KB | **yes** | The four Zeffy campaigns: public `url`, iframe `embed`, starting heights. |
@@ -468,7 +497,7 @@ don't carry an assumption across.
 
 **The sponsor names are now settled — 48 of 49.** The 37 logo images were downloaded from the
 live site and read; every business name is printed inside its own mark, so nothing was guessed.
-`mockups/.sponsor-names.json` is the mapping. Several file names actively mislead and the brief
+`content/sponsors.json` is the mapping. Several file names actively mislead and the brief
 had them wrong: `dapazo` is **Dopazo Orthodontics**, `UPS-web` is **Heyday!** (not the UPS
 Store, which is a separate sponsor), `PL-1` is **P&L Automotive**, `CP-Web` is **Coach Polster's
 Summer Camp**, `AJWeb` is **Allison James Estates & Homes Elite**, `PLR` is **Players Locker

@@ -36,8 +36,8 @@
   <div class="veil"></div>
   <button class="mctl" type="button" id="mbtn" aria-pressed="true">Motion on</button>
   <div class="wrap inner">
-    <p class="tag">The 15th annual Walkathon</p>
-    <p class="bigdate"><span>Saturday</span>February 20, 2027</p>
+    <p class="tag">The {{WALK_EDITION}} annual Walkathon</p>
+    <p class="bigdate"><span>{{WALK_WEEKDAY}}</span>{{WALK_DATE}}</p>
     <h1 style="margin-top:26px">They walk.<br><em>We all pay up.</em></h1>
     <p class="lede">The Walkathon is the largest thing we do all year. Students collect pledges
       from friends, family, and business partners, then they walk. Everything raised goes back
@@ -52,8 +52,8 @@
 
 <section class="strip">
   <div class="wrap"><div class="strip-in">
-    <div class="ch"><b>Feb 20</b><p>Saturday, 2027 &mdash; the 15th annual</p></div>
-    <div class="ch"><b>$50,000</b><p>this year's goal</p></div>
+    <div class="ch"><b>{{WALK_DATE_SHORT}}</b><p>{{WALK_WEEKDAY}}, {{WALK_YEAR}} &mdash; the {{WALK_EDITION}} annual</p></div>
+    <div class="ch"><b>{{WALK_GOAL}}</b><p>this year's goal</p></div>
     <div class="ch"><b>650+</b><p>students taking part</p></div>
     <div class="ch"><b>1 day</b><p>the whole neighborhood turns out</p></div>
   </div></div>
@@ -62,11 +62,11 @@
 <section class="sect">
   <div class="wrap">
     <div class="said mid rv">
-      <p class="tag red">Now accepting donations for 2027</p>
+      <p class="tag red">Now accepting donations for {{WALK_YEAR}}</p>
       <h2 style="margin-top:18px">Thank you for standing strong for our school.</h2>
     </div>
-    <p class="after rv">We are excited about our 15th annual Walkathon happening on Saturday,
-      February 20th. Walkathon is The Friends of Hendricks' largest annual fundraiser. We work
+    <p class="after rv">We are excited about our {{WALK_EDITION}} annual Walkathon happening on {{WALK_WEEKDAY}},
+      {{WALK_DATE_ORD}}. Walkathon is The Friends of Hendricks' largest annual fundraiser. We work
       together with friends, families, and business partners to raise money, and these donations
       support Hendricks Avenue Elementary in the form of grants.</p>
 
@@ -78,9 +78,9 @@
 
     <div class="goal rv">
       <p class="tag">The goal</p>
-      <p class="disp" style="font-size:clamp(1.6rem,3.4vw,2.4rem);margin-top:10px">$50,000</p>
+      <p class="disp" style="font-size:clamp(1.6rem,3.4vw,2.4rem);margin-top:10px">{{WALK_GOAL}}</p>
       <div class="bar"><i></i></div>
-      <div class="ends"><span>Raised so far</span><span>$50,000</span></div>
+      <div class="ends"><span>Raised so far</span><span>{{WALK_GOAL}}</span></div>
       <p class="needs">Amount raised to date &mdash; the bar above is a placeholder until the board supplies the real figure</p>
     </div>
   </div>
@@ -118,7 +118,7 @@
           <dd>The Friends of Hendricks is a 501(c)(3). Tax ID 20-4931978 &mdash; most employers
             will match a gift if you ask.</dd>
           <dt>The date</dt>
-          <dd>Saturday, February 20, 2027.</dd>
+          <dd>{{WALK_DATE_FULL}}.</dd>
           <dt>Questions</dt>
           <dd><a href="mailto:walkathon.foh@gmail.com">walkathon.foh@gmail.com</a></dd>
         </dl>

@@ -1,0 +1,41 @@
+{
+  "school_year": "2026-27",
+  "parties": [
+    {
+      "date": "2026-09-25",
+      "note": "August and September birthdays"
+    },
+    {
+      "date": "2026-10-23",
+      "note": ""
+    },
+    {
+      "date": "2026-11-13",
+      "note": ""
+    },
+    {
+      "date": "2026-12-11",
+      "note": ""
+    },
+    {
+      "date": "2027-01-22",
+      "note": ""
+    },
+    {
+      "date": "2027-02-26",
+      "note": ""
+    },
+    {
+      "date": "2027-03-10",
+      "note": ""
+    },
+    {
+      "date": "2027-04-23",
+      "note": ""
+    },
+    {
+      "date": "2027-05-14",
+      "note": "May, June, and July birthdays"
+    }
+  ]
+}

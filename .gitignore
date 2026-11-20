@@ -4,3 +4,10 @@ docs/
 
 # Derived: ~11 MB of base64 video. Regenerate with mockups/encode_videos.py
 mockups/.videos.json
+
+# Built by .github/workflows/pages.yml on every push. Rebuild locally with
+# python3 mockups/build.py --site to look at it; never edit it by hand.
+site/
+
+# Python bytecode from importing mockups/content.py
+__pycache__/

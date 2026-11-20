@@ -1,11 +1,17 @@
 #!/usr/bin/env python3
 """Inject data-URI assets into mockup sources. Run: python3 mockups/build.py
 
-Images live in .assets.json (small, committed). Sponsor logos live in
-.sponsors.json (committed). Videos live in .videos.json (large, NOT committed --
-regenerate with encode_videos.py from docs/videos/). Any {{VIDEO_*}} token whose
-asset is missing is replaced with an empty string, so the pages still build and
-fall back to the drifting still photograph.
+Images live in .assets.json (small, committed). The four clips the live site
+plays are real files in video/ (committed, so GitHub can run this build); the
+clips only the frozen A-E pages use live in .videos.json (large, NOT committed
+-- regenerate with encode_videos.py from docs/videos/). Any {{VIDEO_*}} token
+whose asset is missing is replaced with an empty string, so the pages still
+build and fall back to the drifting still photograph.
+
+Everything that changes every year -- sponsors and their logos, the Walkathon
+date and goal, the birthday club and Spirit Night dates, the board -- comes
+from content/*.json, which the board edits through Pages CMS. content.py reads
+it; see that file.
 
 Two things beyond substitution, both added when the site grew from two pages to
 seven:
@@ -36,7 +42,9 @@ Two outputs, from the same seven sources:
 The two differ only in what the tokens resolve to, which is the whole reason the
 sources go through tokens rather than carrying URLs of their own.
 """
-import base64, html as htmlmod, json, math, pathlib, re, shutil, sys
+import base64, json, pathlib, re, shutil, sys
+
+import content
 
 root = pathlib.Path(__file__).parent
 partials_dir = root / "src" / "_partials"
@@ -48,8 +56,12 @@ def load(name, default=None):
 
 
 assets = load(".assets.json")
-sponsors = load(".sponsors.json")
 videos = load(".videos.json")
+# A clip in video/ wins over the same name in .videos.json. These are the ones
+# site/ ships, so a checkout with no .videos.json -- GitHub's -- still has them.
+video_files = {f.stem: f for f in sorted((root / "video").glob("*.mp4"))}
+for name, f in video_files.items():
+    videos[name] = "data:video/mp4;base64," + base64.b64encode(f.read_bytes()).decode()
 links = load(".links.json")
 zeffy = load(".zeffy.json")
 
@@ -60,8 +72,6 @@ def _tok(k):
 
 
 tokens = {_tok(k): v for k, v in assets.items()}
-for name, uri in sponsors.items():
-    tokens["{{SPONSOR_" + name.upper() + "}}"] = uri
 for name, uri in videos.items():
     tokens["{{VIDEO_" + name.upper() + "}}"] = uri
 for name, url in links.items():
@@ -154,55 +164,12 @@ for token, (name, mime) in DOWNLOADS.items():
         tokens[token] = f"data:{mime};base64," + base64.b64encode(f.read_bytes()).decode()
 
 
-# ---------------------------------------------------------------- sponsor walls
+# ---------------------------------------------------------------- content
 
-# {{SPONSOR_WALL_LEGACY}} and friends: one level's logos, generated from
-# .sponsor-names.json so that next year's list is an edit to one file rather
-# than to every page that shows the wall. Each entry carries:
-#
-#   key   the logo in .sponsors.json -> {{SPONSOR_KEY}}
-#   tier  visionary / legacy / investors / builders
-#   name  as printed under the logo, and its alt text
-#   url   the business's website. Empty means not supplied yet, and the logo
-#         is then a plain box rather than a link to nowhere.
-#   ar    width / height, written by trim_sponsors.py
-#
-# Logos are sized by AREA, not by "fill the box". Filling the box makes a
-# square badge as tall as the card and a long wordmark a thin stripe, so the
-# eye reads the badge as the bigger sponsor. Giving each logo the same share of
-# the card's area evens that out: a logo of shape ar fills sqrt(0.75 * AREA * ar)
-# of the card's width (the card is 4:3), capped where it would hit the top and
-# bottom or the sides.
-
-sponsor_names = load(".sponsor-names.json", default=[])
-AREA = 0.56
-
-
-def logo_width(ar):
-    w = math.sqrt(0.75 * AREA * ar)
-    return min(w, 0.75 * ar, 0.94)  # 0.75*ar is where its height meets the card's
-
-
-def sponsor_wall(tier):
-    out = []
-    for s in sponsor_names:
-        if s["tier"] != tier:
-            continue
-        name = htmlmod.escape(s["name"])
-        width = round(logo_width(s.get("ar", 1.0)) * 100, 1)
-        img = (f'<img src="{{{{SPONSOR_{s["key"]}}}}}" alt="{name}" '
-               f'style="width:{width}%" loading="lazy">')
-        url = s.get("url", "")
-        if url:
-            card = (f'<a class="card" href="{htmlmod.escape(url)}" target="_blank" '
-                    f'rel="noopener">{img}</a>')
-        else:
-            card = f'<div class="card">{img}</div>'
-        out.append(f'      <div class="slot">{card}<p class="nm">{name}</p></div>')
-    return "\n".join(out)
-
-
-WALL = re.compile(r"\{\{SPONSOR_WALL_([A-Z]+)\}\}")
+# In the mockups every image is a data URI; build_site() passes its own place()
+# that writes a file instead.
+tokens.update(content.tokens(
+    lambda data, mime, name: f"data:{mime};base64," + base64.b64encode(data).decode()))
 
 
 PARTIAL = re.compile(r"\{\{>\s*([a-z0-9_-]+)\s*\}\}")
@@ -222,10 +189,7 @@ def expand(html, src_name, depth=0):
             return ""
         return expand(p.read_text().rstrip("\n"), src_name, depth + 1)
 
-    html = PARTIAL.sub(one, html)
-    # Walls expand here, with the partials, because what they write still holds
-    # {{SPONSOR_KEY}} tokens for the substitution pass that follows.
-    return WALL.sub(lambda m: sponsor_wall(m.group(1).lower()), html) if depth == 0 else html
+    return PARTIAL.sub(one, html)
 
 
 built = 0
@@ -272,7 +236,7 @@ SITE_PAGES = {
                      "Give to The Friends of Hendricks. A 501(c)(3) nonprofit -- every "
                      "dollar stays inside Hendricks Avenue Elementary."),
     "de-walkathon": ("walkathon.html", "The Walkathon",
-                     "The 15th annual Walkathon, Saturday 20 February 2027. Students collect "
+                     "The {{WALK_EDITION}} annual Walkathon, {{WALK_DATE_META}}. Students collect "
                      "pledges, then they walk."),
     "de-sponsors":  ("sponsors.html", "Our Sponsors",
                      "The local businesses backing Hendricks Avenue Elementary in 2025-26, "
@@ -338,16 +302,26 @@ def build_site():
         if rel:
             site_tokens[_tok(k)] = rel
             written += 1
-    for name, uri in sponsors.items():
-        rel = _write_asset(uri, out, f"img/sponsors/{name.lower()}")
-        if rel:
-            site_tokens["{{SPONSOR_" + name.upper() + "}}"] = rel
-            written += 1
     for name, uri in videos.items():
-        rel = _write_asset(uri, out, f"video/{name.lower()}")
+        if name in video_files:         # copy the file; no need to round-trip base64
+            rel = f"video/{name.lower()}.mp4"
+            (out / "video").mkdir(exist_ok=True)
+            shutil.copyfile(video_files[name], out / rel)
+        else:
+            rel = _write_asset(uri, out, f"video/{name.lower()}")
         if rel:
             site_tokens["{{VIDEO_" + name.upper() + "}}"] = rel
             written += 1
+
+    def place(data, mime, name):
+        nonlocal written
+        written += 1
+        rel = f"{name}.{EXT[mime]}"
+        (out / rel).parent.mkdir(parents=True, exist_ok=True)
+        (out / rel).write_bytes(data)
+        return rel
+
+    site_tokens.update(content.tokens(place))
     for src_name, (filename, _t, _d) in SITE_PAGES.items():
         site_tokens["{{URL_" + src_name.replace("de-", "").upper() + "}}"] = filename
     site_tokens.update(zeffy_tokens(site=True))
@@ -376,6 +350,8 @@ def build_site():
             print(f"  !! {src_name}: no <style> to split on", file=sys.stderr)
             continue
         cut += len("</style>")
+        for k, v in site_tokens.items():        # a description may carry a date
+            desc = desc.replace(k, v)
         page = DOC.format(desc=desc.replace('"', "&quot;"),
                           title=title.replace('"', "&quot;"),
                           head=html[:cut].strip(), body=html[cut:].strip())

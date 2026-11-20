@@ -1,11 +1,13 @@
-# Publishes site/ to GitHub Pages.
+# Builds the site and publishes it to GitHub Pages.
 #
-# site/ is committed rather than built here on purpose: the video lives in
-# mockups/.videos.json, which is git-ignored because it is 10 MB of base64, so a
-# runner checking out this repository could not produce the clips. Committing the
-# built output also means what goes live is exactly what was checked locally.
+# Every push to main rebuilds site/ from mockups/src/ and content/ -- including
+# the commits Pages CMS makes when a board member saves a change. site/ is not
+# committed any more: the four clips the site plays are real files in
+# mockups/video/, so a fresh checkout has everything the build needs.
 #
-# Rebuild before committing:  python3 mockups/build.py --site
+# If the build fails (most likely a value typed into Pages CMS that it cannot
+# use), nothing is published and the last good site stays up. The error names
+# the file and the entry; it is on this run's page under the Actions tab.
 name: Deploy site to GitHub Pages
 
 on:
@@ -32,6 +34,12 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      # Pillow trims and shrinks uploaded sponsor logos and flyers.
+      - run: pip install pillow
+      - run: python3 mockups/build.py --site
       # enablement:true lets the first run switch Pages on by itself, using this
       # workflow's own token. Without it the run fails with "Get Pages site
       # failed" until somebody clicks Settings -> Pages -> Source: GitHub Actions.

@@ -1,0 +1,40 @@
+{
+  "school_year": "2026-27",
+  "officers": [
+    {
+      "role": "President",
+      "name": "Katie Turpin"
+    },
+    {
+      "role": "Vice President",
+      "name": "Kaylee Hurwitz"
+    },
+    {
+      "role": "Treasurer",
+      "name": "Allison Naseri"
+    },
+    {
+      "role": "Secretary",
+      "name": "Kristian Carter"
+    },
+    {
+      "role": "Chair of Fundraising",
+      "name": "Aryn Lentz"
+    },
+    {
+      "role": "Legal Advisor",
+      "name": "James Poindexter"
+    }
+  ],
+  "directors": [
+    "Laura Beran",
+    "Julie Braun",
+    "Nicole Brown",
+    "Sara Buckley",
+    "Melissa Gregory",
+    "Brittany Kelly",
+    "Shelly Middleton",
+    "Katherine Poindexter",
+    "Ivan Porter"
+  ]
+}

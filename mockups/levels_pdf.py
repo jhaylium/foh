@@ -26,6 +26,9 @@ the PDF into site/; the build itself never runs this.
 """
 import html, json, pathlib, re, sys
 
+sys.path.insert(0, str(pathlib.Path(__file__).parent))
+import content  # noqa: E402  (needs Pillow, which WeasyPrint already depends on)
+
 root = pathlib.Path(__file__).parent
 src = root / "src" / "de-partners.html"
 out = root / "sponsor-levels.pdf"
@@ -91,8 +94,11 @@ def chart(levels):
                     else html.escape(v) if v else '<span class="no">&mdash;</span>')
             row.append(f'<td class="{"top" if i == 0 else ""}">{cell}</td>')
         body.append(f'<tr><th scope="row">{html.escape(label)}</th>{"".join(row)}</tr>')
-    walkathon = re.search(r"The 2027 Walkathon is\s*<strong[^>]*>(.*?)</strong>",
-                          src.read_text(), re.S)
+    # The date in the page is a token filled from content/walkathon.json.
+    page = src.read_text()
+    for k, v in content.walkathon_tokens().items():
+        page = page.replace(k, v)
+    walkathon = re.search(r"The \d{4} Walkathon is\s*<strong[^>]*>(.*?)</strong>", page, re.S)
     date = text(walkathon.group(1)) if walkathon else ""
     return f"""<!doctype html><html lang="en"><head><meta charset="utf-8">
 <title>Business Partner Levels</title>
