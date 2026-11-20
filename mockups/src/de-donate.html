@@ -1,9 +1,9 @@
-<title>Donate</title>
+<title>{{T:donate.page.title_1}}</title>
 {{> head }}
 <style>
 {{> tokens }}
 {{> base }}
-:root{--photo:url("{{HERO}}")}
+:root{--photo:url("{{T:site.photos.photo_1}}")}
 #nav-donate{color:var(--gold-ink)}
 
 .routes{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1px;
@@ -23,34 +23,31 @@
 <section class="sect nohero tight">
   <div class="wrap">
     <div class="said mid">
-      <p class="tag red">Donate</p>
-      <h2 style="margin-top:18px">All of it is tax-deductible.</h2>
+      <p class="tag red">{{T:donate.section_1.small_label_1}}</p>
+      <h2 style="margin-top:18px">{{T:donate.section_1.heading_1}}</h2>
     </div>
-    <p class="after">The Friends of Hendricks is a 501(c)(3) nonprofit. Funds raised through the
-      year are given to Hendricks Avenue Elementary through a grant process &mdash; grants that
-      meet the needs the Duval County School Board budget does not cover.</p>
+    <p class="after">{{T:donate.section_1.paragraph_1}}</p>
   </div>
 </section>
 
 <section class="sect tight" style="padding-top:0">
   <div class="wrap">
-    <div class="said mid rv"><p class="tag red">Three ways to give</p></div>
+    <div class="said mid rv"><p class="tag red">{{T:donate.section_2.small_label_1}}</p></div>
     <div class="routes rv">
       <a class="route" href="{{URL_WALKATHON}}">
-        <p class="n">01</p><h3>Donate to the Walkathon</h3>
-        <p>Support a student, or give as a gift. Our largest fundraiser, every February.</p>
-        <p class="go">Go to the Walkathon &rarr;</p>
+        <p class="n">01</p><h3>{{T:donate.section_2.heading_1}}</h3>
+        <p>{{T:donate.section_2.paragraph_1}}</p>
+        <p class="go">{{T:donate.section_2.paragraph_2}}</p>
       </a>
       <a class="route" href="{{URL_PARTNERS}}">
-        <p class="n">02</p><h3>Become a Business Partner</h3>
-        <p>Choose a sponsorship level from $250 to $5,000 and put your name on the shirts, the
-          marquee, and both entrances.</p>
-        <p class="go">See the five levels &rarr;</p>
+        <p class="n">02</p><h3>{{T:donate.section_2.heading_2}}</h3>
+        <p>{{T:donate.section_2.paragraph_3}}</p>
+        <p class="go">{{T:donate.section_2.paragraph_4}}</p>
       </a>
       <a class="route" href="#gift">
-        <p class="n">03</p><h3>Give a gift</h3>
-        <p>Any amount, any time, online through Zeffy.</p>
-        <p class="go">Give below &rarr;</p>
+        <p class="n">03</p><h3>{{T:donate.section_2.heading_3}}</h3>
+        <p>{{T:donate.section_2.paragraph_5}}</p>
+        <p class="go">{{T:donate.section_2.paragraph_6}}</p>
       </a>
     </div>
   </div>
@@ -58,23 +55,20 @@
 
 <section class="sect" id="gift" style="border-top:1px solid var(--line)">
   <div class="wrap">
-    <div class="said mid rv"><p class="tag red">Give a gift</p>
-      <h2 style="margin-top:18px">Every dollar stays in this building.</h2></div>
+    <div class="said mid rv"><p class="tag red">{{T:donate.gift.small_label_1}}</p>
+      <h2 style="margin-top:18px">{{T:donate.gift.heading_1}}</h2></div>
     <div class="twocol rv" style="margin-top:clamp(30px,4.5vw,48px)">
       {{ZEFFY_EMBED_GIFT}}
       <div class="info">
         <dl style="margin:0">
-          <dt>Does your company match gifts?</dt>
-          <dd>Many do, and most people never ask. Contact your employer and ask for your gift to
-            be matched to The Friends of Hendricks, <strong>Tax ID 20-4931978</strong>.</dd>
-          <dt>What your money buys</dt>
-          <dd>Online learning programs, classroom supplies, teacher professional development,
-            school enhancements, and the leadership curriculum.</dd>
+          <dt>{{T:donate.gift.term_1}}</dt>
+          <dd>{{T:donate.gift.detail_1}}</dd>
+          <dt>{{T:donate.gift.term_2}}</dt>
+          <dd>{{T:donate.gift.detail_2}}</dd>
         </dl>
       </div>
     </div>
-    <p class="note" style="margin-top:clamp(28px,4vw,40px)">Thank you for your support. Together
-      we are helping our students have the most amazing educational experience.</p>
+    <p class="note" style="margin-top:clamp(28px,4vw,40px)">{{T:donate.gift.note_1}}</p>
   </div>
 </section>
 
@@ -82,13 +76,12 @@
   <div class="media"><div class="layer"></div></div>
   <div class="veil"></div>
   <div class="wrap inner">
-    <h2>Standing Strong For Our School.</h2>
-    <p>The Friends of Hendricks is run by parent volunteers. What you give is what the school
-      gets, minus nothing.</p>
-    <p class="needs">Total raised to date &mdash; needs the real figure</p>
+    <h2>{{T:donate.section_4.heading_1}}</h2>
+    <p>{{T:donate.section_4.paragraph_1}}</p>
+    <p class="needs">{{T:donate.section_4.note_1}}</p>
     <div class="row">
-      <a class="pill" href="#gift">Give a gift</a>
-      <a class="pill ghost" href="{{URL_PARENTS}}">Meet the parents</a>
+      <a class="pill" href="#gift">{{T:donate.section_4.button_1}}</a>
+      <a class="pill ghost" href="{{URL_PARENTS}}">{{T:donate.section_4.button_2}}</a>
     </div>
   </div>
 </section>

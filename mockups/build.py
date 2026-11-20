@@ -168,8 +168,13 @@ for token, (name, mime) in DOWNLOADS.items():
 
 # In the mockups every image is a data URI; build_site() passes its own place()
 # that writes a file instead.
-tokens.update(content.tokens(
-    lambda data, mime, name: f"data:{mime};base64," + base64.b64encode(data).decode()))
+def inline_place(data, mime, name):
+    return f"data:{mime};base64," + base64.b64encode(data).decode()
+
+
+tokens.update(content.tokens(inline_place))
+
+UNRESOLVED = re.compile(r"\{\{[A-Z_]+\}\}|\{\{T:[^}]*\}\}")
 
 
 PARTIAL = re.compile(r"\{\{>\s*([a-z0-9_-]+)\s*\}\}")
@@ -194,7 +199,7 @@ def expand(html, src_name, depth=0):
 
 built = 0
 for src in ([] if "--site" in sys.argv else sorted((root / "src").glob("*.html"))):
-    html = expand(src.read_text(), src.name)
+    html = content.fill_text(expand(src.read_text(), src.name), inline_place)
     for k, v in tokens.items():
         html = html.replace(k, v)
     # drop any video token we have no asset for -> graceful still-photo fallback
@@ -205,7 +210,7 @@ for src in ([] if "--site" in sys.argv else sorted((root / "src").glob("*.html")
     unlinked = set(re.findall(r"\{\{URL_[A-Z_]+\}\}", html))
     for m in unlinked:
         html = html.replace(m, "#")
-    leftover = re.findall(r"\{\{[A-Z_]+\}\}", html)
+    leftover = UNRESOLVED.findall(html)
     if leftover:
         print(f"  !! {src.name}: unresolved {set(leftover)}", file=sys.stderr)
     out = root / src.name
@@ -229,28 +234,16 @@ if built:
 # same output works at a domain root, in a /repo/ subpath on GitHub Pages, or
 # anywhere else, with nothing to rewrite.
 SITE_PAGES = {
-    "de-home":      ("index.html", "The Friends of Hendricks",
-                     "Parent volunteers raising money for Hendricks Avenue Elementary in "
-                     "Jacksonville. We buy what the school budget will not."),
-    "de-donate":    ("donate.html", "Donate",
-                     "Give to The Friends of Hendricks. A 501(c)(3) nonprofit -- every "
-                     "dollar stays inside Hendricks Avenue Elementary."),
-    "de-walkathon": ("walkathon.html", "The Walkathon",
-                     "The {{WALK_EDITION}} annual Walkathon, {{WALK_DATE_META}}. Students collect "
-                     "pledges, then they walk."),
-    "de-sponsors":  ("sponsors.html", "Our Sponsors",
-                     "The local businesses backing Hendricks Avenue Elementary in 2025-26, "
-                     "grouped by sponsorship level."),
-    "de-partners":  ("become-a-sponsor.html", "Become a Sponsor",
-                     "Five business sponsorship levels, from $250 to $5,000. Your logo on "
-                     "600 t-shirts, the school marquee, and both entrances."),
-    "de-takepart":  ("take-part.html", "Take Part",
-                     "Hugs from Henry, Rent the Spirit Rock, and Spirit Nights -- three ways "
-                     "to support the school that cost little or nothing."),
-    "de-parents":   ("meet-the-parents.html", "Meet the Parents",
-                     "The Friends of Hendricks is run entirely by parent volunteers. The "
-                     "mission, the 2026-27 board, and how to reach us."),
+    "de-home":      ("index.html", "The Friends of Hendricks", "home"),
+    "de-donate":    ("donate.html", "Donate", "donate"),
+    "de-walkathon": ("walkathon.html", "The Walkathon", "walkathon"),
+    "de-sponsors":  ("sponsors.html", "Our Sponsors", "sponsors"),
+    "de-partners":  ("become-a-sponsor.html", "Become a Sponsor", "become-a-sponsor"),
+    "de-takepart":  ("take-part.html", "Take Part", "take-part"),
+    "de-parents":   ("meet-the-parents.html", "Meet the Parents", "meet-the-parents"),
 }
+# The third value names the page's file in content/pages/, which holds the
+# search description along with every other word on the page.
 
 EXT = {"image/png": "png", "image/jpeg": "jpg", "image/webp": "webp", "video/mp4": "mp4"}
 
@@ -313,10 +306,14 @@ def build_site():
             site_tokens["{{VIDEO_" + name.upper() + "}}"] = rel
             written += 1
 
+    placed = set()
+
     def place(data, mime, name):
         nonlocal written
-        written += 1
         rel = f"{name}.{EXT[mime]}"
+        if rel not in placed:               # one photo on two pages is one file
+            placed.add(rel)
+            written += 1
         (out / rel).parent.mkdir(parents=True, exist_ok=True)
         (out / rel).write_bytes(data)
         return rel
@@ -331,16 +328,19 @@ def build_site():
             site_tokens[token] = name
             written += 1
 
-    for src_name, (filename, title, desc) in SITE_PAGES.items():
+    failed = []
+    for src_name, (filename, title, key) in SITE_PAGES.items():
         src = root / "src" / f"{src_name}.html"
-        html = expand(src.read_text(), src.name)
+        html = content.fill_text(expand(src.read_text(), src.name), place)
         for k, v in site_tokens.items():
             html = html.replace(k, v)
         for m in set(re.findall(r"\{\{VIDEO_[A-Z_]+\}\}", html)):
             html = html.replace(m, "")
-        leftover = re.findall(r"\{\{[A-Z_]+\}\}", html)
+        leftover = UNRESOLVED.findall(html)
         if leftover:
+            # A {{TOKEN}} mistyped in the editor would otherwise go live as is.
             print(f"  !! {src_name}: unresolved {set(leftover)}", file=sys.stderr)
+            failed.append(src_name)
 
         # The sources are written head-first: <title>, the font links and the
         # pre-paint script, then one <style>. Everything through that closing
@@ -350,6 +350,7 @@ def build_site():
             print(f"  !! {src_name}: no <style> to split on", file=sys.stderr)
             continue
         cut += len("</style>")
+        desc = content.search_description(key)
         for k, v in site_tokens.items():        # a description may carry a date
             desc = desc.replace(k, v)
         page = DOC.format(desc=desc.replace('"', "&quot;"),
@@ -381,6 +382,8 @@ def build_site():
         print(f"  pruned {pruned} unreferenced asset(s), {dropped/1024/1024:.1f} MB")
     print(f"{len(SITE_PAGES)} pages + {written - pruned} asset files -> site/  "
           f"({total/1024/1024:.1f} MB total)")
+    if failed:
+        sys.exit(f"!! not published -- unfilled {{{{...}}}} tokens in: {', '.join(failed)}")
 
 
 if "--site" in sys.argv:

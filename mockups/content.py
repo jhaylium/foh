@@ -90,6 +90,8 @@ def words(n):
 
 SPONSOR_MAX = 400      # logos are shown at most 420px wide; this is what they shipped at
 FLYER_MAX = 1200
+PHOTO_MAX = 1600       # the widest photograph on the site today is 1500
+MAX_BYTES = 600_000    # a phone photo straight off the camera is several MB
 THRESHOLD = 24         # how far a pixel must differ from the background to count as logo
 PAD = 0.04             # margin added back, as a fraction of the longer side
 MIN_CUT = 0.02         # ignore a crop that removes less than this much of either side
@@ -169,9 +171,11 @@ def logo(file, where, value):
     return raw, round(im.width / im.height, 3)
 
 
-def photo(file, where, value):
-    """-> (bytes, mime). Over FLYER_MAX wide it is scaled and saved as WebP,
-    which keeps flat colour and lettering sharp; otherwise it passes through."""
+def photo(file, where, value, widest=FLYER_MAX, fmt="WEBP"):
+    """-> (bytes, mime). Wider than `widest`, heavier than MAX_BYTES, or in a
+    format browsers can't show, it is scaled and re-saved: WebP for the flyer,
+    which keeps flat colour and lettering sharp, JPEG for photographs. A file
+    already the right size and shape passes through byte for byte."""
     p = media_file(file, where, value)
     raw = p.read_bytes()
     try:
@@ -180,12 +184,16 @@ def photo(file, where, value):
     except Exception:
         fail(file, f"{where}: '{value}' is not an image the build can read")
     mime = Image.MIME.get(im.format)
-    if im.width > FLYER_MAX or mime not in ("image/jpeg", "image/png", "image/webp"):
-        im = _flatten(im)
-        im.thumbnail((FLYER_MAX, FLYER_MAX * 3), Image.LANCZOS)
+    if (im.width > widest or len(raw) > MAX_BYTES
+            or mime not in ("image/jpeg", "image/png", "image/webp")):
+        im = _flatten(im)                     # also turns a phone photo the right way up
+        im.thumbnail((widest, widest * 3), Image.LANCZOS)
         buf = io.BytesIO()
-        im.save(buf, "WEBP", quality=90)
-        return buf.getvalue(), "image/webp"
+        if fmt == "WEBP":
+            im.save(buf, "WEBP", quality=90)
+            return buf.getvalue(), "image/webp"
+        im.save(buf, "JPEG", quality=84, optimize=True, progressive=True)
+        return buf.getvalue(), "image/jpeg"
     return raw, mime
 
 
@@ -368,3 +376,94 @@ def tokens(place):
     t.update(spirit_tokens(place))
     t.update(board_tokens())
     return t
+
+
+# ---------------------------------------------------------------- page text
+
+# Every word on the seven pages, the menu, and the footer lives in
+# content/pages/<page>.json, one object per section of the page. The page
+# sources carry {{T:page.section.field}} where each one goes. What a field is
+# follows from its name:
+#
+#   photo_N         an image path -> the file the page shows
+#   photo_text_N    the photo's alt text      } go inside an attribute,
+#   link_N          an outside link address   } so they are escaped as one
+#   anything else   text, possibly with bold, italics, links and line breaks
+#                   from a rich-text box -- see rich()
+#
+# Text is filled in before any other token, so a field may carry one
+# ({{WALK_YEAR}} and friends) and it resolves like the rest of the page.
+
+pages_dir = content_dir / "pages"
+TEXT = re.compile(r"\{\{T:([a-z0-9-]+)\.([a-z0-9_]+)\.([a-z0-9_]+)\}\}")
+_pages = {}
+
+
+def page(name):
+    if name not in _pages:
+        _pages[name] = read(f"pages/{name}.json")
+    return _pages[name]
+
+
+# What a rich-text box may keep. Everything else is dropped and its words kept,
+# so a paste from Word or a stray style can't change the page's design.
+KEEP = {"strong", "em", "b", "i", "br", "a"}
+TAG = re.compile(r"<(/?)([a-zA-Z][a-zA-Z0-9]*)([^<>]*)>")
+HREF = re.compile(r'(href|target|rel)\s*=\s*"([^"]*)"')
+
+
+def rich(value):
+    v = str(value or "").strip()
+    # An editor wraps text in <p>. The page already has its own <p> or <h2>
+    # around the spot, so drop the outer one and turn any breaks between
+    # paragraphs into line breaks.
+    v = re.sub(r"^<p\b[^>]*>|</p>$", "", v).strip()
+    v = re.sub(r"</p>\s*<p\b[^>]*>", "<br>", v)
+    out, pos = [], 0
+    for m in TAG.finditer(v):
+        out.append(esc(html.unescape(v[pos:m.start()]), quote=False))
+        pos = m.end()
+        close, name = m.group(1), m.group(2).lower()
+        if name not in KEEP:
+            continue
+        if name == "br":
+            out.append("<br>")
+        elif close:
+            out.append(f"</{name}>")
+        elif name == "a":
+            attrs = "".join(f' {k}="{esc(html.unescape(x))}"' for k, x in HREF.findall(m.group(3)))
+            out.append(f"<a{attrs}>")
+        else:
+            out.append(f"<{name}>")
+    out.append(esc(html.unescape(v[pos:]), quote=False))
+    return "".join(out)
+
+
+def text_value(name, group, field):
+    f = f"pages/{name}.json"
+    g = page(name).get(group)
+    if not isinstance(g, dict) or field not in g:
+        fail(f, f"{group}.{field} is missing -- the page expects it")
+    return g[field]
+
+
+def fill_text(source, place):
+    """Replace every {{T:...}} in a page. place() is the caller's, as above."""
+    def one(m):
+        name, group, field = m.groups()
+        value = text_value(name, group, field)
+        if field.startswith("photo_text_") or field.startswith("link_"):
+            return esc(html.unescape(str(value or "").strip()))
+        if field.startswith("photo_"):
+            raw, mime = photo(f"pages/{name}.json", f"{group}.{field}", value,
+                              widest=PHOTO_MAX, fmt="JPEG")
+            stem = re.sub(r"[^a-z0-9-]+", "-", pathlib.Path(str(value)).stem.lower()).strip("-")
+            return place(raw, mime, f"img/{stem}")
+        return rich(value)
+    return TEXT.sub(one, source)
+
+
+def search_description(name):
+    """Plain text for <meta name="description">; the caller escapes it."""
+    v = page(name).get("page", {}).get("search_description_1", "")
+    return re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", "", str(v)))).strip()

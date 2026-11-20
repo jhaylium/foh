@@ -1,0 +1,60 @@
+{
+  "page": {
+    "title_1": "Meet the Parents",
+    "search_description_1": "The Friends of Hendricks is run entirely by parent volunteers. The mission, the 2026-27 board, and how to reach us."
+  },
+  "section_1": {
+    "small_label_1": "Mission statement",
+    "paragraph_1": "To increase the available funding to provide faculty and staff the additional resources required to ensure an exemplary education for the students of Hendricks Avenue Elementary School.",
+    "paragraph_2": "Choosing to strengthen Hendricks Avenue Elementary through a gift to The Friends of Hendricks is a valuable and meaningful decision. Support can be given through time, talents, and monetary and in-kind donations. The effect of parents, alumni, grandparents, and friends standing together for our school will be immeasurable. All gifts, no matter how large or small, will have a powerful impact, because you become invested in the education and enrichment of every child, faculty, and staff member.",
+    "paragraph_3": "The funds we raise are awarded through a grant process and are used to offset school budget cuts and increase financial resources for school enhancement, technology, and classroom needs.",
+    "photo_1": "/content/media/photos/volunteers.jpg",
+    "photo_text_1": "The Friends of Hendricks volunteers in matching blue 2023 Walkathon shirts at a school event",
+    "caption_1": "The Friends of Hendricks at the 2023 Walkathon. Everyone here is a parent volunteer — nobody draws a salary."
+  },
+  "board": {
+    "small_label_1": "{{BOARD_YEAR}} board",
+    "heading_1": "Run entirely by parent volunteers.",
+    "bold_text_1": "Directors"
+  },
+  "section_3": {
+    "small_label_1": "Ways to support us",
+    "heading_1": "Six of them, all year.",
+    "link_text_1": "The FOH Walkathon",
+    "link_text_2": "The FOH Business Partners Program",
+    "text_1": "five levels",
+    "link_text_3": "Hendricks Community Spirit Nights",
+    "text_2": "eat out, give back",
+    "link_text_4": "Hugs From Henry",
+    "text_3": "$25 per child",
+    "link_text_5": "Rent the Spirit Rock",
+    "text_4": "$35–60",
+    "link_text_6": "Direct donations",
+    "text_5": "any amount"
+  },
+  "section_4": {
+    "small_label_1": "Contact",
+    "heading_1": "Talk to us.",
+    "paragraph_1": "General inquiries go to the president. Each program has its own inbox — they are all in the footer.",
+    "link_1": "mailto:fohpresident1@gmail.com",
+    "button_1": "fohpresident1@gmail.com",
+    "term_1": "Mailing address",
+    "detail_1": "The Friends of Hendricks<br>4446-1A Hendricks Avenue, Suite 357<br> Jacksonville, FL 32207",
+    "term_2": "Business partner inquiries",
+    "link_2": "mailto:FriendsBusinessPartners@gmail.com",
+    "link_text_1": "FriendsBusinessPartners@gmail.com",
+    "term_3": "Tax",
+    "detail_2": "501(c)(3) · Tax ID 20-4931978",
+    "term_4": "Find us",
+    "link_3": "https://www.facebook.com/FriendsOfHendricks",
+    "link_text_2": "Facebook",
+    "link_4": "https://www.instagram.com/friendsofhendricks/",
+    "link_text_3": "Instagram"
+  },
+  "section_5": {
+    "heading_1": "Standing strong for our school.",
+    "paragraph_1": "650+ students and their families. One building, established 1942, and a school budget that does not stretch far enough.",
+    "button_1": "Donate",
+    "button_2": "Sponsor as a business"
+  }
+}

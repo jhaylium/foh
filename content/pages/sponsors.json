@@ -1,0 +1,29 @@
+{
+  "page": {
+    "title_1": "Our Sponsors",
+    "search_description_1": "The local businesses backing Hendricks Avenue Elementary in 2025-26, grouped by sponsorship level."
+  },
+  "section_1": {
+    "heading_1": "{{SPONSOR_COUNT_WORDS_CAP}} businesses said yes.",
+    "paragraph_1": "Every one of them chose to put money into a public elementary school in San Marco. They are on the t-shirts, the marquee, and both entrances — and they are here, which is the least we can do.",
+    "button_1": "Become a sponsor",
+    "button_2": "See the Walkathon"
+  },
+  "section_2": {
+    "bold_text_1": "Visionary Partner",
+    "text_1": "$5,000 · one only",
+    "bold_text_2": "Legacy Circle",
+    "text_2": "$2,500",
+    "bold_text_3": "Investor Circle",
+    "text_3": "$1,000",
+    "bold_text_4": "Builders Circle",
+    "text_4": "$500",
+    "bold_text_5": "Friends Circle",
+    "text_5": "$250",
+    "note_1": "The Friends Circle is listed by name because this level does not include a logo."
+  },
+  "section_3": {
+    "paragraph_1": "With every step our students take, your business will be recognized as a leader walking alongside them.",
+    "button_1": "See the five levels"
+  }
+}

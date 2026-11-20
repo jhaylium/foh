@@ -1,0 +1,89 @@
+{
+  "page": {
+    "title_1": "Friends of Hendricks",
+    "search_description_1": "Parent volunteers raising money for Hendricks Avenue Elementary in Jacksonville. We buy what the school budget will not."
+  },
+  "act1": {
+    "photo_text_1": "The Friends of Hendricks — Standing Strong for Our School",
+    "small_label_1": "Hendricks Avenue Elementary · Jacksonville",
+    "heading_1": "A school this good<br><em>takes Friends.</em>",
+    "intro_1": "It is six hundred families, {{SPONSOR_COUNT_WORDS}} local businesses, and a budget the school district never provided. We raise what the Duval County School Board budget does not cover — and all of it stays inside one building.",
+    "button_1": "Donate",
+    "button_2": "Sponsor as a business",
+    "paragraph_1": "Scroll"
+  },
+  "section_2": {
+    "bold_text_1": "650+",
+    "paragraph_1": "students and their families",
+    "paragraph_2": "the goal for the {{WALK_YEAR}} Walkathon",
+    "paragraph_3": "local businesses behind us in {{SPONSOR_YEAR_LONG}}",
+    "bold_text_2": "1942",
+    "paragraph_4": "launching leaders since"
+  },
+  "section_3": {
+    "small_label_1": "Our Mission",
+    "heading_1": "We buy what the budget won't.",
+    "paragraph_1": "The Friends of Hendricks is a volunteer group of parents that raises funds for resources and projects the Duval County School Board budget does not cover.",
+    "paragraph_2": "In the past, we have funded capital projects, playground equipment, educational software, teacher grants, and classroom supplies.",
+    "small_label_2": "Where it goes",
+    "text_1": "Online learning programs",
+    "text_2": "Reflex Math, Frax, iReady",
+    "text_3": "Classroom supplies",
+    "text_4": "reducing the burden on our teachers",
+    "text_5": "Teacher professional development",
+    "text_6": "investing in teachers",
+    "text_7": "School enhancements",
+    "text_8": "Shade Structures, Gaga Ball Pit",
+    "text_9": "Leadership curriculum",
+    "text_10": "Covey's Leader in Me",
+    "note_1": "All gifts, no matter how large or small, had a meaningful impact because YOU became invested in the education and enrichment of every child, faculty, and staff member."
+  },
+  "section_4": {
+    "photo_1": "/content/media/photos/shirt26.jpg",
+    "photo_text_1": "Three Hendricks students in navy 2026 Walkathon shirts, smiling on the track",
+    "paragraph_1": "Every shirt is designed by a Hendricks student.",
+    "paragraph_2": "2026 Walkathon · last year's shirt by Claire"
+  },
+  "ways": {
+    "small_label_1": "Take part",
+    "heading_1": "Six ways in.",
+    "heading_2": "The Walkathon",
+    "paragraph_1": "The {{WALK_EDITION}} one, and the biggest day of our year. Students collect pledges, then walk. Family and friends sponsor them online through Zeffy.",
+    "small_label_2": "Pledge",
+    "small_label_3": "Any time",
+    "heading_3": "Give directly",
+    "paragraph_2": "Online through Zeffy, in a minute. 501(c)(3), Tax ID 20-4931978 — ask your employer to match it.",
+    "small_label_4": "Any amount",
+    "small_label_5": "All year",
+    "heading_4": "Bring your business",
+    "paragraph_3": "Your logo on 600 t-shirts, the school marquee, and both entrances. Five levels.",
+    "small_label_6": "From $250",
+    "small_label_7": "Grades K–5",
+    "heading_5": "Hugs from Henry",
+    "paragraph_4": "A before-school Birthday Bash, a treat from Henry, and a classroom book dedicated in your child's honor.",
+    "small_label_8": "$25",
+    "small_label_9": "24 hours",
+    "heading_6": "Rent the Spirit Rock",
+    "paragraph_5": "Hendricks Avenue or San Jose Boulevard. Wish a student luck, celebrate a birthday, thank a teacher, and more.",
+    "small_label_10": "$35–60",
+    "small_label_11": "Learn more",
+    "heading_7": "Spirit Nights",
+    "paragraph_6": "Eat out on the night and a share of the bill comes straight back to school.",
+    "small_label_12": "Free"
+  },
+  "section_6": {
+    "small_label_1": "{{SPONSOR_YEAR}} partners",
+    "heading_1": "{{SPONSOR_COUNT_WORDS_CAP}} businesses said yes.",
+    "button_1": "Take this next year",
+    "bold_text_1": "Legacy Circle",
+    "text_1": "$2,500",
+    "button_2": "View all sponsors"
+  },
+  "give": {
+    "heading_1": "Standing Strong For Our School.",
+    "paragraph_1": "Give online through Zeffy. We are a 501(c)(3) — Tax ID 20-4931978 — so your employer may match it.",
+    "button_1": "Donate now",
+    "button_2": "Sponsor as a business",
+    "text_1": "Total raised to date — needs the real figure"
+  }
+}

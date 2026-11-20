@@ -3,223 +3,1801 @@
 # Every file below is read by mockups/content.py when the site is built. A save
 # here commits to main; .github/workflows/pages.yml then rebuilds and publishes
 # the site, which takes about two minutes. If a value cannot be used (a date
-# that is not a date, a logo that is not an image), the build stops and the
-# site stays as it was -- the error is on the repository's Actions tab.
+# that is not a date, a logo that is not an image, a {{TOKEN}} typed wrong), the
+# build stops and the site stays as it was -- the error is on the repository's
+# Actions tab.
 #
-# Only the content that changes from year to year is here. Page text stays in
-# mockups/src/.
+# "Pages": every word, photo and outside link on the seven pages, one section
+# of the form per section of the page, in page order. The layout itself stays
+# in mockups/src/ -- the board edits what is in each spot, not where spots go.
+# The page forms were generated from the pages (field names like paragraph_2
+# are positions, not meanings) and the sources hold {{T:page.section.field}}
+# where each one goes. Adding a spot to a page means adding the token there,
+# the value in content/pages/<page>.json, and the field here.
+#
+# "Dates and lists": what changes every year, laid out as proper lists.
 
 media:
-  - name: logos
-    label: Sponsor logos
-    input: content/media/sponsors
-    output: /content/media/sponsors
-    extensions: [jpg, jpeg, png, webp]
-  - name: flyers
-    label: Flyers
-    input: content/media/flyers
-    output: /content/media/flyers
-    extensions: [jpg, jpeg, png, webp]
-
+- name: logos
+  label: Sponsor logos
+  input: content/media/sponsors
+  output: /content/media/sponsors
+  extensions:
+  - jpg
+  - jpeg
+  - png
+  - webp
+- name: flyers
+  label: Flyers
+  input: content/media/flyers
+  output: /content/media/flyers
+  extensions:
+  - jpg
+  - jpeg
+  - png
+  - webp
+- name: photos
+  label: Photos
+  input: content/media/photos
+  output: /content/media/photos
+  extensions:
+  - jpg
+  - jpeg
+  - png
+  - webp
 settings:
   content:
-    merge: true          # keep anything in a file this form doesn't know about
+    merge: true
   commit:
-    identity: user       # record which board member made each change
-
+    identity: user
 content:
+- name: pages
+  label: Pages
+  type: group
+  items:
+  - name: page-home
+    label: Home
+    type: file
+    path: content/pages/home.json
+    format: json
+    fields:
+    - name: page
+      label: Browser tab and search results
+      type: object
+      fields:
+      - name: title_1
+        label: Browser tab title
+        type: string
+      - name: search_description_1
+        label: Search description
+        type: text
+        description: Shown under the page's name in Google and in link previews.
+    - name: act1
+      label: 1. A school this good takes Friends
+      type: object
+      fields:
+      - name: photo_text_1
+        label: Photo description
+        type: string
+        description: Read aloud to visitors who can't see the photo. Say what's in it.
+      - name: small_label_1
+        label: Small label
+        type: string
+      - name: heading_1
+        label: Heading
+        type: rich-text
+        options:
+          format: html
+          switcher: false
+      - name: intro_1
+        label: Intro paragraph
+        type: text
+        description: Leave the parts in {{double braces}} as they are -- they fill in on their own.
+      - name: button_1
+        label: Button
+        type: string
+      - name: button_2
+        label: Button 2
+        type: string
+      - name: paragraph_1
+        label: Paragraph
+        type: string
+    - name: section_2
+      label: 2. Numbers strip
+      type: object
+      fields:
+      - name: bold_text_1
+        label: Bold text
+        type: string
+      - name: paragraph_1
+        label: Paragraph
+        type: string
+      - name: paragraph_2
+        label: Paragraph 2
+        type: string
+        description: Leave the parts in {{double braces}} as they are -- they fill in on their own.
+      - name: paragraph_3
+        label: Paragraph 3
+        type: string
+        description: Leave the parts in {{double braces}} as they are -- they fill in on their own.
+      - name: bold_text_2
+        label: Bold text 2
+        type: string
+      - name: paragraph_4
+        label: Paragraph 4
+        type: string
+    - name: section_3
+      label: 3. We buy what the budget won't
+      type: object
+      fields:
+      - name: small_label_1
+        label: Small label
+        type: string
+      - name: heading_1
+        label: Heading
+        type: string
+      - name: paragraph_1
+        label: Paragraph
+        type: text
+      - name: paragraph_2
+        label: Paragraph 2
+        type: text
+      - name: small_label_2
+        label: Small label 2
+        type: string
+      - name: text_1
+        label: Text
+        type: string
+      - name: text_2
+        label: Text 2
+        type: string
+      - name: text_3
+        label: Text 3
+        type: string
+      - name: text_4
+        label: Text 4
+        type: string
+      - name: text_5
+        label: Text 5
+        type: string
+      - name: text_6
+        label: Text 6
+        type: string
+      - name: text_7
+        label: Text 7
+        type: string
+      - name: text_8
+        label: Text 8
+        type: string
+      - name: text_9
+        label: Text 9
+        type: string
+      - name: text_10
+        label: Text 10
+        type: string
+      - name: note_1
+        label: Note
+        type: text
+    - name: section_4
+      label: 4. Every shirt is designed by a Hendricks student
+      type: object
+      fields:
+      - name: photo_1
+        label: Photo
+        type: image
+        options:
+          media: photos
+      - name: photo_text_1
+        label: Photo description
+        type: string
+        description: Read aloud to visitors who can't see the photo. Say what's in it.
+      - name: paragraph_1
+        label: Paragraph
+        type: string
+      - name: paragraph_2
+        label: Paragraph 2
+        type: string
+    - name: ways
+      label: 5. Six ways in
+      type: object
+      fields:
+      - name: small_label_1
+        label: Small label
+        type: string
+      - name: heading_1
+        label: Heading
+        type: string
+      - name: heading_2
+        label: Heading 2
+        type: string
+      - name: paragraph_1
+        label: Paragraph
+        type: text
+        description: Leave the parts in {{double braces}} as they are -- they fill in on their own.
+      - name: small_label_2
+        label: Small label 2
+        type: string
+      - name: small_label_3
+        label: Small label 3
+        type: string
+      - name: heading_3
+        label: Heading 3
+        type: string
+      - name: paragraph_2
+        label: Paragraph 2
+        type: text
+      - name: small_label_4
+        label: Small label 4
+        type: string
+      - name: small_label_5
+        label: Small label 5
+        type: string
+      - name: heading_4
+        label: Heading 4
+        type: string
+      - name: paragraph_3
+        label: Paragraph 3
+        type: string
+      - name: small_label_6
+        label: Small label 6
+        type: string
+      - name: small_label_7
+        label: Small label 7
+        type: string
+      - name: heading_5
+        label: Heading 5
+        type: string
+      - name: paragraph_4
+        label: Paragraph 4
+        type: text
+      - name: small_label_8
+        label: Small label 8
+        type: string
+      - name: small_label_9
+        label: Small label 9
+        type: string
+      - name: heading_6
+        label: Heading 6
+        type: string
+      - name: paragraph_5
+        label: Paragraph 5
+        type: text
+      - name: small_label_10
+        label: Small label 10
+        type: string
+      - name: small_label_11
+        label: Small label 11
+        type: string
+      - name: heading_7
+        label: Heading 7
+        type: string
+      - name: paragraph_6
+        label: Paragraph 6
+        type: string
+      - name: small_label_12
+        label: Small label 12
+        type: string
+    - name: section_6
+      label: 6. businesses said yes
+      type: object
+      fields:
+      - name: small_label_1
+        label: Small label
+        type: string
+        description: Leave the parts in {{double braces}} as they are -- they fill in on their own.
+      - name: heading_1
+        label: Heading
+        type: string
+        description: Leave the parts in {{double braces}} as they are -- they fill in on their own.
+      - name: button_1
+        label: Button
+        type: string
+      - name: bold_text_1
+        label: Bold text
+        type: string
+      - name: text_1
+        label: Text
+        type: string
+      - name: button_2
+        label: Button 2
+        type: string
+    - name: give
+      label: 7. Standing Strong For Our School
+      type: object
+      fields:
+      - name: heading_1
+        label: Heading
+        type: string
+      - name: paragraph_1
+        label: Paragraph
+        type: text
+      - name: button_1
+        label: Button
+        type: string
+      - name: button_2
+        label: Button 2
+        type: string
+      - name: text_1
+        label: Text
+        type: string
+  - name: page-donate
+    label: Donate
+    type: file
+    path: content/pages/donate.json
+    format: json
+    fields:
+    - name: page
+      label: Browser tab and search results
+      type: object
+      fields:
+      - name: title_1
+        label: Browser tab title
+        type: string
+      - name: search_description_1
+        label: Search description
+        type: text
+        description: Shown under the page's name in Google and in link previews.
+    - name: section_1
+      label: 1. All of it is tax-deductible
+      type: object
+      fields:
+      - name: small_label_1
+        label: Small label
+        type: string
+      - name: heading_1
+        label: Heading
+        type: string
+      - name: paragraph_1
+        label: Paragraph
+        type: text
+    - name: section_2
+      label: 2. Donate to the Walkathon
+      type: object
+      fields:
+      - name: small_label_1
+        label: Small label
+        type: string
+      - name: heading_1
+        label: Heading
+        type: string
+      - name: paragraph_1
+        label: Paragraph
+        type: string
+      - name: paragraph_2
+        label: Paragraph 2
+        type: string
+      - name: heading_2
+        label: Heading 2
+        type: string
+      - name: paragraph_3
+        label: Paragraph 3
+        type: text
+      - name: paragraph_4
+        label: Paragraph 4
+        type: string
+      - name: heading_3
+        label: Heading 3
+        type: string
+      - name: paragraph_5
+        label: Paragraph 5
+        type: string
+      - name: paragraph_6
+        label: Paragraph 6
+        type: string
+    - name: gift
+      label: 3. Every dollar stays in this building
+      type: object
+      fields:
+      - name: small_label_1
+        label: Small label
+        type: string
+      - name: heading_1
+        label: Heading
+        type: string
+      - name: term_1
+        label: Term
+        type: string
+      - name: detail_1
+        label: Detail
+        type: rich-text
+        options:
+          format: html
+          switcher: false
+      - name: term_2
+        label: Term 2
+        type: string
+      - name: detail_2
+        label: Detail 2
+        type: text
+      - name: note_1
+        label: Note
+        type: text
+    - name: section_4
+      label: 4. Standing Strong For Our School
+      type: object
+      fields:
+      - name: heading_1
+        label: Heading
+        type: string
+      - name: paragraph_1
+        label: Paragraph
+        type: text
+      - name: note_1
+        label: Note
+        type: string
+      - name: button_1
+        label: Button
+        type: string
+      - name: button_2
+        label: Button 2
+        type: string
+  - name: page-walkathon
+    label: Walkathon
+    type: file
+    path: content/pages/walkathon.json
+    format: json
+    fields:
+    - name: page
+      label: Browser tab and search results
+      type: object
+      fields:
+      - name: title_1
+        label: Browser tab title
+        type: string
+      - name: search_description_1
+        label: Search description
+        type: text
+        description: Leave the parts in {{double braces}} as they are -- they fill in on their own.
+    - name: act1
+      label: 1. They walk. We all pay up
+      type: object
+      fields:
+      - name: small_label_1
+        label: Small label
+        type: string
+        description: Leave the parts in {{double braces}} as they are -- they fill in on their own.
+      - name: heading_1
+        label: Heading
+        type: rich-text
+        options:
+          format: html
+          switcher: false
+      - name: intro_1
+        label: Intro paragraph
+        type: text
+      - name: button_1
+        label: Button
+        type: string
+      - name: button_2
+        label: Button 2
+        type: string
+      - name: paragraph_1
+        label: Paragraph
+        type: string
+    - name: section_2
+      label: 2. Numbers strip
+      type: object
+      fields:
+      - name: paragraph_1
+        label: Paragraph
+        type: string
+        description: Leave the parts in {{double braces}} as they are -- they fill in on their own.
+      - name: paragraph_2
+        label: Paragraph 2
+        type: string
+      - name: bold_text_1
+        label: Bold text
+        type: string
+      - name: paragraph_3
+        label: Paragraph 3
+        type: string
+      - name: bold_text_2
+        label: Bold text 2
+        type: string
+      - name: paragraph_4
+        label: Paragraph 4
+        type: string
+    - name: section_3
+      label: 3. Thank you for standing strong for our school
+      type: object
+      fields:
+      - name: small_label_1
+        label: Small label
+        type: string
+        description: Leave the parts in {{double braces}} as they are -- they fill in on their own.
+      - name: heading_1
+        label: Heading
+        type: string
+      - name: paragraph_1
+        label: Paragraph
+        type: text
+        description: Leave the parts in {{double braces}} as they are -- they fill in on their own.
+      - name: text_1
+        label: Text
+        type: string
+      - name: text_2
+        label: Text 2
+        type: string
+      - name: text_3
+        label: Text 3
+        type: string
+      - name: text_4
+        label: Text 4
+        type: string
+      - name: text_5
+        label: Text 5
+        type: string
+      - name: text_6
+        label: Text 6
+        type: string
+      - name: small_label_2
+        label: Small label 2
+        type: string
+      - name: text_7
+        label: Text 7
+        type: string
+      - name: note_1
+        label: Note
+        type: text
+    - name: section_4
+      label: 4. Last year's shirt was designed by Claire. Shirt …
+      type: object
+      fields:
+      - name: photo_1
+        label: Photo
+        type: image
+        options:
+          media: photos
+      - name: photo_text_1
+        label: Photo description
+        type: string
+        description: Read aloud to visitors who can't see the photo. Say what's in it.
+      - name: text_1
+        label: Text
+        type: string
+      - name: paragraph_1
+        label: Paragraph
+        type: text
+    - name: pledge
+      label: 5. Sponsor your student and support HAE
+      type: object
+      fields:
+      - name: small_label_1
+        label: Small label
+        type: string
+      - name: heading_1
+        label: Heading
+        type: string
+      - name: note_1
+        label: Note
+        type: text
+      - name: term_1
+        label: Term
+        type: string
+      - name: detail_1
+        label: Detail
+        type: rich-text
+        options:
+          format: html
+          switcher: false
+        description: Leave the parts in {{double braces}} as they are -- they fill in on their own.
+      - name: term_2
+        label: Term 2
+        type: string
+      - name: detail_2
+        label: Detail 2
+        type: text
+      - name: term_3
+        label: Term 3
+        type: string
+      - name: term_4
+        label: Term 4
+        type: string
+      - name: link_1
+        label: Link address
+        type: string
+      - name: link_text_1
+        label: Link text
+        type: string
+    - name: section_6
+      label: 6. Past Walkathons
+      type: object
+      fields:
+      - name: small_label_1
+        label: Small label
+        type: string
+      - name: heading_1
+        label: Heading
+        type: string
+      - name: photo_1
+        label: Photo
+        type: image
+        options:
+          media: photos
+      - name: photo_text_1
+        label: Photo description
+        type: string
+        description: Read aloud to visitors who can't see the photo. Say what's in it.
+      - name: caption_1
+        label: Caption
+        type: string
+      - name: photo_2
+        label: Photo 2
+        type: image
+        options:
+          media: photos
+      - name: photo_text_2
+        label: Photo description 2
+        type: string
+        description: Read aloud to visitors who can't see the photo. Say what's in it.
+      - name: caption_2
+        label: Caption 2
+        type: string
+      - name: photo_3
+        label: Photo 3
+        type: image
+        options:
+          media: photos
+      - name: photo_text_3
+        label: Photo description 3
+        type: string
+        description: Read aloud to visitors who can't see the photo. Say what's in it.
+      - name: caption_3
+        label: Caption 3
+        type: string
+      - name: photo_4
+        label: Photo 4
+        type: image
+        options:
+          media: photos
+      - name: photo_text_4
+        label: Photo description 4
+        type: string
+        description: Read aloud to visitors who can't see the photo. Say what's in it.
+      - name: caption_4
+        label: Caption 4
+        type: string
+    - name: section_7
+      label: 7. One Saturday. The whole neighborhood
+      type: object
+      fields:
+      - name: heading_1
+        label: Heading
+        type: string
+      - name: paragraph_1
+        label: Paragraph
+        type: text
+      - name: button_1
+        label: Button
+        type: string
+      - name: button_2
+        label: Button 2
+        type: string
+  - name: page-sponsors
+    label: Our Sponsors
+    type: file
+    path: content/pages/sponsors.json
+    format: json
+    fields:
+    - name: page
+      label: Browser tab and search results
+      type: object
+      fields:
+      - name: title_1
+        label: Browser tab title
+        type: string
+      - name: search_description_1
+        label: Search description
+        type: text
+        description: Shown under the page's name in Google and in link previews.
+    - name: section_1
+      label: 1. businesses said yes
+      type: object
+      fields:
+      - name: heading_1
+        label: Heading
+        type: string
+        description: Leave the parts in {{double braces}} as they are -- they fill in on their own.
+      - name: paragraph_1
+        label: Paragraph
+        type: text
+      - name: button_1
+        label: Button
+        type: string
+      - name: button_2
+        label: Button 2
+        type: string
+    - name: section_2
+      label: 2. Visionary Partner
+      type: object
+      fields:
+      - name: bold_text_1
+        label: Bold text
+        type: string
+      - name: text_1
+        label: Text
+        type: string
+      - name: bold_text_2
+        label: Bold text 2
+        type: string
+      - name: text_2
+        label: Text 2
+        type: string
+      - name: bold_text_3
+        label: Bold text 3
+        type: string
+      - name: text_3
+        label: Text 3
+        type: string
+      - name: bold_text_4
+        label: Bold text 4
+        type: string
+      - name: text_4
+        label: Text 4
+        type: string
+      - name: bold_text_5
+        label: Bold text 5
+        type: string
+      - name: text_5
+        label: Text 5
+        type: string
+      - name: note_1
+        label: Note
+        type: string
+    - name: section_3
+      label: 3. With every step our students take, your business…
+      type: object
+      fields:
+      - name: paragraph_1
+        label: Paragraph
+        type: text
+      - name: button_1
+        label: Button
+        type: string
+  - name: page-become-a-sponsor
+    label: Become a Sponsor
+    type: file
+    path: content/pages/become-a-sponsor.json
+    format: json
+    fields:
+    - name: page
+      label: Browser tab and search results
+      type: object
+      fields:
+      - name: title_1
+        label: Browser tab title
+        type: string
+      - name: search_description_1
+        label: Search description
+        type: text
+        description: Shown under the page's name in Google and in link previews.
+    - name: levels
+      label: 1. What you get, at every level
+      type: object
+      fields:
+      - name: small_label_1
+        label: Small label
+        type: string
+      - name: heading_1
+        label: Heading
+        type: string
+      - name: intro_1
+        label: Intro paragraph
+        type: text
+      - name: text_1
+        label: Text
+        type: string
+      - name: text_2
+        label: Text 2
+        type: string
+      - name: text_3
+        label: Text 3
+        type: string
+      - name: button_1
+        label: Button
+        type: string
+      - name: item_1
+        label: List item
+        type: string
+      - name: item_2
+        label: List item 2
+        type: string
+      - name: item_3
+        label: List item 3
+        type: string
+      - name: item_4
+        label: List item 4
+        type: string
+      - name: item_5
+        label: List item 5
+        type: string
+      - name: item_6
+        label: List item 6
+        type: string
+      - name: item_7
+        label: List item 7
+        type: string
+      - name: item_8
+        label: List item 8
+        type: string
+      - name: item_9
+        label: List item 9
+        type: string
+      - name: text_4
+        label: Text 4
+        type: string
+      - name: text_5
+        label: Text 5
+        type: string
+      - name: button_2
+        label: Button 2
+        type: string
+      - name: item_10
+        label: List item 10
+        type: string
+      - name: item_11
+        label: List item 11
+        type: string
+      - name: item_12
+        label: List item 12
+        type: string
+      - name: item_13
+        label: List item 13
+        type: string
+      - name: item_14
+        label: List item 14
+        type: string
+      - name: item_15
+        label: List item 15
+        type: string
+      - name: item_16
+        label: List item 16
+        type: string
+      - name: text_6
+        label: Text 6
+        type: string
+      - name: text_7
+        label: Text 7
+        type: string
+      - name: button_3
+        label: Button 3
+        type: string
+      - name: item_17
+        label: List item 17
+        type: string
+      - name: item_18
+        label: List item 18
+        type: string
+      - name: item_19
+        label: List item 19
+        type: string
+      - name: item_20
+        label: List item 20
+        type: string
+      - name: item_21
+        label: List item 21
+        type: string
+      - name: item_22
+        label: List item 22
+        type: string
+      - name: item_23
+        label: List item 23
+        type: string
+      - name: text_8
+        label: Text 8
+        type: string
+      - name: text_9
+        label: Text 9
+        type: string
+      - name: button_4
+        label: Button 4
+        type: string
+      - name: item_24
+        label: List item 24
+        type: string
+      - name: item_25
+        label: List item 25
+        type: string
+      - name: item_26
+        label: List item 26
+        type: string
+      - name: item_27
+        label: List item 27
+        type: string
+      - name: item_28
+        label: List item 28
+        type: string
+      - name: item_29
+        label: List item 29
+        type: string
+      - name: item_30
+        label: List item 30
+        type: string
+      - name: text_10
+        label: Text 10
+        type: string
+      - name: text_11
+        label: Text 11
+        type: string
+      - name: button_5
+        label: Button 5
+        type: string
+      - name: item_31
+        label: List item 31
+        type: string
+      - name: item_32
+        label: List item 32
+        type: string
+      - name: item_33
+        label: List item 33
+        type: string
+      - name: item_34
+        label: List item 34
+        type: string
+      - name: item_35
+        label: List item 35
+        type: string
+      - name: button_6
+        label: Button 6
+        type: string
+      - name: text_12
+        label: Text 12
+        type: string
+      - name: heading_2
+        label: Heading 2
+        type: string
+      - name: paragraph_1
+        label: Paragraph
+        type: text
+      - name: text_13
+        label: Text 13
+        type: string
+        description: Leave the parts in {{double braces}} as they are -- they fill in on their own.
+      - name: text_14
+        label: Text 14
+        type: string
+    - name: section_2
+      label: 2. businesses partnered with The Friends of Hendric…
+      type: object
+      fields:
+      - name: small_label_1
+        label: Small label
+        type: string
+      - name: heading_1
+        label: Heading
+        type: text
+        description: Leave the parts in {{double braces}} as they are -- they fill in on their own.
+      - name: button_1
+        label: Button
+        type: string
+    - name: apply
+      label: 3. Get on the shirt
+      type: object
+      fields:
+      - name: small_label_1
+        label: Small label
+        type: string
+      - name: heading_1
+        label: Heading
+        type: string
+      - name: intro_1
+        label: Intro paragraph
+        type: string
+      - name: term_1
+        label: Term
+        type: string
+      - name: link_1
+        label: Link address
+        type: string
+      - name: link_text_1
+        label: Link text
+        type: string
+      - name: term_2
+        label: Term 2
+        type: string
+      - name: detail_1
+        label: Detail
+        type: string
+  - name: page-take-part
+    label: Take Part
+    type: file
+    path: content/pages/take-part.json
+    format: json
+    fields:
+    - name: page
+      label: Browser tab and search results
+      type: object
+      fields:
+      - name: title_1
+        label: Browser tab title
+        type: string
+      - name: search_description_1
+        label: Search description
+        type: text
+        description: Shown under the page's name in Google and in link previews.
+    - name: section_1
+      label: 1. Three more ways in
+      type: object
+      fields:
+      - name: small_label_1
+        label: Small label
+        type: string
+      - name: heading_1
+        label: Heading
+        type: string
+      - name: paragraph_1
+        label: Paragraph
+        type: text
+      - name: button_1
+        label: Button
+        type: string
+      - name: button_2
+        label: Button 2
+        type: string
+      - name: button_3
+        label: Button 3
+        type: string
+    - name: henry
+      label: 2. Hugs from Henry Birthday Club
+      type: object
+      fields:
+      - name: small_label_1
+        label: Small label
+        type: string
+      - name: heading_1
+        label: Heading
+        type: string
+      - name: intro_1
+        label: Intro paragraph
+        type: text
+      - name: text_1
+        label: Text
+        type: string
+      - name: text_2
+        label: Text 2
+        type: string
+      - name: bold_text_1
+        label: Bold text
+        type: string
+      - name: text_3
+        label: Text 3
+        type: text
+      - name: bold_text_2
+        label: Bold text 2
+        type: string
+      - name: text_4
+        label: Text 4
+        type: string
+      - name: bold_text_3
+        label: Bold text 3
+        type: string
+      - name: text_5
+        label: Text 5
+        type: text
+      - name: bold_text_4
+        label: Bold text 4
+        type: string
+      - name: text_6
+        label: Text 6
+        type: string
+      - name: small_label_2
+        label: Small label 2
+        type: string
+        description: Leave the parts in {{double braces}} as they are -- they fill in on their own.
+      - name: paragraph_1
+        label: Paragraph
+        type: string
+      - name: button_1
+        label: Button
+        type: string
+      - name: link_1
+        label: Link address
+        type: string
+      - name: button_2
+        label: Button 2
+        type: string
+      - name: photo_1
+        label: Photo
+        type: image
+        options:
+          media: photos
+      - name: photo_text_1
+        label: Photo description
+        type: string
+        description: Read aloud to visitors who can't see the photo. Say what's in it.
+    - name: rock
+      label: 3. Rent the HAE Spirit Rock
+      type: object
+      fields:
+      - name: photo_1
+        label: Photo
+        type: image
+        options:
+          media: photos
+      - name: photo_text_1
+        label: Photo description
+        type: string
+        description: Read aloud to visitors who can't see the photo. Say what's in it.
+      - name: small_label_1
+        label: Small label
+        type: string
+      - name: heading_1
+        label: Heading
+        type: string
+      - name: intro_1
+        label: Intro paragraph
+        type: text
+      - name: bold_text_1
+        label: Bold text
+        type: string
+      - name: text_1
+        label: Text
+        type: string
+      - name: bold_text_2
+        label: Bold text 2
+        type: string
+      - name: text_2
+        label: Text 2
+        type: string
+      - name: paragraph_1
+        label: Paragraph
+        type: text
+      - name: paragraph_2
+        label: Paragraph 2
+        type: rich-text
+        options:
+          format: html
+          switcher: false
+      - name: link_1
+        label: Link address
+        type: string
+      - name: button_1
+        label: Button
+        type: string
+      - name: link_2
+        label: Link address 2
+        type: string
+      - name: button_2
+        label: Button 2
+        type: string
+      - name: note_1
+        label: Note
+        type: string
+    - name: spirit
+      label: 4. Spirit Nights
+      type: object
+      fields:
+      - name: small_label_1
+        label: Small label
+        type: string
+      - name: heading_1
+        label: Heading
+        type: string
+      - name: intro_1
+        label: Intro paragraph
+        type: text
+      - name: paragraph_1
+        label: Paragraph
+        type: text
+      - name: small_label_2
+        label: Small label 2
+        type: string
+        description: Leave the parts in {{double braces}} as they are -- they fill in on their own.
+      - name: bold_text_1
+        label: Bold text
+        type: string
+      - name: text_1
+        label: Text
+        type: string
+      - name: note_1
+        label: Note
+        type: string
+      - name: paragraph_2
+        label: Paragraph 2
+        type: text
+      - name: link_1
+        label: Link address
+        type: string
+      - name: button_1
+        label: Button
+        type: string
+      - name: link_2
+        label: Link address 2
+        type: string
+      - name: button_2
+        label: Button 2
+        type: string
+    - name: section_5
+      label: 5. None of this needs a big gift
+      type: object
+      fields:
+      - name: heading_1
+        label: Heading
+        type: string
+      - name: paragraph_1
+        label: Paragraph
+        type: text
+      - name: button_1
+        label: Button
+        type: string
+      - name: button_2
+        label: Button 2
+        type: string
+  - name: page-meet-the-parents
+    label: Meet the Parents
+    type: file
+    path: content/pages/meet-the-parents.json
+    format: json
+    fields:
+    - name: page
+      label: Browser tab and search results
+      type: object
+      fields:
+      - name: title_1
+        label: Browser tab title
+        type: string
+      - name: search_description_1
+        label: Search description
+        type: text
+        description: Shown under the page's name in Google and in link previews.
+    - name: section_1
+      label: 1. Mission statement
+      type: object
+      fields:
+      - name: small_label_1
+        label: Small label
+        type: string
+      - name: paragraph_1
+        label: Paragraph
+        type: text
+      - name: paragraph_2
+        label: Paragraph 2
+        type: text
+      - name: paragraph_3
+        label: Paragraph 3
+        type: text
+      - name: photo_1
+        label: Photo
+        type: image
+        options:
+          media: photos
+      - name: photo_text_1
+        label: Photo description
+        type: text
+        description: Read aloud to visitors who can't see the photo. Say what's in it.
+      - name: caption_1
+        label: Caption
+        type: text
+    - name: board
+      label: 2. Run entirely by parent volunteers
+      type: object
+      fields:
+      - name: small_label_1
+        label: Small label
+        type: string
+        description: Leave the parts in {{double braces}} as they are -- they fill in on their own.
+      - name: heading_1
+        label: Heading
+        type: string
+      - name: bold_text_1
+        label: Bold text
+        type: string
+    - name: section_3
+      label: 3. Six of them, all year
+      type: object
+      fields:
+      - name: small_label_1
+        label: Small label
+        type: string
+      - name: heading_1
+        label: Heading
+        type: string
+      - name: link_text_1
+        label: Link text
+        type: string
+      - name: link_text_2
+        label: Link text 2
+        type: string
+      - name: text_1
+        label: Text
+        type: string
+      - name: link_text_3
+        label: Link text 3
+        type: string
+      - name: text_2
+        label: Text 2
+        type: string
+      - name: link_text_4
+        label: Link text 4
+        type: string
+      - name: text_3
+        label: Text 3
+        type: string
+      - name: link_text_5
+        label: Link text 5
+        type: string
+      - name: text_4
+        label: Text 4
+        type: string
+      - name: link_text_6
+        label: Link text 6
+        type: string
+      - name: text_5
+        label: Text 5
+        type: string
+    - name: section_4
+      label: 4. Talk to us
+      type: object
+      fields:
+      - name: small_label_1
+        label: Small label
+        type: string
+      - name: heading_1
+        label: Heading
+        type: string
+      - name: paragraph_1
+        label: Paragraph
+        type: text
+      - name: link_1
+        label: Link address
+        type: string
+      - name: button_1
+        label: Button
+        type: string
+      - name: term_1
+        label: Term
+        type: string
+      - name: detail_1
+        label: Detail
+        type: rich-text
+        options:
+          format: html
+          switcher: false
+      - name: term_2
+        label: Term 2
+        type: string
+      - name: link_2
+        label: Link address 2
+        type: string
+      - name: link_text_1
+        label: Link text
+        type: string
+      - name: term_3
+        label: Term 3
+        type: string
+      - name: detail_2
+        label: Detail 2
+        type: string
+      - name: term_4
+        label: Term 4
+        type: string
+      - name: link_3
+        label: Link address 3
+        type: string
+      - name: link_text_2
+        label: Link text 2
+        type: string
+      - name: link_4
+        label: Link address 4
+        type: string
+      - name: link_text_3
+        label: Link text 3
+        type: string
+    - name: section_5
+      label: 5. Standing strong for our school
+      type: object
+      fields:
+      - name: heading_1
+        label: Heading
+        type: string
+      - name: paragraph_1
+        label: Paragraph
+        type: text
+      - name: button_1
+        label: Button
+        type: string
+      - name: button_2
+        label: Button 2
+        type: string
+  - name: site
+    label: Background photo
+    type: file
+    path: content/pages/site.json
+    format: json
+    fields:
+    - name: photos
+      label: Photo
+      type: object
+      fields:
+      - name: photo_1
+        label: Photo behind the headline
+        type: image
+        options:
+          media: photos
+        description: The photograph behind the big headline at the top of Home, Donate, Walkathon, Take
+          Part, and Meet the Parents.
+- name: lists
+  label: Dates and lists
+  type: group
+  items:
   - name: sponsors
     label: Sponsors
     type: file
     path: content/sponsors.json
     format: json
     fields:
-      - name: school_year
-        label: School year
+    - name: school_year
+      label: School year
+      type: string
+      required: true
+      description: The year these sponsors are for, written like 2025-26.
+    - name: sponsors
+      label: Sponsors
+      type: object
+      description: Shown on the site in this order within each level. The site counts them for "Forty-eight
+        businesses said yes", so that updates on its own.
+      list:
+        collapsible:
+          collapsed: true
+          summary: '{name} ({level})'
+      fields:
+      - name: name
+        label: Business name
         type: string
         required: true
-        description: The year these sponsors are for, written like 2025-26.
-      - name: sponsors
-        label: Sponsors
-        type: object
-        description: >-
-          Shown on the site in this order within each level. The site counts
-          them for "Forty-eight businesses said yes", so that updates on its own.
-        list:
-          collapsible:
-            collapsed: true
-            summary: "{name} ({level})"
-        fields:
-          - name: name
-            label: Business name
-            type: string
-            required: true
-            description: As it should appear under the logo.
-          - name: level
-            label: Level
-            type: select
-            required: true
-            options:
-              values:
-                - Visionary Partner
-                - Legacy Circle
-                - Investor Circle
-                - Builders Circle
-                - Friends Circle
-          - name: website
-            label: Website
-            type: string
-            description: >-
-              Optional. The logo links here. Leave empty if you're not sure it's
-              the right business.
-          - name: logo
-            label: Logo
-            type: image
-            description: >-
-              Not needed for Friends Circle, which is listed by name. Any size
-              is fine. The site trims blank margins and shrinks it.
-            options:
-              media: logos
-              extensions: [jpg, jpeg, png, webp]
-
+        description: As it should appear under the logo.
+      - name: level
+        label: Level
+        type: select
+        required: true
+        options:
+          values:
+          - Visionary Partner
+          - Legacy Circle
+          - Investor Circle
+          - Builders Circle
+          - Friends Circle
+      - name: website
+        label: Website
+        type: string
+        description: Optional. The logo links here. Leave empty if you're not sure it's the right business.
+      - name: logo
+        label: Logo
+        type: image
+        description: Not needed for Friends Circle, which is listed by name. Any size is fine. The site
+          trims blank margins and shrinks it.
+        options:
+          media: logos
+          extensions:
+          - jpg
+          - jpeg
+          - png
+          - webp
   - name: walkathon
     label: Walkathon
     type: file
     path: content/walkathon.json
     format: json
     fields:
-      - name: date
-        label: Walkathon date
-        type: date
-        required: true
-        description: >-
-          Every date on the site comes from this, along with "the 15th annual",
-          which is worked out from the year.
-        options:
-          format: yyyy-MM-dd
-      - name: goal
-        label: Fundraising goal ($)
-        type: number
-        required: true
-        description: Whole dollars, no $ sign or commas, like 50000.
-        options:
-          min: 1
-
+    - name: date
+      label: Walkathon date
+      type: date
+      required: true
+      description: Every date on the site comes from this, along with "the 15th annual", which is worked
+        out from the year.
+      options:
+        format: yyyy-MM-dd
+    - name: goal
+      label: Fundraising goal ($)
+      type: number
+      required: true
+      description: Whole dollars, no $ sign or commas, like 50000.
+      options:
+        min: 1
   - name: birthday-club
     label: Hugs from Henry Birthday Club
     type: file
     path: content/birthday-club.json
     format: json
     fields:
-      - name: school_year
-        label: School year
-        type: string
+    - name: school_year
+      label: School year
+      type: string
+      required: true
+      description: Written like 2026-27.
+    - name: parties
+      label: Party dates
+      type: object
+      list:
+        collapsible:
+          collapsed: true
+          summary: '{date}'
+      fields:
+      - name: date
+        label: Date
+        type: date
         required: true
-        description: Written like 2026-27.
-      - name: parties
-        label: Party dates
-        type: object
-        list:
-          collapsible:
-            collapsed: true
-            summary: "{date}"
-        fields:
-          - name: date
-            label: Date
-            type: date
-            required: true
-            options:
-              format: yyyy-MM-dd
-          - name: note
-            label: Note
-            type: string
-            description: Optional, e.g. "August and September birthdays".
-
+        options:
+          format: yyyy-MM-dd
+      - name: note
+        label: Note
+        type: string
+        description: Optional, e.g. "August and September birthdays".
   - name: spirit-nights
     label: Spirit Nights
     type: file
     path: content/spirit-nights.json
     format: json
     fields:
-      - name: school_year
-        label: School year
-        type: string
-        required: true
-        description: Written like 2026-27.
-      - name: nights
-        label: Spirit Nights
-        type: object
-        description: The site adds "More to come!" after the last one.
-        list:
-          collapsible:
-            collapsed: true
-            summary: "{date} {restaurant}"
-        fields:
-          - name: date
-            label: Date
-            type: date
-            required: true
-            options:
-              format: yyyy-MM-dd
-          - name: hours
-            label: Hours
-            type: string
-            description: Like 5-7pm
-          - name: restaurant
-            label: Restaurant
-            type: string
-            required: true
-          - name: give_back
-            label: What comes back to the school
-            type: string
-            description: Like 10% of sales
-          - name: extra
-            label: Anything else
-            type: string
-            description: Optional, e.g. a code to use when ordering online.
-      - name: flyer
-        label: Flyer
-        type: image
+    - name: school_year
+      label: School year
+      type: string
+      required: true
+      description: Written like 2026-27.
+    - name: nights
+      label: Spirit Nights
+      type: object
+      description: The site adds "More to come!" after the last one.
+      list:
+        collapsible:
+          collapsed: true
+          summary: '{date} {restaurant}'
+      fields:
+      - name: date
+        label: Date
+        type: date
         required: true
         options:
-          media: flyers
-          extensions: [jpg, jpeg, png, webp]
-      - name: flyer_description
-        label: What the flyer says
-        type: text
+          format: yyyy-MM-dd
+      - name: hours
+        label: Hours
+        type: string
+        description: Like 5-7pm
+      - name: restaurant
+        label: Restaurant
+        type: string
         required: true
-        description: >-
-          Read aloud to visitors who can't see the image. List the restaurants
-          and dates the flyer shows.
-
+      - name: give_back
+        label: What comes back to the school
+        type: string
+        description: Like 10% of sales
+      - name: extra
+        label: Anything else
+        type: string
+        description: Optional, e.g. a code to use when ordering online.
+    - name: flyer
+      label: Flyer
+      type: image
+      required: true
+      options:
+        media: flyers
+        extensions:
+        - jpg
+        - jpeg
+        - png
+        - webp
+    - name: flyer_description
+      label: What the flyer says
+      type: text
+      required: true
+      description: Read aloud to visitors who can't see the image. List the restaurants and dates the
+        flyer shows.
   - name: board
     label: Board
     type: file
     path: content/board.json
     format: json
     fields:
-      - name: school_year
-        label: School year
+    - name: school_year
+      label: School year
+      type: string
+      required: true
+      description: Written like 2026-27.
+    - name: officers
+      label: Officers
+      type: object
+      list:
+        collapsible:
+          collapsed: true
+          summary: '{role}: {name}'
+      fields:
+      - name: role
+        label: Role
         type: string
         required: true
-        description: Written like 2026-27.
-      - name: officers
-        label: Officers
-        type: object
-        list:
-          collapsible:
-            collapsed: true
-            summary: "{role}: {name}"
-        fields:
-          - name: role
-            label: Role
-            type: string
-            required: true
-          - name: name
-            label: Name
-            type: string
-            required: true
-      - name: directors
-        label: Directors
+      - name: name
+        label: Name
         type: string
-        list: true
+        required: true
+    - name: directors
+      label: Directors
+      type: string
+      list: true
+- name: site-wide
+  label: On every page
+  type: group
+  items:
+  - name: menu
+    label: Menu
+    type: file
+    path: content/pages/menu.json
+    format: json
+    fields:
+    - name: topnav
+      label: 1. Friends of Hendricks
+      type: object
+      fields:
+      - name: bold_text_1
+        label: Bold text
+        type: rich-text
+        options:
+          format: html
+          switcher: false
+        description: Keep it short -- the menu has to fit across a phone screen.
+      - name: link_text_1
+        label: Link text
+        type: string
+        description: Keep it short -- the menu has to fit across a phone screen.
+      - name: link_text_2
+        label: Link text 2
+        type: string
+        description: Keep it short -- the menu has to fit across a phone screen.
+      - name: link_text_3
+        label: Link text 3
+        type: string
+        description: Keep it short -- the menu has to fit across a phone screen.
+      - name: text_1
+        label: Text
+        type: string
+        description: Keep it short -- the menu has to fit across a phone screen.
+      - name: link_text_4
+        label: Link text 4
+        type: string
+        description: Keep it short -- the menu has to fit across a phone screen.
+      - name: link_text_5
+        label: Link text 5
+        type: string
+        description: Keep it short -- the menu has to fit across a phone screen.
+      - name: text_2
+        label: Text 2
+        type: string
+        description: Keep it short -- the menu has to fit across a phone screen.
+      - name: link_text_6
+        label: Link text 6
+        type: string
+        description: Keep it short -- the menu has to fit across a phone screen.
+      - name: link_text_7
+        label: Link text 7
+        type: string
+        description: Keep it short -- the menu has to fit across a phone screen.
+      - name: link_text_8
+        label: Link text 8
+        type: string
+        description: Keep it short -- the menu has to fit across a phone screen.
+      - name: link_text_9
+        label: Link text 9
+        type: string
+        description: Keep it short -- the menu has to fit across a phone screen.
+      - name: button_1
+        label: Button
+        type: string
+        description: Keep it short -- the menu has to fit across a phone screen.
+  - name: footer
+    label: Footer
+    type: file
+    path: content/pages/footer.json
+    format: json
+    fields:
+    - name: section_1
+      label: 1. The Friends of Hendricks
+      type: object
+      fields:
+      - name: heading_1
+        label: Heading
+        type: string
+      - name: paragraph_1
+        label: Paragraph
+        type: text
+      - name: paragraph_2
+        label: Paragraph 2
+        type: rich-text
+        options:
+          format: html
+          switcher: false
+      - name: heading_2
+        label: Heading 2
+        type: string
+      - name: link_text_1
+        label: Link text
+        type: string
+      - name: link_text_2
+        label: Link text 2
+        type: string
+      - name: link_text_3
+        label: Link text 3
+        type: string
+      - name: link_text_4
+        label: Link text 4
+        type: string
+      - name: link_text_5
+        label: Link text 5
+        type: string
+      - name: heading_3
+        label: Heading 3
+        type: string
+      - name: link_1
+        label: Link address
+        type: string
+      - name: link_text_6
+        label: Link text 6
+        type: string
+      - name: text_1
+        label: Text
+        type: string
+      - name: link_2
+        label: Link address 2
+        type: string
+      - name: link_text_7
+        label: Link text 7
+        type: string
+      - name: text_2
+        label: Text 2
+        type: string
+      - name: link_3
+        label: Link address 3
+        type: string
+      - name: link_text_8
+        label: Link text 8
+        type: string
+      - name: text_3
+        label: Text 3
+        type: string
+      - name: link_4
+        label: Link address 4
+        type: string
+      - name: link_text_9
+        label: Link text 9
+        type: string
+      - name: text_4
+        label: Text 4
+        type: string
+      - name: link_5
+        label: Link address 5
+        type: string
+      - name: link_text_10
+        label: Link text 10
+        type: string
+      - name: text_5
+        label: Text 5
+        type: string
+      - name: link_6
+        label: Link address 6
+        type: string
+      - name: link_7
+        label: Link address 7
+        type: string
+      - name: text_6
+        label: Text 6
+        type: string
+      - name: text_7
+        label: Text 7
+        type: text
+      - name: paragraph_3
+        label: Paragraph 3
+        type: text
+  - name: birthday-window
+    label: Birthday Club sign-up window
+    type: file
+    path: content/pages/birthday-window.json
+    format: json
+    fields:
+    - name: hugdlg
+      label: 1. Hugs from Henry Birthday Club
+      type: object
+      fields:
+      - name: small_label_1
+        label: Small label
+        type: string
+      - name: heading_1
+        label: Heading
+        type: string

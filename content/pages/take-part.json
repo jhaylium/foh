@@ -1,0 +1,75 @@
+{
+  "page": {
+    "title_1": "Take Part",
+    "search_description_1": "Hugs from Henry, Rent the Spirit Rock, and Spirit Nights -- three ways to support the school that cost little or nothing."
+  },
+  "section_1": {
+    "small_label_1": "Take part",
+    "heading_1": "Three more ways in.",
+    "paragraph_1": "The Walkathon is the big one, but it is not the only one. These three run all year, cost little or nothing, and every dollar lands in the same place.",
+    "button_1": "Hugs from Henry",
+    "button_2": "Rent the Rock",
+    "button_3": "Spirit Nights"
+  },
+  "henry": {
+    "small_label_1": "Grades K–5",
+    "heading_1": "Hugs from Henry Birthday Club.",
+    "intro_1": "Don’t let your child’s birthday go by without their Hugs from Henry! Every birthday student receives all of this.",
+    "text_1": "$25",
+    "text_2": "per child",
+    "bold_text_1": "Birthday Bash",
+    "text_3": "8:00–8:20 AM in the HAE Auditorium on your student’s celebration date — music, hula hoops, photo ops, and lots of birthday fun",
+    "bold_text_2": "A treat",
+    "text_4": "Henry the Eagle gifts each student a special bagged treat to take home",
+    "bold_text_3": "A book",
+    "text_5": "a brand-new book for an HAE classroom library, dedicated in your student’s honor with a “Hugs from Henry” bookplate inside",
+    "bold_text_4": "Missed it?",
+    "text_6": "mornings get busy — your child is always welcome at a future month’s party",
+    "small_label_2": "Celebration dates {{HENRY_YEAR}}",
+    "paragraph_1": "Enroll and pay online through Zeffy.",
+    "button_1": "Give a Hug",
+    "link_1": "mailto:FOHHugsFromHenry@gmail.com",
+    "button_2": "Email the birthday club",
+    "photo_1": "/content/media/photos/henry-kid.jpg",
+    "photo_text_1": "A Hendricks student meeting Henry, the school's eagle mascot"
+  },
+  "rock": {
+    "photo_1": "/content/media/photos/rock-student.jpg",
+    "photo_text_1": "A painted Spirit Rock congratulating a Hendricks student",
+    "small_label_1": "24 hours",
+    "heading_1": "Rent the HAE Spirit Rock.",
+    "intro_1": "The Friends of Hendricks manage the two School Spirit Rocks. Reserve one for 24 hours and paint it — congratulate a student, wish someone a happy birthday, cheer on a classmate, or thank a teacher who earned it.",
+    "bold_text_1": "$35",
+    "text_1": "one rock, front or back, 24 hours",
+    "bold_text_2": "$60",
+    "text_2": "both rocks, front and back, 24 hours",
+    "paragraph_1": "There are two: the front rock on the Hendricks Avenue side, and the back rock on the San Jose Boulevard side. Booking and payment both happen on SignUpGenius, where you pick your date and your rock and agree to the terms of use. Payment is due at the time of reservation.",
+    "paragraph_2": "<strong>You paint it yourself.</strong> Renters are responsible for painting the rock; painting services are not provided as part of the reservation.",
+    "link_1": "https://www.signupgenius.com/go/10C0A4DABA929A0FCC52-64797719-rent",
+    "button_1": "Rent the Spirit Rock",
+    "link_2": "mailto:renttherockhae@gmail.com",
+    "button_2": "Ask a question",
+    "note_1": "Email replies come within 48 business hours."
+  },
+  "spirit": {
+    "small_label_1": "An easy way to support our school",
+    "heading_1": "Spirit Nights.",
+    "intro_1": "Turn family dinner into school support. Dine at a participating restaurant on the night, and a portion of total sales goes straight to Hendricks Avenue Elementary.",
+    "paragraph_1": "You get a break from cooking, the kids get to see their classmates outside school, and the school benefits with every bite. Tell them you are there for Hendricks Avenue Elementary.",
+    "small_label_2": "Spirit Night dates {{SPIRIT_YEAR}}",
+    "bold_text_1": "More to come!",
+    "text_1": "dates are added through the year",
+    "note_1": "Dates and times are subject to change.",
+    "paragraph_2": "New nights are announced on our social media first. Follow along so you never miss one.",
+    "link_1": "https://www.facebook.com/FriendsOfHendricks",
+    "button_1": "Facebook",
+    "link_2": "https://www.instagram.com/friendsofhendricks/",
+    "button_2": "Instagram"
+  },
+  "section_5": {
+    "heading_1": "None of this needs a big gift.",
+    "paragraph_1": "A birthday, a painted rock, a dinner out. It adds up to the things the school budget does not cover.",
+    "button_1": "Donate",
+    "button_2": "The Walkathon"
+  }
+}

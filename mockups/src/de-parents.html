@@ -1,9 +1,9 @@
-<title>Meet the Parents</title>
+<title>{{T:meet-the-parents.page.title_1}}</title>
 {{> head }}
 <style>
 {{> tokens }}
 {{> base }}
-:root{--photo:url("{{HERO}}")}
+:root{--photo:url("{{T:site.photos.photo_1}}")}
 #nav-parents{color:var(--gold-ink)}
 
 .mission{border-left:2px solid var(--gold-ink);padding-left:clamp(20px,3vw,32px);
@@ -36,29 +36,18 @@
      the fixed bar. -->
 <section class="sect nohero">
   <div class="wrap">
-    <div class="said"><p class="tag red">Mission statement</p></div>
+    <div class="said"><p class="tag red">{{T:meet-the-parents.section_1.small_label_1}}</p></div>
     <div class="mission rv">
-      <p>To increase the available funding to provide faculty and staff the additional
-        resources required to ensure an exemplary education for the students of Hendricks
-        Avenue Elementary School.</p>
+      <p>{{T:meet-the-parents.section_1.paragraph_1}}</p>
     </div>
     <div class="missrow rv">
       <div class="misstext">
-        <p class="after">Choosing to strengthen Hendricks Avenue Elementary through a gift to
-          The Friends of Hendricks is a valuable and meaningful decision. Support can be given
-          through time, talents, and monetary and in-kind donations. The effect of parents,
-          alumni, grandparents, and friends standing together for our school will be
-          immeasurable. All gifts, no matter how large or small, will have a powerful impact,
-          because you become invested in the education and enrichment of every child, faculty,
-          and staff member.</p>
-        <p class="after">The funds we raise are awarded through a grant process and are used to
-          offset school budget cuts and increase financial resources for school enhancement,
-          technology, and classroom needs.</p>
+        <p class="after">{{T:meet-the-parents.section_1.paragraph_2}}</p>
+        <p class="after">{{T:meet-the-parents.section_1.paragraph_3}}</p>
       </div>
       <figure class="mshot">
-        <img src="{{VOLUNTEERS}}" alt="The Friends of Hendricks volunteers in matching blue 2023 Walkathon shirts at a school event">
-        <figcaption>The Friends of Hendricks at the 2023 Walkathon. Everyone here is a parent
-          volunteer &mdash; nobody draws a salary.</figcaption>
+        <img src="{{T:meet-the-parents.section_1.photo_1}}" alt="{{T:meet-the-parents.section_1.photo_text_1}}">
+        <figcaption>{{T:meet-the-parents.section_1.caption_1}}</figcaption>
       </figure>
     </div>
   </div>
@@ -66,26 +55,26 @@
 
 <section class="sect" id="board">
   <div class="wrap">
-    <div class="said rv"><p class="tag red">{{BOARD_YEAR}} board</p>
-      <h2 style="margin-top:18px;max-width:26ch">Run entirely by parent volunteers.</h2></div>
+    <div class="said rv"><p class="tag red">{{T:meet-the-parents.board.small_label_1}}</p>
+      <h2 style="margin-top:18px;max-width:26ch">{{T:meet-the-parents.board.heading_1}}</h2></div>
     <div class="people rv">
 {{BOARD_OFFICERS}}
     </div>
-    <p class="dirs rv"><b>Directors</b> {{BOARD_DIRECTORS}}</p>
+    <p class="dirs rv"><b>{{T:meet-the-parents.board.bold_text_1}}</b> {{BOARD_DIRECTORS}}</p>
   </div>
 </section>
 
 <section class="sect tight" style="border-top:1px solid var(--line)">
   <div class="wrap">
-    <div class="said mid rv"><p class="tag red">Ways to support us</p>
-      <h2 style="margin-top:18px">Six of them, all year.</h2></div>
+    <div class="said mid rv"><p class="tag red">{{T:meet-the-parents.section_3.small_label_1}}</p>
+      <h2 style="margin-top:18px">{{T:meet-the-parents.section_3.heading_1}}</h2></div>
     <ol class="spend rv">
-      <li><span class="n">01</span><span class="w"><a href="{{URL_WALKATHON}}" style="color:inherit">The FOH Walkathon</a></span><span class="m">{{WALK_MONTH_YEAR}}</span></li>
-      <li><span class="n">02</span><span class="w"><a href="{{URL_PARTNERS}}" style="color:inherit">The FOH Business Partners Program</a></span><span class="m">five levels</span></li>
-      <li><span class="n">03</span><span class="w"><a href="{{URL_TAKEPART}}#spirit" style="color:inherit">Hendricks Community Spirit Nights</a></span><span class="m">eat out, give back</span></li>
-      <li><span class="n">04</span><span class="w"><a href="{{URL_TAKEPART}}#henry" style="color:inherit">Hugs From Henry</a></span><span class="m">$25 per child</span></li>
-      <li><span class="n">05</span><span class="w"><a href="{{URL_TAKEPART}}#rock" style="color:inherit">Rent the Spirit Rock</a></span><span class="m">$35&ndash;60</span></li>
-      <li><span class="n">06</span><span class="w"><a href="{{URL_DONATE}}" style="color:inherit">Direct donations</a></span><span class="m">any amount</span></li>
+      <li><span class="n">01</span><span class="w"><a href="{{URL_WALKATHON}}" style="color:inherit">{{T:meet-the-parents.section_3.link_text_1}}</a></span><span class="m">{{WALK_MONTH_YEAR}}</span></li>
+      <li><span class="n">02</span><span class="w"><a href="{{URL_PARTNERS}}" style="color:inherit">{{T:meet-the-parents.section_3.link_text_2}}</a></span><span class="m">{{T:meet-the-parents.section_3.text_1}}</span></li>
+      <li><span class="n">03</span><span class="w"><a href="{{URL_TAKEPART}}#spirit" style="color:inherit">{{T:meet-the-parents.section_3.link_text_3}}</a></span><span class="m">{{T:meet-the-parents.section_3.text_2}}</span></li>
+      <li><span class="n">04</span><span class="w"><a href="{{URL_TAKEPART}}#henry" style="color:inherit">{{T:meet-the-parents.section_3.link_text_4}}</a></span><span class="m">{{T:meet-the-parents.section_3.text_3}}</span></li>
+      <li><span class="n">05</span><span class="w"><a href="{{URL_TAKEPART}}#rock" style="color:inherit">{{T:meet-the-parents.section_3.link_text_5}}</a></span><span class="m">{{T:meet-the-parents.section_3.text_4}}</span></li>
+      <li><span class="n">06</span><span class="w"><a href="{{URL_DONATE}}" style="color:inherit">{{T:meet-the-parents.section_3.link_text_6}}</a></span><span class="m">{{T:meet-the-parents.section_3.text_5}}</span></li>
     </ol>
   </div>
 </section>
@@ -94,26 +83,24 @@
   <div class="wrap">
     <div class="twocol rv">
       <div>
-        <p class="tag red">Contact</p>
-        <h2 style="margin-top:16px;font-size:clamp(1.7rem,3.4vw,2.4rem)">Talk to us.</h2>
-        <p style="margin-top:18px;color:var(--muted)">General inquiries go to the president.
-          Each program has its own inbox &mdash; they are all in the footer.</p>
+        <p class="tag red">{{T:meet-the-parents.section_4.small_label_1}}</p>
+        <h2 style="margin-top:16px;font-size:clamp(1.7rem,3.4vw,2.4rem)">{{T:meet-the-parents.section_4.heading_1}}</h2>
+        <p style="margin-top:18px;color:var(--muted)">{{T:meet-the-parents.section_4.paragraph_1}}</p>
         <div class="row">
-          <a class="pill" href="mailto:fohpresident1@gmail.com">fohpresident1@gmail.com</a>
+          <a class="pill" href="{{T:meet-the-parents.section_4.link_1}}">{{T:meet-the-parents.section_4.button_1}}</a>
         </div>
       </div>
       <div class="info">
         <dl style="margin:0">
-          <dt>Mailing address</dt>
-          <dd>The Friends of Hendricks<br>4446-1A Hendricks Avenue, Suite 357<br>
-            Jacksonville, FL 32207</dd>
-          <dt>Business partner inquiries</dt>
-          <dd><a href="mailto:FriendsBusinessPartners@gmail.com">FriendsBusinessPartners@gmail.com</a></dd>
-          <dt>Tax</dt>
-          <dd>501(c)(3) &middot; Tax ID 20-4931978</dd>
-          <dt>Find us</dt>
-          <dd><a href="https://www.facebook.com/FriendsOfHendricks">Facebook</a> &middot;
-            <a href="https://www.instagram.com/friendsofhendricks/">Instagram</a></dd>
+          <dt>{{T:meet-the-parents.section_4.term_1}}</dt>
+          <dd>{{T:meet-the-parents.section_4.detail_1}}</dd>
+          <dt>{{T:meet-the-parents.section_4.term_2}}</dt>
+          <dd><a href="{{T:meet-the-parents.section_4.link_2}}">{{T:meet-the-parents.section_4.link_text_1}}</a></dd>
+          <dt>{{T:meet-the-parents.section_4.term_3}}</dt>
+          <dd>{{T:meet-the-parents.section_4.detail_2}}</dd>
+          <dt>{{T:meet-the-parents.section_4.term_4}}</dt>
+          <dd><a href="{{T:meet-the-parents.section_4.link_3}}">{{T:meet-the-parents.section_4.link_text_2}}</a> &middot;
+            <a href="{{T:meet-the-parents.section_4.link_4}}">{{T:meet-the-parents.section_4.link_text_3}}</a></dd>
         </dl>
       </div>
     </div>
@@ -124,12 +111,11 @@
   <div class="media"><div class="layer"></div></div>
   <div class="veil"></div>
   <div class="wrap inner">
-    <h2>Standing strong for our school.</h2>
-    <p>650+ students and their families. One building, established 1942, and a school
-      budget that does not stretch far enough.</p>
+    <h2>{{T:meet-the-parents.section_5.heading_1}}</h2>
+    <p>{{T:meet-the-parents.section_5.paragraph_1}}</p>
     <div class="row">
-      <a class="pill" href="{{URL_DONATE}}">Donate</a>
-      <a class="pill ghost" href="{{URL_PARTNERS}}">Sponsor as a business</a>
+      <a class="pill" href="{{URL_DONATE}}">{{T:meet-the-parents.section_5.button_1}}</a>
+      <a class="pill ghost" href="{{URL_PARTNERS}}">{{T:meet-the-parents.section_5.button_2}}</a>
     </div>
   </div>
 </section>

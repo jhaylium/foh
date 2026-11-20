@@ -52,8 +52,18 @@ def text(fragment):
     return html.unescape(re.sub(r"<[^>]+>", "", fragment)).strip()
 
 
+def source():
+    """de-partners with its words filled in from content/pages/ and the
+    Walkathon date from content/walkathon.json -- the source itself holds
+    only {{T:...}} tokens where the text goes."""
+    page = content.fill_text(src.read_text(), lambda data, mime, name: "")
+    for k, v in content.walkathon_tokens().items():
+        page = page.replace(k, v)
+    return page
+
+
 def read_levels():
-    page = src.read_text()
+    page = source()
     levels = []
     for block in re.findall(r'<div class="tier[^"]*">(.*?)</ul>', page, re.S):
         amount = text(re.search(r'class="amt">(.*?)<', block).group(1))
@@ -94,11 +104,7 @@ def chart(levels):
                     else html.escape(v) if v else '<span class="no">&mdash;</span>')
             row.append(f'<td class="{"top" if i == 0 else ""}">{cell}</td>')
         body.append(f'<tr><th scope="row">{html.escape(label)}</th>{"".join(row)}</tr>')
-    # The date in the page is a token filled from content/walkathon.json.
-    page = src.read_text()
-    for k, v in content.walkathon_tokens().items():
-        page = page.replace(k, v)
-    walkathon = re.search(r"The \d{4} Walkathon is\s*<strong[^>]*>(.*?)</strong>", page, re.S)
+    walkathon = re.search(r"The \d{4} Walkathon is\s*<strong[^>]*>(.*?)</strong>", source(), re.S)
     date = text(walkathon.group(1)) if walkathon else ""
     return f"""<!doctype html><html lang="en"><head><meta charset="utf-8">
 <title>Business Partner Levels</title>

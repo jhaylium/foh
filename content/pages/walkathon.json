@@ -1,0 +1,77 @@
+{
+  "page": {
+    "title_1": "The Walkathon",
+    "search_description_1": "The {{WALK_EDITION}} annual Walkathon, {{WALK_DATE_META}}. Students collect pledges, then they walk."
+  },
+  "act1": {
+    "small_label_1": "The {{WALK_EDITION}} annual Walkathon",
+    "heading_1": "They walk.<br><em>We all pay up.</em>",
+    "intro_1": "The Walkathon is the largest thing we do all year. Students collect pledges from friends, family, and business partners, then they walk. Everything raised goes back into the school.",
+    "button_1": "Donate to the Walkathon",
+    "button_2": "Sponsor as a business",
+    "paragraph_1": "Scroll"
+  },
+  "section_2": {
+    "paragraph_1": "{{WALK_WEEKDAY}}, {{WALK_YEAR}} — the {{WALK_EDITION}} annual",
+    "paragraph_2": "this year's goal",
+    "bold_text_1": "650+",
+    "paragraph_3": "students taking part",
+    "bold_text_2": "1 day",
+    "paragraph_4": "the whole neighborhood turns out"
+  },
+  "section_3": {
+    "small_label_1": "Now accepting donations for {{WALK_YEAR}}",
+    "heading_1": "Thank you for standing strong for our school.",
+    "paragraph_1": "We are excited about our {{WALK_EDITION}} annual Walkathon happening on {{WALK_WEEKDAY}}, {{WALK_DATE_ORD}}. Walkathon is The Friends of Hendricks' largest annual fundraiser. We work together with friends, families, and business partners to raise money, and these donations support Hendricks Avenue Elementary in the form of grants.",
+    "text_1": "Improved classroom technology",
+    "text_2": "where most of it goes",
+    "text_3": "School supplies",
+    "text_4": "every room, every year",
+    "text_5": "Teacher grant requests",
+    "text_6": "applied for, then funded",
+    "small_label_2": "The goal",
+    "text_7": "Raised so far",
+    "note_1": "Amount raised to date — the bar above is a placeholder until the board supplies the real figure"
+  },
+  "section_4": {
+    "photo_1": "/content/media/photos/shirt26.jpg",
+    "photo_text_1": "Three Hendricks students in navy 2026 Walkathon shirts, smiling on the track",
+    "text_1": "Every shirt is designed by a Hendricks student.",
+    "paragraph_1": "Last year's shirt was designed by Claire. Shirt colors date the photographs below — red 2019, neon yellow 2020, teal 2021, and blue 2023."
+  },
+  "pledge": {
+    "small_label_1": "Walkathon donations",
+    "heading_1": "Sponsor your student and support HAE.",
+    "note_1": "Sponsoring more than one student? Say so in the comments and we will credit each of them.",
+    "term_1": "Business partners",
+    "detail_1": "Sponsorship initiated by a parent, grandparent, or guardian is credited towards a student's incentive party. Tell us the family relationship so the right child gets the credit. <a href=\"{{URL_PARTNERS}}\">See the five levels</a>.",
+    "term_2": "Tax",
+    "detail_2": "The Friends of Hendricks is a 501(c)(3). Tax ID 20-4931978 — most employers will match a gift if you ask.",
+    "term_3": "The date",
+    "term_4": "Questions",
+    "link_1": "mailto:walkathon.foh@gmail.com",
+    "link_text_1": "walkathon.foh@gmail.com"
+  },
+  "section_6": {
+    "small_label_1": "The archive",
+    "heading_1": "Past Walkathons.",
+    "photo_1": "/content/media/photos/walk.jpg",
+    "photo_text_1": "Students walking the course at a past Walkathon",
+    "caption_1": "The course",
+    "photo_2": "/content/media/photos/walk23.jpg",
+    "photo_text_2": "Students in blue Walkathon shirts, 2023",
+    "caption_2": "2023 · blue",
+    "photo_3": "/content/media/photos/thumbs.jpg",
+    "photo_text_3": "Two students giving a thumbs up at the Walkathon",
+    "caption_3": "Thumbs up",
+    "photo_4": "/content/media/photos/backs.jpg",
+    "photo_text_4": "The back of a Walkathon shirt showing the business partner logos",
+    "caption_4": "Where a logo goes"
+  },
+  "section_7": {
+    "heading_1": "One Saturday. The whole neighborhood.",
+    "paragraph_1": "Support a student, or put your business on the shirt. Both end up in the same place — a classroom in this building.",
+    "button_1": "Donate to the Walkathon",
+    "button_2": "Sponsor as a business"
+  }
+}

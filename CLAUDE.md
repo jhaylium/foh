@@ -40,7 +40,33 @@ year minus 2012, so 2027 is the 15th), `{{WALK_GOAL}}`, `{{HENRY_DATES}}`, `{{SP
 `{{SPIRIT_FLYER}}`, `{{BOARD_OFFICERS}}` and the school-year labels. **Never type one of those
 facts back into a page** — change the JSON, or the board's next edit will not reach it.
 
-`.pages.yml` at the repo root is the editing form for those five files. A save in Pages CMS
+**Every word and photo on the seven pages is editable too (2026-11-20).** Jeff asked for all of
+it, not just the yearly lists. `content/pages/<page>.json` holds one object per section of the
+page, in page order: headings, paragraphs, button labels, list items, captions, photo paths,
+photo descriptions (alt text) and outside link addresses, plus the browser-tab title and the
+search description. `menu.json`, `footer.json` and `birthday-window.json` hold the partials'
+text; `site.json` holds the photo behind the headline on five pages (`--photo`). The sources
+carry `{{T:page.section.field}}` where each value goes, and `content.fill_text()` fills them
+**before** any other token, so a value may itself contain `{{WALK_YEAR}}` and friends. The
+build fails if any `{{...}}` is left over, so a token mistyped in the editor never goes live.
+
+What a field is follows from its name: `photo_N` is an image path (passed through if at most
+1600px and 600 KB, else re-saved as JPEG), `photo_text_N` and `link_N` are escaped as attribute
+values, and everything else goes through `rich()`. That keeps `strong`, `em`, `b`, `i`, `br` and
+`a` (href/target/rel only), drops every other tag but keeps its words, strips the `<p>` an
+editor wraps around everything, and joins paragraphs with `<br>`.
+
+**The layout is not editable — only what sits in each spot.** The fields were generated from
+the pages by a one-off script, so names like `paragraph_2` are positions, not meanings. Anything
+that carries styling stays in the source as a layout tag (`b`, `span`, `a.pill`, anything with a
+class or style), with its text as a separate field — a rich-text editor would strip the styling.
+The "Menu" and "Motion on" buttons are left out because scripts rewrite their text. To change
+copy now, **edit `content/pages/*.json`, not the page source**. To add a spot to a page, add the
+token in the source, the value in the JSON, and the field in `.pages.yml`. `levels_pdf.py` reads
+`de-partners` through `fill_text()`.
+
+`.pages.yml` at the repo root is the editing form for all of it, in three menu groups: Pages,
+Dates and lists, and On every page. A save in Pages CMS
 commits to `main`, and `pages.yml` rebuilds and publishes. Editors are invited by email from
 inside Pages CMS; their addresses are kept there, not in this repository.
 

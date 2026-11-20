@@ -1,0 +1,39 @@
+{
+  "page": {
+    "title_1": "Donate",
+    "search_description_1": "Give to The Friends of Hendricks. A 501(c)(3) nonprofit -- every dollar stays inside Hendricks Avenue Elementary."
+  },
+  "section_1": {
+    "small_label_1": "Donate",
+    "heading_1": "All of it is tax-deductible.",
+    "paragraph_1": "The Friends of Hendricks is a 501(c)(3) nonprofit. Funds raised through the year are given to Hendricks Avenue Elementary through a grant process — grants that meet the needs the Duval County School Board budget does not cover."
+  },
+  "section_2": {
+    "small_label_1": "Three ways to give",
+    "heading_1": "Donate to the Walkathon",
+    "paragraph_1": "Support a student, or give as a gift. Our largest fundraiser, every February.",
+    "paragraph_2": "Go to the Walkathon →",
+    "heading_2": "Become a Business Partner",
+    "paragraph_3": "Choose a sponsorship level from $250 to $5,000 and put your name on the shirts, the marquee, and both entrances.",
+    "paragraph_4": "See the five levels →",
+    "heading_3": "Give a gift",
+    "paragraph_5": "Any amount, any time, online through Zeffy.",
+    "paragraph_6": "Give below →"
+  },
+  "gift": {
+    "small_label_1": "Give a gift",
+    "heading_1": "Every dollar stays in this building.",
+    "term_1": "Does your company match gifts?",
+    "detail_1": "Many do, and most people never ask. Contact your employer and ask for your gift to be matched to The Friends of Hendricks, <strong>Tax ID 20-4931978</strong>.",
+    "term_2": "What your money buys",
+    "detail_2": "Online learning programs, classroom supplies, teacher professional development, school enhancements, and the leadership curriculum.",
+    "note_1": "Thank you for your support. Together we are helping our students have the most amazing educational experience."
+  },
+  "section_4": {
+    "heading_1": "Standing Strong For Our School.",
+    "paragraph_1": "The Friends of Hendricks is run by parent volunteers. What you give is what the school gets, minus nothing.",
+    "note_1": "Total raised to date — needs the real figure",
+    "button_1": "Give a gift",
+    "button_2": "Meet the parents"
+  }
+}
